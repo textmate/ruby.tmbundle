@@ -272,21 +272,26 @@
 	    },
 
    	    { 
-			// this rule exists only to prevent the 'keywods.variables.symbol.ruby'
-			// from matching non-symbol strings such as   Regexp::MULTILINE
+			/* 
+			this rule exists only to prevent the 'keywods.variables.symbol.ruby'
+			from matching non-symbol strings such as:
+			Regexp::MULTILINE
+			Amazon::Search::LOCALES.keys
+			::Config::CONFIG
+			*/
 			name = "dummy.class-member.ruby"; 
-			match = "([a-zA-Z_][a-zA-Z0-9_]*::[a-zA-Z_][a-zA-Z0-9_?!]*)";
+			match = "(::)?([a-zA-Z_][a-zA-Z0-9_]*::)+[a-zA-Z_][a-zA-Z0-9_?!]*";
 		},
 
 	    { 
 	    	/* 
 			symbols:
-			:symb   :<<     :`      :f00bar
+			:symb   :<<     :`      :f00bar  :[]=
 			
 			TODO: deal with these symbols   :"\"x"  :'\'x'
 	    	*/
 			name = "keywords.variables.symbol.ruby"; 
-	 		match = "(:(?:[a-zA-Z_][a-zA-Z0-9_?!=]*|[`=<>%/*^]{1,2}))";
+	 		match = "(:(?:[a-zA-Z_][a-zA-Z0-9_?!=]*|\\[\\]=?|[`=<>%/*^]{1,2}))";
 	    	"foregroundColor[1]" = "#3387CC";
 	    },
 

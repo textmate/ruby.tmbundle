@@ -1,0 +1,85 @@
+{
+	name = "HTML (Ruby)";
+	mode = "HTML";
+	fileTypes = ( rhtml );
+	foldingStartMarker = "(<(?i:(head|table|div|style|script|ul|ol|form|dl))\\>.*?>|\\{)";
+	foldingStopMarker = "(</(?i:(head|table|div|style|script|ul|ol|form|dl))>|\\})";
+	increaseIndentPattern = "<(head|title|table|tr|td|ul|ol|dl|div)\\>[^>]*>\\s*$";
+
+	smartTypingPairs = (
+	    ( "(", ")" ), ( "[", "]" ), ( "{", "}" ), ( "\"", "\"" )
+	);
+	 highlightPairs = (
+	    ( "(", ")" ), ( "[", "]" ), ( "{", "}" ), ( "\"", "\"" )
+	);
+
+	foregroundColor = "#ffffff";
+	backgroundColor = "#434242";
+	patterns = (
+
+/*		{ name = "Italic";		begin = "<(?i:i)\\>.*?>";			end = "</(?i:i)>";			elementFontStyle = (plain); fontStyle = (italic); },
+		{ name = "Italic";		begin = "<(?i:em)\\>.*?>";			end = "</(?i:em)>";			elementFontStyle = (plain); fontStyle = (italic); },
+		{ name = "Anchor";		begin = "<(?i:a)\\>.*?>";			end = "</(?i:a)>";			elementFontStyle = (plain); fontStyle = (underline); },
+		{ name = "Underline";	begin = "<(?i:u)\\>.*?>";			end = "</(?i:u)>";			elementFontStyle = (plain); fontStyle = (underline); },
+*/
+		{ name = "Embedded Ruby"; begin = "<%"; end = "%>";
+			elementBackgroundColor = "#000000";
+			backgroundColor = "#000000";
+			elementForegroundColor = "#ffffff";
+			patterns = (
+				{ include = "Ruby"; }
+			);
+		},
+
+		{ name = "Embedded PHP"; begin = "<\\?(php|=)?"; end = "\\?>";
+			backgroundColor = "#000000";
+			elementForegroundColor = "#ffffff";
+			patterns = (
+				{ include = "PHP Source"; }
+			);
+		},
+
+		{ name = "CSS"; begin = "<(?i:style)\\>(?s:(.*?))>"; end = "</(?i:style)>";
+			fontStyle = ( italic );
+			elementFontStyle = ( plain );
+			elementForegroundColor = "#cccccc";
+		},
+
+
+		{ name = "JavaScript"; begin = "<(?i:script)\\>(?s:(.*?))>"; end = "</(?i:script)>";
+			fontStyle = ( italic );
+			elementFontStyle = ( plain );
+			elementForegroundColor = "#cccccc";
+		},
+	
+
+		{ name = "Tag"; begin = "</?([a-zA-Z0-9]+)"; end = ">";
+  		"elementFontStyle[1]" = ( underline ); 
+			foregroundColor = "#cccccc";
+			patterns = (
+	  			{ name = "Option"; match = " ([a-zA-Z]+)"; },
+	  			{ name = "String"; begin = "\""; end = "\""; fontStyle = ( italic ); 
+					patterns = (
+						{ begin = "<\\?="; end = "\\?>";
+							fontStyle = (plain);
+							backgroundColor = "#000000";
+							elementForegroundColor = "#ffffff";
+							patterns = (
+								{ include = "PHP Source"; }
+							);
+						}
+					);
+	  			},
+			);
+		},
+		
+		{ name = "Document Type"; begin = "<!DOCTYPE"; end = ">";
+  		foregroundColor = "#999999";
+  		patterns = (
+    		{ name = "String"; begin = "\""; end = "\"";
+    			fontStyle = ( italic ); 
+    		},
+  		);
+		}
+	);
+}

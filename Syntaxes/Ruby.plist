@@ -1,0 +1,80 @@
+{
+	name = "Ruby";
+	fileTypes = ( rb, cgi, fcgi );
+
+  foldingStartMarker = "^\\s*def\\>(?!.*\\<end\\>\\s*(#.*)?$)";
+  foldingStopMarker = "(^\\s*end|;\\s*end)\\s*(#.*)?$";
+  increaseIndentPattern = "^\\s*(module|class|begin|def|if|else|elsif|unless|case|when|rescue|for|while|unless|[^#\"']*\\<do)\\>.*$";
+  smartTypingPairs = (
+      ( "(", ")" ), ( "[", "]" ), ( "{", "}" ),
+      ( "\"", "\"" ), ( "'", "'" )
+  );
+  highlightPairs = (
+      ( "(", ")" ), ( "[", "]" ), ( "{", "}" )
+  );
+
+	foregroundColor = "#ffffff";
+	backgroundColor = "#000000";
+
+	patterns = (
+		{ name = "Keyword"; foregroundColor = "#CC7833"; match = "\\<(__LINE__|__FILE__|BEGIN|END|alias|alias_method|attr_reader|attr_writer|attr_accessor|and|begin|break|case|class|def|defined|do|else|elsif|end|ensure|false|for|if|in|include|module|next|nil|not|or|raise|redo|rescue|retry|return|require|self|super|then|true|undef|unless|until|when|while|yield|private|public|protected)\\>"; },
+		{ name = "Numeric Constant"; match = "\\<((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\>"; foregroundColor = "#3387CC"; },
+
+
+		{ name = "Rails Methods"; foregroundColor = "#CC3833"; match = "\\<(before_filter|after_filter|filter|layout|render|render_action|render_text|render_file|render_template|url_for|redirect_to|redirect_to_path|redirect_to_url|composed_of|belongs_to|has_one|has_many|has_and_belongs_to_many)\\>";
+		},
+
+		{ name = "Method With Arguments"; match = "^\\s*(def\\>)\\s*([.a-zA-Z_?!]+)\\s*\\((.*)\\)";
+			"foregroundColor[1]" = "#CC7833";
+			"fontStyle[3]" = ( italic );
+		},
+
+		{ name = "Method Without Arguments"; match = "^\\s*(def\\>)\\s*([.a-zA-Z_?!]+)";
+			"foregroundColor[1]" = "#CC7833";
+		},
+
+		{ name = "Class"; match = "^\\s*(class)\\s+([.a-zA-Z_: <]+)";
+			"foregroundColor[1]" = "#CC7833";
+			"fontStyle[2]" = ( underline );
+		},
+
+		{ name = "Symbol"; match = "\\s+(:[a-zA-Z_?!]+)";
+			"foregroundColor[1]" = "#3387CC";
+		},
+
+		{ name = "Symbol With Leading Character"; match = "[^:](:[a-zA-Z_?!]+)";
+			"foregroundColor[1]" = "#3387CC";
+		},
+
+		{ name = "Single String"; begin = "'"; end = "'"; swallow = "\\\\."; foregroundColor = "#66CC33"; },
+    { name = "Double Quoted String"; begin = "\""; end = "\""; swallow = "\\\\."; foregroundColor = "#66CC33";
+      patterns = (
+        { name = "Interpolated String"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; }
+      );
+    },
+    { name = "Double Quoted String II"; begin = "%\\{"; end = "\\}";  foregroundColor = "#66CC33";
+      patterns = (
+        { name = "Interpolated String"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; }
+      );
+    },
+    { name = "Regular Expression"; begin = "/(?=\\S.*/)"; end = "/";  foregroundColor = "#CCCC33";
+      patterns = (
+        { name = "Interpolated String"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; },
+        { name = "Escaped slash"; match = "\\\\/"; foregroundColor = "#CCCC33"; }
+      );
+    },
+    { name = "Regular Expression II"; begin = "%r\\{"; end = "\\}";  foregroundColor = "#CCCC33";
+      patterns = (
+        { name = "Escaped Characters"; match = "\\."; },
+        { name = "Arbitrary repetition"; match = "\\{\\d+(,\\d+)?\\}"; },
+        { name = "Interpolated String"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; },
+        { name = "Escaped slash"; match = "\\\\/"; foregroundColor = "#CCCC33"; }
+      );
+    },
+
+		{ name = "Multiline Comment"; begin = "^=begin"; end = "^=end"; swallow = "\\\\."; foregroundColor = "#9933CC"; },
+		{ name = "Comment"; match = "#[^{](.*)"; "fontStyle" = ( italic ); foregroundColor = "#9933CC"; },
+		{ name = "Comment"; match = "#$"; "fontStyle" = ( italic ); foregroundColor = "#9933CC"; }
+	);
+}
+

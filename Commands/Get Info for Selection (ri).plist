@@ -7,7 +7,7 @@
 	<key>command</key>
 	<string>
 # this requires Ruby &gt; 1.8.1 or an earlier version with ri installed. 
-ri -f html "$TM_SELECTED_TEXT"
+ri -Tf html "$TM_SELECTED_TEXT"
 </string>
 	<key>input</key>
 	<string>none</string>

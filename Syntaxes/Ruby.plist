@@ -106,9 +106,6 @@
 			"foregroundColor[1]" = "#3387CC";
 		},*/
 
-		{ name = "keywords.variables.symbol.ruby"; match = "(?:[^:]|^)(:[a-zA-Z0-9_?!<>]+)";
-			"foregroundColor[1]" = "#3387CC";
-		},
 		{ name = "keywords.variables,symbol.single-quoted.ruby"; begin = ":'"; end = "'"; swallow = "\\\\['\\\\]"; foregroundColor = "#3387CC"; },
 		{ name = "keywords.variables.symbol.double-quoted.ruby"; begin = ":\""; end = "\""; swallow = "\\\\."; foregroundColor = "#3387CC";
 		  patterns = (
@@ -140,6 +137,19 @@
 	        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; },
 	        { name = "strings.regexp.escaped.slash.ruby"; match = "\\\\/"; foregroundColor = "#CCCC33"; }
 	      );
+	    },
+
+   	    { 
+			// this rule exists only to prevent the 'keywods.variables.symbol.ruby'
+			// from matching non-symbol strings such as   Regexp::MULTILINE
+			name = "dummy.class-member.ruby"; 
+			match = "([a-zA-Z_][a-zA-Z0-9_]*::[a-zA-Z_][a-zA-Z0-9_?!]*)";
+		},
+
+	    { 
+			name = "keywords.variables.symbol.ruby"; 
+	 		match = "(:[a-zA-Z0-9_?!<>]+)";
+	    	"foregroundColor[1]" = "#3387CC";
 	    },
 
 		{ name = "comments.block.embedded-docs.ruby"; begin = "^=begin"; end = "^=end"; swallow = "\\\\."; foregroundColor = "#9933CC"; },

@@ -1,6 +1,6 @@
 {
 	name = "Ruby";
-	fileTypes = ( rb );
+	fileTypes = ( rb, Rakefile );
 
   foldingStartMarker = "^\\s*(def|class)\\>(?!.*\\<end\\>\\s*(#.*)?$)";
   foldingStopMarker = "(^\\s*end|;\\s*end)\\s*(#.*)?$";

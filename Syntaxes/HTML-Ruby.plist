@@ -76,7 +76,7 @@
 		{ name = "meta.docinfo.doctype.html"; begin = "<!DOCTYPE"; end = ">";
   		foregroundColor = "#999999";
   		patterns = (
-    		{ name = "String"; begin = "\""; end = "\"";
+    		{ name = "strings.double-quoted.html"; begin = "\""; end = "\"";
     			fontStyle = ( italic ); 
     		},
   		);

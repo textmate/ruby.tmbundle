@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>each_with_index { |${1:element}, ${2:idx}| ${1:element}.	 }</string>
+	<string>each_with_index { |${1:element}, ${2:idx}| ${1:element}. }</string>
 	<key>name</key>
 	<string>each_with_index</string>
 	<key>tabTrigger</key>

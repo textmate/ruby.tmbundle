@@ -36,9 +36,10 @@
 			"foregroundColor[1]" = "#CC7833";
 		},
 
-		{ name = "keywords.class.ruby"; match = "^\\s*(class)\\s+([.a-zA-Z_: <]+)";
+		{ name = "keywords.class.ruby"; match = "^\\s*(class)\\s+([.a-zA-Z0-9_:]+(\\s*<\\s*[.a-zA-Z0-9_:]+)?)";
 			"foregroundColor[1]" = "#CC7833";
 			"fontStyle[2]" = ( underline );
+			"fontStyle[3]" = ( italic );
 		},
 
 		/*{ name = "keywords.variables.symbol.ruby"; match = "\\s+(:[a-zA-Z_?!<>]+|:'.*?'?)";

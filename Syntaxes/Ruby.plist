@@ -32,7 +32,7 @@
 		// just as above but being not a logical operation
 		{  name = "keywords.reserved-words.pseudo-methods.ruby";
 		   foregroundColor = "#CC7833";
-		   match = "\\<(alias|alias_method|break|next|redo|retry|return|super|undef|yield)\\>)|\\<defined[?]";
+		   match = "\\<(alias|alias_method|break|next|redo|retry|return|super|undef|yield\\>)|\\<defined[?]";
 		},
 		
 		// every reserved word, being a value is a..

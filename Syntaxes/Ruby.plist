@@ -4,7 +4,7 @@
 
   foldingStartMarker = "^\\s*(def|class)\\>(?!.*\\<end\\>\\s*(#.*)?$)";
   foldingStopMarker = "(^\\s*end|;\\s*end)\\s*(#.*)?$";
-  increaseIndentPattern = "^\\s*(module|class|begin|def|if|else|elsif|unless|case|when|rescue|for|while|unless|[^#\"']*\\<do)\\>.*$";
+  increaseIndentPattern = "^\\s*(module|class|begin|def|if|else|elsif|unless|case|when|rescue|for|while|unless|[^#\"']*\\<do)\\>(?!.*?;.*?\\<end\\>).*$";
   smartTypingPairs = (
       ( "(", ")" ), ( "[", "]" ), ( "{", "}" ),
       ( "\"", "\"" ), ( "'", "'" ), ( "|", "|" )

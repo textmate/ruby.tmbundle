@@ -30,13 +30,13 @@
 		},
 		
 		// just as above but being not a logical operation
-		{  name = "keywords.reserved-words.misc.ruby";
+		{  name = "keywords.reserved-words.pseudo-methods.ruby";
 		   foregroundColor = "#CC7833";
 		   match = "\\<(alias|alias_method|break|defined|next|redo|retry|return|super|undef|yield)\\>";
 		},
 		
 		// every reserved word, being a value is a..
-		{  name = "keywords.reserved-words.special-values.ruby";
+		{  name = "keywords.reserved-words.pseudo-variables.ruby";
 		   foregroundColor = "#CC7833";
          match = "\\<(nil|true|false|__(FILE|LINE)__|self)\\>";
 		},
@@ -44,28 +44,28 @@
 		// everything beeing a method but having a special funtion is a..
 		{  name = "keywords.functions.special-methods.ruby";
 		   foregroundColor = "#CC7833";
-		   match = "\\<(initialize|loop|include|require|raise|new|attr_reader|attr_writer|attr_accessor|attr|catch|throw|private|public|protected)\\>";
+		   match = "\\<(initialize|new|loop|include|require|raise|attr_reader|attr_writer|attr_accessor|attr|catch|throw|private|public|protected)\\>";
 		},
 		
 		
 		{  name = "variables.instance-variables.ruby";
-		   foregroundColor = "#f5d4c2";
+		   foregroundColor = "#e9c5a7";
 		   match = "@[a-zA-Z_]\\w*";
 		},
       
 		{  name = "variables.class-variables.ruby";
-		   foregroundColor = "#f5d4c2";
+		   foregroundColor = "#e9c5a7";
 		   match = "@@[a-zA-Z_]\\w*";
 		},
       
 		{  name = "variables.globals.ruby";
-		   foregroundColor = "#f5d4c2";
+		   foregroundColor = "#e9c5a7";
 		   match = "\\$[a-zA-Z_]\\w*";
 		},
 		
 		{  name = "variables.globals.pre-defined.ruby";
-		   foregroundColor = "#f5d4c2";
-		   match = "\\$(\\!|@|&|`|'|\\+|\\d|~|=|/|\\\\|\\,|;|\\.|<|>|_|\\*|\\$|\\?|\\:|\")";
+		   foregroundColor = "#e9c5a7";
+		   match = "\\$(!|@|&|`|'|\\+|\\d|~|=|/|\\\\|,|;|\\.|<|>|_|\\*|\\$|\\?|:|\")";
 		},
 		
 		// just catch it and dont set any colors..
@@ -75,7 +75,7 @@
 		
 		
 		{ name = "constants.numeric.ruby"; match = "\\<((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\>"; foregroundColor = "#3387CC"; },
-		{ name = "keywords.constants.regexp.ruby"; match = "\\$(`|\\.|')"; fontStyle = ( bold ); },
+		// { name = "keywords.constants.regexp.ruby"; match = "\\$(`|\\.|')"; fontStyle = ( bold ); },
 
 		{ name = "keywords.functions.method-with-arguments.ruby"; match = "^\\s*(def\\>)\\s*([.a-zA-Z_?!]+)\\s*\\((.*)\\)";
 			"foregroundColor[1]" = "#CC7833";

@@ -1,13 +1,13 @@
 {
 	name = "Ruby";
-	fileTypes = ( rb, cgi, fcgi );
+	fileTypes = ( rb );
 
   foldingStartMarker = "^\\s*(def|class)\\>(?!.*\\<end\\>\\s*(#.*)?$)";
   foldingStopMarker = "(^\\s*end|;\\s*end)\\s*(#.*)?$";
   increaseIndentPattern = "^\\s*(module|class|begin|def|if|else|elsif|unless|case|when|rescue|for|while|unless|[^#\"']*\\<do)\\>.*$";
   smartTypingPairs = (
       ( "(", ")" ), ( "[", "]" ), ( "{", "}" ),
-      ( "\"", "\"" ), ( "'", "'" )
+      ( "\"", "\"" ), ( "'", "'" ), ( "|", "|" )
   );
   highlightPairs = (
       ( "(", ")" ), ( "[", "]" ), ( "{", "}" )
@@ -17,15 +17,65 @@
 	backgroundColor = "#000000";
 
 	patterns = (
-		{ name = "keywords.ruby"; foregroundColor = "#CC7833"; match = "\\<(__LINE__|__FILE__|BEGIN|END|alias|alias_method|attr_reader|attr_writer|attr_accessor|and|begin|break|case|class|def|defined|do|else|elsif|end|ensure|false|for|if|in|include|module|next|nil|not|or|raise|redo|rescue|retry|return|require|self|super|then|true|undef|unless|until|when|while|yield|private|public|protected)\\>"; },
+	   // everything being a reserved word, not a value and needing a 'end' is a..
+		{  name = "keywords.reserved-words.blocking.ruby";
+		   foregroundColor = "#CC7833";
+		   match = "\\<(BEGIN|begin|case|class|def|do|else|elsif|END|end|ensure|for|if|in|module|rescue|then|unless|until|when|while)\\>";
+		},
+		
+		// as above, just doesn't need a 'end' and does a logic operation
+		{  name = "keywords.reserved-words.logical.ruby";
+		   foregroundColor = "#CC7833";
+		   match = "\\<(and|not|or)\\>";
+		},
+		
+		// just as above but being not a logical operation
+		{  name = "keywords.reserved-words.misc.ruby";
+		   foregroundColor = "#CC7833";
+		   match = "\\<(alias|alias_method|break|defined|next|redo|retry|return|super|undef|yield)\\>";
+		},
+		
+		// every reserved word, being a value is a..
+		{  name = "keywords.reserved-words.special-values.ruby";
+		   foregroundColor = "#CC7833";
+         match = "\\<(nil|true|false|__(FILE|LINE)__|self)\\>";
+		},
+		
+		// everything beeing a method but having a special funtion is a..
+		{  name = "keywords.functions.special-methods.ruby";
+		   foregroundColor = "#CC7833";
+		   match = "\\<(initialize|loop|include|require|raise|new|attr_reader|attr_writer|attr_accessor|attr|catch|throw|private|public|protected)\\>";
+		},
+		
+		
+		{  name = "variables.instance-variables.ruby";
+		   foregroundColor = "#f5d4c2";
+		   match = "@[a-zA-Z_]\\w*";
+		},
+      
+		{  name = "variables.class-variables.ruby";
+		   foregroundColor = "#f5d4c2";
+		   match = "@@[a-zA-Z_]\\w*";
+		},
+      
+		{  name = "variables.globals.ruby";
+		   foregroundColor = "#f5d4c2";
+		   match = "\\$[a-zA-Z_]\\w*";
+		},
+		
+		{  name = "variables.globals.pre-defined.ruby";
+		   foregroundColor = "#f5d4c2";
+		   match = "\\$(\\!|@|&|`|'|\\+|\\d|~|=|/|\\\\|\\,|;|\\.|<|>|_|\\*|\\$|\\?|\\:|\")";
+		},
+		
+		// just catch it and dont set any colors..
+		{  name = "variables.constants.ruby";
+		   match = "\\<[A-Z]\\w*\\>";
+		},
+		
+		
 		{ name = "constants.numeric.ruby"; match = "\\<((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\>"; foregroundColor = "#3387CC"; },
 		{ name = "keywords.constants.regexp.ruby"; match = "\\$(`|\\.|')"; fontStyle = ( bold ); },
-
-		{ name = "keywords.functions.actionpack.rails.ruby"; foregroundColor = "#CC3833"; match = "\\<(|before_filter|after_filter|filter|layout|render|render_action|render_text|render_file|render_template|render_nothing|render_component|render_without_layout|url_for|redirect_to|redirect_to_path|redirect_to_url|helper|helper_method|model|service|observer|serialize)\\>";
-		},
-
-		{ name = "keywords.functions.activerecord.rails.ruby"; foregroundColor = "#CC3833"; match = "\\<(acts_as_list|acts_as_tree|after_create|after_destroy|after_save|after_update|after_validation|after_validation_on_create|after_validation_on_update|before_create|before_destroy|before_save|before_update|before_validation|before_validation_on_create|before_validation_on_update|composed_of|belongs_to|has_one|has_many|has_and_belongs_to_many|helper|helper_method|validate|validate_on_create|validate_on_update|validates_acceptance_of|validates_associated|validates_confirmation_of|validates_each|validates_format_of|validates_inclusion_of|validates_length_of|validates_presence_of|validates_size_of|validates_uniqueness_of)\\>";
-		},
 
 		{ name = "keywords.functions.method-with-arguments.ruby"; match = "^\\s*(def\\>)\\s*([.a-zA-Z_?!]+)\\s*\\((.*)\\)";
 			"foregroundColor[1]" = "#CC7833";

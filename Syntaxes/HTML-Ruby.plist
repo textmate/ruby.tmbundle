@@ -22,7 +22,7 @@
 		{ name = "Anchor";		begin = "<(?i:a)\\>.*?>";			end = "</(?i:a)>";			elementFontStyle = (plain); fontStyle = (underline); },
 		{ name = "Underline";	begin = "<(?i:u)\\>.*?>";			end = "</(?i:u)>";			elementFontStyle = (plain); fontStyle = (underline); },
 */
-		{ name = "Embedded Ruby"; begin = "<%"; end = "%>";
+		{ name = "embedded.ruby"; begin = "<%"; end = "%>";
 			elementBackgroundColor = "#000000";
 			backgroundColor = "#000000";
 			elementForegroundColor = "#ffffff";
@@ -31,7 +31,7 @@
 			);
 		},
 
-		{ name = "Embedded PHP"; begin = "<\\?(php|=)?"; end = "\\?>";
+		{ name = "embedded.php"; begin = "<\\?(php|=)?"; end = "\\?>";
 			backgroundColor = "#000000";
 			elementForegroundColor = "#ffffff";
 			patterns = (
@@ -39,26 +39,26 @@
 			);
 		},
 
-		{ name = "CSS"; begin = "<(?i:style)\\>(?s:(.*?))>"; end = "</(?i:style)>";
+		{ name = "embedded.css"; begin = "<(?i:style)\\>(?s:(.*?))>"; end = "</(?i:style)>";
 			fontStyle = ( italic );
 			elementFontStyle = ( plain );
 			elementForegroundColor = "#cccccc";
 		},
 
 
-		{ name = "JavaScript"; begin = "<(?i:script)\\>(?s:(.*?))>"; end = "</(?i:script)>";
+		{ name = "embedded.javascript"; begin = "<(?i:script)\\>(?s:(.*?))>"; end = "</(?i:script)>";
 			fontStyle = ( italic );
 			elementFontStyle = ( plain );
 			elementForegroundColor = "#cccccc";
 		},
 	
 
-		{ name = "Tag"; begin = "</?([a-zA-Z0-9]+)"; end = ">";
+		{ name = "keywords.markup.tags.html"; begin = "</?([a-zA-Z0-9]+)"; end = ">";
   		"elementFontStyle[1]" = ( underline ); 
 			foregroundColor = "#cccccc";
 			patterns = (
-	  			{ name = "Option"; match = " ([a-zA-Z]+)"; },
-	  			{ name = "String"; begin = "\""; end = "\""; fontStyle = ( italic ); 
+	  			{ name = "keywords.markup.tag.options.html"; match = " ([a-zA-Z]+)"; },
+	  			{ name = "strings.double-quoted.html"; begin = "\""; end = "\""; fontStyle = ( italic ); 
 					patterns = (
 						{ begin = "<\\?="; end = "\\?>";
 							fontStyle = (plain);
@@ -73,7 +73,7 @@
 			);
 		},
 		
-		{ name = "Document Type"; begin = "<!DOCTYPE"; end = ">";
+		{ name = "meta.docinfo.doctype.html"; begin = "<!DOCTYPE"; end = ">";
   		foregroundColor = "#999999";
   		patterns = (
     		{ name = "String"; begin = "\""; end = "\"";

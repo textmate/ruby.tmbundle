@@ -38,39 +38,45 @@
 			"fontStyle[2]" = ( underline );
 		},
 
-		{ name = "keywords.variables.symbol.ruby"; match = "\\s+(:[a-zA-Z_?!<>]+|:([\"']).*?\\2)";
+		/*{ name = "keywords.variables.symbol.ruby"; match = "\\s+(:[a-zA-Z_?!<>]+|:'.*?'?)";
+			"foregroundColor[1]" = "#3387CC";
+		},*/
+
+		{ name = "keywords.variables.symbol.ruby"; match = "(?:[^:]|^)(:[a-zA-Z_?!<>]+)";
 			"foregroundColor[1]" = "#3387CC";
 		},
-
-		{ name = "keywords.variables.symbol-with-leading-character.ruby"; match = "[^:](:[a-zA-Z_?!<>]+|:([\"']).*?\\2)";
-			"foregroundColor[1]" = "#3387CC";
+		{ name = "keywords.variables,symbol.single-quoted.ruby"; begin = ":'"; end = "'"; swallow = "\\\\['\\\\]"; foregroundColor = "#3387CC"; },
+		{ name = "keywords.variables.symbol.double-quoted.ruby"; begin = ":\""; end = "\""; swallow = "\\\\."; foregroundColor = "#3387CC";
+		  patterns = (
+		    { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; }
+		  );
 		},
 
 		{ name = "strings.single-quoted.ruby"; begin = "'"; end = "'"; swallow = "\\\\."; foregroundColor = "#66CC33"; },
-    { name = "strings.double-quoted.ruby"; begin = "\""; end = "\""; swallow = "\\\\."; foregroundColor = "#66CC33";
-      patterns = (
-        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; }
-      );
-    },
-    { name = "strings.double-quoted.ruby.mod"; begin = "%\\{"; end = "\\}";  foregroundColor = "#66CC33";
-      patterns = (
-        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; }
-      );
-    },
-    { name = "strings.regexp.ruby.classic"; begin = "/(?=\\S.*/)"; end = "/";  foregroundColor = "#CCCC33";
-      patterns = (
-        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; },
-        { name = "strings.regexp.escaped.slash.ruby"; match = "\\\\/"; foregroundColor = "#CCCC33"; }
-      );
-    },
-    { name = "strings.regexp.ruby.mod-r"; begin = "%r\\{"; end = "\\}";  foregroundColor = "#CCCC33";
-      patterns = (
-        { name = "strings.regexp.escaped.chars.ruby"; match = "\\."; },
-        { name = "strings.regexp.arbitrary-repitition.ruby"; match = "\\{\\d+(,\\d+)?\\}"; },
-        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; },
-        { name = "strings.regexp.escaped.slash.ruby"; match = "\\\\/"; foregroundColor = "#CCCC33"; }
-      );
-    },
+	    { name = "strings.double-quoted.ruby"; begin = "\""; end = "\""; swallow = "\\\\."; foregroundColor = "#66CC33";
+	      patterns = (
+	        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; }
+	      );
+	    },
+	    { name = "strings.double-quoted.ruby.mod"; begin = "%\\{"; end = "\\}";  foregroundColor = "#66CC33";
+	      patterns = (
+	        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; }
+	      );
+	    },
+	    { name = "strings.regexp.ruby.classic"; begin = "/(?=\\S.*/)"; end = "/";  foregroundColor = "#CCCC33";
+	      patterns = (
+	        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; },
+	        { name = "strings.regexp.escaped.slash.ruby"; match = "\\\\/"; foregroundColor = "#CCCC33"; }
+	      );
+	    },
+	    { name = "strings.regexp.ruby.mod-r"; begin = "%r\\{"; end = "\\}";  foregroundColor = "#CCCC33";
+	      patterns = (
+	        { name = "strings.regexp.escaped.chars.ruby"; match = "\\."; },
+	        { name = "strings.regexp.arbitrary-repitition.ruby"; match = "\\{\\d+(,\\d+)?\\}"; },
+	        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; },
+	        { name = "strings.regexp.escaped.slash.ruby"; match = "\\\\/"; foregroundColor = "#CCCC33"; }
+	      );
+	    },
 
 		{ name = "comments.block.embedded-docs.ruby"; begin = "^=begin"; end = "^=end"; swallow = "\\\\."; foregroundColor = "#9933CC"; },
 		{ name = "comments.line.ruby"; match = "#[^{](.*)"; "fontStyle" = ( italic ); foregroundColor = "#9933CC"; },

@@ -129,6 +129,9 @@
 	    	/*
 	    	double quoted string (allows for interpolation):
 	    	"hello #{42} world"   #->  "hello 42 world"
+	    	"hello #@ivar world"  #->  "hello 42 world"
+	    	"hello #@@cvar world" #->  "hello 42 world"
+	    	"hello #$gvar world"  #->  "hello 42 world"
 	    	*/
 			name = "strings.double-quoted.ruby"; 
 			begin = "\""; 
@@ -138,7 +141,7 @@
 	    	patterns = (
 	        	{ 
 					name = "strings.interpolation.ruby"; 
-					match = "#\\{([^\\}]*)\\}"; 
+					match = "#(\\{([^\\}]*)\\}|@{1,2}[a-zA-Z0-9_]+|[$][a-zA-Z0-9_]+)"; 
 					foregroundColor = "#aaaaaa"; 
 				}
 	    	);

@@ -124,7 +124,7 @@
 	        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; }
 	      );
 	    },
-	    { name = "strings.regexp.ruby.classic"; begin = "/(?=\\S.*/)"; end = "/";  foregroundColor = "#CCCC33";
+	    { name = "strings.regexp.ruby.classic"; begin = "/(?=\\S.*/)"; end = "/";  swallow = "\\\\."; foregroundColor = "#CCCC33";
 	      patterns = (
 	        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; },
 	        { name = "strings.regexp.escaped.slash.ruby"; match = "\\\\/"; foregroundColor = "#CCCC33"; }

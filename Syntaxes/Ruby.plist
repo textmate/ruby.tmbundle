@@ -19,7 +19,7 @@
 	patterns = (
 		{ name = "keywords.ruby"; foregroundColor = "#CC7833"; match = "\\<(__LINE__|__FILE__|BEGIN|END|alias|alias_method|attr_reader|attr_writer|attr_accessor|and|begin|break|case|class|def|defined|do|else|elsif|end|ensure|false|for|if|in|include|module|next|nil|not|or|raise|redo|rescue|retry|return|require|self|super|then|true|undef|unless|until|when|while|yield|private|public|protected)\\>"; },
 		{ name = "constants.numeric.ruby"; match = "\\<((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\>"; foregroundColor = "#3387CC"; },
-
+		{ name = "keywords.constants.regexp.ruby"; match = "\\$(`|\\.|')"; fontStyle = ( bold ); },
 
 		{ name = "keywords.functions.actionpack.rails.ruby"; foregroundColor = "#CC3833"; match = "\\<(|before_filter|after_filter|filter|layout|render|render_action|render_text|render_file|render_template|render_nothing|render_component|render_without_layout|url_for|redirect_to|redirect_to_path|redirect_to_url|helper|helper_method|model|service|observer|serialize)\\>";
 		},

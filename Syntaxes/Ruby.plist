@@ -65,7 +65,7 @@
 		
 		{  name = "variables.globals.pre-defined.ruby";
 		   foregroundColor = "#e9c5a7";
-		   match = "\\$(!|@|&|`|'|\\+|\\d|~|=|/|\\\\|,|;|\\.|<|>|_|\\*|\\$|\\?|:|\")";
+		   match = "\\$(!|@|&|`|'|\\+|\\d|~|=|/|\\\\|,|;|\\.|<|>|_|\\*|\\$|\\?|:|\"|-[0adFiIlpv])";
 		},
 		
 		// just catch it and dont set any colors..

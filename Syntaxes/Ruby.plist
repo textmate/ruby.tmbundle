@@ -139,6 +139,37 @@
 	      );
 	    },
 
+	    { 
+			/* 
+			literal capable of interpolation:    
+			%W(a b#{42}c) #-> ["a", "b42c"]
+			*/
+			name = "strings.upper-literal.ruby";
+			begin = "%[QWSR]\\("; 
+			end = "\\)"; 
+			swallow = "\\\\."; 
+			foregroundColor = "#CCCC33";
+	    	patterns = (
+	        	{
+					name = "strings.interpolation.ruby"; 
+					match = "#\\{([^\\}]*)\\}"; 
+					foregroundColor = "#aaaaaa"; 
+				}
+	    	);
+	    },
+
+	    { 
+			/* 
+			literal incapable of interpolation:
+			%w(a b#{42}c) #-> ["a", "b#{42}c"]
+			*/
+			name = "strings.lower-literal.ruby"; 
+			begin = "%[qws]\\("; 
+			end = "\\)"; 
+			swallow = "\\\\."; 
+			foregroundColor = "#CCCC33";
+	    },
+
    	    { 
 			// this rule exists only to prevent the 'keywods.variables.symbol.ruby'
 			// from matching non-symbol strings such as   Regexp::MULTILINE

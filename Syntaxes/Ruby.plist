@@ -267,9 +267,11 @@
 			literal capable of interpolation:    
 			%W(a b#{42}c) #-> ["a", "b42c"]
 			%W(ab c\nd \\\)ef)
+			
+			%(#{42})  #->  "42"
 			*/
 			name = "strings.upper-literal.ruby";
-			begin = "%[QWSR]\\("; 
+			begin = "%[QWSR]?\\("; 
 			end = "\\)"; 
 			swallow = "\\\\."; 
 			foregroundColor = "#CCCC33";

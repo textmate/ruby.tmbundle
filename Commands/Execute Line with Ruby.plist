@@ -20,7 +20,7 @@ print( ' '+((r.class != Hash and r.class != Array and r.respond_to? :to_s) ?
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
-	<string>^e</string>
+	<string>^E</string>
 	<key>name</key>
 	<string>Execute Line with Ruby</string>
 	<key>output</key>

@@ -49,17 +49,17 @@
 		{ name = "strings.single-quoted.ruby"; begin = "'"; end = "'"; swallow = "\\\\."; foregroundColor = "#66CC33"; },
     { name = "strings.double-quoted.ruby"; begin = "\""; end = "\""; swallow = "\\\\."; foregroundColor = "#66CC33";
       patterns = (
-        { name = "strings.interpolated.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; }
+        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; }
       );
     },
     { name = "strings.double-quoted.ruby.mod"; begin = "%\\{"; end = "\\}";  foregroundColor = "#66CC33";
       patterns = (
-        { name = "strings.interpolated.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; }
+        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; }
       );
     },
     { name = "strings.regexp.ruby.classic"; begin = "/(?=\\S.*/)"; end = "/";  foregroundColor = "#CCCC33";
       patterns = (
-        { name = "strings.interpolated.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; },
+        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; },
         { name = "strings.regexp.escaped.slash.ruby"; match = "\\\\/"; foregroundColor = "#CCCC33"; }
       );
     },
@@ -67,7 +67,7 @@
       patterns = (
         { name = "strings.regexp.escaped.chars.ruby"; match = "\\."; },
         { name = "strings.regexp.arbitrary-repitition.ruby"; match = "\\{\\d+(,\\d+)?\\}"; },
-        { name = "strings.interpolated.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; },
+        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; },
         { name = "strings.regexp.escaped.slash.ruby"; match = "\\\\/"; foregroundColor = "#CCCC33"; }
       );
     },

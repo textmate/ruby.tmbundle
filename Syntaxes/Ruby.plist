@@ -74,7 +74,6 @@
 		},
 		
 		
-		{ name = "constants.numeric.ruby"; match = "\\<((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\>"; foregroundColor = "#3387CC"; },
 		// { name = "keywords.constants.regexp.ruby"; match = "\\$(`|\\.|')"; fontStyle = ( bold ); },
 
 		{ name = "keywords.functions.method-with-arguments.ruby"; match = "^\\s*(def\\>)\\s*([.a-zA-Z_?!]+)\\s*\\((.*)\\)";
@@ -86,6 +85,17 @@
 			"foregroundColor[1]" = "#CC7833";
 		},
 
+		{ 
+			name = "keywords.functions.identifier.ruby"; match = "[a-z][a-zA-Z0-9_?!]*";
+			//foregroundColor = "#FF3333"; 
+		},
+
+		{ 
+			name = "constants.numeric.ruby"; 
+			match = "(\\<((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\>)|((?<!\\w)\\?\\S)"; 
+			foregroundColor = "#3387CC"; 
+		},
+			
 		{ name = "keywords.class.ruby"; match = "^\\s*(class)\\s+([.a-zA-Z0-9_:]+(\\s*<\\s*[.a-zA-Z0-9_:]+)?)";
 			"foregroundColor[1]" = "#CC7833";
 			"fontStyle[2]" = ( underline );

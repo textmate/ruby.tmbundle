@@ -5,13 +5,13 @@
 	<key>beforeRunningCommand</key>
 	<string>saveActiveFile</string>
 	<key>command</key>
-	<string>/usr/local/bin/ruby "$TM_FILEPATH"</string>
+	<string>${TM_RUBY:=/usr/bin/ruby} "$TM_FILEPATH"</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
 	<string>@r</string>
 	<key>name</key>
-	<string>Run Ruby (/usr/local/bin/ruby)</string>
+	<string>Run Ruby</string>
 	<key>output</key>
 	<string>separateWindow</string>
 	<key>uuid</key>

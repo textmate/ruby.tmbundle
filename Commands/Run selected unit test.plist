@@ -4,14 +4,22 @@
 <dict>
 	<key>beforeRunningCommand</key>
 	<string>saveActiveFile</string>
+	<key>captureFormatString</key>
+	<string>$0</string>
+	<key>capturePattern</key>
+	<string>(/[^:]+):(\d+)</string>
 	<key>command</key>
 	<string># Assumes the current file is a unittest file
 # Runs with the currently-selected text as the test to run
 ${TM_RUBY:=/usr/bin/ruby} "$TM_FILEPATH" --name $TM_SELECTED_TEXT</string>
+	<key>fileCaptureRegister</key>
+	<string>1</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
 	<string>@r</string>
+	<key>lineCaptureRegister</key>
+	<string>2</string>
 	<key>name</key>
 	<string>Run selected Ruby unit test</string>
 	<key>output</key>

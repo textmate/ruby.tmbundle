@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>def ${1:method_name}
+	<string>class ${1:class_name}
 	$0
 end</string>
 	<key>name</key>
-	<string>def end</string>
+	<string>class end</string>
 	<key>tabTrigger</key>
-	<string>def</string>
+	<string>class</string>
 	<key>uuid</key>
-	<string>4E9A7A73-875C-11D9-897C-000393CBCE2E</string>
+	<string>8394EDEF-87E8-11D9-A6A3-000D93589AF6</string>
 </dict>
 </plist>

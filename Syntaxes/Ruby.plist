@@ -279,8 +279,14 @@
 		},
 
 	    { 
+	    	/* 
+			symbols:
+			:symb   :<<     :`      :f00bar
+			
+			TODO: deal with these symbols   :"\"x"  :'\'x'
+	    	*/
 			name = "keywords.variables.symbol.ruby"; 
-	 		match = "(:[a-zA-Z0-9_?!<>]+)";
+	 		match = "(:(?:[a-zA-Z_][a-zA-Z0-9_?!=]*|[`=<>%/*^]{1,2}))";
 	    	"foregroundColor[1]" = "#3387CC";
 	    },
 

@@ -38,11 +38,11 @@
 			"fontStyle[2]" = ( underline );
 		},
 
-		{ name = "keywords.variables.symbol.ruby"; match = "\\s+(:[a-zA-Z_?!]+)";
+		{ name = "keywords.variables.symbol.ruby"; match = "\\s+(:[a-zA-Z_?!<>]+|:([\"']).*?\\2)";
 			"foregroundColor[1]" = "#3387CC";
 		},
 
-		{ name = "keywords.variables.symbol-with-leading-character.ruby"; match = "[^:](:[a-zA-Z_?!]+)";
+		{ name = "keywords.variables.symbol-with-leading-character.ruby"; match = "[^:](:[a-zA-Z_?!<>]+|:([\"']).*?\\2)";
 			"foregroundColor[1]" = "#3387CC";
 		},
 

@@ -11,7 +11,7 @@
 	<key>command</key>
 	<string># Assumes the current file is a unittest file
 # Runs with the currently-selected text as the test to run
-${TM_RUBY:=/usr/bin/ruby} "$TM_FILEPATH" --name $TM_SELECTED_TEXT</string>
+${TM_RUBY:=ruby} "$TM_FILEPATH" --name $TM_SELECTED_TEXT</string>
 	<key>fileCaptureRegister</key>
 	<string>1</string>
 	<key>input</key>

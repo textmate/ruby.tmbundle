@@ -323,13 +323,28 @@
 	    { 
 	    	/* 
 			symbols:
-			:symb   :<<     :`      :f00bar  :[]=
-			
-			TODO: deal with these symbols   :"\"x"  :'\'x'
+			   :BIG  :aBC  :AbC9  :symb  :_asd  :_9sd  :__=  :f00bar  :abc!
+            :abc?  :abc=  :<<  :<  :>>  :>  :<=>  :<=  :>=  :%  :*  :**
+            :+  :-  :&  :|  :~  :=~  :==  :===  :`  :[]=  :[]  :/  :-@
+            :+@  :@aaa  :@@bbb
 	    	*/
-			name = "keywords.variables.symbol.ruby"; 
-	 		match = "(:(?:[a-zA-Z_][a-zA-Z0-9_?!=]*|\\[\\]=?|[`=<>%/*^]{1,2}))";
-	    	"foregroundColor[1]" = "#3387CC";
+			name = "keywords.variables.symbol.ruby";
+			/*
+			explained:
+			    1: generic symbols with ?,! or = behind, but not with => behind
+			    2: == and ===
+			    3: >, >> and >=
+			    4: <, << and <=
+			    5: <=>
+			    6: %, &, `, / and |
+			    7: * and **
+			    8: ~ and =~
+			    9: +, -, +@ and -@
+			   10: [] and []=
+			   11: instance- and class-variable symbols
+			             1                             2    3      4      5   6         7       8   9      10       11                */
+	 		match = ":(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?|@@?[a-zA-Z_]\\w*)";
+	    	foregroundColor = "#3387CC";
 	    },
 
 		{ 

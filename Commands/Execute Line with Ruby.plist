@@ -14,9 +14,7 @@ rescue Object
 end
 
 print( ' '+((r.class != Hash and r.class != Array and r.respond_to? :to_s) ?
-           r.to_s :
-           r.inspect ) )"
-</string>
+             r.to_s : r.inspect ))"</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>

@@ -11,8 +11,7 @@ if [[ $2 = '1.6.8' ]]; then
   ruby -wc "$TM_FILEPATH"
 else
   ruby -wc -W2 "$TM_FILEPATH"
-fi
-</string>
+fi</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
@@ -21,8 +20,6 @@ fi
 	<string>Check Ruby Syntax</string>
 	<key>output</key>
 	<string>showAsTooltip</string>
-	<key>scope</key>
-	<string>Ruby</string>
 	<key>uuid</key>
 	<string>EE5F19BA-6C02-11D9-92BA-0011242E4184</string>
 </dict>

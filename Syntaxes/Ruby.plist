@@ -123,6 +123,13 @@
 			end = "'"; 
 			swallow = "\\\\."; 
 			foregroundColor = "#66CC33"; 
+			patterns = (
+				{ 
+					name = "strings.escaped.chars.ruby"; 
+					match = "\\\\'"; 
+					foregroundColor = "#aaaaaa"; 
+				}
+			);
 		},
 
 	    { 
@@ -142,6 +149,11 @@
 	        	{ 
 					name = "strings.interpolation.ruby"; 
 					match = "#(\\{([^\\}]*)\\}|@{1,2}[a-zA-Z0-9_]+|[$][a-zA-Z0-9_]+)"; 
+					foregroundColor = "#aaaaaa"; 
+				},
+				{ 
+					name = "strings.escaped.chars.ruby"; 
+					match = "\\\\."; 
 					foregroundColor = "#aaaaaa"; 
 				}
 	    	);
@@ -181,6 +193,11 @@
 	    			name = "strings.interpolation.ruby"; 
 	    			match = "#\\{([^\\}]*)\\}"; 
 	    			foregroundColor = "#555555"; 
+	    		},
+	    		{ 
+	    			name = "strings.escaped.chars.ruby"; 
+	    			match = "\\\\."; 
+	    			foregroundColor = "#555555"; 
 	    		}
 	    	);
 	    },
@@ -201,10 +218,15 @@
 					match = "#\\{([^\\}]*)\\}"; 
 					foregroundColor = "#aaaaaa"; 
 				},
-	        	{ 
+	        	/*{ 
 					name = "strings.regexp.escaped.slash.ruby"; 
 					match = "\\\\/"; 
 					foregroundColor = "#CCCC33"; 
+				},*/
+				{ 
+					name = "strings.escaped.chars.ruby"; 
+					match = "\\\\."; 
+					foregroundColor = "#aaaaaa"; 
 				}
 	    	);
 	    },
@@ -244,6 +266,7 @@
 			/* 
 			literal capable of interpolation:    
 			%W(a b#{42}c) #-> ["a", "b42c"]
+			%W(ab c\nd \\\)ef)
 			*/
 			name = "strings.upper-literal.ruby";
 			begin = "%[QWSR]\\("; 
@@ -255,6 +278,11 @@
 					name = "strings.interpolation.ruby"; 
 					match = "#\\{([^\\}]*)\\}"; 
 					foregroundColor = "#aaaaaa"; 
+				},
+				{ 
+					name = "strings.escaped.chars.ruby"; 
+					match = "\\\\."; 
+					foregroundColor = "#aaaaaa"; 
 				}
 	    	);
 	    },
@@ -263,12 +291,20 @@
 			/* 
 			literal incapable of interpolation:
 			%w(a b#{42}c) #-> ["a", "b#{42}c"]
+			%w(ab c\nd \\\)ef)
 			*/
 			name = "strings.lower-literal.ruby"; 
 			begin = "%[qws]\\("; 
 			end = "\\)"; 
 			swallow = "\\\\."; 
 			foregroundColor = "#CCCC33";
+			patterns = (
+				{ 
+					name = "strings.escaped.chars.ruby"; 
+					match = "\\\\\\)"; 
+					foregroundColor = "#aaaaaa"; 
+				}
+			);
 	    },
 
    	    { 

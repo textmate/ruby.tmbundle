@@ -5,7 +5,7 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>ruby -e " 
+	<string>"${TM_RUBY:=ruby}" -e " 
 begin
   r = eval((ENV['TM_SELECTED_TEXT'].size &gt; 0) ?
             ENV['TM_SELECTED_TEXT'] : ENV['TM_CURRENT_LINE'] )

@@ -5,12 +5,14 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>set ruby --version
+	<string>TM_RUBY="${TM_RUBY:=ruby}"
+set `${TM_RUBY} --version`
+echo "using ruby-$2"
 
 if [[ $2 = '1.6.8' ]]; then
-  ruby -wc "$TM_FILEPATH"
+  "${TM_RUBY}" -wc "$TM_FILEPATH"
 else
-  ruby -wc -W2 "$TM_FILEPATH"
+  "${TM_RUBY}" -wW2c "$TM_FILEPATH"
 fi</string>
 	<key>input</key>
 	<string>none</string>

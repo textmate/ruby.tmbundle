@@ -113,16 +113,73 @@
 		  );
 		},
 
-		{ name = "strings.single-quoted.ruby"; begin = "'"; end = "'"; swallow = "\\\\."; foregroundColor = "#66CC33"; },
-	    { name = "strings.double-quoted.ruby"; begin = "\""; end = "\""; swallow = "\\\\."; foregroundColor = "#66CC33";
-	      patterns = (
-	        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; }
-	      );
+		{
+			/*
+			single quoted string (does not allow interpolation):
+			'hello #{42} world'   #->  "hello #{42} world"
+			*/
+			name = "strings.single-quoted.ruby"; 
+			begin = "'"; 
+			end = "'"; 
+			swallow = "\\\\."; 
+			foregroundColor = "#66CC33"; 
+		},
+
+	    { 
+	    	/*
+	    	double quoted string (allows for interpolation):
+	    	"hello #{42} world"   #->  "hello 42 world"
+	    	*/
+			name = "strings.double-quoted.ruby"; 
+			begin = "\""; 
+			end = "\""; 
+			swallow = "\\\\."; 
+			foregroundColor = "#66CC33";
+	    	patterns = (
+	        	{ 
+					name = "strings.interpolation.ruby"; 
+					match = "#\\{([^\\}]*)\\}"; 
+					foregroundColor = "#aaaaaa"; 
+				}
+	    	);
 	    },
-	    { name = "strings.double-quoted.ruby.mod"; begin = "%\\{"; end = "\\}";  foregroundColor = "#66CC33";
-	      patterns = (
-	        { name = "strings.interpolation.ruby"; match = "#\\{([^\\}]*)\\}"; foregroundColor = "#aaaaaa"; }
-	      );
+
+	    {
+	    	/*
+	    	literal string (allows for interpolation):
+	    	%{x#{4}x}   #-> "x4x"
+	    	*/
+	    	name = "strings.double-quoted.ruby.mod"; 
+	    	begin = "%\\{"; 
+	    	end = "\\}";  
+	    	foregroundColor = "#66CC33";
+	    	patterns = (
+	        	{
+	    			name = "strings.interpolation.ruby"; 
+	    			match = "#\\{([^\\}]*)\\}"; 
+	    			foregroundColor = "#aaaaaa"; 
+	    		}
+	      	);
+	    },
+
+	    { 
+	    	/*
+	    	execute string (allows for interpolation):
+	    	`ls`   #-> ".\n..\nREADME\nmain.rb"
+	    	*/
+	    	name = "strings.back-quoted.ruby"; 
+	    	begin = "`"; 
+	    	end = "`"; 
+	    	swallow = "\\\\."; 
+	    	foregroundColor = "#000000";
+	    	backgroundColor = "#CCCC33";
+	    	patterns = (
+	        	{ 
+	    			name = "strings.interpolation.ruby"; 
+	    			match = "#\\{([^\\}]*)\\}"; 
+	    			foregroundColor = "#555555"; 
+	    		}
+	    	);
 	    },
 	
 	    {

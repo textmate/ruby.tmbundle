@@ -12,9 +12,9 @@ ri -Tf html "$TM_SELECTED_TEXT"
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
-	<string>@i</string>
+	<string></string>
 	<key>name</key>
-	<string>Get Info for Selection (ri)</string>
+	<string>Lookup Ruby Docs</string>
 	<key>output</key>
 	<string>showAsHTML</string>
 	<key>uuid</key>

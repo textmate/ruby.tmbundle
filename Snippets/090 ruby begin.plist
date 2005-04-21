@@ -10,6 +10,8 @@ rescue ${2:Exception} =&gt; ${3:e}
 end</string>
 	<key>name</key>
 	<string>begin</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
 	<string>begin</string>
 	<key>uuid</key>

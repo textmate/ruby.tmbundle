@@ -8,6 +8,8 @@
 end</string>
 	<key>name</key>
 	<string>def end</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
 	<string>def</string>
 	<key>uuid</key>

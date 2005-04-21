@@ -1,6 +1,8 @@
 {
 	name = "HTML (Ruby)";
+	scopeName = "source.html.ruby";
 	mode = "HTML";
+	scopeName = "text.html";
 	fileTypes = ( rhtml );
 	foldingStartMarker = "(<(?i:(head|table|div|style|script|ul|ol|form|dl))\\>.*?>|\\{)";
 	foldingStopMarker = "(</(?i:(head|table|div|style|script|ul|ol|form|dl))>|\\})";
@@ -22,7 +24,7 @@
 		{ name = "Anchor";		begin = "<(?i:a)\\>.*?>";			end = "</(?i:a)>";			elementFontStyle = (plain); fontStyle = (underline); },
 		{ name = "Underline";	begin = "<(?i:u)\\>.*?>";			end = "</(?i:u)>";			elementFontStyle = (plain); fontStyle = (underline); },
 */
-		{ name = "embedded.ruby"; begin = "<%"; end = "%>";
+		{ name = "source.ruby.embedded.html"; begin = "<%"; end = "%>";
 			elementBackgroundColor = "#000000";
 			backgroundColor = "#000000";
 			elementForegroundColor = "#ffffff";

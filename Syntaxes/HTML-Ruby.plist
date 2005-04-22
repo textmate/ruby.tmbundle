@@ -55,12 +55,12 @@
 		},
 	
 
-		{ name = "keywords.markup.tags.html"; begin = "</?([a-zA-Z0-9]+)"; end = ">";
+		{ name = "keyword.markup.tags.html"; begin = "</?([a-zA-Z0-9]+)"; end = ">";
   		"elementFontStyle[1]" = ( underline ); 
 			foregroundColor = "#cccccc";
 			patterns = (
-	  			{ name = "keywords.markup.tag.options.html"; match = " ([a-zA-Z]+)"; },
-	  			{ name = "strings.double-quoted.html"; begin = "\""; end = "\""; fontStyle = ( italic ); 
+	  			{ name = "keyword.markup.tag.options.html"; match = " ([a-zA-Z]+)"; },
+	  			{ name = "string.double-quoted.html"; begin = "\""; end = "\""; fontStyle = ( italic ); 
 					patterns = (
 						{ begin = "<\\?="; end = "\\?>";
 							fontStyle = (plain);
@@ -78,7 +78,7 @@
 		{ name = "meta.docinfo.doctype.html"; begin = "<!DOCTYPE"; end = ">";
   		foregroundColor = "#999999";
   		patterns = (
-    		{ name = "strings.double-quoted.html"; begin = "\""; end = "\"";
+    		{ name = "string.double-quoted.html"; begin = "\""; end = "\"";
     			fontStyle = ( italic ); 
     		},
   		);

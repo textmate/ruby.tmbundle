@@ -52,88 +52,88 @@
 
 	patterns = (
 	   // everything being a reserved word, not a value and needing a 'end' is a..
-		{  name = "keywords.reserved-words.blocking.ruby";
+		{  name = "keyword.reserved-words.blocking.ruby";
 		   match = "\\<(BEGIN|begin|case|class|do|else|elsif|END|end|ensure|for|if|in|module|rescue|then|unless|until|when|while)\\>";
 		},
 		
 		// as above, just doesn't need a 'end' and does a logic operation
-		{  name = "keywords.reserved-words.logical.ruby";
+		{  name = "keyword.reserved-words.logical.ruby";
 		   match = "\\<(and|not|or)\\>";
 		},
 		
 		// just as above but being not a logical operation
-		{  name = "keywords.reserved-words.pseudo-methods.ruby";
+		{  name = "keyword.reserved-words.pseudo-methods.ruby";
 		   match = "\\<(alias|alias_method|break|next|redo|retry|return|super|undef|yield\\>)|\\<defined[?]";
 		},
 		
 		// every reserved word, being a value is a..
-		{  name = "keywords.reserved-words.pseudo-variables.ruby";
+		{  name = "keyword.reserved-words.pseudo-variables.ruby";
          match = "\\<(nil|true|false|__(FILE|LINE)__|self)\\>";
 		},
 		
 		// everything beeing a method but having a special funtion is a..
-		{  name = "keywords.functions.special-methods.ruby";
+		{  name = "keyword.function.special-methods.ruby";
 		   match = "\\<(initialize|new|loop|include|require|raise|attr_reader|attr_writer|attr_accessor|attr|catch|throw|private|public|protected)\\>";
 		},
 		
 		
-		{  name = "variables.readwrite.instance.ruby";
+		{  name = "variable.readwrite.instance.ruby";
 		   match = "@[a-zA-Z_]\\w*";
 		},
       
-		{  name = "variables.readwrite.class.ruby";
+		{  name = "variable.readwrite.class.ruby";
 		   match = "@@[a-zA-Z_]\\w*";
 		},
       
-		{  name = "variables.readwrite.globals.ruby";
+		{  name = "variable.readwrite.globals.ruby";
 		   match = "\\$[a-zA-Z_]\\w*";
 		},
 		
-		{  name = "variables.readwrite.globals.pre-defined.ruby";
+		{  name = "variable.readwrite.globals.pre-defined.ruby";
 		   match = "\\$(!|@|&|`|'|\\+|\\d|~|=|/|\\\\|,|;|\\.|<|>|_|\\*|\\$|\\?|:|\"|-[0adFiIlpv])";
 		},
 		
 		// just catch it and dont set any colors..
-		{  name = "variables.constants.ruby";
+		{  name = "variable.constants.ruby";
 		   match = "\\<[A-Z]\\w*\\>";
 		},
 		
 		
-		// { name = "keywords.constants.regexp.ruby"; match = "\\$(`|\\.|')"; fontStyle = ( bold ); },
+		// { name = "keyword.constants.regexp.ruby"; match = "\\$(`|\\.|')"; fontStyle = ( bold ); },
 
 		{
 		    name = "declaration.function.method-with-arguments.ruby";
 		    match = "^\\s*(def)\\s*([.a-zA-Z0-9_?!]+)\\s*(\\((.*)\\))?";
-    	    captures = {    1 = { name = "keywords.reserved-words.blocking.ruby"; };
+    	    captures = {    1 = { name = "keyword.reserved-words.blocking.ruby"; };
     	                    2 = { name = "name"; };
     		                4 = { name = "argument"; }; };
 		},
 
 /*		{ 
-			name = "keywords.functions.identifier.ruby"; match = "[a-z][a-zA-Z0-9_?!]*";
+			name = "keyword.function.identifier.ruby"; match = "[a-z][a-zA-Z0-9_?!]*";
 			//foregroundColor = "#FF3333"; 
 		},*/
 
 		{ 
-			name = "constants.numeric.ruby"; 
+			name = "constant.numeric.ruby"; 
 //			match = "(\\<((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\>)|((?<!\\w)\\?\\S)"; 
 			match = "(\\<((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\>)"; 
 		},
 			
-/*		{ name = "keywords.class.ruby"; match = "^\\s*(class)\\s+([.a-zA-Z0-9_:]+(\\s*<\\s*[.a-zA-Z0-9_:]+)?)";
+/*		{ name = "keyword.class.ruby"; match = "^\\s*(class)\\s+([.a-zA-Z0-9_:]+(\\s*<\\s*[.a-zA-Z0-9_:]+)?)";
 			"foregroundColor[1]" = "#CC7833";
 			"fontStyle[2]" = ( underline );
 			"fontStyle[3]" = ( italic );
 		},*/
 
-		/*{ name = "keywords.variables.symbol.ruby"; match = "\\s+(:[a-zA-Z_?!<>]+|:'.*?'?)";
+		/*{ name = "keyword.variable.symbol.ruby"; match = "\\s+(:[a-zA-Z_?!<>]+|:'.*?'?)";
 			"foregroundColor[1]" = "#3387CC";
 		},*/
 
-		{ name = "constants.symbols.single-quoted.ruby"; begin = ":'"; end = "'"; swallow = "\\\\['\\\\]";},
-		{ name = "constants.symbols.double-quoted.ruby"; begin = ":\""; end = "\""; swallow = "\\\\.";
+		{ name = "constant.symbols.single-quoted.ruby"; begin = ":'"; end = "'"; swallow = "\\\\['\\\\]";},
+		{ name = "constant.symbols.double-quoted.ruby"; begin = ":\""; end = "\""; swallow = "\\\\.";
 		  patterns = (
-		    { name = "strings.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); }
+		    { name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); }
 		  );
 		},
 
@@ -142,13 +142,13 @@
 			single quoted string (does not allow interpolation):
 			'hello #{42} world'   #->  "hello #{42} world"
 			*/
-			name = "strings.single-quoted.ruby"; 
+			name = "string.single-quoted.ruby"; 
 			begin = "'"; 
 			end = "'"; 
 			swallow = "\\\\."; 
 			patterns = (
 				{ 
-					name = "strings.escaped.chars.ruby"; 
+					name = "string.escaped.chars.ruby"; 
 					match = "\\\\'"; 
 				}
 			);
@@ -162,19 +162,19 @@
 	    	"hello #@@cvar world" #->  "hello 42 world"
 	    	"hello #$gvar world"  #->  "hello 42 world"
 	    	*/
-			name = "strings.double-quoted.ruby"; 
+			name = "string.double-quoted.ruby"; 
 			begin = "\""; 
 			end = "\""; 
 			swallow = "\\\\."; 
 	    	patterns = (
-		    	{ name = "strings.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+		    	{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
 /*	        	{ 
-					name = "strings.interpolation.ruby"; 
+					name = "string.interpolation.ruby"; 
 					match = "#(\\{([^\\}]*)\\}|@{1,2}[a-zA-Z0-9_]+|[$][a-zA-Z0-9_]+)"; 
 					foregroundColor = "#aaaaaa"; 
 				},
 */				{ 
-					name = "strings.escaped.chars.ruby"; 
+					name = "string.escaped.chars.ruby"; 
 					match = "\\\\."; 
 				}
 	    	);
@@ -185,12 +185,12 @@
 	    	literal string (allows for interpolation):
 	    	%{x#{4}x}   #-> "x4x"
 	    	*/
-	    	name = "strings.double-quoted.ruby.mod"; 
+	    	name = "string.double-quoted.ruby.mod"; 
 	    	begin = "%\\{"; 
 	    	end = "\\}";  
 	    	patterns = (
 	        	{
-	    			name = "strings.interpolation.ruby"; 
+	    			name = "string.interpolation.ruby"; 
 	    			match = "#\\{([^\\}]*)\\}"; 
 	    		}
 	      	);
@@ -201,17 +201,17 @@
 	    	execute string (allows for interpolation):
 	    	`ls`   #-> ".\n..\nREADME\nmain.rb"
 	    	*/
-	    	name = "strings.backticked.ruby"; 
+	    	name = "string.backticked.ruby"; 
 	    	begin = "`"; 
 	    	end = "`"; 
 	    	swallow = "\\\\."; 
 	    	patterns = (
 	        	{ 
-	    			name = "strings.backticked.interpolation.ruby"; 
+	    			name = "string.backticked.interpolation.ruby"; 
 	    			match = "#\\{([^\\}]*)\\}"; 
 	    		},
 	    		{ 
-	    			name = "strings.backticked.escaped.chars.ruby"; 
+	    			name = "string.backticked.escaped.chars.ruby"; 
 	    			match = "\\\\."; 
 	    		}
 	    	);
@@ -222,22 +222,22 @@
 			regular expressions (normal):
 			/<regexp>/<options>
 			*/
-			name = "strings.regexp.ruby.classic"; 
+			name = "string.regexp.ruby.classic"; 
 			begin = "/(?=\\S.*/)"; 
 			end = "/[eimnosux]*";
 			swallow = "\\\\."; 
 	    	patterns = (
 	        	{
-					name = "strings.interpolation.ruby"; 
+					name = "string.interpolation.ruby"; 
 					match = "#\\{([^\\}]*)\\}"; 
 				},
 	        	/*{ 
-					name = "strings.regexp.escaped.slash.ruby"; 
+					name = "string.regexp.escaped.slash.ruby"; 
 					match = "\\\\/"; 
 					foregroundColor = "#CCCC33"; 
 				},*/
 				{ 
-					name = "strings.escaped.chars.ruby"; 
+					name = "string.escaped.chars.ruby"; 
 					match = "\\\\."; 
 				}
 	    	);
@@ -248,24 +248,24 @@
 	    	regular expressions (literal):
 	    	%r{<regexp>}<options>
 	    	*/
-			name = "strings.regexp.ruby.mod-r"; 
+			name = "string.regexp.ruby.mod-r"; 
 			begin = "%r\\{"; 
 			end = "\\}[eimnosux]*";  
 	    	patterns = (
 	        	{ 
-					name = "strings.regexp.escaped.chars.ruby"; 
+					name = "string.regexp.escaped.chars.ruby"; 
 					match = "\\."; 
 				},
 	       		{ 
-					name = "strings.regexp.arbitrary-repitition.ruby"; 
+					name = "string.regexp.arbitrary-repitition.ruby"; 
 					match = "\\{\\d+(,\\d+)?\\}"; 
 				},
 	        	{ 
-					name = "strings.interpolation.ruby"; 
+					name = "string.interpolation.ruby"; 
 					match = "#\\{([^\\}]*)\\}"; 
 				},
 	        	{ 
-					name = "strings.regexp.escaped.slash.ruby"; 
+					name = "string.regexp.escaped.slash.ruby"; 
 					match = "\\\\/"; 
 				}
 	    	);
@@ -279,17 +279,17 @@
 			
 			%(#{42})  #->  "42"
 			*/
-			name = "strings.literals.upper.ruby";
+			name = "string.literals.upper.ruby";
 			begin = "%[QWSR]?\\("; 
 			end = "\\)"; 
 			swallow = "\\\\."; 
 	    	patterns = (
 	        	{
-					name = "strings.interpolation.ruby"; 
+					name = "string.interpolation.ruby"; 
 					match = "#\\{([^\\}]*)\\}"; 
 				},
 				{ 
-					name = "strings.escaped.chars.ruby"; 
+					name = "string.escaped.chars.ruby"; 
 					match = "\\\\."; 
 				}
 	    	);
@@ -301,13 +301,13 @@
 			%w(a b#{42}c) #-> ["a", "b#{42}c"]
 			%w(ab c\nd \\\)ef)
 			*/
-			name = "strings.literals.lower.ruby"; 
+			name = "string.literals.lower.ruby"; 
 			begin = "%[qws]\\("; 
 			end = "\\)"; 
 			swallow = "\\\\."; 
 			patterns = (
 				{ 
-					name = "strings.escaped.chars.ruby"; 
+					name = "string.escaped.chars.ruby"; 
 					match = "\\\\\\)"; 
 				}
 			);
@@ -334,7 +334,7 @@
             :+  :-  :&  :|  :~  :=~  :==  :===  :`  :[]=  :[]  :/  :-@
             :+@  :@aaa  :@@bbb
 	    	*/
-			name = "constants.symbols.ruby";
+			name = "constant.symbols.ruby";
 			/*
 			explained:
 			    1: generic symbols with ?,! or = behind, but not with => behind
@@ -357,7 +357,7 @@
 			/*
 			multiline comments:
 			*/
-			name = "comments.block.embedded-docs.ruby"; 
+			name = "comment.block.embedded-docs.ruby"; 
 			begin = "^=begin"; 
 			end = "^=end"; 
 			swallow = "\\\\."; 
@@ -368,7 +368,7 @@
 			end of line comments:
 			im code  #  im comment
 			*/
-			name = "comments.line.ruby"; 
+			name = "comment.line.ruby"; 
 			match = "#.*$"; 
 			"fontStyle" = ( italic ); 
 		}

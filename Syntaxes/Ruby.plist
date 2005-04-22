@@ -2,7 +2,7 @@
 	name = "Ruby";
 	scopeName = "source.ruby";
 	firstLineMatch = "^#!/.*\\<ruby\\>";
-	fileTypes = ( rb, Rakefile, rake );
+	fileTypes = ( rb, Rakefile, rake, cgi, fcgi );
 	
 	/*
 	TODO: unresolved issues
@@ -52,27 +52,27 @@
 
 	patterns = (
 	   // everything being a reserved word, not a value and needing a 'end' is a..
-		{  name = "keyword.reserved-words.blocking.ruby";
+		{  name = "keyword.reserved-word.blocking.ruby";
 		   match = "\\<(BEGIN|begin|case|class|do|else|elsif|END|end|ensure|for|if|in|module|rescue|then|unless|until|when|while)\\>";
 		},
 		
 		// as above, just doesn't need a 'end' and does a logic operation
-		{  name = "keyword.reserved-words.logical.ruby";
+		{  name = "keyword.reserved-word.logical.ruby";
 		   match = "\\<(and|not|or)\\>";
 		},
 		
 		// just as above but being not a logical operation
-		{  name = "keyword.reserved-words.pseudo-methods.ruby";
+		{  name = "keyword.reserved-word.pseudo-method.ruby";
 		   match = "\\<(alias|alias_method|break|next|redo|retry|return|super|undef|yield\\>)|\\<defined[?]";
 		},
 		
 		// every reserved word, being a value is a..
-		{  name = "keyword.reserved-words.pseudo-variables.ruby";
+		{  name = "keyword.reserved-word.pseudo-variable.ruby";
          match = "\\<(nil|true|false|__(FILE|LINE)__|self)\\>";
 		},
 		
 		// everything beeing a method but having a special funtion is a..
-		{  name = "keyword.function.special-methods.ruby";
+		{  name = "keyword.function.special-method.ruby";
 		   match = "\\<(initialize|new|loop|include|require|raise|attr_reader|attr_writer|attr_accessor|attr|catch|throw|private|public|protected)\\>";
 		},
 		
@@ -85,16 +85,15 @@
 		   match = "@@[a-zA-Z_]\\w*";
 		},
       
-		{  name = "variable.readwrite.globals.ruby";
+		{  name = "variable.readwrite.global.ruby";
 		   match = "\\$[a-zA-Z_]\\w*";
 		},
 		
-		{  name = "variable.readwrite.globals.pre-defined.ruby";
+		{  name = "variable.readwrite.global.pre-defined.ruby";
 		   match = "\\$(!|@|&|`|'|\\+|\\d|~|=|/|\\\\|,|;|\\.|<|>|_|\\*|\\$|\\?|:|\"|-[0adFiIlpv])";
 		},
 		
-		// just catch it and dont set any colors..
-		{  name = "variable.constants.ruby";
+		{  name = "variable.constant.ruby";
 		   match = "\\<[A-Z]\\w*\\>";
 		},
 		
@@ -104,7 +103,7 @@
 		{
 		    name = "declaration.function.method-with-arguments.ruby";
 		    match = "^\\s*(def)\\s*([.a-zA-Z0-9_?!]+)\\s*(\\((.*)\\))?";
-    	    captures = {    1 = { name = "keyword.reserved-words.blocking.ruby"; };
+    	    captures = {    1 = { name = "keyword.reserved-word.blocking.ruby"; };
     	                    2 = { name = "name"; };
     		                4 = { name = "argument"; }; };
 		},
@@ -130,8 +129,8 @@
 			"foregroundColor[1]" = "#3387CC";
 		},*/
 
-		{ name = "constant.symbols.single-quoted.ruby"; begin = ":'"; end = "'"; swallow = "\\\\['\\\\]";},
-		{ name = "constant.symbols.double-quoted.ruby"; begin = ":\""; end = "\""; swallow = "\\\\.";
+		{ name = "constant.symbol.single-quoted.ruby"; begin = ":'"; end = "'"; swallow = "\\\\['\\\\]";},
+		{ name = "constant.symbol.double-quoted.ruby"; begin = ":\""; end = "\""; swallow = "\\\\.";
 		  patterns = (
 		    { name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); }
 		  );
@@ -148,7 +147,7 @@
 			swallow = "\\\\."; 
 			patterns = (
 				{ 
-					name = "string.escaped.chars.ruby"; 
+					name = "string.escaped.char.ruby"; 
 					match = "\\\\'"; 
 				}
 			);
@@ -174,7 +173,7 @@
 					foregroundColor = "#aaaaaa"; 
 				},
 */				{ 
-					name = "string.escaped.chars.ruby"; 
+					name = "string.escaped.char.ruby"; 
 					match = "\\\\."; 
 				}
 	    	);
@@ -211,7 +210,7 @@
 	    			match = "#\\{([^\\}]*)\\}"; 
 	    		},
 	    		{ 
-	    			name = "string.backticked.escaped.chars.ruby"; 
+	    			name = "string.backticked.escaped.char.ruby"; 
 	    			match = "\\\\."; 
 	    		}
 	    	);
@@ -237,7 +236,7 @@
 					foregroundColor = "#CCCC33"; 
 				},*/
 				{ 
-					name = "string.escaped.chars.ruby"; 
+					name = "string.escaped.char.ruby"; 
 					match = "\\\\."; 
 				}
 	    	);
@@ -253,7 +252,7 @@
 			end = "\\}[eimnosux]*";  
 	    	patterns = (
 	        	{ 
-					name = "string.regexp.escaped.chars.ruby"; 
+					name = "string.regexp.escaped.char.ruby"; 
 					match = "\\."; 
 				},
 	       		{ 
@@ -279,7 +278,7 @@
 			
 			%(#{42})  #->  "42"
 			*/
-			name = "string.literals.upper.ruby";
+			name = "string.literal.upper.ruby";
 			begin = "%[QWSR]?\\("; 
 			end = "\\)"; 
 			swallow = "\\\\."; 
@@ -289,7 +288,7 @@
 					match = "#\\{([^\\}]*)\\}"; 
 				},
 				{ 
-					name = "string.escaped.chars.ruby"; 
+					name = "string.escaped.char.ruby"; 
 					match = "\\\\."; 
 				}
 	    	);
@@ -301,13 +300,13 @@
 			%w(a b#{42}c) #-> ["a", "b#{42}c"]
 			%w(ab c\nd \\\)ef)
 			*/
-			name = "string.literals.lower.ruby"; 
+			name = "string.literal.lower.ruby"; 
 			begin = "%[qws]\\("; 
 			end = "\\)"; 
 			swallow = "\\\\."; 
 			patterns = (
 				{ 
-					name = "string.escaped.chars.ruby"; 
+					name = "string.escaped.char.ruby"; 
 					match = "\\\\\\)"; 
 				}
 			);
@@ -334,7 +333,7 @@
             :+  :-  :&  :|  :~  :=~  :==  :===  :`  :[]=  :[]  :/  :-@
             :+@  :@aaa  :@@bbb
 	    	*/
-			name = "constant.symbols.ruby";
+			name = "constant.symbol.ruby";
 			/*
 			explained:
 			    1: generic symbols with ?,! or = behind, but not with => behind
@@ -357,7 +356,7 @@
 			/*
 			multiline comments:
 			*/
-			name = "comment.block.embedded-docs.ruby"; 
+			name = "comment.block.embedded-doc.ruby"; 
 			begin = "^=begin"; 
 			end = "^=end"; 
 			swallow = "\\\\."; 

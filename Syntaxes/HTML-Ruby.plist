@@ -29,7 +29,7 @@
 			backgroundColor = "#000000";
 			elementForegroundColor = "#ffffff";
 			patterns = (
-				{ include = "Ruby"; }
+				{ include = "source.ruby.rails"; }
 			);
 		},
 

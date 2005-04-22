@@ -50,58 +50,46 @@
       ( "(", ")" ), ( "[", "]" ), ( "{", "}" )
   );
 
-	foregroundColor = "#ffffff";
-	backgroundColor = "#000000";
-
 	patterns = (
 	   // everything being a reserved word, not a value and needing a 'end' is a..
 		{  name = "keywords.reserved-words.blocking.ruby";
-		   foregroundColor = "#CC7833";
-		   match = "\\<(BEGIN|begin|case|class|def|do|else|elsif|END|end|ensure|for|if|in|module|rescue|then|unless|until|when|while)\\>";
+		   match = "\\<(BEGIN|begin|case|class|do|else|elsif|END|end|ensure|for|if|in|module|rescue|then|unless|until|when|while)\\>";
 		},
 		
 		// as above, just doesn't need a 'end' and does a logic operation
 		{  name = "keywords.reserved-words.logical.ruby";
-		   foregroundColor = "#CC7833";
 		   match = "\\<(and|not|or)\\>";
 		},
 		
 		// just as above but being not a logical operation
 		{  name = "keywords.reserved-words.pseudo-methods.ruby";
-		   foregroundColor = "#CC7833";
 		   match = "\\<(alias|alias_method|break|next|redo|retry|return|super|undef|yield\\>)|\\<defined[?]";
 		},
 		
 		// every reserved word, being a value is a..
 		{  name = "keywords.reserved-words.pseudo-variables.ruby";
-		   foregroundColor = "#CC7833";
          match = "\\<(nil|true|false|__(FILE|LINE)__|self)\\>";
 		},
 		
 		// everything beeing a method but having a special funtion is a..
 		{  name = "keywords.functions.special-methods.ruby";
-		   foregroundColor = "#CC7833";
 		   match = "\\<(initialize|new|loop|include|require|raise|attr_reader|attr_writer|attr_accessor|attr|catch|throw|private|public|protected)\\>";
 		},
 		
 		
-		{  name = "variables.instance-variables.ruby";
-		   foregroundColor = "#e9c5a7";
+		{  name = "variables.readwrite.instance.ruby";
 		   match = "@[a-zA-Z_]\\w*";
 		},
       
-		{  name = "variables.class-variables.ruby";
-		   foregroundColor = "#e9c5a7";
+		{  name = "variables.readwrite.class.ruby";
 		   match = "@@[a-zA-Z_]\\w*";
 		},
       
-		{  name = "variables.globals.ruby";
-		   foregroundColor = "#e9c5a7";
+		{  name = "variables.readwrite.globals.ruby";
 		   match = "\\$[a-zA-Z_]\\w*";
 		},
 		
-		{  name = "variables.globals.pre-defined.ruby";
-		   foregroundColor = "#e9c5a7";
+		{  name = "variables.readwrite.globals.pre-defined.ruby";
 		   match = "\\$(!|@|&|`|'|\\+|\\d|~|=|/|\\\\|,|;|\\.|<|>|_|\\*|\\$|\\?|:|\"|-[0adFiIlpv])";
 		},
 		
@@ -113,40 +101,39 @@
 		
 		// { name = "keywords.constants.regexp.ruby"; match = "\\$(`|\\.|')"; fontStyle = ( bold ); },
 
-		{ name = "keywords.functions.method-with-arguments.ruby"; match = "^\\s*(def\\>)\\s*([.a-zA-Z_?!]+)\\s*\\((.*)\\)";
-			"foregroundColor[1]" = "#CC7833";
-			"fontStyle[3]" = ( italic );
+		{
+		    name = "declaration.function.method-with-arguments.ruby";
+		    match = "^\\s*(def)\\s*([.a-zA-Z0-9_?!]+)\\s*(\\((.*)\\))?";
+    	    captures = {    1 = { name = "keywords.reserved-words.blocking.ruby"; };
+    	                    2 = { name = "name"; };
+    		                4 = { name = "argument"; }; };
 		},
 
-		{ name = "keywords.functions.method-without-arguments.ruby"; match = "^\\s*(def\\>)\\s*([.a-zA-Z_?!]+)";
-			"foregroundColor[1]" = "#CC7833";
-		},
-
-		{ 
+/*		{ 
 			name = "keywords.functions.identifier.ruby"; match = "[a-z][a-zA-Z0-9_?!]*";
 			//foregroundColor = "#FF3333"; 
-		},
+		},*/
 
 		{ 
 			name = "constants.numeric.ruby"; 
-			match = "(\\<((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\>)|((?<!\\w)\\?\\S)"; 
-			foregroundColor = "#3387CC"; 
+//			match = "(\\<((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\>)|((?<!\\w)\\?\\S)"; 
+			match = "(\\<((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\>)"; 
 		},
 			
-		{ name = "keywords.class.ruby"; match = "^\\s*(class)\\s+([.a-zA-Z0-9_:]+(\\s*<\\s*[.a-zA-Z0-9_:]+)?)";
+/*		{ name = "keywords.class.ruby"; match = "^\\s*(class)\\s+([.a-zA-Z0-9_:]+(\\s*<\\s*[.a-zA-Z0-9_:]+)?)";
 			"foregroundColor[1]" = "#CC7833";
 			"fontStyle[2]" = ( underline );
 			"fontStyle[3]" = ( italic );
-		},
+		},*/
 
 		/*{ name = "keywords.variables.symbol.ruby"; match = "\\s+(:[a-zA-Z_?!<>]+|:'.*?'?)";
 			"foregroundColor[1]" = "#3387CC";
 		},*/
 
-		{ name = "keywords.variables,symbol.single-quoted.ruby"; begin = ":'"; end = "'"; swallow = "\\\\['\\\\]"; foregroundColor = "#3387CC"; },
-		{ name = "keywords.variables.symbol.double-quoted.ruby"; begin = ":\""; end = "\""; swallow = "\\\\."; foregroundColor = "#3387CC";
+		{ name = "constants.symbols.single-quoted.ruby"; begin = ":'"; end = "'"; swallow = "\\\\['\\\\]";},
+		{ name = "constants.symbols.double-quoted.ruby"; begin = ":\""; end = "\""; swallow = "\\\\.";
 		  patterns = (
-		    { name = "strings.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); foregroundColor = "#aaaaaa"; }
+		    { name = "strings.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); }
 		  );
 		},
 
@@ -159,12 +146,10 @@
 			begin = "'"; 
 			end = "'"; 
 			swallow = "\\\\."; 
-			foregroundColor = "#66CC33"; 
 			patterns = (
 				{ 
 					name = "strings.escaped.chars.ruby"; 
 					match = "\\\\'"; 
-					foregroundColor = "#aaaaaa"; 
 				}
 			);
 		},
@@ -181,9 +166,8 @@
 			begin = "\""; 
 			end = "\""; 
 			swallow = "\\\\."; 
-			foregroundColor = "#66CC33";
 	    	patterns = (
-		    	{ name = "strings.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); foregroundColor = "#aaaaaa"; },
+		    	{ name = "strings.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
 /*	        	{ 
 					name = "strings.interpolation.ruby"; 
 					match = "#(\\{([^\\}]*)\\}|@{1,2}[a-zA-Z0-9_]+|[$][a-zA-Z0-9_]+)"; 
@@ -192,7 +176,6 @@
 */				{ 
 					name = "strings.escaped.chars.ruby"; 
 					match = "\\\\."; 
-					foregroundColor = "#aaaaaa"; 
 				}
 	    	);
 	    },
@@ -205,12 +188,10 @@
 	    	name = "strings.double-quoted.ruby.mod"; 
 	    	begin = "%\\{"; 
 	    	end = "\\}";  
-	    	foregroundColor = "#66CC33";
 	    	patterns = (
 	        	{
 	    			name = "strings.interpolation.ruby"; 
 	    			match = "#\\{([^\\}]*)\\}"; 
-	    			foregroundColor = "#aaaaaa"; 
 	    		}
 	      	);
 	    },
@@ -220,22 +201,18 @@
 	    	execute string (allows for interpolation):
 	    	`ls`   #-> ".\n..\nREADME\nmain.rb"
 	    	*/
-	    	name = "strings.back-quoted.ruby"; 
+	    	name = "strings.backticked.ruby"; 
 	    	begin = "`"; 
 	    	end = "`"; 
 	    	swallow = "\\\\."; 
-	    	foregroundColor = "#000000";
-	    	backgroundColor = "#CCCC33";
 	    	patterns = (
 	        	{ 
-	    			name = "strings.interpolation.ruby"; 
+	    			name = "strings.backticked.interpolation.ruby"; 
 	    			match = "#\\{([^\\}]*)\\}"; 
-	    			foregroundColor = "#555555"; 
 	    		},
 	    		{ 
-	    			name = "strings.escaped.chars.ruby"; 
+	    			name = "strings.backticked.escaped.chars.ruby"; 
 	    			match = "\\\\."; 
-	    			foregroundColor = "#555555"; 
 	    		}
 	    	);
 	    },
@@ -249,12 +226,10 @@
 			begin = "/(?=\\S.*/)"; 
 			end = "/[eimnosux]*";
 			swallow = "\\\\."; 
-			foregroundColor = "#CCCC33";
 	    	patterns = (
 	        	{
 					name = "strings.interpolation.ruby"; 
 					match = "#\\{([^\\}]*)\\}"; 
-					foregroundColor = "#aaaaaa"; 
 				},
 	        	/*{ 
 					name = "strings.regexp.escaped.slash.ruby"; 
@@ -264,7 +239,6 @@
 				{ 
 					name = "strings.escaped.chars.ruby"; 
 					match = "\\\\."; 
-					foregroundColor = "#aaaaaa"; 
 				}
 	    	);
 	    },
@@ -277,7 +251,6 @@
 			name = "strings.regexp.ruby.mod-r"; 
 			begin = "%r\\{"; 
 			end = "\\}[eimnosux]*";  
-			foregroundColor = "#CCCC33";
 	    	patterns = (
 	        	{ 
 					name = "strings.regexp.escaped.chars.ruby"; 
@@ -290,12 +263,10 @@
 	        	{ 
 					name = "strings.interpolation.ruby"; 
 					match = "#\\{([^\\}]*)\\}"; 
-					foregroundColor = "#aaaaaa"; 
 				},
 	        	{ 
 					name = "strings.regexp.escaped.slash.ruby"; 
 					match = "\\\\/"; 
-					foregroundColor = "#CCCC33"; 
 				}
 	    	);
 	    },
@@ -308,21 +279,18 @@
 			
 			%(#{42})  #->  "42"
 			*/
-			name = "strings.upper-literal.ruby";
+			name = "strings.literals.upper.ruby";
 			begin = "%[QWSR]?\\("; 
 			end = "\\)"; 
 			swallow = "\\\\."; 
-			foregroundColor = "#CCCC33";
 	    	patterns = (
 	        	{
 					name = "strings.interpolation.ruby"; 
 					match = "#\\{([^\\}]*)\\}"; 
-					foregroundColor = "#aaaaaa"; 
 				},
 				{ 
 					name = "strings.escaped.chars.ruby"; 
 					match = "\\\\."; 
-					foregroundColor = "#aaaaaa"; 
 				}
 	    	);
 	    },
@@ -333,16 +301,14 @@
 			%w(a b#{42}c) #-> ["a", "b#{42}c"]
 			%w(ab c\nd \\\)ef)
 			*/
-			name = "strings.lower-literal.ruby"; 
+			name = "strings.literals.lower.ruby"; 
 			begin = "%[qws]\\("; 
 			end = "\\)"; 
 			swallow = "\\\\."; 
-			foregroundColor = "#CCCC33";
 			patterns = (
 				{ 
 					name = "strings.escaped.chars.ruby"; 
 					match = "\\\\\\)"; 
-					foregroundColor = "#aaaaaa"; 
 				}
 			);
 	    },
@@ -368,7 +334,7 @@
             :+  :-  :&  :|  :~  :=~  :==  :===  :`  :[]=  :[]  :/  :-@
             :+@  :@aaa  :@@bbb
 	    	*/
-			name = "keywords.variables.symbol.ruby";
+			name = "constants.symbols.ruby";
 			/*
 			explained:
 			    1: generic symbols with ?,! or = behind, but not with => behind
@@ -395,7 +361,6 @@
 			begin = "^=begin"; 
 			end = "^=end"; 
 			swallow = "\\\\."; 
-			foregroundColor = "#9933CC";
 		},
 			
 		{
@@ -406,7 +371,6 @@
 			name = "comments.line.ruby"; 
 			match = "#.*$"; 
 			"fontStyle" = ( italic ); 
-			foregroundColor = "#9933CC"; 
 		}
 	);
 	uuid = "E00B62AC-6B1C-11D9-9B1F-000D93589AF6";

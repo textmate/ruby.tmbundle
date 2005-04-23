@@ -104,8 +104,8 @@
 		    name = "declaration.function.method-with-arguments.ruby";
 		    match = "^\\s*(def)\\s*([.a-zA-Z0-9_?!]+)\\s*(\\((.*)\\))?";
     	    captures = {    1 = { name = "keyword.reserved-word.blocking.ruby"; };
-    	                    2 = { name = "name"; };
-    		                4 = { name = "argument"; }; };
+    	                    2 = { name = "function-name"; };
+    		                4 = { name = "function-argument"; }; };
 		},
 
 /*		{ 
@@ -119,11 +119,18 @@
 			match = "(\\<((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\>)"; 
 		},
 			
-/*		{ name = "keyword.class.ruby"; match = "^\\s*(class)\\s+([.a-zA-Z0-9_:]+(\\s*<\\s*[.a-zA-Z0-9_:]+)?)";
-			"foregroundColor[1]" = "#CC7833";
+		{
+		    name = "declaration.class.ruby";
+		    match = "^\\s*(class)\\s+([.a-zA-Z0-9_:]+(\\s*<\\s*[.a-zA-Z0-9_:]+)?)";
+		    captures = {
+		        1 = { name = "keyword.reserved-word.blocking.ruby"; };
+		        2 = { name = "class-name"; };
+		        3 = { name = "class-inheritance"; };
+		    };
+/*			"foregroundColor[1]" = "#CC7833";
 			"fontStyle[2]" = ( underline );
 			"fontStyle[3]" = ( italic );
-		},*/
+*/		},
 
 		/*{ name = "keyword.variable.symbol.ruby"; match = "\\s+(:[a-zA-Z_?!<>]+|:'.*?'?)";
 			"foregroundColor[1]" = "#3387CC";

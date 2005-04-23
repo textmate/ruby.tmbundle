@@ -14,6 +14,8 @@
 	<string>Run Ruby</string>
 	<key>output</key>
 	<string>separateWindow</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>uuid</key>
 	<string>8C102BE9-6E49-11D9-A933-000D93589AF6</string>
 </dict>

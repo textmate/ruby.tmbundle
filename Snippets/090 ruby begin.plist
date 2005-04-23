@@ -4,12 +4,12 @@
 <dict>
 	<key>content</key>
 	<string>begin
-  $1
+	${1:# code...}
 rescue ${2:Exception} =&gt; ${3:e}
-  $0
+	$0
 end</string>
 	<key>name</key>
-	<string>begin</string>
+	<string>begin .. rescue .. end (begin)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

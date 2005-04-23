@@ -4,10 +4,12 @@
 <dict>
 	<key>content</key>
 	<string>class ${1:class_name}
-  $0
+	${0:# code...}
 end</string>
 	<key>name</key>
-	<string>class end</string>
+	<string>class .. end (class)</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
 	<string>class</string>
 	<key>uuid</key>

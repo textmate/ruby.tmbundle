@@ -17,6 +17,8 @@ ri -Tf html "$TM_SELECTED_TEXT"
 	<string>Lookup Ruby Docs</string>
 	<key>output</key>
 	<string>showAsHTML</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>uuid</key>
 	<string>013EE699-7FD7-11D9-8343-000A95A89C98</string>
 </dict>

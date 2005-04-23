@@ -23,6 +23,8 @@ print( ' '+((r.class != Hash and r.class != Array and r.respond_to? :to_s) ?
 	<string>Execute Line with Ruby</string>
 	<key>output</key>
 	<string>afterSelectedText</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>uuid</key>
 	<string>EE5F1FB2-6C02-11D9-92BA-0011242E4184</string>
 </dict>

@@ -4,12 +4,14 @@
 <dict>
 	<key>content</key>
 	<string>do
-  $0
+	$0
 end</string>
 	<key>keyEquivalent</key>
 	<string></string>
 	<key>name</key>
-	<string>do .. end</string>
+	<string>do .. end (do)</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
 	<string>do</string>
 	<key>uuid</key>

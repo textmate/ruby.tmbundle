@@ -4,11 +4,13 @@
 <dict>
 	<key>content</key>
 	<string>case ${1:object}
-  when ${2:condition}
-    $0
+	when ${2:condition}
+		${0:# code...}
 end</string>
 	<key>name</key>
-	<string>case</string>
+	<string>case .. end (case)</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
 	<string>case</string>
 	<key>uuid</key>

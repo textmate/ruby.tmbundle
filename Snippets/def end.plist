@@ -4,10 +4,10 @@
 <dict>
 	<key>content</key>
 	<string>def ${1:method_name}
-	$0
+	${0:# code...}
 end</string>
 	<key>name</key>
-	<string>def end</string>
+	<string>def .. end (def)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

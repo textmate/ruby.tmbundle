@@ -4,10 +4,12 @@
 <dict>
 	<key>content</key>
 	<string>for ${1:element} in ${2:collection}
-  ${1:element}.$0
+	${1:element}.$0
 end</string>
 	<key>name</key>
-	<string>for element in collection</string>
+	<string>for .. in .. end (forin)</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
 	<string>forin</string>
 	<key>uuid</key>

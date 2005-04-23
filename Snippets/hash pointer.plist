@@ -8,6 +8,8 @@
 	<string>^l</string>
 	<key>name</key>
 	<string>hash pointer</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>uuid</key>
 	<string>B9E3A6DF-875D-11D9-897C-000393CBCE2E</string>
 </dict>

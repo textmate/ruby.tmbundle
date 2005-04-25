@@ -8,6 +8,8 @@
 	<string>collect element (collect)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
 	<string>collect</string>
 	<key>uuid</key>

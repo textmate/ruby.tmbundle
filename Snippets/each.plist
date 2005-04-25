@@ -8,6 +8,8 @@
 	<string>each element (each)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
 	<string>each</string>
 	<key>uuid</key>

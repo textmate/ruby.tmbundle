@@ -8,6 +8,8 @@
 	<string>select element (select)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
 	<string>select</string>
 	<key>uuid</key>

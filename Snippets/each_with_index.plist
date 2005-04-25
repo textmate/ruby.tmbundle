@@ -8,6 +8,8 @@
 	<string>each_with_index (each_with_index)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
 	<string>each_with_index</string>
 	<key>uuid</key>

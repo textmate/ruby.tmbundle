@@ -8,6 +8,8 @@
 	<string>inject object (inject)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
 	<string>inject</string>
 	<key>uuid</key>

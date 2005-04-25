@@ -8,6 +8,8 @@
 	<string>reject element (reject)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
 	<string>reject</string>
 	<key>uuid</key>

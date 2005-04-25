@@ -116,7 +116,7 @@
 		{ 
 			name = "constant.numeric.ruby"; 
 //			match = "(\\<((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\>)|((?<!\\w)\\?\\S)"; 
-			match = "(\\<((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\>)"; 
+			match = "\\<(0[xX][0-9A-Fa-f](?>_?[0-9A-Fa-f])*|\\d(?>_?\\d)*(\\.(?>_?\\d)*)?([eE][-+]?(?>_?\\d)*)?)\\>"; 
 		},
 			
 		{
@@ -213,11 +213,11 @@
 	    	swallow = "\\\\."; 
 	    	patterns = (
 	        	{ 
-	    			name = "string.backticked.interpolation.ruby"; 
+	    			name = "string.interpolation.ruby"; 
 	    			match = "#\\{([^\\}]*)\\}"; 
 	    		},
 	    		{ 
-	    			name = "string.backticked.escaped.char.ruby"; 
+	    			name = "string.escaped.char.ruby"; 
 	    			match = "\\\\."; 
 	    		}
 	    	);
@@ -335,7 +335,7 @@
 	    { 
 	    	/* 
 			symbols:
-			   :BIG  :aBC  :AbC9  :symb  :_asd  :_9sd  :__=  :f00bar  :abc!
+		    :BIG  :aBC  :AbC9  :symb  :_asd  :_9sd  :__=  :f00bar  :abc!
             :abc?  :abc=  :<<  :<  :>>  :>  :<=>  :<=  :>=  :%  :*  :**
             :+  :-  :&  :|  :~  :=~  :==  :===  :`  :[]=  :[]  :/  :-@
             :+@  :@aaa  :@@bbb

@@ -10,6 +10,8 @@ end</string>
 	<string>for .. in .. end (forin)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
 	<string>forin</string>
 	<key>uuid</key>

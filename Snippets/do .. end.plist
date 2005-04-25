@@ -12,6 +12,8 @@ end</string>
 	<string>do .. end (do)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
 	<string>do</string>
 	<key>uuid</key>

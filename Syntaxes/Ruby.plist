@@ -185,6 +185,16 @@
 				}
 	    	);
 	    },
+	    
+	    {
+	        /*
+	        literal string
+	        %q{x#{4}x}   #-> 'x#{4}x'
+	        */
+	        name = "string.single-quoted.ruby.mod";
+	        begin = "%q\\{";
+	        end = "\\}";
+	    },
 
 	    {
 	    	/*
@@ -192,13 +202,11 @@
 	    	%{x#{4}x}   #-> "x4x"
 	    	*/
 	    	name = "string.double-quoted.ruby.mod"; 
-	    	begin = "%\\{"; 
-	    	end = "\\}";  
+	    	begin = "%Q?\\{"; 
+	    	end = "\\}";
+	    	swallow = "\\\\."; 
 	    	patterns = (
-	        	{
-	    			name = "string.interpolation.ruby"; 
-	    			match = "#\\{([^\\}]*)\\}"; 
-	    		}
+	        	{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); }
 	      	);
 	    },
 
@@ -212,15 +220,30 @@
 	    	end = "`"; 
 	    	swallow = "\\\\."; 
 	    	patterns = (
-	        	{ 
-	    			name = "string.interpolation.ruby"; 
-	    			match = "#\\{([^\\}]*)\\}"; 
-	    		},
+	        	{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
 	    		{ 
 	    			name = "string.escaped.char.ruby"; 
 	    			match = "\\\\."; 
 	    		}
 	    	);
+	    },
+	    
+	    {
+	        /*
+	        execute string (allow for interpolation):
+	        %x{ls}   #-> ".\n..\nREADME\nmain.rb"
+	        */
+	        name = "string.backticked.ruby.mod";
+	        begin = "%x\\{";
+	        end = "\\}";
+	        swallow = "\\\\.";
+	        patterns = (
+	            { name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+	            {
+	                name = "string.escaped.char.ruby";
+	                match = "\\\\.";
+	            }
+	        );
 	    },
 	
 	    {
@@ -233,10 +256,11 @@
 			end = "/[eimnosux]*";
 			swallow = "\\\\."; 
 	    	patterns = (
-	        	{
+	        	/*{
 					name = "string.interpolation.ruby"; 
 					match = "#\\{([^\\}]*)\\}"; 
-				},
+				},*/
+				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
 	        	/*{ 
 					name = "string.regexp.escaped.slash.ruby"; 
 					match = "\\\\/"; 
@@ -266,10 +290,11 @@
 					name = "string.regexp.arbitrary-repitition.ruby"; 
 					match = "\\{\\d+(,\\d+)?\\}"; 
 				},
-	        	{ 
+	        	/*{ 
 					name = "string.interpolation.ruby"; 
 					match = "#\\{([^\\}]*)\\}"; 
-				},
+				},*/
+				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
 	        	{ 
 					name = "string.regexp.escaped.slash.ruby"; 
 					match = "\\\\/"; 
@@ -290,10 +315,11 @@
 			end = "\\)"; 
 			swallow = "\\\\."; 
 	    	patterns = (
-	        	{
+	        	/*{
 					name = "string.interpolation.ruby"; 
 					match = "#\\{([^\\}]*)\\}"; 
-				},
+				},*/
+				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
 				{ 
 					name = "string.escaped.char.ruby"; 
 					match = "\\\\."; 

@@ -1,88 +1,37 @@
 {
 	name = "HTML (Ruby)";
-	scopeName = "source.html.ruby";
-	mode = "HTML";
-	scopeName = "text.html";
+	scopeName = "text.html.ruby";
 	fileTypes = ( rhtml );
 	foldingStartMarker = "(<(?i:(head|table|div|style|script|ul|ol|form|dl))\\>.*?>|\\{)";
 	foldingStopMarker = "(</(?i:(head|table|div|style|script|ul|ol|form|dl))>|\\})";
-	increaseIndentPattern = "<(head|title|table|tr|td|ul|ol|dl|div)\\>[^>]*>\\s*$";
 
-	smartTypingPairs = (
-	    ( "(", ")" ), ( "[", "]" ), ( "{", "}" ), ( "\"", "\"" )
-	);
-	 highlightPairs = (
-	    ( "(", ")" ), ( "[", "]" ), ( "{", "}" ), ( "\"", "\"" )
-	);
-
-	foregroundColor = "#ffffff";
-	backgroundColor = "#434242";
 	patterns = (
 
-/*		{ name = "Italic";		begin = "<(?i:i)\\>.*?>";			end = "</(?i:i)>";			elementFontStyle = (plain); fontStyle = (italic); },
-		{ name = "Italic";		begin = "<(?i:em)\\>.*?>";			end = "</(?i:em)>";			elementFontStyle = (plain); fontStyle = (italic); },
-		{ name = "Anchor";		begin = "<(?i:a)\\>.*?>";			end = "</(?i:a)>";			elementFontStyle = (plain); fontStyle = (underline); },
-		{ name = "Underline";	begin = "<(?i:u)\\>.*?>";			end = "</(?i:u)>";			elementFontStyle = (plain); fontStyle = (underline); },
-*/
-		{ name = "source.ruby.embedded.html"; begin = "<%"; end = "%>";
-			elementBackgroundColor = "#000000";
-			backgroundColor = "#000000";
-			elementForegroundColor = "#ffffff";
-			patterns = (
-				{ include = "source.ruby.rails"; }
-			);
+        { include = "text.html.basic"; },
+
+		{
+		    name = "embedded.ruby"; begin = "(<%)"; end = "(%>)";
+    		beginCaptures = { 1 = { name = "keyword.markup.tag.html"; }; };
+    		endCaptures = { 1 = { name = "keyword.markup.tag.html"; }; };
+    		patterns = ( { include = "source.ruby"; } );
 		},
 
-		{ name = "embedded.php"; begin = "<\\?(php|=)?"; end = "\\?>";
-			backgroundColor = "#000000";
-			elementForegroundColor = "#ffffff";
-			patterns = (
-				{ include = "PHP Source"; }
-			);
+		{
+		    name = "embedded.php"; begin = "(<\\?(php|=)?)"; end = "(\\?>)";
+    		beginCaptures = { 1 = { name = "keyword.markup.tag.html"; }; };
+		    endCaptures = { 1 = { name = "keyword.markup.tag.html"; }; };
+			patterns = ( { include = "source.php"; } );
 		},
 
 		{ name = "embedded.css"; begin = "<(?i:style)\\>(?s:(.*?))>"; end = "</(?i:style)>";
-			fontStyle = ( italic );
-			elementFontStyle = ( plain );
-			elementForegroundColor = "#cccccc";
+			patterns = ( { include = "source.css"; } );
 		},
 
 
 		{ name = "embedded.javascript"; begin = "<(?i:script)\\>(?s:(.*?))>"; end = "</(?i:script)>";
-			fontStyle = ( italic );
-			elementFontStyle = ( plain );
-			elementForegroundColor = "#cccccc";
+    		patterns = ( { include = "source.js"; } );
 		},
-	
 
-		{ name = "keyword.markup.tags.html"; begin = "</?([a-zA-Z0-9]+)"; end = ">";
-  		"elementFontStyle[1]" = ( underline ); 
-			foregroundColor = "#cccccc";
-			patterns = (
-	  			{ name = "keyword.markup.tag.options.html"; match = " ([a-zA-Z]+)"; },
-	  			{ name = "string.double-quoted.html"; begin = "\""; end = "\""; fontStyle = ( italic ); 
-					patterns = (
-						{ begin = "<\\?="; end = "\\?>";
-							fontStyle = (plain);
-							backgroundColor = "#000000";
-							elementForegroundColor = "#ffffff";
-							patterns = (
-								{ include = "PHP Source"; }
-							);
-						}
-					);
-	  			},
-			);
-		},
-		
-		{ name = "meta.docinfo.doctype.html"; begin = "<!DOCTYPE"; end = ">";
-  		foregroundColor = "#999999";
-  		patterns = (
-    		{ name = "string.double-quoted.html"; begin = "\""; end = "\"";
-    			fontStyle = ( italic ); 
-    		},
-  		);
-		}
 	);
 	uuid = "E2272BB2-6B1C-11D9-A71A-000D93589AF6";
 }

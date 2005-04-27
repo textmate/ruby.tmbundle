@@ -102,11 +102,23 @@
 		// { name = "keyword.constants.regexp.ruby"; match = "\\$(`|\\.|')"; fontStyle = ( bold ); },
 
 		{
-		    name = "declaration.function.method-with-arguments.ruby";
-		    match = "^\\s*(def)\\s*([.a-zA-Z0-9_?!]+)\\s*(\\((.*)\\))?";
+		    name = "declaration.function.method.with-arguments.ruby";
+		    // the method pattern comes from the symbol pattern, see there for a explaination
+		    begin = "\\<(def)\\>\\s+((?>[a-zA-Z_]\\w*(?>\\.|::))?(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?))\\s*\\(";
+		    // this can slow down TM really if you write invalid ruby:
+		    // swallow = "\\([^()]*(?R)[^()]*\\)|[^()]*";
+		    end = "\\)";
+		    patterns = ( { include = "source.ruby"; } );
     	    captures = {    1 = { name = "keyword.blocking.ruby"; };
-    	                    2 = { name = "function-name"; };
-    		                4 = { name = "function-argument"; }; };
+    	                    2 = { name = "function-name"; }; };
+		},
+		
+		{
+		    name = "declaration.function.method.without-arguments.ruby";
+		    // the optinal name is just to catch the def also without a method-name
+		    match = "\\<(def)\\>(\\s+((?>[a-zA-Z_]\\w*(?>\\.|::))?(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?)))?";
+		    captures = {    1 = { name = "keyword.reserved-word.blocking.ruby"; };
+		                    3 = { name = "function-name"; }; };
 		},
 
 /*		{ 

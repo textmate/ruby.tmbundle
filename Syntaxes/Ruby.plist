@@ -41,38 +41,39 @@
 
   foldingStartMarker = "^\\s*(def|class|module|([^#])*\\<do\\>)\\>(?!.*\\<end\\>\\s*(#.*)?$)";
   foldingStopMarker = "(^\\s*end|;\\s*end)\\s*(#.*)?$";
-  increaseIndentPattern = "^\\s*(module|class|begin|def|if|else|elsif|unless|case|when|rescue|for|while|unless|[^#\"']*\\<do)\\>(?!.*?;.*?\\<end\\>).*$";
-  smartTypingPairs = (
-      ( "(", ")" ), ( "[", "]" ), ( "{", "}" ),
-      ( "\"", "\"" ), ( "'", "'" ), ( "|", "|" )
-  );
-  highlightPairs = (
-      ( "(", ")" ), ( "[", "]" ), ( "{", "}" )
-  );
 
 	patterns = (
-	   // everything being a reserved word, not a value and needing a 'end' is a..
-		{  name = "keyword.reserved-word.blocking.ruby";
-		   match = "\\<(BEGIN|begin|case|class|do|else|elsif|END|end|ensure|for|if|in|module|rescue|then|unless|until|when|while)\\>";
+        // everything being a reserved word, not a value and needing a 'end' is a..
+		{  name = "keyword.control.ruby";
+		   match = "\\<(BEGIN|begin|case|class|else|elsif|END|end|ensure|for|if|in|module|rescue|then|unless|until|when|while)\\>";
+		},
+		
+		// contextual smart pair support for block parameters
+		{  name = "keyword.control.ruby.start-block";
+		   match = "\\<do\\>\\s*";
+		},
+		{
+		    name = "meta.syntax.ruby.start-block";
+            match = "\\{(\\s*)(\\})?";
 		},
 		
 		// as above, just doesn't need a 'end' and does a logic operation
-		{  name = "keyword.reserved-word.logical.ruby";
+		{  name = "keyword.logical.ruby";
 		   match = "\\<(and|not|or)\\>";
 		},
 		
 		// just as above but being not a logical operation
-		{  name = "keyword.reserved-word.pseudo-method.ruby";
+		{  name = "keyword.pseudo-method.ruby";
 		   match = "\\<(alias|alias_method|break|next|redo|retry|return|super|undef|yield\\>)|\\<defined[?]";
 		},
 		
 		// every reserved word, being a value is a..
-		{  name = "keyword.reserved-word.pseudo-variable.ruby";
+		{  name = "keyword.pseudo-variable.ruby";
          match = "\\<(nil|true|false|__(FILE|LINE)__|self)\\>";
 		},
 		
-		// everything beeing a method but having a special funtion is a..
-		{  name = "keyword.function.special-method.ruby";
+		// everything being a method but having a special function is a..
+		{  name = "keyword.special-method.ruby";
 		   match = "\\<(initialize|new|loop|include|require|raise|attr_reader|attr_writer|attr_accessor|attr|catch|throw|private|public|protected)\\>";
 		},
 		
@@ -103,7 +104,7 @@
 		{
 		    name = "declaration.function.method-with-arguments.ruby";
 		    match = "^\\s*(def)\\s*([.a-zA-Z0-9_?!]+)\\s*(\\((.*)\\))?";
-    	    captures = {    1 = { name = "keyword.reserved-word.blocking.ruby"; };
+    	    captures = {    1 = { name = "keyword.blocking.ruby"; };
     	                    2 = { name = "function-name"; };
     		                4 = { name = "function-argument"; }; };
 		},
@@ -123,7 +124,7 @@
 		    name = "declaration.class.ruby";
 		    match = "^\\s*(class)\\s+([.a-zA-Z0-9_:]+(\\s*<\\s*[.a-zA-Z0-9_:]+)?)";
 		    captures = {
-		        1 = { name = "keyword.reserved-word.blocking.ruby"; };
+		        1 = { name = "keyword.blocking.ruby"; };
 		        2 = { name = "class-name"; };
 		        3 = { name = "class-inheritance"; };
 		    };
@@ -382,7 +383,6 @@
 			   11: instance- and class-variable symbols
 			             1                             2    3      4      5   6         7       8   9      10       11                */
 	 		match = ":(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?|@@?[a-zA-Z_]\\w*)";
-	    	foregroundColor = "#3387CC";
 	    },
 
 		{ 

@@ -4,34 +4,28 @@
 	fileTypes = ( rhtml );
 	foldingStartMarker = "(<(?i:(head|table|div|style|script|ul|ol|form|dl))\\>.*?>|\\{)";
 	foldingStopMarker = "(</(?i:(head|table|div|style|script|ul|ol|form|dl))>|\\})";
-
 	patterns = (
-
-        { include = "text.html.basic"; },
-
-		{
-		    name = "embedded.ruby"; begin = "(<%)"; end = "(%>)";
+        {   include = "text.html.basic"; },
+		{   name = "source.ruby.embedded.html";
+		    begin = "(<%)"; end = "(%>)";
     		beginCaptures = { 1 = { name = "keyword.markup.tag.html"; }; };
     		endCaptures = { 1 = { name = "keyword.markup.tag.html"; }; };
     		patterns = ( { include = "source.ruby"; } );
 		},
-
-		{
-		    name = "embedded.php"; begin = "(<\\?(php|=)?)"; end = "(\\?>)";
+		{   name = "source.php.embedded.html";
+		    begin = "(<\\?(php|=)?)"; end = "(\\?>)";
     		beginCaptures = { 1 = { name = "keyword.markup.tag.html"; }; };
 		    endCaptures = { 1 = { name = "keyword.markup.tag.html"; }; };
 			patterns = ( { include = "source.php"; } );
 		},
-
-		{ name = "embedded.css"; begin = "<(?i:style)\\>(?s:(.*?))>"; end = "</(?i:style)>";
+		{   name = "source.css.embedded.html";
+		    begin = "<(?i:style)\\>(?s:(.*?))>"; end = "</(?i:style)>";
 			patterns = ( { include = "source.css"; } );
 		},
-
-
-		{ name = "embedded.javascript"; begin = "<(?i:script)\\>(?s:(.*?))>"; end = "</(?i:script)>";
+		{   name = "source.js.embedded.html";
+		    begin = "<(?i:script)\\>(?s:(.*?))>"; end = "</(?i:script)>";
     		patterns = ( { include = "source.js"; } );
 		},
-
 	);
 	uuid = "E2272BB2-6B1C-11D9-A71A-000D93589AF6";
 }

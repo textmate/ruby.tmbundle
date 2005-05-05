@@ -64,7 +64,7 @@
 		
 		// just as above but being not a logical operation
 		{  name = "keyword.pseudo-method.ruby";
-		   match = "\\<(alias|alias_method|break|next|redo|retry|return|super|undef|yield\\>)|\\<defined[?]";
+		   match = "\\<(alias|alias_method|break|next|redo|retry|return|super|undef|yield)\\>|\\<defined[?]";
 		},
 		
 		// every reserved word, being a value is a..
@@ -423,7 +423,29 @@
 		    */
 		    name = "string.program-block.ruby";
 		    begin = "^__END__$"; end = "\\z";
-		}
+		},
+        
+        {
+            name = "string.here-doc.ruby";
+            begin = "(?><<(\\w+))"; end = "^\\1";
+            patterns = (
+               {  begin = "^<<\\w+"; end = "$";
+                  patterns = ( { include = "source.ruby"; } );
+               }
+            );
+    
+        }        
+        
+/*        {
+            comment = "HERE document. There is no standard way to tell what the language within (if any) might be.";
+            name    = "string.double-quoted.here-doc.ruby";
+            begin   = "=\\s*<<\\s*(([a-zA-Z0-9_])+)\\s*$";
+            end     = "^\\1$";
+            swallow = "\\\\."; 
+            captures = { 1 = { name = "keyword.ruby"; }; };
+            
+        }
+*/
 	);
 	uuid = "E00B62AC-6B1C-11D9-9B1F-000D93589AF6";
 }

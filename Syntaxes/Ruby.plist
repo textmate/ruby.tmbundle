@@ -116,7 +116,7 @@
 		{
 		    name = "declaration.function.method.without-arguments.ruby";
 		    // the optinal name is just to catch the def also without a method-name
-		    match = "\\<(def)\\>(\\s+((?>[a-zA-Z_][\\w?!]*(?>\\.|::))?(?>[a-zA-Z_][\\w*?!](?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?)))?";
+		    match = "\\<(def)\\>(\\s+((?>[a-zA-Z_]\\w*(?>\\.|::))?(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?)))?";
 		    captures = {    1 = { name = "keyword.reserved-word.blocking.ruby"; };
 		                    3 = { name = "entity.name.function"; }; };
 		},

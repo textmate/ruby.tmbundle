@@ -1,7 +1,7 @@
 {
 	name = "Ruby";
 	scopeName = "source.ruby";
-	firstLineMatch = "^#!/.*\\<ruby\\>";
+	firstLineMatch = "^#!/.*\\bruby\\b";
 	fileTypes = ( rb, Rakefile, rake, cgi, fcgi );
 	keyEquivalent = "^~R"; 
 	comment = "
@@ -40,20 +40,20 @@
 	requires lookbehind... currently imposible.
 	*/";
 
-  foldingStartMarker = "^\\s*(def|class|module|([^#])*\\<do\\>)\\>(?!.*\\<end\\>\\s*(#.*)?$)";
+  foldingStartMarker = "^\\s*(def|class|module|([^#])*\\bdo\\b)\\b(?!.*\\bend\\b\\s*(#.*)?$)";
   foldingStopMarker = "(^\\s*end|;\\s*end)\\s*(#.*)?$";
 
 	patterns = (
 		{
 			comment = "everything being a reserved word, not a value and needing a 'end' is a..";
 			name = "keyword.control.ruby";
-			match = "\\<(BEGIN|begin|case|class|else|elsif|END|end|ensure|for|if|in|module|rescue|then|unless|until|when|while)\\>(?![?!])";
+			match = "\\b(BEGIN|begin|case|class|else|elsif|END|end|ensure|for|if|in|module|rescue|then|unless|until|when|while)\\b(?![?!])";
 		},
 
 		{
 			comment = "contextual smart pair support for block parameters";
 			name = "keyword.control.ruby.start-block";
-		   match = "\\<do\\>\\s*";
+		   match = "\\bdo\\b\\s*";
 		},
 
 		{
@@ -65,25 +65,25 @@
 		{
 			comment = " as above, just doesn't need a 'end' and does a logic operation";
 			name = "keyword.logical.ruby";
-			match = "\\<(and|not|or)\\>";
+			match = "\\b(and|not|or)\\b";
 		},
 
 		{
 		    comment = " just as above but being not a logical operation";
 			name = "keyword.pseudo-method.ruby";
-			match = "\\<(alias|alias_method|break|next|redo|retry|return|super|undef|yield)\\>(?![?!])|\\<defined\\?";
+			match = "\\b(alias|alias_method|break|next|redo|retry|return|super|undef|yield)\\b(?![?!])|\\bdefined\\?";
 		},
 
 		{
 		    comment = " every reserved word, being a value is a..";
 		    name = "keyword.pseudo-variable.ruby";
-		    match = "\\<(nil|true|false|__(FILE|LINE)__|self)\\>(?![?!])";
+		    match = "\\b(nil|true|false|__(FILE|LINE)__|self)\\b(?![?!])";
 		},
 
 		{
 	        comment = " everything being a method but having a special function is a..";
 	        name = "keyword.special-method.ruby";
-	        match = "\\<(initialize|new|loop|include|require|raise|attr_reader|attr_writer|attr_accessor|attr|catch|throw|private|public|protected)\\>(?![?!])";
+	        match = "\\b(initialize|new|loop|include|require|raise|attr_reader|attr_writer|attr_accessor|attr|catch|throw|private|public|protected)\\b(?![?!])";
 		},
 
 
@@ -104,13 +104,13 @@
 		},
 
 		{  name = "variable.constant.ruby";
-		   match = "\\<[A-Z]\\w*\\>";
+		   match = "\\b[A-Z]\\w*\\b";
 		},
 
 		{
 			name = "declaration.function.method.with-arguments.ruby";
 			comment = " the method pattern comes from the symbol pattern, see there for a explaination";
-			begin = "\\<(def)\\>\\s+((?>[a-zA-Z_]\\w*(?>\\.|::))?(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?))\\s*\\(";
+			begin = "\\b(def)\\b\\s+((?>[a-zA-Z_]\\w*(?>\\.|::))?(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?))\\s*\\(";
 //			comment = " this can slow down TM really if you write invalid ruby:";
 //			comment = " swallow = "\\([^()]*(?R)[^()]*\\)|[^()]*";";
 			end = "\\)";
@@ -122,7 +122,7 @@
 		{
 			name = "declaration.function.method.without-arguments.ruby";
 			comment = " the optional name is just to catch the def also without a method-name";
-			match = "\\<(def)\\>(\\s+((?>[a-zA-Z_]\\w*(?>\\.|::))?(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?)))?";
+			match = "\\b(def)\\b(\\s+((?>[a-zA-Z_]\\w*(?>\\.|::))?(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?)))?";
 			captures = {	1 = { name = "keyword.reserved-word.blocking.ruby"; };
 							3 = { name = "entity.name.function"; }; };
 		},
@@ -134,8 +134,8 @@
 
 		{ 
 			name = "constant.numeric.ruby"; 
-//			match = "(\\<((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\>)|((?<!\\w)\\?\\S)"; 
-			match = "\\<(0[xX][0-9A-Fa-f](?>_?[0-9A-Fa-f])*|\\d(?>_?\\d)*(\\.(?>_?\\d)*)?([eE][-+]?(?>_?\\d)*)?)\\>"; 
+//			match = "(\\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\b)|((?<!\\w)\\?\\S)"; 
+			match = "\\b(0[xX][0-9A-Fa-f](?>_?[0-9A-Fa-f])*|\\d(?>_?\\d)*(\\.(?>_?\\d)*)?([eE][-+]?(?>_?\\d)*)?)\\b"; 
 		},
 
 		{

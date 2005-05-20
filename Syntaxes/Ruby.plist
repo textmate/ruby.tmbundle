@@ -411,7 +411,7 @@
 			im code	 #	im comment
 			*/
 			comment = "end of line comments";
-			name = "comment.line.ruby"; 
+			name = "comment.line.number-sign.ruby"; 
 			match = "#.*$"; 
 			"fontStyle" = ( italic ); 
 		},

@@ -428,8 +428,7 @@
 
 		{
 		    
-		    
-			name = "string.here-doc.ruby";
+			name = "string.unquoted.ruby";
 			begin = "(?><<(\\w+))(?!\\s+#\\s*([Cc]|sh))"; end = "^\\1$";
 			patterns = (
 			   {  begin = "^<<\\w+"; end = "$";
@@ -441,7 +440,7 @@
 			);
 		},
 		{
-			name = "string.here-doc.ruby.embedded-c";
+			name = "string.unquoted.ruby.embedded-c";
 			begin = "(?><<(\\w+))(?=\\s+#\\s*[Cc](?!\\+\\+))"; end = "^\\1$";
 			patterns = (
 			   {  begin = "^<<\\w+"; end = "$";
@@ -454,7 +453,7 @@
 		},
 
 		{
-			name = "string.here-doc.ruby.embedded-cplusplus";
+			name = "string.unquoted.ruby.embedded-cplusplus";
 			begin = "(?><<(\\w+))(?=\\s+#\\s*[Cc]\\+\\+)"; end = "^\\1$";
 			patterns = (
 			    { include = "source.c\\+\\+"; },
@@ -466,7 +465,7 @@
 			);
 		},
 		{
-			name = "string.here-doc.ruby.shell";
+			name = "string.unquoted.ruby.shell";
 			begin = "(?><<(\\w+))(?=\\s+#\\s*sh)"; end = "^\\1$";
 			patterns = (
 			   {  begin = "^<<\\w+"; end = "$";

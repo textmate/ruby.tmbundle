@@ -434,7 +434,10 @@
 			patterns = (
 			   {  begin = "^<<\\w+"; end = "$";
 				  patterns = ( { include = "source.ruby"; } );
-			   }
+			   },
+			   
+			   { name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+			   { name = "string.escaped.char.ruby"; match = "\\\\."; }
 			);
 		},
 		{
@@ -443,8 +446,10 @@
 			patterns = (
 			   {  begin = "^<<\\w+"; end = "$";
 				  patterns = ( { include = "source.ruby"; } );
-				  include = "source.c";
-			   }
+			   },
+			   { include = "source.c"; },
+			   { name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+			   { name = "string.escaped.char.ruby"; match = "\\\\."; }
 			);
 		},
 
@@ -452,10 +457,12 @@
 			name = "string.here-doc.ruby.embedded-cplusplus";
 			begin = "(?><<(\\w+))(?=\\s+#\\s*[Cc]\\+\\+)"; end = "^\\1$";
 			patterns = (
+			    { include = "source.c\\+\\+"; },
+			    { name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+			    { name = "string.escaped.char.ruby"; match = "\\\\."; },
 			   {  begin = "^<<\\w+"; end = "$";
 				  patterns = ( { include = "source.ruby"; } );
-			      include = "source.c++";
-			   }
+			   },
 			);
 		},
 		{
@@ -464,8 +471,11 @@
 			patterns = (
 			   {  begin = "^<<\\w+"; end = "$";
 				  patterns = ( { include = "source.ruby"; } );
-			      include = "source.shell";
-			   }
+			   },
+			   { include = "source.shell"; },
+			   { name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+			   { name = "string.escaped.char.ruby"; match = "\\\\."; }
+			   
 			);
 		}
 

@@ -199,32 +199,6 @@
 			);
 		},
 
-		{
-			/*
-			literal string
-			%q{x#{4}x}	 #-> 'x#{4}x'
-			*/
-			comment = "literal string";
-			name = "string.single-quoted.ruby.mod";
-			begin = "%q\\{";
-			end = "\\}";
-		},
-
-		{
-			/*
-			literal string (allows for interpolation):
-			%{x#{4}x}	#-> "x4x"
-			*/
-			comment = "literal string (allows for interpolation)";
-			name = "string.double-quoted.ruby.mod"; 
-			begin = "%Q?\\{"; 
-			end = "\\}";
-			swallow = "\\\\."; 
-			patterns = (
-				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); }
-			);
-		},
-
 		{ 
 			/*
 			execute string (allows for interpolation):
@@ -237,10 +211,7 @@
 			swallow = "\\\\."; 
 			patterns = (
 				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ 
-					name = "string.escaped.char.ruby"; 
-					match = "\\\\."; 
-				}
+				{ name = "string.escaped.char.ruby";  match = "\\\\."; }
 			);
 		},
 
@@ -256,10 +227,7 @@
 			swallow = "\\\\.";
 			patterns = (
 				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{
-					name = "string.escaped.char.ruby";
-					match = "\\\\.";
-				}
+				{ name = "string.escaped.char.ruby"; match = "\\\\."; }
 			);
 		},
 
@@ -298,26 +266,13 @@
 			*/
 			comment = "regular expressions (literal)";
 			name = "string.regexp.ruby.mod-r"; 
-			begin = "%r\\{"; 
-			end = "\\}[eimnosux]*";	 
+			
+			begin = "%r\\{";  end = "\\}[eimnosux]*";	 
 			patterns = (
-				{ 
-					name = "string.regexp.escaped.char.ruby"; 
-					match = "\\."; 
-				},
-				{ 
-					name = "string.regexp.arbitrary-repitition.ruby"; 
-					match = "\\{\\d+(,\\d+)?\\}"; 
-				},
-				/*{ 
-					name = "string.interpolation.ruby"; 
-					match = "#\\{([^\\}]*)\\}"; 
-				},*/
-				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ 
-					name = "string.regexp.escaped.slash.ruby"; 
-					match = "\\\\/"; 
-				}
+				{ name = "string.regexp.escaped.char.ruby";         match = "\\."; },
+				{ name = "string.regexp.arbitrary-repitition.ruby"; match = "\\{\\d+(,\\d+)?\\}"; },
+				{ name = "string.interpolation.ruby";               begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+				{ name = "string.regexp.escaped.slash.ruby";        match = "\\\\/";  }
 			);
 		},
 
@@ -329,41 +284,84 @@
 
 			%(#{42})  #->  "42"
 			*/
-			comment = "literal capable of interpolation";
+			comment = "literal capable of interpolation ()";
 			name = "string.literal.upper.ruby";
-			begin = "%[QWSR]?\\("; 
-			end = "\\)"; 
-			swallow = "\\\\."; 
+			begin = "%[QWSR]?\\("; end = "\\)";  swallow = "\\\\."; 
 			patterns = (
-				/*{
-					name = "string.interpolation.ruby"; 
-					match = "#\\{([^\\}]*)\\}"; 
-				},*/
 				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ 
-					name = "string.escaped.char.ruby"; 
-					match = "\\\\."; 
-				}
+				{ name = "string.escaped.char.ruby";  match = "\\\\."; }
+			);
+		},
+		{
+			comment = "literal capable of interpolation -- wildcard";
+			name = "string.literal.upper.ruby";
+			begin = "%[QWSR]?([^<\\{\\[\\(\\w])"; end = "\\1";  swallow = "\\\\."; 
+			patterns = (
+				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+				{ name = "string.escaped.char.ruby";  match = "\\\\."; }
+			);
+		},
+		{
+			comment = "literal capable of interpolation []";
+			name = "string.literal.upper.ruby";
+			begin = "%[QWSR]?\\["; end = "\\1";  swallow = "\\\\."; 
+			patterns = (
+				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+				{ name = "string.escaped.char.ruby";  match = "\\\\."; }
+			);
+		},
+		{ 
+			comment = "literal capable of interpolation <>";
+			name = "string.literal.upper.ruby";
+			begin = "%[QWSR]?\\<"; end = "\\>";  swallow = "\\\\."; 
+			patterns = (
+				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+				{ name = "string.escaped.char.ruby";  match = "\\\\."; }
+			);
+		},
+		{
+			comment = "literal capable of interpolation -- {}";
+			name = "string.double-quoted.ruby.mod"; 
+			begin = "%[QWSR]?\\{";  end = "\\}"; swallow = "\\\\."; 
+			patterns = (
+				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+			    { name = "string.escaped.char.ruby";  match = "\\\\."; }
 			);
 		},
 
 		{ 
-			/* 
-			literal incapable of interpolation:
-			%w(a b#{42}c) #-> ["a", "b#{42}c"]
-			%w(ab c\nd \\\)ef)
-			*/
-			comment = "literal incapable of interpolation";
+		    //
+			//literal incapable of interpolation
+			//%w(a b#{42}c) #-> ["a", "b#{42}c"]
+			//%w(ab c\nd \\\)ef)
+			//
+			comment = "literal incapable of interpolation -- wildcard";
 			name = "string.literal.lower.ruby"; 
-			begin = "%[qws]\\("; 
-			end = "\\)"; 
-			swallow = "\\\\."; 
-			patterns = (
-				{ 
-					name = "string.escaped.char.ruby"; 
-					match = "\\\\\\)"; 
-				}
-			);
+			begin = "%[qws]([^<\\{\\[\\(\\w])"; end = "\\1"; swallow = "\\\\."; 
+		},
+		{ 
+			comment = "literal incapable of interpolation -- ()";
+			name = "string.literal.lower.ruby"; 
+			begin = "%[qws]\\("; end = "\\)"; swallow = "\\\\."; 
+			patterns = ( {  name = "string.escaped.char.ruby";  match = "\\\\\\)";  } );
+		},
+		{ 
+			comment = "literal incapable of interpolation -- <>";
+			name = "string.literal.lower.ruby"; 
+			begin = "%[qws]\\<"; end = "\\>"; swallow = "\\\\."; 
+			patterns = ( {  name = "string.escaped.char.ruby";  match = "\\\\\\>";  } );
+		},
+		{
+			comment = "literal incapable of interpolation -- []";
+			name = "string.literal.lower.ruby"; 
+			begin = "%[qws]\\["; end = "\\]"; swallow = "\\\\."; 
+			patterns = ( {  name = "string.escaped.char.ruby";  match = "\\\\\\]";  } );
+		},
+		{
+			comment = "literal incapable of interpolation -- {}";
+			name = "string.single-quoted.ruby.mod";
+			begin = "%[qws]\\{"; end = "\\}";
+			patterns = ( {  name = "string.escaped.char.ruby";  match = "\\\\\\}";  } );
 		},
 
 		{ 
@@ -426,8 +424,10 @@
 		},
 
 
+		//
+		// HERE documents
+		//
 		{
-		    
 			name = "string.unquoted.ruby";
 			begin = "(?><<(\\w+))(?!\\s+#\\s*([Cc]|sh))"; end = "^\\1$";
 			patterns = (
@@ -439,8 +439,9 @@
 			   { name = "string.escaped.char.ruby"; match = "\\\\."; }
 			);
 		},
+		
 		{
-			name = "string.unquoted.ruby.embedded-c";
+			name = "string.unquoted.embedded.c.ruby";
 			begin = "(?><<(\\w+))(?=\\s+#\\s*[Cc](?!\\+\\+))"; end = "^\\1$";
 			patterns = (
 			   {  begin = "^<<\\w+"; end = "$";
@@ -453,10 +454,10 @@
 		},
 
 		{
-			name = "string.unquoted.ruby.embedded-cplusplus";
+			name = "string.unquoted.embedded.cplusplus.ruby";
 			begin = "(?><<(\\w+))(?=\\s+#\\s*[Cc]\\+\\+)"; end = "^\\1$";
 			patterns = (
-			    { include = "source.c\\+\\+"; },
+			    { include = "source.c++"; },
 			    { name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
 			    { name = "string.escaped.char.ruby"; match = "\\\\."; },
 			   {  begin = "^<<\\w+"; end = "$";
@@ -465,7 +466,7 @@
 			);
 		},
 		{
-			name = "string.unquoted.ruby.shell";
+			name = "string.unquoted.embedded.shell.ruby";
 			begin = "(?><<(\\w+))(?=\\s+#\\s*sh)"; end = "^\\1$";
 			patterns = (
 			   {  begin = "^<<\\w+"; end = "$";

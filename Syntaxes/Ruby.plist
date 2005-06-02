@@ -295,7 +295,7 @@
 		{
 			comment = "literal capable of interpolation -- wildcard";
 			name = "string.literal.upper.ruby";
-			begin = "%[QWSR]?([^<\\{\\[\\(\\w])"; end = "\\1";  swallow = "\\\\."; 
+			begin = "%(?!>)[QWSR]?([^<\\{\\[\\(\\w])"; end = "\\1";  swallow = "\\\\."; 
 			patterns = (
 				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
 				{ name = "string.escaped.char.ruby";  match = "\\\\."; }

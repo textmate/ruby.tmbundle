@@ -8,9 +8,9 @@
 	TODO: unresolved issues
 
 	text:
-	\"a\332a\"
+	\"a\\332a\"
 	symptoms:
-	'\332' is not recognized as slash3.. which should be octal 332.
+	'\\332' is not recognized as slash3.. which should be octal 332.
 	solution:
 	plain regexp.. should be easy.
 
@@ -56,46 +56,46 @@
 
 		{
 			comment = " as above, just doesn't need a 'end' and does a logic operation";
-			name = "keyword.logical.ruby";
+			name = "keyword.operator.logical.ruby";
 			match = "\\b(and|not|or)\\b";
 		},
 
 		{
 		    comment = " just as above but being not a logical operation";
-			name = "keyword.pseudo-method.ruby";
+			name = "keyword.control.pseudo-method.ruby";
 			match = "\\b(alias|alias_method|break|next|redo|retry|return|super|undef|yield)\\b(?![?!])|\\bdefined\\?";
 		},
 
 		{
 		    comment = " every reserved word, being a value is a..";
-		    name = "keyword.pseudo-variable.ruby";
+		    name = "constant.language.pseudo-variable.ruby";
 		    match = "\\b(nil|true|false|__(FILE|LINE)__|self)\\b(?![?!])";
 		},
 
 		{
 	        comment = " everything being a method but having a special function is a..";
-	        name = "keyword.special-method.ruby";
+	        name = "keyword.other.special-method.ruby";
 	        match = "\\b(initialize|new|loop|include|require|raise|attr_reader|attr_writer|attr_accessor|attr|catch|throw|private|public|protected)\\b(?![?!])";
 		},
 
 
-		{  name = "variable.readwrite.instance.ruby";
+		{  name = "variable.other.readwrite.instance.ruby";
 		   match = "@[a-zA-Z_]\\w*";
 		},
 
-		{  name = "variable.readwrite.class.ruby";
+		{  name = "variable.other.readwrite.class.ruby";
 		   match = "@@[a-zA-Z_]\\w*";
 		},
 
-		{  name = "variable.readwrite.global.ruby";
+		{  name = "variable.other.readwrite.global.ruby";
 		   match = "\\$[a-zA-Z_]\\w*";
 		},
 
-		{  name = "variable.readwrite.global.pre-defined.ruby";
+		{  name = "variable.other.readwrite.global.pre-defined.ruby";
 		   match = "\\$(!|@|&|`|'|\\+|\\d|~|=|/|\\\\|,|;|\\.|<|>|_|\\*|\\$|\\?|:|\"|-[0adFiIlpv])";
 		},
 
-		{  name = "variable.constant.ruby";
+		{  name = "variable.other.constant.ruby";
 		   match = "\\b[A-Z]\\w*\\b";
 		},
 
@@ -107,16 +107,16 @@
 //			comment = " swallow = "\\([^()]*(?R)[^()]*\\)|[^()]*";";
 			end = "\\)";
 			patterns = ( { include = "source.ruby"; } );
-			captures = {	1 = { name = "keyword.blocking.ruby"; };
-							2 = { name = "entity.name.function"; }; };
+			captures = {	1 = { name = "keyword.control.def.ruby"; };
+							2 = { name = "entity.name.function.ruby"; }; };
 		},
 
 		{
 			name = "declaration.function.method.without-arguments.ruby";
 			comment = " the optional name is just to catch the def also without a method-name";
 			match = "\\b(def)\\b(\\s+((?>[a-zA-Z_]\\w*(?>\\.|::))?(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?)))?";
-			captures = {	1 = { name = "keyword.reserved-word.blocking.ruby"; };
-							3 = { name = "entity.name.function"; }; };
+			captures = {	1 = { name = "keyword.control.def.ruby"; };
+							3 = { name = "entity.name.functio.rubyn"; }; };
 		},
 
 /*		{ 
@@ -134,23 +134,20 @@
 			name = "declaration.class.ruby";
 			match = "^\\s*(class)\\s+([.a-zA-Z0-9_:]+(\\s*<\\s*[.a-zA-Z0-9_:]+)?)";
 			captures = {
-				1 = { name = "keyword.blocking.ruby"; };
-				2 = { name = "entity.name.class"; };
-				3 = { name = "entity.parameter.parent.class"; };
+				1 = { name = "keyword.control.class.ruby"; };
+				2 = { name = "entity.name.class.ruby"; };
+				3 = { name = "entity.other.inherited-class.ruby"; };
 			};
-/*			"foregroundColor[1]" = "#CC7833";
-			"fontStyle[2]" = ( underline );
-			"fontStyle[3]" = ( italic );
-*/		},
+		},
 
 		/*{ name = "keyword.variable.symbol.ruby"; match = "\\s+(:[a-zA-Z_?!<>]+|:'.*?'?)";
 			"foregroundColor[1]" = "#3387CC";
 		},*/
 
-		{ name = "constant.symbol.single-quoted.ruby"; begin = ":'"; end = "'"; swallow = "\\\\['\\\\]";},
-		{ name = "constant.symbol.double-quoted.ruby"; begin = ":\""; end = "\""; swallow = "\\\\.";
+		{ name = "constant.other.symbol.single-quoted.ruby"; begin = ":'"; end = "'"; swallow = "\\\\['\\\\]";},
+		{ name = "constant.other.symbol.double-quoted.ruby"; begin = ":\""; end = "\""; swallow = "\\\\.";
 		  patterns = (
-			{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); }
+			{ name = "source.ruby.embedded.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); }
 		  );
 		},
 
@@ -160,13 +157,13 @@
 			'hello #{42} world'	  #->  "hello #{42} world"
 			*/
 			comment = "single quoted string (does not allow interpolation)";
-			name = "string.single-quoted.ruby"; 
+			name = "string.quoted.single.ruby"; 
 			begin = "'"; 
 			end = "'"; 
 			swallow = "\\\\."; 
 			patterns = (
 				{ 
-					name = "string.escaped.char.ruby"; 
+					name = "constant.character.escaped.ruby"; 
 					match = "\\\\'"; 
 				}
 			);
@@ -181,19 +178,19 @@
 			"hello #$gvar world"  #->  "hello 42 world"
 			*/
 			comment = "double quoted string (allows for interpolation)";
-			name = "string.double-quoted.ruby"; 
+			name = "string.quoted.double.ruby"; 
 			begin = "\""; 
 			end = "\""; 
 			swallow = "\\\\."; 
 			patterns = (
-				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+				{ name = "source.ruby.embedded.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
 /*				{ 
-					name = "string.interpolation.ruby"; 
+					name = "source.ruby.embedded.source"; 
 					match = "#(\\{([^\\}]*)\\}|@{1,2}[a-zA-Z0-9_]+|[$][a-zA-Z0-9_]+)"; 
 					foregroundColor = "#aaaaaa"; 
 				},
 */				{ 
-					name = "string.escaped.char.ruby"; 
+					name = "constant.character.escaped.ruby"; 
 					match = "\\\\."; 
 				}
 			);
@@ -205,13 +202,13 @@
 			`ls`   #-> ".\n..\nREADME\nmain.rb"
 			*/
 			comment = "execute string (allows for interpolation)";
-			name = "string.backticked.ruby"; 
+			name = "string.interpolated.ruby"; 
 			begin = "`"; 
 			end = "`"; 
 			swallow = "\\\\."; 
 			patterns = (
-				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ name = "string.escaped.char.ruby";  match = "\\\\."; }
+				{ name = "source.ruby.embedded.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+				{ name = "constant.character.escaped.ruby";  match = "\\\\."; }
 			);
 		},
 
@@ -221,13 +218,13 @@
 			%x{ls}	 #-> ".\n..\nREADME\nmain.rb"
 			*/
 			comment = "execute string (allow for interpolation)";
-			name = "string.backticked.ruby.mod";
+			name = "string.interpolated.ruby";
 			begin = "%x\\{";
 			end = "\\}";
 			swallow = "\\\\.";
 			patterns = (
-				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ name = "string.escaped.char.ruby"; match = "\\\\."; }
+				{ name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+				{ name = "constant.character.escaped.ruby"; match = "\\\\."; }
 			);
 		},
 
@@ -237,23 +234,23 @@
 			/<regexp>/<options>
 			*/
 			comment = "regular expressions (normal)";
-			name = "string.regexp.ruby.classic"; 
+			name = "string.regexp.classic.ruby"; 
 			begin = "/(?=\\S.*/)"; 
 			end = "/[eimnosux]*";
 			swallow = "\\\\."; 
 			patterns = (
 				/*{
-					name = "string.interpolation.ruby"; 
+					name = "source.ruby.embedded.source"; 
 					match = "#\\{([^\\}]*)\\}"; 
 				},*/
-				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+				{ name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
 				/*{ 
 					name = "string.regexp.escaped.slash.ruby"; 
 					match = "\\\\/"; 
 					foregroundColor = "#CCCC33"; 
 				},*/
 				{ 
-					name = "string.escaped.char.ruby"; 
+					name = "constant.character.escaped.ruby"; 
 					match = "\\\\."; 
 				}
 			);
@@ -265,14 +262,14 @@
 			%r{<regexp>}<options>
 			*/
 			comment = "regular expressions (literal)";
-			name = "string.regexp.ruby.mod-r"; 
+			name = "string.regexp.mod-r.ruby"; 
 			
 			begin = "%r\\{";  end = "\\}[eimnosux]*";	 
 			patterns = (
-				{ name = "string.regexp.escaped.char.ruby";         match = "\\."; },
+				{ name = "constant.character.escaped.ruby";         match = "\\."; },
 				{ name = "string.regexp.arbitrary-repitition.ruby"; match = "\\{\\d+(,\\d+)?\\}"; },
-				{ name = "string.interpolation.ruby";               begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ name = "string.regexp.escaped.slash.ruby";        match = "\\\\/";  }
+				{ name = "source.ruby.embedded.source";             begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+				{ name = "constant.character.escaped.slash.ruby";   match = "\\\\/";  }
 			);
 		},
 
@@ -285,47 +282,47 @@
 			%(#{42})  #->  "42"
 			*/
 			comment = "literal capable of interpolation ()";
-			name = "string.literal.upper.ruby";
+			name = "string.quoted.literal.upper.ruby";
 			begin = "%[QWSR]?\\("; end = "\\)";  swallow = "\\\\."; 
 			patterns = (
-				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ name = "string.escaped.char.ruby";  match = "\\\\."; }
+				{ name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+				{ name = "constant.character.escaped.ruby";  match = "\\\\."; }
 			);
 		},
 		{
 			comment = "literal capable of interpolation -- wildcard";
-			name = "string.literal.upper.ruby";
+			name = "string.quoted.literal.upper.ruby";
 			begin = "%(?!>)[QWSR]?([^<\\{\\[\\(\\w])"; end = "\\1";  swallow = "\\\\."; 
 			patterns = (
-				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ name = "string.escaped.char.ruby";  match = "\\\\."; }
+				{ name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+				{ name = "constant.character.escaped.ruby";  match = "\\\\."; }
 			);
 		},
 		{
 			comment = "literal capable of interpolation []";
-			name = "string.literal.upper.ruby";
+			name = "string.quoted.literal.upper.ruby";
 			begin = "%[QWSR]?\\["; end = "\\1";  swallow = "\\\\."; 
 			patterns = (
-				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ name = "string.escaped.char.ruby";  match = "\\\\."; }
+				{ name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+				{ name = "constant.character.escaped.ruby";  match = "\\\\."; }
 			);
 		},
 		{ 
 			comment = "literal capable of interpolation <>";
-			name = "string.literal.upper.ruby";
+			name = "string.quoted.literal.upper.ruby";
 			begin = "%[QWSR]?\\<"; end = "\\>";  swallow = "\\\\."; 
 			patterns = (
-				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ name = "string.escaped.char.ruby";  match = "\\\\."; }
+				{ name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+				{ name = "constant.character.escaped.ruby";  match = "\\\\."; }
 			);
 		},
 		{
 			comment = "literal capable of interpolation -- {}";
-			name = "string.double-quoted.ruby.mod"; 
+			name = "string.quoted.double.ruby.mod"; 
 			begin = "%[QWSR]?\\{";  end = "\\}"; swallow = "\\\\."; 
 			patterns = (
-				{ name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-			    { name = "string.escaped.char.ruby";  match = "\\\\."; }
+				{ name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+			    { name = "constant.character.escaped.ruby";  match = "\\\\."; }
 			);
 		},
 
@@ -336,32 +333,32 @@
 			//%w(ab c\nd \\\)ef)
 			//
 			comment = "literal incapable of interpolation -- wildcard";
-			name = "string.literal.lower.ruby"; 
+			name = "string.quoted.literal.lower.ruby"; 
 			begin = "%[qws]([^<\\{\\[\\(\\w])"; end = "\\1"; swallow = "\\\\."; 
 		},
 		{ 
 			comment = "literal incapable of interpolation -- ()";
-			name = "string.literal.lower.ruby"; 
+			name = "string.quoted.literal.lower.ruby"; 
 			begin = "%[qws]\\("; end = "\\)"; swallow = "\\\\."; 
-			patterns = ( {  name = "string.escaped.char.ruby";  match = "\\\\\\)";  } );
+			patterns = ( {  name = "constant.character.escaped.ruby";  match = "\\\\\\)";  } );
 		},
 		{ 
 			comment = "literal incapable of interpolation -- <>";
-			name = "string.literal.lower.ruby"; 
+			name = "string.quoted.literal.lower.ruby"; 
 			begin = "%[qws]\\<"; end = "\\>"; swallow = "\\\\."; 
-			patterns = ( {  name = "string.escaped.char.ruby";  match = "\\\\\\>";  } );
+			patterns = ( {  name = "constant.character.escaped.ruby";  match = "\\\\\\>";  } );
 		},
 		{
 			comment = "literal incapable of interpolation -- []";
-			name = "string.literal.lower.ruby"; 
+			name = "string.quoted.literal.lower.ruby"; 
 			begin = "%[qws]\\["; end = "\\]"; swallow = "\\\\."; 
-			patterns = ( {  name = "string.escaped.char.ruby";  match = "\\\\\\]";  } );
+			patterns = ( {  name = "constant.character.escaped.ruby";  match = "\\\\\\]";  } );
 		},
 		{
 			comment = "literal incapable of interpolation -- {}";
-			name = "string.single-quoted.ruby.mod";
+			name = "string.quoted.single.ruby.mod";
 			begin = "%[qws]\\{"; end = "\\}";
-			patterns = ( {  name = "string.escaped.char.ruby";  match = "\\\\\\}";  } );
+			patterns = ( {  name = "constant.character.escaped.ruby";  match = "\\\\\\}";  } );
 		},
 
 		{ 
@@ -373,7 +370,7 @@
 			:+@	 :@aaa	:@@bbb
 			*/
 			comment = "symbols";
-			name = "constant.symbol.ruby";
+			name = "constant.other.symbol.ruby";
 			/*
 			explained:
 			    0: avoid matching the second : of ::
@@ -397,7 +394,7 @@
 			multiline comments:
 			*/
 			comment = "multiline comments";
-			name = "comment.block.embedded-doc.ruby"; 
+			name = "comment.documentation.ruby"; 
 			begin = "^=begin"; 
 			end = "^=end"; 
 			swallow = "\\\\."; 
@@ -419,7 +416,7 @@
 			__END__ marker
 			*/
 			comment = "__END__ marker";
-			name = "string.program-block.ruby";
+			name = "string.unquoted.program-block.ruby";
 			begin = "^__END__$"; end = "\\z";
 		},
 
@@ -428,15 +425,15 @@
 		// HERE documents
 		//
 		{
-			name = "string.unquoted.ruby";
+			name = "string.unquoted.heredoc.ruby";
 			begin = "(?><<(\\w+))(?!\\s+#\\s*([Cc]|sh))"; end = "^\\1$";
 			patterns = (
 			   {  begin = "^<<\\w+"; end = "$";
 				  patterns = ( { include = "source.ruby"; } );
 			   },
 			   
-			   { name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-			   { name = "string.escaped.char.ruby"; match = "\\\\."; }
+			   { name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+			   { name = "constant.character.escaped.ruby"; match = "\\\\."; }
 			);
 		},
 		
@@ -448,8 +445,8 @@
 				  patterns = ( { include = "source.ruby"; } );
 			   },
 			   { include = "source.c"; },
-			   { name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-			   { name = "string.escaped.char.ruby"; match = "\\\\."; }
+			   { name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+			   { name = "constant.character.escaped.ruby"; match = "\\\\."; }
 			);
 		},
 
@@ -458,8 +455,8 @@
 			begin = "(?><<(\\w+))(?=\\s+#\\s*[Cc]\\+\\+)"; end = "^\\1$";
 			patterns = (
 			    { include = "source.c++"; },
-			    { name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-			    { name = "string.escaped.char.ruby"; match = "\\\\."; },
+			    { name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+			    { name = "constant.character.escaped.ruby"; match = "\\\\."; },
 			   {  begin = "^<<\\w+"; end = "$";
 				  patterns = ( { include = "source.ruby"; } );
 			   },
@@ -473,8 +470,8 @@
 				  patterns = ( { include = "source.ruby"; } );
 			   },
 			   { include = "source.shell"; },
-			   { name = "string.interpolation.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-			   { name = "string.escaped.char.ruby"; match = "\\\\."; }
+			   { name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
+			   { name = "constant.character.escaped.ruby"; match = "\\\\."; }
 			   
 			);
 		}

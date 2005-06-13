@@ -116,7 +116,7 @@
 			comment = " the optional name is just to catch the def also without a method-name";
 			match = "\\b(def)\\b(\\s+((?>[a-zA-Z_]\\w*(?>\\.|::))?(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?)))?";
 			captures = {	1 = { name = "keyword.control.def.ruby"; };
-							3 = { name = "entity.name.functio.rubyn"; }; };
+							3 = { name = "entity.name.function.ruby"; }; };
 		},
 
 /*		{ 

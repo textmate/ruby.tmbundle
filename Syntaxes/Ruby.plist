@@ -107,7 +107,7 @@
 //			comment = " swallow = "\\([^()]*(?R)[^()]*\\)|[^()]*";";
 			end = "\\)";
 			patterns = ( { include = "source.ruby"; } );
-			captures = {	1 = { name = "keyword.control.def.ruby"; };
+			captures = {	1 = { name = "storage.type.def.ruby"; };
 							2 = { name = "entity.name.function.ruby"; }; };
 		},
 
@@ -115,7 +115,7 @@
 			name = "declaration.function.method.without-arguments.ruby";
 			comment = " the optional name is just to catch the def also without a method-name";
 			match = "\\b(def)\\b(\\s+((?>[a-zA-Z_]\\w*(?>\\.|::))?(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?)))?";
-			captures = {	1 = { name = "keyword.control.def.ruby"; };
+			captures = {	1 = { name = "storage.type.def.ruby"; };
 							3 = { name = "entity.name.function.ruby"; }; };
 		},
 
@@ -132,14 +132,23 @@
 
 		{
 			name = "declaration.class.ruby";
-			match = "^\\s*(class)\\s+([.a-zA-Z0-9_:]+(\\s*<\\s*[.a-zA-Z0-9_:]+)?)";
+			match = "^\\s*(class)\\s+(([.a-zA-Z0-9_:]+(\\s*<\\s*[.a-zA-Z0-9_:]+)?)|<<\\s*[.a-zA-Z0-9_:]+)";
 			captures = {
-				1 = { name = "keyword.control.class.ruby"; };
+				1 = { name = "storage.type.class.ruby"; };
 				2 = { name = "entity.name.class.ruby"; };
-				3 = { name = "entity.other.inherited-class.ruby"; };
+				4 = { name = "entity.other.inherited-class.ruby"; };
 			};
 		},
 
+		{
+			name = "declaration.module.ruby";
+			match = "^\\s*(module)\\s+((([A-Z]\\w*::)*)[A-Z]\\w*)";
+			captures = {
+				1 = { name = "storage.type.module.ruby"; };
+				2 = { name = "entity.name.module.ruby"; };
+				3 = { name = "entity.other.parent-module.ruby"; };
+			};
+		},
 		/*{ name = "keyword.variable.symbol.ruby"; match = "\\s+(:[a-zA-Z_?!<>]+|:'.*?'?)";
 			"foregroundColor[1]" = "#3387CC";
 		},*/

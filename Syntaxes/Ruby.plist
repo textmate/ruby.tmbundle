@@ -30,6 +30,60 @@
 	Unknown. The problem is the ternary logic operator, the else-branch of 
 	which looks like a symbol if there isn't a space between the ':' and
 	the following text.
+
+	text:
+	if (data.size % 2) == 1
+	line << ('%3s ' % str)
+	symptoms:
+	'% 2) ' is recognized as a literal which is wrong.
+	'% str)' is opening a literal which continues to the next line.
+	solution:
+	tweak the rules for literals and for the modulo operator.
+
+	text:
+	data += 0.chr
+	99.downto(0)
+	symptoms:
+	'0.' and '99.' is colored as if they were a float. In this case
+	they are integers on which a method is invoked.
+	solution:
+	tweak the rules for numbers and for instance methods.
+	
+	text:
+	#{self.class}       (in double quotes)
+	symptoms:
+	coloring of interpolated code within strings.. is inconsisten.
+	solution:
+	tweak the interpolation rules and stuff.
+	
+	text:
+	br = m.end(0) + b1
+	x, y = b2vxay(m.begin(0) + b1)
+	stream.next
+	symptoms:
+	'end', 'begin', 'next' is colored as if they were keywords.. 
+	here they are methods.
+	solution:
+	adjust keyword and method rules.
+                
+    text:
+    val?(a):p(b)
+    val?'a':'b'
+    symptoms:
+    ':p' is recognized as a symbol.. its 2 things ':' and 'p'.
+    :'b' has same problem.
+    solution:
+    ternary operator rule, precedence stuff, symbol rule.
+    
+    text:
+    a<<1
+    assert_equal(2**i, 1<<i)
+    symptoms:
+    'a<<1' pushes 1 on a, but is recognized as being a heredoc.
+    '1<<i' same problem.
+    solution:
+    let the heredoc rule look for bunch of stuff,
+    for instance assignment 'a=<<1', method calls 'p(<<1)'.
 	";
 
   foldingStartMarker = "^\\s*(def|class|module|([^#])*\\bdo\\b)\\b(?!.*\\bend\\b\\s*(#.*)?$)";

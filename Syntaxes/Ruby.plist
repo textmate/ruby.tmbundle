@@ -1,16 +1,15 @@
-{
-	name = "Ruby";
-	scopeName = "source.ruby";
-	firstLineMatch = "^#!/.*\\bruby\\b";
-	fileTypes = ( rb, Rakefile, rake, cgi, fcgi );
-	keyEquivalent = "^~R"; 
-	comment = "
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>comment</key>
+	<string>
 	TODO: unresolved issues
 
 	text:
-	\"a\\332a\"
+	"a\332a"
 	symptoms:
-	'\\332' is not recognized as slash3.. which should be octal 332.
+	'\332' is not recognized as slash3.. which should be octal 332.
 	solution:
 	plain regexp.. should be easy.
 
@@ -23,24 +22,6 @@
 	no solution at this moment... difficult.
 
 	text:
-	M[1]?(a+b):p(c+d)
-	symptoms:
-	':p' is recognized as a symbol.. which its not.
-	solution:
-	Unknown. The problem is the ternary logic operator, the else-branch of 
-	which looks like a symbol if there isn't a space between the ':' and
-	the following text.
-
-	text:
-	if (data.size % 2) == 1
-	line << ('%3s ' % str)
-	symptoms:
-	'% 2) ' is recognized as a literal which is wrong.
-	'% str)' is opening a literal which continues to the next line.
-	solution:
-	tweak the rules for literals and for the modulo operator.
-
-	text:
 	data += 0.chr
 	99.downto(0)
 	symptoms:
@@ -48,11 +29,13 @@
 	they are integers on which a method is invoked.
 	solution:
 	tweak the rules for numbers and for instance methods.
+	(not seeing this problem; fixed?)
 	
 	text:
 	#{self.class}       (in double quotes)
 	symptoms:
-	coloring of interpolated code within strings.. is inconsisten.
+	coloring of interpolated code within strings.. is inconsistent.
+	(can someone elaborate? I'm not seeing a problem. Fixed?)
 	solution:
 	tweak the interpolation rules and stuff.
 	
@@ -74,473 +57,811 @@
     :'b' has same problem.
     solution:
     ternary operator rule, precedence stuff, symbol rule.
-    
+    but also consider 'a.b?(:c)' ??
+
     text:
-    a<<1
-    assert_equal(2**i, 1<<i)
+    a&lt;&lt;1
+    assert_equal(2**i, 1&lt;&lt;i)
     symptoms:
-    'a<<1' pushes 1 on a, but is recognized as being a heredoc.
-    '1<<i' same problem.
+    'a&lt;&lt;1' pushes 1 on a, but is recognized as being a heredoc.
+    '1&lt;&lt;i' same problem.
     solution:
     let the heredoc rule look for bunch of stuff,
-    for instance assignment 'a=<<1', method calls 'p(<<1)'.
-	";
-
-  foldingStartMarker = "^\\s*(def|class|module|([^#])*\\bdo\\b)\\b(?!.*\\bend\\b\\s*(#.*)?$)";
-  foldingStopMarker = "(^\\s*end|;\\s*end)\\s*(#.*)?$";
-
-	patterns = (
-		{
-			comment = "everything being a reserved word, not a value and needing a 'end' is a..";
-			name = "keyword.control.ruby";
-			match = "\\b(BEGIN|begin|case|class|else|elsif|END|end|ensure|for|if|in|module|rescue|then|unless|until|when|while)\\b(?![?!])";
-		},
-
-		{
-			comment = "contextual smart pair support for block parameters";
-			name = "keyword.control.ruby.start-block";
-		   match = "\\bdo\\b\\s*";
-		},
-
-		{
-		    comment = "contextual smart pair support";
-			name = "meta.syntax.ruby.start-block";
-			match = "\\{(\\s*)(\\})?";
-		},
-
-		{
-			comment = " as above, just doesn't need a 'end' and does a logic operation";
-			name = "keyword.operator.logical.ruby";
-			match = "\\b(and|not|or)\\b";
-		},
-
-		{
-		    comment = " just as above but being not a logical operation";
-			name = "keyword.control.pseudo-method.ruby";
-			match = "\\b(alias|alias_method|break|next|redo|retry|return|super|undef|yield)\\b(?![?!])|\\bdefined\\?";
-		},
-
-		{
-		    comment = " every reserved word, being a value is a..";
-		    name = "constant.language.pseudo-variable.ruby";
-		    match = "\\b(nil|true|false|__(FILE|LINE)__|self)\\b(?![?!])";
-		},
-
-		{
-	        comment = " everything being a method but having a special function is a..";
-	        name = "keyword.other.special-method.ruby";
-	        match = "\\b(initialize|new|loop|include|require|raise|attr_reader|attr_writer|attr_accessor|attr|catch|throw|private|public|protected)\\b(?![?!])";
-		},
-
-
-		{  name = "variable.other.readwrite.instance.ruby";
-		   match = "@[a-zA-Z_]\\w*";
-		},
-
-		{  name = "variable.other.readwrite.class.ruby";
-		   match = "@@[a-zA-Z_]\\w*";
-		},
-
-		{  name = "variable.other.readwrite.global.ruby";
-		   match = "\\$[a-zA-Z_]\\w*";
-		},
-
-		{  name = "variable.other.readwrite.global.pre-defined.ruby";
-		   match = "\\$(!|@|&|`|'|\\+|\\d|~|=|/|\\\\|,|;|\\.|<|>|_|\\*|\\$|\\?|:|\"|-[0adFiIlpv])";
-		},
-
-		{  name = "variable.other.constant.ruby";
-		   match = "\\b[A-Z]\\w*\\b";
-		},
-
-		{
-			name = "declaration.function.method.with-arguments.ruby";
-			comment = " the method pattern comes from the symbol pattern, see there for a explaination";
-			begin = "\\b(def)\\b\\s+((?>[a-zA-Z_]\\w*(?>\\.|::))?(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?))\\s*\\(";
-//			comment = " this can slow down TM really if you write invalid ruby:";
-//			comment = " swallow = "\\([^()]*(?R)[^()]*\\)|[^()]*";";
-			end = "\\)";
-			patterns = ( { include = "source.ruby"; } );
-			captures = {	1 = { name = "storage.type.def.ruby"; };
-							2 = { name = "entity.name.function.ruby"; }; };
-		},
-
-		{
-			name = "declaration.function.method.without-arguments.ruby";
-			comment = " the optional name is just to catch the def also without a method-name";
-			match = "\\b(def)\\b(\\s+((?>[a-zA-Z_]\\w*(?>\\.|::))?(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?)))?";
-			captures = {	1 = { name = "storage.type.def.ruby"; };
-							3 = { name = "entity.name.function.ruby"; }; };
-		},
-
-/*		{ 
-			name = "keyword.function.identifier.ruby"; match = "[a-z][a-zA-Z0-9_?!]*";
-			//foregroundColor = "#FF3333"; 
-		},*/
-
-		{ 
-			name = "constant.numeric.ruby"; 
-//			match = "(\\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)(L|l|UL|ul|u|U|F|f)?\\b)|((?<!\\w)\\?\\S)"; 
-			match = "\\b(0[xX][0-9A-Fa-f](?>_?[0-9A-Fa-f])*|\\d(?>_?\\d)*(\\.(?>_?\\d)*)?([eE][-+]?(?>_?\\d)*)?)\\b"; 
-		},
-
-		{
-			name = "declaration.class.ruby";
-			match = "^\\s*(class)\\s+(([.a-zA-Z0-9_:]+(\\s*<\\s*[.a-zA-Z0-9_:]+)?)|(<<\\s*[.a-zA-Z0-9_:]+))";
-			captures = {
-				1 = { name = "storage.type.class.ruby"; };
-				2 = { name = "entity.name.class.ruby"; };
-				4 = { name = "entity.other.inherited-class.ruby"; };
-				5 = { name = "variable.other.object.ruby"; };
-			};
-		},
-
-		{
-			name = "declaration.module.ruby";
-			match = "^\\s*(module)\\s+((([A-Z]\\w*::)*)[A-Z]\\w*)";
-			captures = {
-				1 = { name = "storage.type.module.ruby"; };
-				2 = { name = "entity.name.module.ruby"; };
-				3 = { name = "entity.other.parent-module.ruby"; };
-			};
-		},
-		/*{ name = "keyword.variable.symbol.ruby"; match = "\\s+(:[a-zA-Z_?!<>]+|:'.*?'?)";
-			"foregroundColor[1]" = "#3387CC";
-		},*/
-
-		{ name = "constant.other.symbol.single-quoted.ruby"; begin = ":'"; end = "'"; swallow = "\\\\['\\\\]";},
-		{ name = "constant.other.symbol.double-quoted.ruby"; begin = ":\""; end = "\""; swallow = "\\\\.";
-		  patterns = (
-			{ name = "source.ruby.embedded.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); }
-		  );
-		},
-
-		{
-			/*
-			single quoted string (does not allow interpolation):
-			'hello #{42} world'	  #->  "hello #{42} world"
-			*/
-			comment = "single quoted string (does not allow interpolation)";
-			name = "string.quoted.single.ruby"; 
-			begin = "'"; 
-			end = "'"; 
-			swallow = "\\\\."; 
-			patterns = (
-				{ 
-					name = "constant.character.escaped.ruby"; 
-					match = "\\\\'"; 
-				}
-			);
-		},
-
-		{ 
-			/*
-			double quoted string (allows for interpolation):
-			"hello #{42} world"	  #->  "hello 42 world"
-			"hello #@ivar world"  #->  "hello 42 world"
-			"hello #@@cvar world" #->  "hello 42 world"
-			"hello #$gvar world"  #->  "hello 42 world"
-			*/
-			comment = "double quoted string (allows for interpolation)";
-			name = "string.quoted.double.ruby"; 
-			begin = "\""; 
-			end = "\""; 
-			swallow = "\\\\."; 
-			patterns = (
-				{ name = "source.ruby.embedded.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-/*				{ 
-					name = "source.ruby.embedded.source"; 
-					match = "#(\\{([^\\}]*)\\}|@{1,2}[a-zA-Z0-9_]+|[$][a-zA-Z0-9_]+)"; 
-					foregroundColor = "#aaaaaa"; 
-				},
-*/				{ 
-					name = "constant.character.escaped.ruby"; 
-					match = "\\\\."; 
-				}
-			);
-		},
-
-		{ 
-			/*
-			execute string (allows for interpolation):
-			`ls`   #-> ".\n..\nREADME\nmain.rb"
-			*/
-			comment = "execute string (allows for interpolation)";
-			name = "string.interpolated.ruby"; 
-			begin = "`"; 
-			end = "`"; 
-			swallow = "\\\\."; 
-			patterns = (
-				{ name = "source.ruby.embedded.ruby"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ name = "constant.character.escaped.ruby";  match = "\\\\."; }
-			);
-		},
-
-		{
-			/*
-			execute string (allow for interpolation):
-			%x{ls}	 #-> ".\n..\nREADME\nmain.rb"
-			*/
-			comment = "execute string (allow for interpolation)";
-			name = "string.interpolated.ruby";
-			begin = "%x\\{";
-			end = "\\}";
-			swallow = "\\\\.";
-			patterns = (
-				{ name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ name = "constant.character.escaped.ruby"; match = "\\\\."; }
-			);
-		},
-
-		{
-			/*
-			regular expressions (normal):
-			/<regexp>/<options>
-			*/
-			comment = "regular expressions (normal)";
-			name = "string.regexp.classic.ruby"; 
-			begin = "/(?=\\S.*/)"; 
-			end = "/[eimnosux]*";
-			swallow = "\\\\."; 
-			patterns = (
-				/*{
-					name = "source.ruby.embedded.source"; 
-					match = "#\\{([^\\}]*)\\}"; 
-				},*/
-				{ name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				/*{ 
-					name = "string.regexp.escaped.slash.ruby"; 
-					match = "\\\\/"; 
-					foregroundColor = "#CCCC33"; 
-				},*/
-				{ 
-					name = "constant.character.escaped.ruby"; 
-					match = "\\\\."; 
-				}
-			);
-		},
-
-		{ 
-			/*
-			regular expressions (literal):
-			%r{<regexp>}<options>
-			*/
-			comment = "regular expressions (literal)";
-			name = "string.regexp.mod-r.ruby"; 
-			
-			begin = "%r\\{";  end = "\\}[eimnosux]*";	 
-			patterns = (
-				{ name = "constant.character.escaped.ruby";         match = "\\."; },
-				{ name = "string.regexp.arbitrary-repitition.ruby"; match = "\\{\\d+(,\\d+)?\\}"; },
-				{ name = "source.ruby.embedded.source";             begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ name = "constant.character.escaped.slash.ruby";   match = "\\\\/";  }
-			);
-		},
-
-		{ 
-			/* 
-			literal capable of interpolation:	 
-			%W(a b#{42}c) #-> ["a", "b42c"]
-			%W(ab c\nd \\\)ef)
-
-			%(#{42})  #->  "42"
-			*/
-			comment = "literal capable of interpolation ()";
-			name = "string.quoted.literal.upper.ruby";
-			begin = "%[QWSR]?\\("; end = "\\)";  swallow = "\\\\."; 
-			patterns = (
-				{ name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ name = "constant.character.escaped.ruby";  match = "\\\\."; }
-			);
-		},
-		{
-			comment = "literal capable of interpolation -- wildcard";
-			name = "string.quoted.literal.upper.ruby";
-			begin = "%(?!>)[QWSR]?([^<\\{\\[\\(\\w])"; end = "\\1";  swallow = "\\\\."; 
-			patterns = (
-				{ name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ name = "constant.character.escaped.ruby";  match = "\\\\."; }
-			);
-		},
-		{
-			comment = "literal capable of interpolation []";
-			name = "string.quoted.literal.upper.ruby";
-			begin = "%[QWSR]?\\["; end = "\\1";  swallow = "\\\\."; 
-			patterns = (
-				{ name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ name = "constant.character.escaped.ruby";  match = "\\\\."; }
-			);
-		},
-		{ 
-			comment = "literal capable of interpolation <>";
-			name = "string.quoted.literal.upper.ruby";
-			begin = "%[QWSR]?\\<"; end = "\\>";  swallow = "\\\\."; 
-			patterns = (
-				{ name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-				{ name = "constant.character.escaped.ruby";  match = "\\\\."; }
-			);
-		},
-		{
-			comment = "literal capable of interpolation -- {}";
-			name = "string.quoted.double.ruby.mod"; 
-			begin = "%[QWSR]?\\{";  end = "\\}"; swallow = "\\\\."; 
-			patterns = (
-				{ name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-			    { name = "constant.character.escaped.ruby";  match = "\\\\."; }
-			);
-		},
-
-		{ 
-		    //
-			//literal incapable of interpolation
-			//%w(a b#{42}c) #-> ["a", "b#{42}c"]
-			//%w(ab c\nd \\\)ef)
-			//
-			comment = "literal incapable of interpolation -- wildcard";
-			name = "string.quoted.literal.lower.ruby"; 
-			begin = "%[qws]([^<\\{\\[\\(\\w])"; end = "\\1"; swallow = "\\\\."; 
-		},
-		{ 
-			comment = "literal incapable of interpolation -- ()";
-			name = "string.quoted.literal.lower.ruby"; 
-			begin = "%[qws]\\("; end = "\\)"; swallow = "\\\\."; 
-			patterns = ( {  name = "constant.character.escaped.ruby";  match = "\\\\\\)";  } );
-		},
-		{ 
-			comment = "literal incapable of interpolation -- <>";
-			name = "string.quoted.literal.lower.ruby"; 
-			begin = "%[qws]\\<"; end = "\\>"; swallow = "\\\\."; 
-			patterns = ( {  name = "constant.character.escaped.ruby";  match = "\\\\\\>";  } );
-		},
-		{
-			comment = "literal incapable of interpolation -- []";
-			name = "string.quoted.literal.lower.ruby"; 
-			begin = "%[qws]\\["; end = "\\]"; swallow = "\\\\."; 
-			patterns = ( {  name = "constant.character.escaped.ruby";  match = "\\\\\\]";  } );
-		},
-		{
-			comment = "literal incapable of interpolation -- {}";
-			name = "string.quoted.single.ruby.mod";
-			begin = "%[qws]\\{"; end = "\\}";
-			patterns = ( {  name = "constant.character.escaped.ruby";  match = "\\\\\\}";  } );
-		},
-
-		{ 
-			/* 
-			symbols:
-			:BIG  :aBC	:AbC9  :symb  :_asd	 :_9sd	:__=  :f00bar  :abc!
-			:abc?  :abc=  :<<  :<  :>>	:>	:<=>  :<=  :>=	:%	:*	:**
-			:+	:-	:&	:|	:~	:=~	 :==  :===	:`	:[]=  :[]  :/  :-@
-			:+@	 :@aaa	:@@bbb
-			*/
-			comment = "symbols";
-			name = "constant.other.symbol.ruby";
-			/*
-			explained:
-			    0: avoid matching the second : of ::
-				1: generic symbols with ?,! or = behind, but not with => behind
-				2: == and ===
-				3: >, >> and >=
-				4: <, << and <=
-				5: <=>
-				6: %, &, `, / and |
-				7: * and **
-				8: ~ and =~
-				9: +, -, +@ and -@
-			   10: [] and []=
-			   11: instance- and class-variable symbols
-					 0	 1							   2	3	   4	  5	  6			7		8	9	   10		11				  */
-			match = "(?<!:):(?>[a-zA-Z_]\\w*(?>[?!]|=(?!>))?|===?|>[>=]?|<[<=]?|<=>|[%&`/\\|]|\\*\\*?|=?~|[-+]@?|\\[\\]=?|@@?[a-zA-Z_]\\w*)";
-		},
-
-		{ 
-			/*
-			multiline comments:
-			*/
-			comment = "multiline comments";
-			name = "comment.documentation.ruby"; 
-			begin = "^=begin"; 
-			end = "^=end"; 
-			swallow = "\\\\."; 
-		},
-
-		{
-			/*
-			end of line comments:
-			im code	 #	im comment
-			*/
-			comment = "end of line comments";
-			name = "comment.line.number-sign.ruby"; 
-			match = "#.*$"; 
-			"fontStyle" = ( italic ); 
-		},
-
-		{
-			/*
-			__END__ marker
-			*/
-			comment = "__END__ marker";
-			name = "string.unquoted.program-block.ruby";
-			begin = "^__END__$"; end = "\\z";
-		},
-
-
-		//
-		// HERE documents
-		//
-		{
-			name = "string.unquoted.heredoc.ruby";
-			begin = "(?><<(\\w+))(?!\\s+#\\s*([Cc]|sh))"; end = "^\\1$";
-			patterns = (
-			   {  begin = "^<<\\w+"; end = "$";
-				  patterns = ( { include = "source.ruby"; } );
-			   },
-			   
-			   { name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-			   { name = "constant.character.escaped.ruby"; match = "\\\\."; }
-			);
-		},
-		
-		{
-			name = "string.unquoted.embedded.c.ruby";
-			begin = "(?><<(\\w+))(?=\\s+#\\s*[Cc](?!\\+\\+))"; end = "^\\1$";
-			patterns = (
-			   {  begin = "^<<\\w+"; end = "$";
-				  patterns = ( { include = "source.ruby"; } );
-			   },
-			   { include = "source.c"; },
-			   { name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-			   { name = "constant.character.escaped.ruby"; match = "\\\\."; }
-			);
-		},
-
-		{
-			name = "string.unquoted.embedded.cplusplus.ruby";
-			begin = "(?><<(\\w+))(?=\\s+#\\s*[Cc]\\+\\+)"; end = "^\\1$";
-			patterns = (
-			    { include = "source.c++"; },
-			    { name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-			    { name = "constant.character.escaped.ruby"; match = "\\\\."; },
-			   {  begin = "^<<\\w+"; end = "$";
-				  patterns = ( { include = "source.ruby"; } );
-			   },
-			);
-		},
-		{
-			name = "string.unquoted.embedded.shell.ruby";
-			begin = "(?><<(\\w+))(?=\\s+#\\s*sh)"; end = "^\\1$";
-			patterns = (
-			   {  begin = "^<<\\w+"; end = "$";
-				  patterns = ( { include = "source.ruby"; } );
-			   },
-			   { include = "source.shell"; },
-			   { name = "source.ruby.embedded.source"; begin = "#\\{"; end = "\\}"; patterns = ( { include = "source.ruby"; } ); },
-			   { name = "constant.character.escaped.ruby"; match = "\\\\."; }
-			   
-			);
-		}
-
-	);
-	uuid = "E00B62AC-6B1C-11D9-9B1F-000D93589AF6";
-}
-
+    for instance assignment 'a=&lt;&lt;1', method calls 'p(&lt;&lt;1)'.
+	for now, workaround is to use spaces: 1 &lt;&lt; i
+	</string>
+	<key>fileTypes</key>
+	<array>
+		<string>rb</string>
+		<string>Rakefile</string>
+		<string>rake</string>
+		<string>cgi</string>
+		<string>fcgi</string>
+	</array>
+	<key>firstLineMatch</key>
+	<string>^#!/.*\bruby\b</string>
+	<key>foldingStartMarker</key>
+	<string>^\s*(def|class|module|([^#])*\bdo\b)\b(?!.*\bend\b\s*(#.*)?$)</string>
+	<key>foldingStopMarker</key>
+	<string>(^\s*end|;\s*end)\s*(#.*)?$</string>
+	<key>keyEquivalent</key>
+	<string>^~R</string>
+	<key>name</key>
+	<string>Ruby</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>comment</key>
+			<string>everything being a reserved word, not a value and needing a 'end' is a..</string>
+			<key>match</key>
+			<string>\b(BEGIN|begin|case|class|else|elsif|END|end|ensure|for|if|in|module|rescue|then|unless|until|when|while)\b(?![?!])</string>
+			<key>name</key>
+			<string>keyword.control.ruby</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>contextual smart pair support for block parameters</string>
+			<key>match</key>
+			<string>\bdo\b\s*</string>
+			<key>name</key>
+			<string>keyword.control.ruby.start-block</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>contextual smart pair support</string>
+			<key>match</key>
+			<string>\{(\s*)(\})?</string>
+			<key>name</key>
+			<string>meta.syntax.ruby.start-block</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string> as above, just doesn't need a 'end' and does a logic operation</string>
+			<key>match</key>
+			<string>\b(and|not|or)\b</string>
+			<key>name</key>
+			<string>keyword.operator.logical.ruby</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string> just as above but being not a logical operation</string>
+			<key>match</key>
+			<string>\b(alias|alias_method|break|next|redo|retry|return|super|undef|yield)\b(?![?!])|\bdefined\?</string>
+			<key>name</key>
+			<string>keyword.control.pseudo-method.ruby</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string> every reserved word, being a value is a..</string>
+			<key>match</key>
+			<string>\b(nil|true|false|__(FILE|LINE)__|self)\b(?![?!])</string>
+			<key>name</key>
+			<string>constant.language.pseudo-variable.ruby</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string> everything being a method but having a special function is a..</string>
+			<key>match</key>
+			<string>\b(initialize|new|loop|include|require|raise|attr_reader|attr_writer|attr_accessor|attr|catch|throw|private|public|protected)\b(?![?!])</string>
+			<key>name</key>
+			<string>keyword.other.special-method.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>@[a-zA-Z_]\w*</string>
+			<key>name</key>
+			<string>variable.other.readwrite.instance.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>@@[a-zA-Z_]\w*</string>
+			<key>name</key>
+			<string>variable.other.readwrite.class.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\$[a-zA-Z_]\w*</string>
+			<key>name</key>
+			<string>variable.other.readwrite.global.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\$(!|@|&amp;|`|'|\+|\d|~|=|/|\\|,|;|\.|&lt;|&gt;|_|\*|\$|\?|:|"|-[0adFiIlpv])</string>
+			<key>name</key>
+			<string>variable.other.readwrite.global.pre-defined.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b[A-Z]\w*\b</string>
+			<key>name</key>
+			<string>variable.other.constant.ruby</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>\b(def)\b\s+((?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?(?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?|===?|&gt;[&gt;=]?|&lt;[&lt;=]?|&lt;=&gt;|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?))\s*\(</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.def.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.function.ruby</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string> the method pattern comes from the symbol pattern, see there for a explaination</string>
+			<key>end</key>
+			<string>\)</string>
+			<key>name</key>
+			<string>declaration.function.method.with-arguments.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>source.ruby</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.def.ruby</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.function.ruby</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string> the optional name is just to catch the def also without a method-name</string>
+			<key>match</key>
+			<string>\b(def)\b(\s+((?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?(?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?|===?|&gt;[&gt;=]?|&lt;[&lt;=]?|&lt;=&gt;|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?)))?</string>
+			<key>name</key>
+			<string>declaration.function.method.without-arguments.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(0[xX][0-9A-Fa-f](?&gt;_?[0-9A-Fa-f])*|\d(?&gt;_?\d)*(\.(?&gt;_?\d)*)?([eE][-+]?(?&gt;_?\d)*)?)\b</string>
+			<key>name</key>
+			<string>constant.numeric.ruby</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.class.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.class.ruby</string>
+				</dict>
+				<key>4</key>
+				<dict>
+					<key>name</key>
+					<string>entity.other.inherited-class.ruby</string>
+				</dict>
+				<key>5</key>
+				<dict>
+					<key>name</key>
+					<string>variable.other.object.ruby</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>^\s*(class)\s+(([.a-zA-Z0-9_:]+(\s*&lt;\s*[.a-zA-Z0-9_:]+)?)|(&lt;&lt;\s*[.a-zA-Z0-9_:]+))</string>
+			<key>name</key>
+			<string>declaration.class.ruby</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.module.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>entity.name.module.ruby</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>entity.other.parent-module.ruby</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>^\s*(module)\s+((([A-Z]\w*::)*)[A-Z]\w*)</string>
+			<key>name</key>
+			<string>declaration.module.ruby</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>:'</string>
+			<key>end</key>
+			<string>'</string>
+			<key>name</key>
+			<string>constant.other.symbol.single-quoted.ruby</string>
+			<key>swallow</key>
+			<string>\\['\\]</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>:"</string>
+			<key>end</key>
+			<string>"</string>
+			<key>name</key>
+			<string>constant.other.symbol.double-quoted.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>'</string>
+			<key>comment</key>
+			<string>single quoted string (does not allow interpolation)</string>
+			<key>end</key>
+			<string>'</string>
+			<key>name</key>
+			<string>string.quoted.single.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\\'</string>
+					<key>name</key>
+					<string>constant.character.escaped.ruby</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>"</string>
+			<key>comment</key>
+			<string>double quoted string (allows for interpolation)</string>
+			<key>end</key>
+			<string>"</string>
+			<key>name</key>
+			<string>string.quoted.double.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>`</string>
+			<key>comment</key>
+			<string>execute string (allows for interpolation)</string>
+			<key>end</key>
+			<string>`</string>
+			<key>name</key>
+			<string>string.interpolated.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%x\{</string>
+			<key>comment</key>
+			<string>execute string (allow for interpolation)</string>
+			<key>end</key>
+			<string>\}</string>
+			<key>name</key>
+			<string>string.interpolated.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>/(?=\S.*/)</string>
+			<key>comment</key>
+			<string>regular expressions (normal)</string>
+			<key>end</key>
+			<string>/[eimnosux]*</string>
+			<key>name</key>
+			<string>string.regexp.classic.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%r\{</string>
+			<key>comment</key>
+			<string>regular expressions (literal)</string>
+			<key>end</key>
+			<string>\}[eimnosux]*</string>
+			<key>name</key>
+			<string>string.regexp.mod-r.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\.</string>
+					<key>name</key>
+					<string>constant.character.escaped.ruby</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\{\d+(,\d+)?\}</string>
+					<key>name</key>
+					<string>string.regexp.arbitrary-repitition.ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>\\/</string>
+					<key>name</key>
+					<string>constant.character.escaped.slash.ruby</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%[QWSR]?\(</string>
+			<key>comment</key>
+			<string>literal capable of interpolation ()</string>
+			<key>end</key>
+			<string>\)</string>
+			<key>name</key>
+			<string>string.quoted.literal.upper.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%(?!&gt;)[QWSR]?([^&lt;\{\[\(\w\s])</string>
+			<key>comment</key>
+			<string>literal capable of interpolation -- wildcard
+	note that space is disabled as a delimiter;
+	although it is legal ruby, it interferes with the mod operator</string>
+			<key>end</key>
+			<string>\1</string>
+			<key>name</key>
+			<string>string.quoted.literal.upper.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%[QWSR]?\[</string>
+			<key>comment</key>
+			<string>literal capable of interpolation []</string>
+			<key>end</key>
+			<string>\1</string>
+			<key>name</key>
+			<string>string.quoted.literal.upper.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%[QWSR]?\&lt;</string>
+			<key>comment</key>
+			<string>literal capable of interpolation &lt;&gt;</string>
+			<key>end</key>
+			<string>\&gt;</string>
+			<key>name</key>
+			<string>string.quoted.literal.upper.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%[QWSR]?\{</string>
+			<key>comment</key>
+			<string>literal capable of interpolation -- {}</string>
+			<key>end</key>
+			<string>\}</string>
+			<key>name</key>
+			<string>string.quoted.double.ruby.mod</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%[qws]([^&lt;\{\[\(\w\s])</string>
+			<key>comment</key>
+			<string>literal incapable of interpolation -- wildcard</string>
+			<key>end</key>
+			<string>\1</string>
+			<key>name</key>
+			<string>string.quoted.literal.lower.ruby</string>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%[qws]\(</string>
+			<key>comment</key>
+			<string>literal incapable of interpolation -- ()</string>
+			<key>end</key>
+			<string>\)</string>
+			<key>name</key>
+			<string>string.quoted.literal.lower.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\\\)</string>
+					<key>name</key>
+					<string>constant.character.escaped.ruby</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%[qws]\&lt;</string>
+			<key>comment</key>
+			<string>literal incapable of interpolation -- &lt;&gt;</string>
+			<key>end</key>
+			<string>\&gt;</string>
+			<key>name</key>
+			<string>string.quoted.literal.lower.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\\\&gt;</string>
+					<key>name</key>
+					<string>constant.character.escaped.ruby</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%[qws]\[</string>
+			<key>comment</key>
+			<string>literal incapable of interpolation -- []</string>
+			<key>end</key>
+			<string>\]</string>
+			<key>name</key>
+			<string>string.quoted.literal.lower.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\\\]</string>
+					<key>name</key>
+					<string>constant.character.escaped.ruby</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%[qws]\{</string>
+			<key>comment</key>
+			<string>literal incapable of interpolation -- {}</string>
+			<key>end</key>
+			<string>\}</string>
+			<key>name</key>
+			<string>string.quoted.single.ruby.mod</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\\\}</string>
+					<key>name</key>
+					<string>constant.character.escaped.ruby</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>symbols</string>
+			<key>match</key>
+			<string>(?&lt;!:):(?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?|===?|&gt;[&gt;=]?|&lt;[&lt;=]?|&lt;=&gt;|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?|@@?[a-zA-Z_]\w*)</string>
+			<key>name</key>
+			<string>constant.other.symbol.ruby</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>^=begin</string>
+			<key>comment</key>
+			<string>multiline comments</string>
+			<key>end</key>
+			<string>^=end</string>
+			<key>name</key>
+			<string>comment.documentation.ruby</string>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>end of line comments</string>
+			<key>fontStyle</key>
+			<array>
+				<string>italic</string>
+			</array>
+			<key>match</key>
+			<string>#.*$</string>
+			<key>name</key>
+			<string>comment.line.number-sign.ruby</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>^__END__$</string>
+			<key>comment</key>
+			<string>__END__ marker</string>
+			<key>end</key>
+			<string>\z</string>
+			<key>name</key>
+			<string>string.unquoted.program-block.ruby</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?&gt;&lt;&lt;(\w+))(?!\s+#\s*([Cc]|sh))</string>
+			<key>end</key>
+			<string>^\1$</string>
+			<key>name</key>
+			<string>string.unquoted.heredoc.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#heredoc</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?&gt;&lt;&lt;(\w+))(?=\s+#\s*[Cc](?!\+\+))</string>
+			<key>end</key>
+			<string>^\1$</string>
+			<key>name</key>
+			<string>string.unquoted.embedded.c.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#heredoc</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>source.c</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?&gt;&lt;&lt;(\w+))(?=\s+#\s*[Cc]\+\+)</string>
+			<key>end</key>
+			<string>^\1$</string>
+			<key>name</key>
+			<string>string.unquoted.embedded.cplusplus.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#heredoc</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>source.c++</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?&gt;&lt;&lt;(\w+))(?=\s+#\s*sh)</string>
+			<key>end</key>
+			<string>^\1$</string>
+			<key>name</key>
+			<string>string.unquoted.embedded.shell.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#heredoc</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>source.shell</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+	<key>repository</key>
+	<dict>
+		<key>escaped_char</key>
+		<dict>
+			<key>match</key>
+			<string>\\.</string>
+			<key>name</key>
+			<string>constant.character.escaped.ruby</string>
+		</dict>
+		<key>heredoc</key>
+		<dict>
+			<key>begin</key>
+			<string>^&lt;&lt;\w+</string>
+			<key>end</key>
+			<string>$</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>source.ruby</string>
+				</dict>
+			</array>
+		</dict>
+		<key>interpolated_ruby</key>
+		<dict>
+			<key>begin</key>
+			<string>#\{</string>
+			<key>end</key>
+			<string>\}</string>
+			<key>name</key>
+			<string>source.ruby.embedded.source</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>source.ruby</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+	<key>scopeName</key>
+	<string>source.ruby</string>
+	<key>uuid</key>
+	<string>E00B62AC-6B1C-11D9-9B1F-000D93589AF6</string>
+</dict>
+</plist>

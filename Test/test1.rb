@@ -45,15 +45,17 @@ self.class
 data += 0.chr
 99.downto(0)
 
-0xCAFEBABE022409ad802046
-23402
-4.232
+0.9		# number
+0.A		# method invocation (0 -> A)
+0xCAFEBABE022409ad802046	# hex
+23402	# integer
+4.232	# decimal
 
 
 ###########
 # strings 
 
-'hello #{42} world'		# no interpolationm
+'hello #{42} wor\'knjkld'		# no interpolation or escapes except for slash-single-quote
 
 # double quoted string (allows for interpolation):
 "hello #{42} world"	  #->  "hello 42 world"
@@ -68,6 +70,17 @@ data += 0.chr
 %x{ls #{dir}}	 #-> ".\n..\nREADME\nmain.rb"
 `ls #{dir}`   #-> ".\n..\nREADME\nmain.rb"
 
+%Q{dude #{hey}}
+%Q!dude#{hey}!
+%W(dude#{hey})
+%q!dude#{hey}!
+%s{dude#{hey}}
+%w{dude#{hey}}
+%{woah#{hey}}
+% woah#{hey} 
+
+# mod operator should not be interpreted as a string operator
+# (space as delimiter is legal Ruby: '% string ' => "string")
 if (data.size % 2) == 1
 line << ('%3s ' % str)
 
@@ -99,6 +112,12 @@ val?(a):p(b)
 val?'a':'b'
 M[1]?(a+b):p(c+d)
 
+# but we must also account for ? in method names
+thing.call?(:someone)
+thing.call? :someone
+thing.call? thing2, :someone
+
+
 ############
 #literal capable of interpolation:	 
 %W(a b#{42}c) #-> ["a", "b42c"]
@@ -107,13 +126,22 @@ M[1]?(a+b):p(c+d)
 %(#{42})  #->  "42"
 
 
+############
+# multiline comments
+
+=begin
+stuff here
+... def must_not_highlight_keywords_in_comments end;
+stuff here too
+=end
+
 
 ############
 #literal incapable of interpolation
 %w(a b#{42}c) 					#-> ["a", "b#{42}c"]############
 %w(ab c\nd \\\)ef)				# heredoc tests
 
-append << not_heredoc;
+append << not_heredoc
 
 heredoc = <<END # C heredoc
 

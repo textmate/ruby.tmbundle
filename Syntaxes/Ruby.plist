@@ -184,7 +184,7 @@
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>storage.type.def.ruby</string>
+					<string>keyword.control.def.ruby</string>
 				</dict>
 				<key>2</key>
 				<dict>
@@ -212,7 +212,7 @@
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>storage.type.def.ruby</string>
+					<string>keyword.control.def.ruby</string>
 				</dict>
 				<key>3</key>
 				<dict>
@@ -239,7 +239,7 @@
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>storage.type.class.ruby</string>
+					<string>keyword.control.class.ruby</string>
 				</dict>
 				<key>2</key>
 				<dict>
@@ -268,7 +268,7 @@
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>storage.type.module.ruby</string>
+					<string>keyword.control.module.ruby</string>
 				</dict>
 				<key>2</key>
 				<dict>

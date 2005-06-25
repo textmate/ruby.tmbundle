@@ -63,6 +63,10 @@ data += 0.chr
 "hello #@@cvar world" #->  "hello 42 world"
 "hello #$gvar world"  #->  "hello 42 world"
 
+'hello #@ivar world'
+'hello #@@cvar world'
+'hello #$gvar world'
+
 # escapes
 "hello #$gvar \"world"  #->  "hello 42 \"world"
 
@@ -117,6 +121,8 @@ thing.call?(:someone)
 thing.call? :someone
 thing.call? thing2, :someone
 
+begin = {"(?=\\w)\\s*\\?:"}
+
 
 ############
 #literal capable of interpolation:	 
@@ -145,7 +151,7 @@ append << not_heredoc
 
 heredoc = <<END # C heredoc
 
-void LoveMyCarpet( bool forReal )
+void LoveMyCarpet( int forReal )
 {
 	forReal = 56;
 }

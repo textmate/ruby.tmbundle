@@ -7,6 +7,17 @@
 	TODO: unresolved issues
 
 	text:
+	"p &lt;&lt; end
+	print me!
+	end"
+	symptoms:
+	not recognized as a heredoc
+	solution:
+	there is no way to distinguish perfectly between the &lt;&lt; operator and the start
+	of a heredoc. Currently, we require assignment to recognize a heredoc. More
+	refinement is possible.
+
+	text:
 	"a\332a"
 	symptoms:
 	'\332' is not recognized as slash3.. which should be octal 332.
@@ -58,18 +69,7 @@
     solution:
     ternary operator rule, precedence stuff, symbol rule.
     but also consider 'a.b?(:c)' ??
-
-    text:
-    a&lt;&lt;1
-    assert_equal(2**i, 1&lt;&lt;i)
-    symptoms:
-    'a&lt;&lt;1' pushes 1 on a, but is recognized as being a heredoc.
-    '1&lt;&lt;i' same problem.
-    solution:
-    let the heredoc rule look for bunch of stuff,
-    for instance assignment 'a=&lt;&lt;1', method calls 'p(&lt;&lt;1)'.
-	for now, workaround is to use spaces: 1 &lt;&lt; i
-	</string>
+</string>
 	<key>fileTypes</key>
 	<array>
 		<string>rb</string>
@@ -202,7 +202,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>source.ruby</string>
+					<string>$base</string>
 				</dict>
 			</array>
 		</dict>
@@ -438,26 +438,176 @@
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>match</key>
-					<string>\.</string>
-					<key>name</key>
-					<string>constant.character.escaped.ruby</string>
+					<key>include</key>
+					<string>#regex_sub1</string>
 				</dict>
 				<dict>
-					<key>match</key>
-					<string>\{\d+(,\d+)?\}</string>
-					<key>name</key>
-					<string>string.regexp.arbitrary-repitition.ruby</string>
+					<key>include</key>
+					<string>#regex_sub2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub5</string>
 				</dict>
 				<dict>
 					<key>include</key>
 					<string>#interpolated_ruby</string>
 				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%r\[</string>
+			<key>comment</key>
+			<string>regular expressions (literal)</string>
+			<key>end</key>
+			<string>\][eimnosux]*</string>
+			<key>name</key>
+			<string>string.regexp.mod-r.ruby</string>
+			<key>patterns</key>
+			<array>
 				<dict>
-					<key>match</key>
-					<string>\\/</string>
-					<key>name</key>
-					<string>constant.character.escaped.slash.ruby</string>
+					<key>include</key>
+					<string>#regex_sub1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub5</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%r\(</string>
+			<key>comment</key>
+			<string>regular expressions (literal)</string>
+			<key>end</key>
+			<string>\)[eimnosux]*</string>
+			<key>name</key>
+			<string>string.regexp.mod-r.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub5</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%r\&lt;</string>
+			<key>comment</key>
+			<string>regular expressions (literal)</string>
+			<key>end</key>
+			<string>\&gt;[eimnosux]*</string>
+			<key>name</key>
+			<string>string.regexp.mod-r.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub5</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%r(.)</string>
+			<key>comment</key>
+			<string>regular expressions (literal)</string>
+			<key>end</key>
+			<string>\1[eimnosux]*</string>
+			<key>name</key>
+			<string>string.regexp.mod-r.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub5</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
 				</dict>
 			</array>
 		</dict>
@@ -716,7 +866,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;&lt;&lt;(\w+))(?!\s+#\s*([Cc]|sh))</string>
+			<string>(?&gt;\=\s*&lt;&lt;(\w+))(?!\s+#\s*([Cc]|sh))</string>
 			<key>end</key>
 			<string>^\1$</string>
 			<key>name</key>
@@ -739,7 +889,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;&lt;&lt;(\w+))(?=\s+#\s*[Cc](?!\+\+))</string>
+			<string>(?&gt;\=\s*&lt;&lt;(\w+))(?=\s+#\s*[Cc](?!\+\+))</string>
 			<key>end</key>
 			<string>^\1$</string>
 			<key>name</key>
@@ -766,7 +916,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;&lt;&lt;(\w+))(?=\s+#\s*[Cc]\+\+)</string>
+			<string>(?&gt;\=\s*&lt;&lt;(\w+))(?=\s+#\s*[Cc]\+\+)</string>
 			<key>end</key>
 			<string>^\1$</string>
 			<key>name</key>
@@ -793,7 +943,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;&lt;&lt;(\w+))(?=\s+#\s*sh)</string>
+			<string>(?&gt;\=\s*&lt;&lt;(\w+))(?=\s+#\s*sh)</string>
 			<key>end</key>
 			<string>^\1$</string>
 			<key>name</key>
@@ -838,7 +988,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>source.ruby</string>
+					<string>$base</string>
 				</dict>
 			</array>
 		</dict>
@@ -854,7 +1004,80 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>source.ruby</string>
+					<string>$base</string>
+				</dict>
+			</array>
+		</dict>
+		<key>regex_sub1</key>
+		<dict>
+			<key>comment</key>
+			<string>can someone explain what this is for? I don't understand why we're highlighting a dot as an escaped char.</string>
+			<key>match</key>
+			<string>\.</string>
+			<key>name</key>
+			<string>constant.character.escaped.ruby</string>
+		</dict>
+		<key>regex_sub2</key>
+		<dict>
+			<key>match</key>
+			<string>\{\d+(,\d+)?\}</string>
+			<key>name</key>
+			<string>string.regexp.arbitrary-repitition.ruby</string>
+		</dict>
+		<key>regex_sub3</key>
+		<dict>
+			<key>comment</key>
+			<string>can someone explain what this is for?</string>
+			<key>match</key>
+			<string>\\/</string>
+			<key>name</key>
+			<string>constant.character.escaped.slash.ruby</string>
+		</dict>
+		<key>regex_sub4</key>
+		<dict>
+			<key>begin</key>
+			<string>\[</string>
+			<key>end</key>
+			<string>\]</string>
+			<key>name</key>
+			<string>string.regexp.character-class.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub4</string>
+				</dict>
+			</array>
+		</dict>
+		<key>regex_sub5</key>
+		<dict>
+			<key>begin</key>
+			<string>\(</string>
+			<key>end</key>
+			<string>\)</string>
+			<key>name</key>
+			<string>string.regexp.group.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub5</string>
 				</dict>
 			</array>
 		</dict>

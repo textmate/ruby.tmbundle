@@ -71,7 +71,7 @@
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby\b</string>
 	<key>foldingStartMarker</key>
-	<string>^\s*(def|class|module|([^#])*\bdo\b)\b(?!.*\bend\b\s*(#.*)?$)</string>
+	<string>^\s*(def|class|module|([^#])*(?&lt;=\s|^)do\b)\b(?!.*\bend\b\s*(#.*)?$)</string>
 	<key>foldingStopMarker</key>
 	<string>(^\s*end|;\s*end)\s*(#.*)?$</string>
 	<key>keyEquivalent</key>

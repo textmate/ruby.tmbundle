@@ -221,7 +221,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(0[xX][0-9A-Fa-f](?&gt;_?[0-9A-Fa-f])*|\d(?&gt;_?\d)*(\.(?&gt;_?\d)*)?([eE][-+]?(?&gt;_?\d)*)?)\b</string>
+			<string>\b(0[xX][0-9A-Fa-f](?&gt;_?[0-9A-Fa-f])*|\d(?&gt;_?\d)*(\.(?&gt;_?\d)*)?([eE][-+]?(?&gt;_?\d)*)?|0[bB][01]+)\b</string>
 			<key>name</key>
 			<string>constant.numeric.ruby</string>
 		</dict>

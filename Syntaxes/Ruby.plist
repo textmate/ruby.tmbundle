@@ -16,6 +16,8 @@
 	there is no way to distinguish perfectly between the &lt;&lt; operator and the start
 	of a heredoc. Currently, we require assignment to recognize a heredoc. More
 	refinement is possible.
+	• Heredocs with indented terminators (&lt;&lt;-) are always distinguishable, however.
+	• Nested heredocs are not really supportable at present
 
 	text:
 	"a\332a"
@@ -25,31 +27,13 @@
 	plain regexp.. should be easy.
 
 	text:	
-	gsub!(/ +/, '')
+	32 / 22 + 42 / 57
 	symptoms:
-	'/ +/' is recognized as division.. which should be regexp.
+	'/ 22 + 42 /' is recognized as regexp..
 	solution:
 	there is lots of ambiguity between division and regexp.
 	no solution at this moment... difficult.
-
-	text:
-	data += 0.chr
-	99.downto(0)
-	symptoms:
-	'0.' and '99.' is colored as if they were a float. In this case
-	they are integers on which a method is invoked.
-	solution:
-	tweak the rules for numbers and for instance methods.
-	(not seeing this problem; fixed?)
 	
-	text:
-	#{self.class}       (in double quotes)
-	symptoms:
-	coloring of interpolated code within strings.. is inconsistent.
-	(can someone elaborate? I'm not seeing a problem. Fixed?)
-	solution:
-	tweak the interpolation rules and stuff.
-	                
     text:
     val?(a):p(b)
     val?'a':'b'
@@ -221,7 +205,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(0[xX][0-9A-Fa-f](?&gt;_?[0-9A-Fa-f])*|\d(?&gt;_?\d)*(\.(?&gt;_?\d)*)?([eE][-+]?(?&gt;_?\d)*)?|0[bB][01]+)\b</string>
+			<string>\b(0[xX]\h(?&gt;_?\h)*|\d(?&gt;_?\d)*(\.(?&gt;_?\d)*)?([eE][-+]?(?&gt;_?\d)*)?|0[bB][01]+)\b</string>
 			<key>name</key>
 			<string>constant.numeric.ruby</string>
 		</dict>
@@ -445,7 +429,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>/(?=\S.*/)</string>
+			<string>/(?=.*/)</string>
 			<key>comment</key>
 			<string>regular expressions (normal)</string>
 			<key>end</key>
@@ -801,7 +785,7 @@
 			<key>comment</key>
 			<string>literal capable of interpolation []</string>
 			<key>end</key>
-			<string>\1</string>
+			<string>\]</string>
 			<key>name</key>
 			<string>string.quoted.literal.upper.ruby</string>
 			<key>patterns</key>
@@ -929,6 +913,10 @@
 					<key>name</key>
 					<string>constant.character.escaped.ruby</string>
 				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_parens</string>
+				</dict>
 			</array>
 			<key>swallow</key>
 			<string>\\.</string>
@@ -949,6 +937,10 @@
 					<string>\\\&gt;</string>
 					<key>name</key>
 					<string>constant.character.escaped.ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_ltgt</string>
 				</dict>
 			</array>
 			<key>swallow</key>
@@ -971,6 +963,10 @@
 					<key>name</key>
 					<string>constant.character.escaped.ruby</string>
 				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_brackets</string>
+				</dict>
 			</array>
 			<key>swallow</key>
 			<string>\\.</string>
@@ -991,6 +987,10 @@
 					<string>\\\}</string>
 					<key>name</key>
 					<string>constant.character.escaped.ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_curly</string>
 				</dict>
 			</array>
 		</dict>
@@ -1026,7 +1026,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>^__END__$</string>
+			<string>^__END__\b</string>
 			<key>comment</key>
 			<string>__END__ marker</string>
 			<key>end</key>
@@ -1039,6 +1039,43 @@
 			<string>(?&gt;\=\s*&lt;&lt;(\w+))(?!\s+#\s*([Cc]|sh))</string>
 			<key>end</key>
 			<string>^\1$</string>
+			<key>name</key>
+			<string>string.unquoted.heredoc.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#heredoc</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?&gt;&lt;&lt;-(\w+))</string>
+			<key>comment</key>
+			<string>heredoc with indented terminator</string>
+			<key>end</key>
+			<string>\s*\1$</string>
 			<key>name</key>
 			<string>string.unquoted.heredoc.ruby</string>
 			<key>patterns</key>
@@ -1199,7 +1236,7 @@
 		<key>heredoc</key>
 		<dict>
 			<key>begin</key>
-			<string>^&lt;&lt;\w+</string>
+			<string>^&lt;&lt;-?\w+</string>
 			<key>end</key>
 			<string>$</string>
 			<key>patterns</key>
@@ -1246,6 +1283,62 @@
 			<string>#\$[a-zA-Z_]\w*</string>
 			<key>name</key>
 			<string>variable.other.readwrite.global.ruby</string>
+		</dict>
+		<key>nest_brackets</key>
+		<dict>
+			<key>begin</key>
+			<string>\[</string>
+			<key>end</key>
+			<string>\]</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#nest_brackets</string>
+				</dict>
+			</array>
+		</dict>
+		<key>nest_curly</key>
+		<dict>
+			<key>begin</key>
+			<string>\{</string>
+			<key>end</key>
+			<string>\}</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#nest_curly</string>
+				</dict>
+			</array>
+		</dict>
+		<key>nest_ltgt</key>
+		<dict>
+			<key>begin</key>
+			<string>\&lt;</string>
+			<key>end</key>
+			<string>\&gt;</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#nest_ltgt</string>
+				</dict>
+			</array>
+		</dict>
+		<key>nest_parens</key>
+		<dict>
+			<key>begin</key>
+			<string>\(</string>
+			<key>end</key>
+			<string>\)</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#nest_parens</string>
+				</dict>
+			</array>
 		</dict>
 		<key>regex_sub1</key>
 		<dict>

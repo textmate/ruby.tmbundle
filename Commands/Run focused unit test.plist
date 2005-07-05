@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>saveActiveFile</string>
+	<key>captureFormatString</key>
+	<string>$0</string>
+	<key>capturePattern</key>
+	<string>(/[^:]+):(\d+)</string>
+	<key>command</key>
+	<string># Assumes the current file is a unittest file
+# Runs with the currently-focused method as the test name
+
+method=$(${TM_RUBY:=ruby} -e "
+n = ENV['TM_LINE_NUMBER'].to_i
+
+File.open(ENV['TM_FILEPATH']) do |f|
+	f.read.split(\"\n\")[0...n].reverse.each do |line|
+		if line =~ /^\s*def ([_a-z][_a-z0-9]*[\?!]?)/i
+			print \$1
+			break
+		end
+	end
+end")
+
+${TM_RUBY:=ruby} "$TM_FILEPATH" --name=$method</string>
+	<key>fileCaptureRegister</key>
+	<string>1</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>@r</string>
+	<key>lineCaptureRegister</key>
+	<string>2</string>
+	<key>name</key>
+	<string>Run focused Ruby unit test</string>
+	<key>output</key>
+	<string>separateWindow</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>uuid</key>
+	<string>2B991F85-8668-477A-87EE-1D1DD3DEEE12</string>
+</dict>
+</plist>

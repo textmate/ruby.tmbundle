@@ -12,13 +12,13 @@
 	<string># Assumes the current file is a unittest file
 # Runs with the currently-focused method as the test name
 
-method=$(${TM_RUBY:=ruby} &lt;&lt;EOF
-n = $TM_LINE_NUMBER.to_i
+method=$(${TM_RUBY:=ruby} &lt;&lt;"EOF"
+n = ENV['TM_LINE_NUMBER'].to_i
 
-File.open($TM_FILEPATH) do |f|
+File.open(ENV['TM_FILEPATH']) do |f|
 	f.read.split("\n")[0...n].reverse.each do |line|
 		if line =~ /^\s*def ([_a-z][_a-z0-9]*[\?!]?)/i
-			print \$1
+			print $1
 			break
 		end
 	end

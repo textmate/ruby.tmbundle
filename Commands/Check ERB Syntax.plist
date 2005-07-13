@@ -12,7 +12,7 @@ echo "using ruby-$2 / erb"
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
-	<string>@E</string>
+	<string>^V</string>
 	<key>name</key>
 	<string>Check ERB Syntax</string>
 	<key>output</key>

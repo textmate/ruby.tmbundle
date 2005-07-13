@@ -6,20 +6,20 @@
 	<string>saveActiveFile</string>
 	<key>command</key>
 	<string>set `${TM_RUBY:=ruby} --version`
-echo "using ruby-$2"
+echo "using ruby-$2 / erb"
 
-"${TM_RUBY:=ruby}" -wc "$TM_FILEPATH"</string>
+"${TM_ERB:=erb}" -x "$TM_FILEPATH" | "${TM_RUBY:=ruby}" -c </string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
-	<string>^V</string>
+	<string>@E</string>
 	<key>name</key>
-	<string>Check Ruby Syntax</string>
+	<string>Check ERB Syntax</string>
 	<key>output</key>
 	<string>showAsTooltip</string>
 	<key>scope</key>
-	<string>source.ruby</string>
+	<string>text.html.ruby</string>
 	<key>uuid</key>
-	<string>EE5F19BA-6C02-11D9-92BA-0011242E4184</string>
+	<string>76FCF165-54CB-4213-BC55-BD60B9C6A3EC</string>
 </dict>
 </plist>

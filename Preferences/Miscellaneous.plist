@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Miscellaneous</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>settings</key>
+	<dict>
+		<key>decreaseIndentPattern</key>
+		<string>^\s+(\}|end|rescue|else|elsif|when)$</string>
+		<key>increaseIndentPattern</key>
+		<string>^(\s*(module|class|begin|def|if|else|elsif|unless|case|when|rescue|for|while|unless|("(\\.|[^"])*"|'(\\.|[^'])*'|[^#"'])*\sdo)\b(?!.*?;.*?\&lt;end\&gt;)|[^#"']*\{(?!.*?\})).*$</string>
+		<key>shellVariables</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>TM_COMMENT_START</string>
+				<key>value</key>
+				<string># </string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>TM_COMMENT_END</string>
+				<key>value</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>TM_COMMENT_MODE</string>
+				<key>value</key>
+				<string>line</string>
+			</dict>
+		</array>
+	</dict>
+	<key>uuid</key>
+	<string>6FEAF60F-F0F3-4618-9259-DE93285F50D1</string>
+</dict>
+</plist>

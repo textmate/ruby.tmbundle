@@ -33,7 +33,7 @@
 	solution:
 	there is lots of ambiguity between division and regexp.
 	no solution at this moment... difficult.
-	
+
     text:
     val?(a):p(b)
     val?'a':'b'
@@ -792,7 +792,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%([^\w\s])</string>
+			<string>%([^\w\s&gt;])</string>
 			<key>comment</key>
 			<string>literal capable of interpolation -- wildcard</string>
 			<key>end</key>

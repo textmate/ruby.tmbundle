@@ -314,7 +314,7 @@
 			<array>
 				<dict>
 					<key>match</key>
-					<string>\\'</string>
+					<string>\\'|\\\\</string>
 					<key>name</key>
 					<string>constant.character.escaped.ruby</string>
 				</dict>
@@ -423,6 +423,162 @@
 					<key>include</key>
 					<string>#escaped_char</string>
 				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_curly_i</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%x\[</string>
+			<key>comment</key>
+			<string>execute string (allow for interpolation)</string>
+			<key>end</key>
+			<string>\]</string>
+			<key>name</key>
+			<string>string.interpolated.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_brackets_i</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%x\&lt;</string>
+			<key>comment</key>
+			<string>execute string (allow for interpolation)</string>
+			<key>end</key>
+			<string>\&gt;</string>
+			<key>name</key>
+			<string>string.interpolated.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_ltgt_i</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%x\(</string>
+			<key>comment</key>
+			<string>execute string (allow for interpolation)</string>
+			<key>end</key>
+			<string>\)</string>
+			<key>name</key>
+			<string>string.interpolated.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_parens_i</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%x([^\w])</string>
+			<key>comment</key>
+			<string>execute string (allow for interpolation)</string>
+			<key>end</key>
+			<string>\1</string>
+			<key>name</key>
+			<string>string.interpolated.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
 			</array>
 			<key>swallow</key>
 			<string>\\.</string>
@@ -438,6 +594,22 @@
 			<string>string.regexp.classic.ruby</string>
 			<key>patterns</key>
 			<array>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub4</string>
+				</dict>
 				<dict>
 					<key>include</key>
 					<string>#interpolated_ruby1</string>
@@ -491,10 +663,6 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub5</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#interpolated_ruby1</string>
 				</dict>
 				<dict>
@@ -508,6 +676,14 @@
 				<dict>
 					<key>include</key>
 					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_curly_r</string>
 				</dict>
 			</array>
 		</dict>
@@ -540,10 +716,6 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub5</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#interpolated_ruby1</string>
 				</dict>
 				<dict>
@@ -557,6 +729,14 @@
 				<dict>
 					<key>include</key>
 					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_brackets_r</string>
 				</dict>
 			</array>
 		</dict>
@@ -589,10 +769,6 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub5</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#interpolated_ruby1</string>
 				</dict>
 				<dict>
@@ -606,6 +782,14 @@
 				<dict>
 					<key>include</key>
 					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_parens_r</string>
 				</dict>
 			</array>
 		</dict>
@@ -638,10 +822,6 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub5</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#interpolated_ruby1</string>
 				</dict>
 				<dict>
@@ -656,11 +836,19 @@
 					<key>include</key>
 					<string>#interpolated_ruby4</string>
 				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_ltgt_r</string>
+				</dict>
 			</array>
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%r(.)</string>
+			<string>%r([^\w])</string>
 			<key>comment</key>
 			<string>regular expressions (literal)</string>
 			<key>end</key>
@@ -687,10 +875,6 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub5</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#interpolated_ruby1</string>
 				</dict>
 				<dict>
@@ -704,6 +888,10 @@
 				<dict>
 					<key>include</key>
 					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
 				</dict>
 			</array>
 		</dict>
@@ -738,42 +926,9 @@
 					<key>include</key>
 					<string>#escaped_char</string>
 				</dict>
-			</array>
-			<key>swallow</key>
-			<string>\\.</string>
-		</dict>
-		<dict>
-			<key>begin</key>
-			<string>%(?!&gt;)[QWSR]?([^&lt;\{\[\(\w\s])</string>
-			<key>comment</key>
-			<string>literal capable of interpolation -- wildcard
-	note that space is disabled as a delimiter;
-	although it is legal ruby, it interferes with the mod operator</string>
-			<key>end</key>
-			<string>\1</string>
-			<key>name</key>
-			<string>string.quoted.literal.upper.ruby</string>
-			<key>patterns</key>
-			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#escaped_char</string>
+					<string>#nest_parens_i</string>
 				</dict>
 			</array>
 			<key>swallow</key>
@@ -810,6 +965,10 @@
 					<key>include</key>
 					<string>#escaped_char</string>
 				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_brackets_i</string>
+				</dict>
 			</array>
 			<key>swallow</key>
 			<string>\\.</string>
@@ -844,6 +1003,10 @@
 				<dict>
 					<key>include</key>
 					<string>#escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_ltgt_i</string>
 				</dict>
 			</array>
 			<key>swallow</key>
@@ -880,19 +1043,81 @@
 					<key>include</key>
 					<string>#escaped_char</string>
 				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_curly_i</string>
+				</dict>
 			</array>
 			<key>swallow</key>
 			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%[qws]([^&lt;\{\[\(\w\s])</string>
+			<string>%[QWSR]([^\w])</string>
 			<key>comment</key>
-			<string>literal incapable of interpolation -- wildcard</string>
+			<string>literal capable of interpolation -- wildcard</string>
 			<key>end</key>
 			<string>\1</string>
 			<key>name</key>
-			<string>string.quoted.literal.lower.ruby</string>
+			<string>string.quoted.literal.upper.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%([^\w\s])</string>
+			<key>comment</key>
+			<string>literal capable of interpolation -- wildcard</string>
+			<key>end</key>
+			<string>\1</string>
+			<key>name</key>
+			<string>string.quoted.literal.upper.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
 			<key>swallow</key>
 			<string>\\.</string>
 		</dict>
@@ -909,7 +1134,7 @@
 			<array>
 				<dict>
 					<key>match</key>
-					<string>\\\)</string>
+					<string>\\\)|\\\\</string>
 					<key>name</key>
 					<string>constant.character.escaped.ruby</string>
 				</dict>
@@ -934,7 +1159,7 @@
 			<array>
 				<dict>
 					<key>match</key>
-					<string>\\\&gt;</string>
+					<string>\\\&gt;|\\\\</string>
 					<key>name</key>
 					<string>constant.character.escaped.ruby</string>
 				</dict>
@@ -959,7 +1184,7 @@
 			<array>
 				<dict>
 					<key>match</key>
-					<string>\\\]</string>
+					<string>\\\]|\\\\</string>
 					<key>name</key>
 					<string>constant.character.escaped.ruby</string>
 				</dict>
@@ -984,7 +1209,7 @@
 			<array>
 				<dict>
 					<key>match</key>
-					<string>\\\}</string>
+					<string>\\\}|\\\\</string>
 					<key>name</key>
 					<string>constant.character.escaped.ruby</string>
 				</dict>
@@ -993,6 +1218,20 @@
 					<string>#nest_curly</string>
 				</dict>
 			</array>
+			<key>swallow</key>
+			<string>\\.</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>%[qws]([^\w])</string>
+			<key>comment</key>
+			<string>literal incapable of interpolation -- wildcard</string>
+			<key>end</key>
+			<string>\1</string>
+			<key>name</key>
+			<string>string.quoted.literal.lower.ruby</string>
+			<key>swallow</key>
+			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>comment</key>
@@ -1298,6 +1537,90 @@
 				</dict>
 			</array>
 		</dict>
+		<key>nest_brackets_i</key>
+		<dict>
+			<key>begin</key>
+			<string>\[</string>
+			<key>end</key>
+			<string>\]</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_brackets</string>
+				</dict>
+			</array>
+		</dict>
+		<key>nest_brackets_r</key>
+		<dict>
+			<key>begin</key>
+			<string>\[</string>
+			<key>end</key>
+			<string>\]</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_brackets</string>
+				</dict>
+			</array>
+		</dict>
 		<key>nest_curly</key>
 		<dict>
 			<key>begin</key>
@@ -1306,6 +1629,90 @@
 			<string>\}</string>
 			<key>patterns</key>
 			<array>
+				<dict>
+					<key>include</key>
+					<string>#nest_curly</string>
+				</dict>
+			</array>
+		</dict>
+		<key>nest_curly_i</key>
+		<dict>
+			<key>begin</key>
+			<string>\{</string>
+			<key>end</key>
+			<string>\}</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_curly</string>
+				</dict>
+			</array>
+		</dict>
+		<key>nest_curly_r</key>
+		<dict>
+			<key>begin</key>
+			<string>\{</string>
+			<key>end</key>
+			<string>\}</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
 				<dict>
 					<key>include</key>
 					<string>#nest_curly</string>
@@ -1326,6 +1733,90 @@
 				</dict>
 			</array>
 		</dict>
+		<key>nest_ltgt_i</key>
+		<dict>
+			<key>begin</key>
+			<string>\&lt;</string>
+			<key>end</key>
+			<string>\&gt;</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_ltgt</string>
+				</dict>
+			</array>
+		</dict>
+		<key>nest_ltgt_r</key>
+		<dict>
+			<key>begin</key>
+			<string>\&lt;</string>
+			<key>end</key>
+			<string>\&gt;</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_ltgt</string>
+				</dict>
+			</array>
+		</dict>
 		<key>nest_parens</key>
 		<dict>
 			<key>begin</key>
@@ -1334,6 +1825,76 @@
 			<string>\)</string>
 			<key>patterns</key>
 			<array>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_parens</string>
+				</dict>
+			</array>
+		</dict>
+		<key>nest_parens_i</key>
+		<dict>
+			<key>begin</key>
+			<string>\(</string>
+			<key>end</key>
+			<string>\)</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby1</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby2</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby3</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby4</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
 				<dict>
 					<key>include</key>
 					<string>#nest_parens</string>
@@ -1358,15 +1919,6 @@
 		</dict>
 		<key>regex_sub3</key>
 		<dict>
-			<key>comment</key>
-			<string>can someone explain what this is for?</string>
-			<key>match</key>
-			<string>\\/</string>
-			<key>name</key>
-			<string>constant.character.escaped.slash.ruby</string>
-		</dict>
-		<key>regex_sub4</key>
-		<dict>
 			<key>begin</key>
 			<string>\[</string>
 			<key>end</key>
@@ -1381,7 +1933,7 @@
 				</dict>
 			</array>
 		</dict>
-		<key>regex_sub5</key>
+		<key>regex_sub4</key>
 		<dict>
 			<key>begin</key>
 			<string>\(</string>
@@ -1406,10 +1958,6 @@
 				<dict>
 					<key>include</key>
 					<string>#regex_sub4</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub5</string>
 				</dict>
 			</array>
 		</dict>

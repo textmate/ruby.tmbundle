@@ -1189,7 +1189,7 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#nest_brackets</string>
+					<string>#nest_brackets_i</string>
 				</dict>
 			</array>
 		</dict>
@@ -1215,7 +1215,7 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#nest_brackets</string>
+					<string>#nest_brackets_r</string>
 				</dict>
 			</array>
 		</dict>
@@ -1251,7 +1251,7 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#nest_curly</string>
+					<string>#nest_curly_i</string>
 				</dict>
 			</array>
 		</dict>
@@ -1277,7 +1277,7 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#nest_curly</string>
+					<string>#nest_curly_r</string>
 				</dict>
 			</array>
 		</dict>
@@ -1313,7 +1313,7 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#nest_ltgt</string>
+					<string>#nest_ltgt_i</string>
 				</dict>
 			</array>
 		</dict>
@@ -1339,7 +1339,7 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#nest_ltgt</string>
+					<string>#nest_ltgt_r</string>
 				</dict>
 			</array>
 		</dict>
@@ -1351,18 +1351,6 @@
 			<string>\)</string>
 			<key>patterns</key>
 			<array>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#escaped_char</string>
-				</dict>
 				<dict>
 					<key>include</key>
 					<string>#nest_parens</string>
@@ -1387,7 +1375,33 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#nest_parens</string>
+					<string>#nest_parens_i</string>
+				</dict>
+			</array>
+		</dict>
+		<key>nest_parens_r</key>
+		<dict>
+			<key>begin</key>
+			<string>\(</string>
+			<key>end</key>
+			<string>\)</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#nest_parens_r</string>
 				</dict>
 			</array>
 		</dict>

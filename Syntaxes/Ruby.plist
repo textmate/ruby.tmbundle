@@ -283,19 +283,11 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#escaped_char</string>
 				</dict>
 			</array>
 			<key>swallow</key>
@@ -335,19 +327,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -370,19 +350,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -405,19 +373,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -444,19 +400,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -483,19 +427,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -522,19 +454,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -561,19 +481,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -596,35 +504,11 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub1</string>
+					<string>#regex_sub</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub4</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -647,35 +531,11 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub1</string>
+					<string>#regex_sub</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub4</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -700,35 +560,11 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub1</string>
+					<string>#regex_sub</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub4</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -753,35 +589,11 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub1</string>
+					<string>#regex_sub</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub4</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -806,35 +618,11 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub1</string>
+					<string>#regex_sub</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub4</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -859,35 +647,11 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub1</string>
+					<string>#regex_sub</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub4</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -908,19 +672,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -947,19 +699,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -986,19 +726,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1025,19 +753,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1064,19 +780,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1099,19 +803,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1288,19 +980,7 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1325,19 +1005,7 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1364,19 +1032,7 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1403,19 +1059,7 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1442,19 +1086,7 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1486,42 +1118,44 @@
 				</dict>
 			</array>
 		</dict>
-		<key>interpolated_ruby1</key>
+		<key>interpolated_ruby</key>
 		<dict>
-			<key>begin</key>
-			<string>#\{</string>
-			<key>end</key>
-			<string>\}</string>
-			<key>name</key>
-			<string>source.ruby.embedded.source</string>
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>include</key>
-					<string>$base</string>
+					<key>begin</key>
+					<string>#\{</string>
+					<key>end</key>
+					<string>\}</string>
+					<key>name</key>
+					<string>source.ruby.embedded.source</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>$base</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>#@[a-zA-Z_]\w*</string>
+					<key>name</key>
+					<string>variable.other.readwrite.instance.ruby</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>#@@[a-zA-Z_]\w*</string>
+					<key>name</key>
+					<string>variable.other.readwrite.class.ruby</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>#\$[a-zA-Z_]\w*</string>
+					<key>name</key>
+					<string>variable.other.readwrite.global.ruby</string>
 				</dict>
 			</array>
-		</dict>
-		<key>interpolated_ruby2</key>
-		<dict>
-			<key>match</key>
-			<string>#@[a-zA-Z_]\w*</string>
-			<key>name</key>
-			<string>variable.other.readwrite.instance.ruby</string>
-		</dict>
-		<key>interpolated_ruby3</key>
-		<dict>
-			<key>match</key>
-			<string>#@@[a-zA-Z_]\w*</string>
-			<key>name</key>
-			<string>variable.other.readwrite.class.ruby</string>
-		</dict>
-		<key>interpolated_ruby4</key>
-		<dict>
-			<key>match</key>
-			<string>#\$[a-zA-Z_]\w*</string>
-			<key>name</key>
-			<string>variable.other.readwrite.global.ruby</string>
 		</dict>
 		<key>nest_brackets</key>
 		<dict>
@@ -1547,19 +1181,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1581,35 +1203,11 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub1</string>
+					<string>#regex_sub</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub4</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1645,19 +1243,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1679,35 +1265,11 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub1</string>
+					<string>#regex_sub</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub4</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1743,19 +1305,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1777,35 +1327,11 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub1</string>
+					<string>#regex_sub</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub4</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1827,35 +1353,11 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub1</string>
+					<string>#regex_sub</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#regex_sub2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub4</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1877,19 +1379,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby1</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby2</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby3</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby4</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1901,63 +1391,53 @@
 				</dict>
 			</array>
 		</dict>
-		<key>regex_sub1</key>
+		<key>regex_sub</key>
 		<dict>
-			<key>comment</key>
-			<string>can someone explain what this is for? I don't understand why we're highlighting a dot as an escaped char.</string>
-			<key>match</key>
-			<string>\.</string>
-			<key>name</key>
-			<string>constant.character.escaped.ruby</string>
-		</dict>
-		<key>regex_sub2</key>
-		<dict>
-			<key>match</key>
-			<string>\{\d+(,\d+)?\}</string>
-			<key>name</key>
-			<string>string.regexp.arbitrary-repitition.ruby</string>
-		</dict>
-		<key>regex_sub3</key>
-		<dict>
-			<key>begin</key>
-			<string>\[</string>
-			<key>end</key>
-			<string>\]</string>
-			<key>name</key>
-			<string>string.regexp.character-class.ruby</string>
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>include</key>
-					<string>#regex_sub4</string>
-				</dict>
-			</array>
-		</dict>
-		<key>regex_sub4</key>
-		<dict>
-			<key>begin</key>
-			<string>\(</string>
-			<key>end</key>
-			<string>\)</string>
-			<key>name</key>
-			<string>string.regexp.group.ruby</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub1</string>
+					<key>comment</key>
+					<string>can someone explain what this is for? I don't understand why we're highlighting a dot as an escaped char.</string>
+					<key>match</key>
+					<string>\.</string>
+					<key>name</key>
+					<string>constant.character.escaped.ruby</string>
 				</dict>
 				<dict>
-					<key>include</key>
-					<string>#regex_sub2</string>
+					<key>match</key>
+					<string>\{\d+(,\d+)?\}</string>
+					<key>name</key>
+					<string>string.regexp.arbitrary-repitition.ruby</string>
 				</dict>
 				<dict>
-					<key>include</key>
-					<string>#regex_sub3</string>
+					<key>begin</key>
+					<string>\[</string>
+					<key>end</key>
+					<string>\]</string>
+					<key>name</key>
+					<string>string.regexp.character-class.ruby</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#regex_sub4</string>
+						</dict>
+					</array>
 				</dict>
 				<dict>
-					<key>include</key>
-					<string>#regex_sub4</string>
+					<key>begin</key>
+					<string>\(</string>
+					<key>end</key>
+					<string>\)</string>
+					<key>name</key>
+					<string>string.regexp.group.ruby</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#regex_sub</string>
+						</dict>
+					</array>
 				</dict>
 			</array>
 		</dict>

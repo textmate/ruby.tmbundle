@@ -3,18 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>if ${1:condition}
-	$2
-else
-	$3
+	<string>collect do |${1:element}|
+	${1:element}.$0
 end</string>
 	<key>name</key>
-	<string>if .. else .. end (ife)</string>
+	<string>collect element do (collecto)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>
-	<string>ife</string>
+	<string>collecto</string>
 	<key>uuid</key>
-	<string>667082E6-62C3-11D9-B8CF-000D93589AF6</string>
+	<string>C9486312-BDB4-415A-B62A-A8EA4909FBA7</string>
 </dict>
 </plist>

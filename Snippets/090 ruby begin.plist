@@ -4,7 +4,7 @@
 <dict>
 	<key>content</key>
 	<string>begin
-	${1:# code...}
+	$1
 rescue ${2:Exception} =&gt; ${3:e}
 	$0
 end</string>

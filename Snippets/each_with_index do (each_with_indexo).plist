@@ -3,18 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>if ${1:condition}
-	$2
-else
-	$3
+	<string>each_with_index do |${1:element}, ${2:idx}|
+	${1:element}.$0
 end</string>
 	<key>name</key>
-	<string>if .. else .. end (ife)</string>
+	<string>each_with_index do (each_with_indexo)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>
-	<string>ife</string>
+	<string>each_with_indexo</string>
 	<key>uuid</key>
-	<string>667082E6-62C3-11D9-B8CF-000D93589AF6</string>
+	<string>D982D275-2E9F-4E73-B049-CC3D26CDD23D</string>
 </dict>
 </plist>

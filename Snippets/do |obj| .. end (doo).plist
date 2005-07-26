@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>do |${1:obj}|
+	<string>do |${1:object}|
 	$0
 end</string>
 	<key>keyEquivalent</key>
 	<string></string>
 	<key>name</key>
-	<string>do |obj| .. end (doo)</string>
+	<string>do |object| .. end (doo)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

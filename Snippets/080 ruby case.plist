@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>case ${1:object}
 	when ${2:condition}
-		${0:# code...}
+		$0
 end</string>
 	<key>name</key>
 	<string>case .. end (case)</string>

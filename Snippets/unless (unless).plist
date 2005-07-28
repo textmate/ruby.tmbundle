@@ -3,14 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>:${1:key} =&gt; ${2:"value"}${3:, }</string>
+	<string>unless ${1:condition}
+	$0
+end</string>
 	<key>name</key>
-	<string>hash pair (:)</string>
+	<string>unless (unless)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>
-	<string>:</string>
+	<string>unless</string>
 	<key>uuid</key>
-	<string>840B9C4C-7037-4C3B-9028-EB9DC75EDB3E</string>
+	<string>F53E098D-D08E-4CE2-990A-B0BD70E60614</string>
 </dict>
 </plist>

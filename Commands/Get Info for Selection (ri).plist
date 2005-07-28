@@ -12,7 +12,7 @@ ri -Tf html "$TM_SELECTED_TEXT"
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
-	<string></string>
+	<string>^h</string>
 	<key>name</key>
 	<string>Lookup Ruby Docs</string>
 	<key>output</key>

@@ -1434,7 +1434,7 @@
 					<array>
 						<dict>
 							<key>include</key>
-							<string>#regex_sub4</string>
+							<string>#regex_sub</string>
 						</dict>
 					</array>
 				</dict>

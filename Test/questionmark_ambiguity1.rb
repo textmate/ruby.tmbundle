@@ -90,6 +90,24 @@ test( ?\8 )
 test( ?\9 )
 test( ?\_ )
 
+# ctrl/meta escaped
+test( ?\C-a )
+test( ?\C-g )
+test( ?\C-x )
+test( ?\C-A )
+test( ?\C-G )
+test( ?\c )
+test( ?\m )
+#test( ?\c-a )   # invalid
+#test( ?\C )     # invalid
+#test( ?\M )     # invalid
+test( ?\M-a )
+test( ?\M-\C-a )
+test( ?\C-\C-\M-a )
+test( ?\C-\M-a )
+test( ?\C-\M-\M-a )
+test( ?\C-\M-\C-\M-a )
+
 
 # -------------------------------------------
 #

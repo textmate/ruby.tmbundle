@@ -72,7 +72,10 @@ test( ?\X )   # valid.. but is not hex
 test( ?\0 )
 test( ?\07 )
 test( ?\017 )
-#test( ?\0173 )   #invalid
+#test( ?\0173 )   # invalid
+#test( ?\08 )     # invalid
+#test( ?\09 )     # invalid
+#test( ?\0a )     # invalid
 test( ?\1 )
 test( ?\7 )
 test( ?\a )

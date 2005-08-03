@@ -958,7 +958,7 @@
 		<dict>
 			<!-- SIMON -->
 			<key>match</key>
-			<string>\?(\\x\h{1,2}(?!\h)|\\[^x]|[^\s\\])</string>
+			<string>\?(\\x\h{1,2}(?!\h)\b|\\0[0-7]{1,2}(?![0-7])\b|\\[^x0]|[^\s\\])</string>
 			<key>name</key>
 			<string>constant.numeric.ruby</string>
 		</dict>

@@ -49,7 +49,9 @@ b)
 test( // )
 test( /abc/ )
 test( /a\/bc/ )
-
+test [/^F../]
+p 'Foobar'[/^F../]
+p '42' =~ /42/
 
 # multiline  TODO: color me!
 test( /

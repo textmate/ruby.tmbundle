@@ -108,6 +108,10 @@ test( ?\C-\M-a )
 test( ?\C-\M-\M-a )
 test( ?\C-\M-\C-\M-a )
 
+# misc tests
+p 'abc'.include?(?z)
+
+
 
 # -------------------------------------------
 #
@@ -137,4 +141,16 @@ true ???:??    ,
 true ???:?:    ,
 true ??::?:    ,
 ]
+
+
+
+# -------------------------------------------
+#
+# Testarea for neiter ternary operator nor numeric letter
+#
+# -------------------------------------------
+
+# not letters.. the questionmark is part of the methodname
+p(42.tainted?, 42.frozen?)
+
 

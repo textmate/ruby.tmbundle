@@ -493,7 +493,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>/(?=.*/)</string>
+			<string>(?:^|(?&lt;=[=~(]))\s*/(?![*+{}?])</string>
 			<key>comment</key>
 			<string>regular expressions (normal)</string>
 			<key>end</key>
@@ -515,8 +515,6 @@
 					<string>#escaped_char</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -956,7 +954,6 @@
 			<string>comment.line.number-sign.ruby</string>
 		</dict>
 		<dict>
-			<!-- SIMON -->
 			<key>match</key>
 			<string>\?(\\x\h{1,2}(?!\h)\b|\\0[0-7]{1,2}(?![0-7])\b|(\\[MC]-)+\w|\\[^x0MC]|[^\s\\])</string>
 			<key>name</key>

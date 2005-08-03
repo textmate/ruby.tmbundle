@@ -956,6 +956,13 @@
 			<string>comment.line.number-sign.ruby</string>
 		</dict>
 		<dict>
+			<!-- SIMON -->
+			<key>match</key>
+			<string>\?(\\x\h{1,2}(?!\h)|\\[^x]|[^\s\\])</string>
+			<key>name</key>
+			<string>constant.numeric.ruby</string>
+		</dict>
+		<dict>
 			<key>begin</key>
 			<string>^__END__\b</string>
 			<key>comment</key>

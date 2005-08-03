@@ -30,10 +30,28 @@ test( ?0 )
 # misc symbols
 test( ?* )
 test( ?**2 )
+test( ?: )
+test( ?) )
+test( ?( )
+test( ?' )   # im a comment, not a string
+test( ?" )   # im a comment, not a string
+test( ?/ )   # im a comment, not a regexp
 
+# symbol '.'
+test( ?..succ )
+p ?...?..succ     # im a .. range
+p ?....?..succ    # im a ... range
+#p ?.....?..succ    # invalid
 
 # symbol '#'
 test( ?# ); p 'im not a comment' 
+
+# space ' '
+#test( ?  )     # invalid
+
+# tab '	'
+#test( ?	 )     # invalid
+
 
 # symbol '?'
 test( ?? )    
@@ -43,7 +61,12 @@ test(??)
 test( ?\\ )
 
 # escaped as hex
+#test( ?\x )     # invalid
+test( ?\x1 )
 test( ?\x61 )
+#test( ?\x612 )  # invalid
+test( ?\X )   # valid.. but is not hex
+#test( ?\X11 )   # invalid
 
 # escaped as octal
 test( ?\0 )
@@ -76,5 +99,21 @@ p(val ? 0 : 2)
 p [
  val ? (a) : z(b)    ,
  val ? 'a' : 'b'
+]
+
+
+
+
+# -------------------------------------------
+#
+# Testarea for ternary operator and numeric letter
+#
+# -------------------------------------------
+p [
+
+# very ugly
+true ???:??    ,
+true ???:?:    ,
+true ??::?:    ,
 ]
 

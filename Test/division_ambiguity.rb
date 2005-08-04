@@ -7,8 +7,8 @@
 #
 #
 
-def test(obj)
-	p obj
+def test(*obj)
+	p(*obj)
 end
 a, b = 4, 2
 
@@ -27,6 +27,8 @@ test(a / b)
 # singleline symbols
 test(a / b / 3)   # TODO: not recognize as regexp
 
+
+test(Float(42) / Float(5))
 
 # multiline with symbols
 =begin # invalid
@@ -52,16 +54,32 @@ test( /a\/bc/ )
 test [/^F../]
 p 'Foobar'[/^F../]
 p '42' =~ /42/
+test(nil || /\\/ =~ '\\')
+test(/a/x)
+test(/x/.match('abx').to_s)
+test((/x/).match('abx').to_s)
+test(/a/,/b/,/c/)
+test(/a/x,/b/x,/c/m)
 
-# multiline  TODO: color me!
+
+# multiline
 test( /
 pattern
 /x    )
 
 
-# multiline  TODO: color me!
+# multiline
 test( 
 /r
 eg
 e/x
 )
+
+# multiline
+test( 
+/1/,/2/,/3/
+)
+
+# regexp after keyword
+res = case 'test';when /t..t/:1;else 0;end
+test(res)

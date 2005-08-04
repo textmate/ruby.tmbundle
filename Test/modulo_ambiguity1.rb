@@ -47,11 +47,30 @@ test( x%y )
 #
 # -------------------------------------------
 
-# only parentesis
+# literal with nothing 
 test( %(a b c) )
 test( %(1 2 (3 4)) )
+test( %{TM rocks} )
 
-# 
+# literal with 'w' 
 test( %W(1 2 3) )
+test( %W[1 2 3] )
+test( %W{1 2 3} )
+test( %W<1 2 3> )
 
+# literal with 'w'  (multiline)
+test(%w(a
+b))
 
+# literal with 'q' 
+test( %q(1 2 3) )
+test( %Q(1 2 3) )
+
+# literal with custom
+test( %q"1 2 3" )
+test( %q'1 2 3' )
+test( %q#1 2 3# )
+test( %?X.tainted? )
+test( %q/1 2 3/ )
+test( %q|1 2 3| )
+test( %q\1 2 3\ )

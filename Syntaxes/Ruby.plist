@@ -493,9 +493,12 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?:^|(?&lt;=[=~(\[]))\s*/(?![*+{}?])</string>
+			<string>(?:^|(?&lt;=[=~(\[,|&amp;]|(\s|;)when\s|\sor\s|\sand\s))\s*/(?![*+{}?])</string>
 			<key>comment</key>
-			<string>regular expressions (normal)</string>
+			<string>regular expressions (normal)
+			we only start a regexp if the character before it (excluding whitespace)
+			is a alpha-numeric character. Alternative we may use a fixed set like: [=~(\[,|&amp;]
+			</string>
 			<key>end</key>
 			<string>/[eimnosux]*</string>
 			<key>name</key>
@@ -954,10 +957,6 @@
 			<string>comment.line.number-sign.ruby</string>
 		</dict>
 		<dict>
-			<key>match</key>
-			<string>(?&lt;!\w)\?(\\(x\h{1,2}(?!\h)\b|0[0-7]{0,2}(?![0-7])\b|[^x0MC])|(\\[MC]-)+\w|[^\s\\])</string>
-			<key>name</key>
-			<string>constant.numeric.ruby</string>
 			<key>comment</key>
 			<string>
 			matches questionmark-letters.
@@ -983,6 +982,10 @@
 			the negative lookbehind prevents against matching
 			p(42.tainted?)
 			</string>
+			<key>match</key>
+			<string>(?&lt;!\w)\?(\\(x\h{1,2}(?!\h)\b|0[0-7]{0,2}(?![0-7])\b|[^x0MC])|(\\[MC]-)+\w|[^\s\\])</string>
+			<key>name</key>
+			<string>constant.numeric.ruby</string>
 		</dict>
 		<dict>
 			<key>begin</key>

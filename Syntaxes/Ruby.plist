@@ -955,7 +955,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>(^\?|(?&lt;!\w)\?)(\\x\h{1,2}(?!\h)\b|\\0[0-7]{0,2}(?![0-7])\b|(\\[MC]-)+\w|\\[^x0MC]|[^\s\\])</string>
+			<string>(?&lt;!\w)\?(\\(x\h{1,2}(?!\h)\b|0[0-7]{0,2}(?![0-7])\b|([MC]-)+\w|[^x0MC])|[^\s\\])</string>
 			<key>name</key>
 			<string>constant.numeric.ruby</string>
 		</dict>

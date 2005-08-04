@@ -25,7 +25,7 @@ test(84 / 2)
 test(a / b)
 
 # singleline symbols
-test(a / b / 3)   # TODO: not recognize as regexp
+test(a / b / 3)
 
 
 test(Float(42) / Float(5))
@@ -54,7 +54,10 @@ test( /a\/bc/ )
 test [/^F../]
 p 'Foobar'[/^F../]
 p '42' =~ /42/
+test(nil && /\\/ =~ '\\')
 test(nil || /\\/ =~ '\\')
+test(nil and /\\/ =~ '\\')
+test(nil or /\\/ =~ '\\')
 test(/a/x)
 test(/x/.match('abx').to_s)
 test((/x/).match('abx').to_s)

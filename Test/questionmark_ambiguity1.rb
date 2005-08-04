@@ -22,6 +22,10 @@ end
 #
 # -------------------------------------------
 
+# begin of line
+test(
+?x) 
+
 # normal letters
 test( ?a )
 test( ?A )

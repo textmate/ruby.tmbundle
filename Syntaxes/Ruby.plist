@@ -1443,9 +1443,9 @@
 			<array>
 				<dict>
 					<key>comment</key>
-					<string>can someone explain what this is for? I don't understand why we're highlighting a dot as an escaped char.</string>
+					<string>changed from matching a dot, which was silly</string>
 					<key>match</key>
-					<string>\.</string>
+					<string>\\.</string>
 					<key>name</key>
 					<string>constant.character.escaped.ruby</string>
 				</dict>

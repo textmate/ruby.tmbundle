@@ -493,11 +493,11 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?:^|(?&lt;=[=~(\[,|&amp;]|(\s|;)when\s|\sor\s|\sand\s))\s*/(?![*+{}?])</string>
+			<string>(?:^|(?&lt;=[=&gt;~(\[,|&amp;]|(\s|;)when\s|\sor\s|\sand\s))\s*/(?![*+{}?])</string>
 			<key>comment</key>
 			<string>regular expressions (normal)
 			we only start a regexp if the character before it (excluding whitespace)
-			is a alpha-numeric character. Alternative we may use a fixed set like: [=~(\[,|&amp;]
+			is what we think is before a regexp
 			</string>
 			<key>end</key>
 			<string>/[eimnosux]*</string>

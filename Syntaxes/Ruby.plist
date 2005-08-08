@@ -26,14 +26,6 @@
 	solution:
 	plain regexp.. should be easy.
 
-	text:	
-	32 / 22 + 42 / 57
-	symptoms:
-	'/ 22 + 42 /' is recognized as regexp..
-	solution:
-	there is lots of ambiguity between division and regexp.
-	no solution at this moment... difficult.
-
     text:
     val?(a):p(b)
     val?'a':'b'
@@ -509,14 +501,6 @@
 					<key>include</key>
 					<string>#regex_sub</string>
 				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#escaped_char</string>
-				</dict>
 			</array>
 		</dict>
 		<dict>
@@ -533,14 +517,6 @@
 				<dict>
 					<key>include</key>
 					<string>#regex_sub</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#escaped_char</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -565,14 +541,6 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#escaped_char</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#nest_brackets_r</string>
 				</dict>
 			</array>
@@ -591,14 +559,6 @@
 				<dict>
 					<key>include</key>
 					<string>#regex_sub</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#escaped_char</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -623,14 +583,6 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#escaped_char</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#nest_ltgt_r</string>
 				</dict>
 			</array>
@@ -649,14 +601,6 @@
 				<dict>
 					<key>include</key>
 					<string>#regex_sub</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#escaped_char</string>
 				</dict>
 			</array>
 		</dict>
@@ -1239,14 +1183,6 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#escaped_char</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#nest_brackets_r</string>
 				</dict>
 			</array>
@@ -1298,14 +1234,6 @@
 				<dict>
 					<key>include</key>
 					<string>#regex_sub</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#escaped_char</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1363,14 +1291,6 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#escaped_char</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#nest_ltgt_r</string>
 				</dict>
 			</array>
@@ -1422,14 +1342,6 @@
 				<dict>
 					<key>include</key>
 					<string>#regex_sub</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#interpolated_ruby</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#escaped_char</string>
 				</dict>
 				<dict>
 					<key>include</key>

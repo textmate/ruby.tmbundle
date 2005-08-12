@@ -61,7 +61,7 @@ EOF
 STDOUT.flush
 
 Process.fork do
-  exec ENV['TM_RUBY'] || 'ruby', '-w', '--', *ARGV
+  exec ENV['TM_RUBY'] || 'ruby', '-w', '--', "#{myDir}tmruby-child.rb", *ARGV
 end
 
 Process.wait

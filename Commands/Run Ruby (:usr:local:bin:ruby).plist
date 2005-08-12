@@ -5,7 +5,7 @@
 	<key>beforeRunningCommand</key>
 	<string>saveActiveFile</string>
 	<key>command</key>
-	<string>${TM_RUBY:=ruby} -w "$TM_FILEPATH"</string>
+	<string>${TM_RUBY:=ruby} -w -- "$TM_BUNDLE_PATH/Support/tmruby.rb" "$TM_FILEPATH"</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
@@ -13,7 +13,7 @@
 	<key>name</key>
 	<string>Run Ruby</string>
 	<key>output</key>
-	<string>separateWindow</string>
+	<string>showAsHTML</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>uuid</key>

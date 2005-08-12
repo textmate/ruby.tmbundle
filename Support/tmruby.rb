@@ -37,6 +37,7 @@ myFile = __FILE__
 myDir = File.dirname(myFile) + '/'
 
 
+STDOUT.sync = true
 # Headers...
 
 print <<EOF
@@ -60,7 +61,6 @@ EOF
 
 
 # Load and execute the user code.
-STDERR.reopen(STDOUT)
 begin
   load ARGV[0]
 rescue Exception => e

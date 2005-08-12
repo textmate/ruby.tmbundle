@@ -37,7 +37,6 @@ myFile = __FILE__
 myDir = File.dirname(myFile) + '/'
 
 
-STDOUT.sync = true
 # Headers...
 
 print <<EOF
@@ -59,6 +58,8 @@ print <<EOF
 
 EOF
 
+STDOUT.flush
+
 Process.fork do
   #exec $0, "#{myDir}tmruby-child.rb", *ARGV
   load "#{myDir}tmruby-child.rb", *ARGV
@@ -66,6 +67,8 @@ end
 
 Process.wait
 exit $?.exitstatus unless $?.exitstatus == 0
+
+STDOUT.flush
 
 # Footer.
 print <<EOF

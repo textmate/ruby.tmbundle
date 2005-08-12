@@ -60,6 +60,7 @@ EOF
 
 
 # Load and execute the user code.
+STDERR.reopen(STDOUT)
 begin
   load ARGV[0]
 rescue Exception => e

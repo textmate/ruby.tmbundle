@@ -1,7 +1,10 @@
 #!/usr/bin/ruby
 #
-# TM-Ruby v0.1, 12-08-2005.
+# TM-Ruby v0.2, 13-08-2005.
 # By Sune Foldager.
+#
+# v0.2 (13-08-2005): Exception backtrace with links implemented. Correctly handles threads and DATA.
+# v0.1 (12-08-2005): Initial version.
 #
 
 
@@ -38,30 +41,30 @@ myDir = File.dirname(myFile) + '/'
 
 
 # Headers...
-
 print <<EOF
 <html>
 <head>
 <title>Ruby TextMate Runtime</title>
 <style type="text/css">
 EOF
-
 dump_file(myDir + 'pastel.css')
-
 print <<EOF
 </style>
 </head>
 <body>
 <div id="script_output">
-<pre><strong>TM-Ruby v0.1 running Ruby v#{RUBY_VERSION}.</strong>
+<pre><strong>TM-Ruby v0.2 running Ruby v#{RUBY_VERSION}.</strong>
 <strong>&gt;&gt;&gt #{ARGV[0]}</strong>
 
 EOF
 
-STDOUT.flush
 
+# Fork in preparation for user code.
+STDOUT.flush
 Process.fork do
   begin
+
+    # Set up DATA environment, if appropriate.
     data = File.new(ARGV[0])
     begin
       loop do
@@ -72,31 +75,57 @@ Process.fork do
       end
     rescue EOFError
     end
-    load ARGV[0]
-  rescue Exception => e
-    raise if e.instance_of?(SystemExit)
 
-    # For now.
-    puts e.message
-    puts e.inspect.sub('<', '&lt;').sub('>', '&gt;')
+    # Execute user code.
+    load ARGV[0]
+
+  # We had an error!
+  rescue Exception => e
+#    raise if e.instance_of?(SystemExit)  # <-- Why?
+
+    # Exception header and message.
+    puts '</pre></div><div id="exception_report">'
+    print '<p id="exception"><strong>', e.class.name, '</strong>: ', e.message, "</p>\n"
 
     # Filter backtrace.
     bt = e.backtrace
     bt = bt[0...(bt.each_index {|i| break i if bt[i].index(__FILE__) == 0 })]
-    puts bt.join("\n")
+
+    # If there is anything, display it.
+    if bt.size > 0
+      puts '<blockquote><table border="0" cellspacing="0" cellpadding="0">'
+      bt.each {|b|
+
+        # FIXME: Entity encode stuff.
+        next unless b =~ /(.*?):(\d+)(?::in\s*`(.*?)')?/
+        print '<tr><td><a class="near" title="in ', $1, '" href="txmt://open?url=file://'
+        print $1, '&line=', $2, '">', ($3 ? "method #{$3}" : '<em>at top level</em>'), '</a></td>'
+        print '<td>in <strong>', File.basename($1), '</strong> at line ', $2, '</td></tr>'
+
+      }
+      puts '</table></blockquote>'
+    end
+
+    puts '</div>'
+
+  # Everything went ok!
+  else
+
+    # Close output box.
+    print '</pre></div>'
 
   end
 end
 
-Process.wait
-exit $?.exitstatus unless $?.exitstatus == 0
 
+# Wait for user threads to complete, and flush output.
+Process.wait
+#exit $?.exitstatus unless $?.exitstatus == 0  # <-- Again, why?
 STDOUT.flush
+
 
 # Footer.
 print <<EOF
-</pre>
-</div>
 </body>
 </html>
 EOF

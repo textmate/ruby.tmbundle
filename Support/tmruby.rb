@@ -81,7 +81,7 @@ Process.fork do
 
   # We had an error!
   rescue Exception => e
-#    raise if e.instance_of?(SystemExit)  # <-- Why?
+    raise if e.instance_of?(SystemExit) # Don't show backtrace if child simply called `exit`
 
     # Exception header and message.
     puts '</pre></div><div id="exception_report">'
@@ -120,7 +120,6 @@ end
 
 # Wait for user threads to complete, and flush output.
 Process.wait
-#exit $?.exitstatus unless $?.exitstatus == 0  # <-- Again, why?
 STDOUT.flush
 
 

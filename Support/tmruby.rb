@@ -81,8 +81,13 @@ Process.fork do
 
   # We had an error!
   rescue Exception => e
-    raise if e.instance_of?(SystemExit) # Don't show backtrace if child simply called `exit`
-
+    if e.instance_of?(SystemExit)
+      # Don't show backtrace if child simply called `exit`
+      # also, end the block if we're not exiting 0
+      puts '</pre></div>' if e.status != 0
+      raise
+    end
+    
     # Exception header and message.
     puts '</pre></div><div id="exception_report">'
     print '<p id="exception"><strong>', e.class.name, '</strong>: ', e.message, "</p>\n"
@@ -107,12 +112,9 @@ Process.fork do
     end
 
     puts '</div>'
-
-  # Everything went ok!
-  else
-
-    # Close output box.
-    print '</pre></div>'
+    
+    # The non-zero exit signals the parent not to close the block, that we're handling it
+    exit 1
 
   end
 end
@@ -121,6 +123,8 @@ end
 # Wait for user threads to complete, and flush output.
 Process.wait
 STDOUT.flush
+# close the HTML block, unless the child exited non-zero
+puts '</pre></div>' if $?.exitstatus == 0
 
 
 # Footer.

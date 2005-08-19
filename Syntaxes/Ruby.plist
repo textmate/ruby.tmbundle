@@ -76,7 +76,7 @@
 			<key>comment</key>
 			<string>contextual smart pair support</string>
 			<key>match</key>
-			<string>\{(\s*)(\})?</string>
+			<string>(?&lt;=\{)(\s+)</string>
 			<key>name</key>
 			<string>meta.syntax.ruby.start-block</string>
 		</dict>
@@ -1109,7 +1109,7 @@
 					<array>
 						<dict>
 							<key>include</key>
-							<string>$self</string>
+							<string>#nest_curly_and_self</string>
 						</dict>
 					</array>
 				</dict>
@@ -1198,6 +1198,29 @@
 				<dict>
 					<key>include</key>
 					<string>#nest_curly</string>
+				</dict>
+			</array>
+		</dict>
+		<key>nest_curly_and_self</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>\{</string>
+					<key>end</key>
+					<string>\}</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#nest_curly_and_self</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
 				</dict>
 			</array>
 		</dict>

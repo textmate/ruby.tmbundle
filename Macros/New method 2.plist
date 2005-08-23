@@ -6,7 +6,7 @@
 	<array>
 		<dict>
 			<key>command</key>
-			<string>selectWord:</string>
+			<string>moveWordLeftAndModifySelection:</string>
 		</dict>
 		<dict>
 			<key>argument</key>

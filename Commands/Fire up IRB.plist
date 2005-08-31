@@ -15,7 +15,7 @@ end tell"</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
-	<string>@R</string>
+	<string></string>
 	<key>name</key>
 	<string>Start IRB</string>
 	<key>output</key>

@@ -15,11 +15,13 @@ end tell"</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>
-	<string>^I</string>
+	<string>@R</string>
 	<key>name</key>
 	<string>Start IRB</string>
 	<key>output</key>
 	<string>discard</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>uuid</key>
 	<string>EE5F1AE5-6C02-11D9-92BA-0011242E4184</string>
 </dict>

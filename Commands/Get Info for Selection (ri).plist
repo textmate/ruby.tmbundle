@@ -5,9 +5,13 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>
+	<string>#	check if we have SELECTED_TEXT
+[[ "$TM_SELECTED_TEXT" != "" ]] &amp;&amp; MY_FUNC_TO_CHECK="$TM_SELECTED_TEXT"
+#	check if we have MY_FUNC_TO_CHECK
+[[ "$MY_FUNC_TO_CHECK" == "" ]] &amp;&amp; MY_FUNC_TO_CHECK="$TM_CURRENT_WORD"
+
 # this requires Ruby &gt; 1.8.1 or an earlier version with ri installed. 
-ri -Tf html "$TM_SELECTED_TEXT"
+ri -Tf html "$MY_FUNC_TO_CHECK"
 </string>
 	<key>input</key>
 	<string>none</string>
@@ -16,7 +20,7 @@ ri -Tf html "$TM_SELECTED_TEXT"
 	<key>name</key>
 	<string>Lookup Ruby Docs</string>
 	<key>output</key>
-	<string>showAsHTML</string>
+	<string>openAsNewDocument</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>uuid</key>

@@ -9,7 +9,7 @@
 	<key>name</key>
 	<string>embed string variable</string>
 	<key>scope</key>
-	<string>string.quoted.double.ruby|string.interpolated.ruby</string>
+	<string>(string.quoted.double.ruby|string.interpolated.ruby) - string source</string>
 	<key>uuid</key>
 	<string>EEE6D060-C5A0-400D-A2E0-0835013C5365</string>
 </dict>

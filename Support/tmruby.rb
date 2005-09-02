@@ -8,6 +8,11 @@
 #
 
 
+# We need this for HTML escaping.
+require 'cgi'
+$KCODE = 'u'
+
+
 # Input override.
 class MyStdIn
 
@@ -28,11 +33,16 @@ end
 $stdin = MyStdIn.new
 
 
+# HTML escaping function.
+def esc(str)
+  CGI.escapeHTML(str)
+end
+
+
 # Helper to dump files to stdout.
 def dump_file(name)
   File.open(name) {|f| f.each_line {|l| print l} }
 end
-
 
 
 # Prepare some values for later.
@@ -76,21 +86,41 @@ Process.fork do
     rescue EOFError
     end
 
-    # Execute user code.
+    # Prepare STDOUT.
+    class << STDOUT
+      alias real_write write
+      def write(thing)
+        real_write(esc(thing.to_s))
+      end
+    end
+    STDOUT.flush
+
+    # Execute user code, and fix up STDOUT afterwards.
     load ARGV[0]
+    class << STDOUT
+      alias unreal_write write
+      alias write real_write
+    end
 
   # We had an error!
   rescue Exception => e
+
+    # Fix up output.
+    class << STDOUT
+      alias unreal_write write
+      alias write real_write
+    end
+
+    # Don't show backtrace if child simply called exit.
+    # Also, end the block if we're not exiting 0.
     if e.instance_of?(SystemExit)
-      # Don't show backtrace if child simply called `exit`
-      # also, end the block if we're not exiting 0
       puts '</pre></div>' if e.status != 0
       raise
     end
     
     # Exception header and message.
     puts '</pre></div><div id="exception_report">'
-    print '<p id="exception"><strong>', e.class.name, '</strong>: ', e.message, "</p>\n"
+    print '<p id="exception"><strong>', esc(e.class.name), '</strong>: ', esc(e.message), "</p>\n"
 
     # Filter backtrace.
     bt = e.backtrace
@@ -101,11 +131,11 @@ Process.fork do
       puts '<blockquote><table border="0" cellspacing="0" cellpadding="0">'
       bt.each {|b|
 
-        # FIXME: Entity encode stuff.
         next unless b =~ /(.*?):(\d+)(?::in\s*`(.*?)')?/
-        print '<tr><td><a class="near" title="in ', $1, '" href="txmt://open?url=file://'
-        print $1, '&line=', $2, '">', ($3 ? "method #{$3}" : '<em>at top level</em>'), '</a></td>'
-        print '<td>in <strong>', File.basename($1), '</strong> at line ', $2, '</td></tr>'
+        print '<tr><td><a class="near" title="in ', esc($1), '" href="txmt://open?url=file://'
+        print esc($1), '&line=', esc($2), '">', ($3 ? "method #{esc($3)}" : '<em>at top level</em>'),
+          '</a></td>'
+        print '<td>in <strong>', esc(File.basename($1)), '</strong> at line ', esc($2), '</td></tr>'
 
       }
       puts '</table></blockquote>'

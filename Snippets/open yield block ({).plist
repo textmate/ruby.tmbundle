@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>{ ${1/.+/|/}${1:variable}${1/.+/| /}${2:$TM_SELECTED_TEXT} }</string>
+	<string>{ ${1/(^(?&lt;var&gt;\s*[a-z_][a-zA-Z0-9_]*\s*)(,\g&lt;var&gt;)*,?\s*$)|.*/(?1:|)/}${1:variable}${1/(^(?&lt;var&gt;\s*[a-z_][a-zA-Z0-9_]*\s*)(,\g&lt;var&gt;)*,?\s*$)|.*/(?1:| )/}${2:$TM_SELECTED_TEXT} }</string>
 	<key>keyEquivalent</key>
 	<string>{</string>
 	<key>name</key>

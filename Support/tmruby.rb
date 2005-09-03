@@ -19,14 +19,14 @@ $KCODE = 'u'
 
 
 # Input override.
-class MyStdIn
+class MyStdIn < IO
 
   def getLine(info)
     s = `\"#{ENV['TM_SUPPORT_PATH']}/bin/CocoaDialog.app/Contents/MacOS/CocoaDialog\" inputbox --title Input --informative-text '#{info}' --button1 Ok --button2 '^D' --button3 'Abort'`
     case (a = s.split)[0].to_i
     when 1: a[1] + "\n" if a[1]
     when 2: nil
-    when 3: nil # <- for now.
+    when 3: abort
     end
   end
 
@@ -35,7 +35,11 @@ class MyStdIn
   end
 
 end
-$stdin = MyStdIn.new
+$myIn = MyStdIn.new(STDIN.fileno)
+STDIN.reopen($myIn)
+def gets(sep = nil)
+  $myIn.gets(sep)
+end
 
 
 # HTML escaping function.
@@ -94,7 +98,7 @@ Process.fork do
     class << STDOUT
       alias real_write write
       def write(thing)
-        real_write(esc(thing.to_s))
+        real_write(esc(thing.to_s).gsub("\n", '<br />'))
       end
     end
     STDOUT.flush

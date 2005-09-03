@@ -5,16 +5,20 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>"${TM_RUBY:=ruby}" -e " 
-begin
-  r = eval((ENV['TM_SELECTED_TEXT'].size &gt; 0) ?
-            ENV['TM_SELECTED_TEXT'] : ENV['TM_CURRENT_LINE'] )
-rescue Object
-  r = \$!.class.to_s
-end
+	<string>"${TM_RUBY:=ruby}" &lt;&lt;"EOF"
 
-print( ' '+((r.class != Hash and r.class != Array and r.respond_to? :to_s) ?
-             r.to_s : r.inspect ))"</string>
+  print (ENV['TM_SELECTED_TEXT'] ? " " : "\n")
+
+  begin
+    r = eval(ENV['TM_SELECTED_TEXT'] || ENV['TM_CURRENT_LINE'])
+  rescue Object
+    r = $!.class.to_s
+  end
+
+  print (r.class != Hash and r.class != Array and r.respond_to? :to_s) ?
+             r.to_s : r.inspect
+
+EOF</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>

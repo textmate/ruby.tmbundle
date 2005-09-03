@@ -1,10 +1,15 @@
 #!/usr/bin/ruby
 #
-# TM-Ruby v0.2, 13-08-2005.
+# RubyMate v1.0, 03-09-2005.
 # By Sune Foldager.
 #
+# v1.0 (03-09-2005): Proper HTML encoding and exit report. General code cleanup. Renamed.
 # v0.2 (13-08-2005): Exception backtrace with links implemented. Correctly handles threads and DATA.
 # v0.1 (12-08-2005): Initial version.
+#
+# TODO:
+# • Co-ordinate with PyMate.
+# • Perhabs indicate errors in foreign files differently.
 #
 
 
@@ -63,14 +68,13 @@ print <<EOF
 </head>
 <body>
 <div id="script_output">
-<pre><strong>TM-Ruby v0.2 running Ruby v#{RUBY_VERSION}.</strong>
+<pre><strong>RubyMate v1.0 running Ruby v#{RUBY_VERSION}.</strong>
 <strong>&gt;&gt;&gt #{ARGV[0]}</strong>
 
 EOF
 
 
 # Fork in preparation for user code.
-STDOUT.flush
 Process.fork do
   begin
 
@@ -94,32 +98,33 @@ Process.fork do
       end
     end
     STDOUT.flush
+    STDOUT.sync = true
 
     # Execute user code, and fix up STDOUT afterwards.
     load ARGV[0]
+    STDOUT.sync = false
     class << STDOUT
       alias unreal_write write
       alias write real_write
     end
+    puts '</pre></div>'
 
   # We had an error!
   rescue Exception => e
 
-    # Fix up output.
+    # Fix up STDOUT.
+    STDOUT.sync = false
     class << STDOUT
       alias unreal_write write
       alias write real_write
     end
+    puts '</pre></div>'
 
-    # Don't show backtrace if child simply called exit.
-    # Also, end the block if we're not exiting 0.
-    if e.instance_of?(SystemExit)
-      puts '</pre></div>' if e.status != 0
-      raise
-    end
-    
+    # If the user code simply called 'exit', don't treat it as an error.
+    exit(e.status) if e.instance_of?(SystemExit)
+
     # Exception header and message.
-    puts '</pre></div><div id="exception_report">'
+    puts '<div id="exception_report">'
     print '<p id="exception"><strong>', esc(e.class.name), '</strong>: ', esc(e.message), "</p>\n"
 
     # Filter backtrace.
@@ -140,21 +145,22 @@ Process.fork do
       }
       puts '</table></blockquote>'
     end
-
     puts '</div>'
-    
-    # The non-zero exit signals the parent not to close the block, that we're handling it
-    exit 1
+
+    # This magic value indicates an exception to the parent process.
+    exit 0xff
 
   end
 end
 
 
-# Wait for user threads to complete, and flush output.
+# Wait for user threads to complete and create an exit report, if needed.
 Process.wait
-STDOUT.flush
-# close the HTML block, unless the child exited non-zero
-puts '</pre></div>' if $?.exitstatus == 0
+if (code = $?.exitstatus) != 0xff
+  puts '<div id="exception_report">'
+  print 'Program exited ', (code == 0) ? 'normally.' : "with return code #{code}."
+  puts '</div>'
+end
 
 
 # Footer.

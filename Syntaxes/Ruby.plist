@@ -485,7 +485,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?:^|(?&lt;=[=&gt;~(\[,|&amp;]|(\s|;)when\s|\sor\s|\sand\s))\s*/(?![*+{}?])</string>
+			<string>(?:^|(?&lt;=[=&gt;~(\[,|&amp;]|(\s|;)when\s|\sor\s|\sand\s|gsub\s|gsub!\s))\s*/(?![*+{}?])</string>
 			<key>comment</key>
 			<string>regular expressions (normal)
 			we only start a regexp if the character before it (excluding whitespace)

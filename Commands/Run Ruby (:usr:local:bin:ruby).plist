@@ -5,7 +5,7 @@
 	<key>beforeRunningCommand</key>
 	<string>saveActiveFile</string>
 	<key>command</key>
-	<string>${TM_RUBY:=ruby} -w -- "$TM_BUNDLE_PATH/Support/tmruby.rb" "$TM_FILEPATH"</string>
+	<string>${TM_RUBY:=ruby} -w -- "$TM_BUNDLE_SUPPORT/tmruby.rb" "$TM_FILEPATH"</string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>

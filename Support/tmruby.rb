@@ -1,11 +1,12 @@
 #!/usr/bin/ruby
 #
-# RubyMate v1.0, 03-09-2005.
+# RubyMate v1.1, 08-09-2005.
 # By Sune Foldager.
 #
-# v1.0 (03-09-2005): Proper HTML encoding and exit report. General code cleanup. Renamed.
-# v0.2 (13-08-2005): Exception backtrace with links implemented. Correctly handles threads and DATA.
-# v0.1 (12-08-2005): Initial version.
+# v1.1    (08-09-2005): Now links for syntax errors work as well.
+# v1.0    (03-09-2005): Proper HTML encoding and exit report. General code cleanup. Renamed.
+# v0.2    (13-08-2005): Exception backtrace implemented. Correctly handles threads and DATA.
+# v0.1    (12-08-2005): Initial version.
 #
 # TODO:
 # • Co-ordinate with PyMate.
@@ -127,13 +128,25 @@ Process.fork do
     # If the user code simply called 'exit', don't treat it as an error.
     exit(e.status) if e.instance_of?(SystemExit)
 
+    # Syntax errors need special treatment also.
+    if e.kind_of? SyntaxError
+
+      # Construct a backtrace entry, and set message to empty.
+      bt = [e.message]
+      msg = ''
+
+    else
+
+      # Filter backtrace and grab exception message.
+      bt = e.backtrace
+      bt = bt[0...(bt.each_index {|i| break i if bt[i].index(__FILE__) == 0 })]
+      msg = e.message
+
+    end
+
     # Exception header and message.
     puts '<div id="exception_report">'
-    print '<p id="exception"><strong>', esc(e.class.name), '</strong>: ', esc(e.message), "</p>\n"
-
-    # Filter backtrace.
-    bt = e.backtrace
-    bt = bt[0...(bt.each_index {|i| break i if bt[i].index(__FILE__) == 0 })]
+    print '<p id="exception"><strong>', esc(e.class.name), '</strong>: ', esc(msg), "</p>\n"
 
     # If there is anything, display it.
     if bt.size > 0
@@ -142,8 +155,8 @@ Process.fork do
 
         next unless b =~ /(.*?):(\d+)(?::in\s*`(.*?)')?/
         print '<tr><td><a class="near" title="in ', esc($1), '" href="txmt://open?url=file://'
-        print esc($1), '&line=', esc($2), '">', ($3 ? "method #{esc($3)}" : '<em>at top level</em>'),
-          '</a></td>'
+        print esc($1), '&line=', esc($2), '">', ($3 ? "method #{esc($3)}" :
+          ((e.kind_of? SyntaxError) ? '<em>error</em>' : '<em>at top level</em>')), '</a></td>'
         print '<td>in <strong>', esc(File.basename($1)), '</strong> at line ', esc($2), '</td></tr>'
 
       }

@@ -891,12 +891,8 @@
 			<string>\\.</string>
 		</dict>
 		<dict>
-			<key>begin</key>
-			<string>#</string>
-			<key>comment</key>
-			<string>end of line comments, we use begin/end instead of match because TextMate always picks the longest match, but for begin/end rules that means the length of the begin-pattern only. This allows us to match “#.*?%&gt;” in a potential language which includes Ruby.</string>
-			<key>end</key>
-			<string>$</string>
+			<key>match</key>
+			<string>#.*$</string>
 			<key>name</key>
 			<string>comment.line.number-sign.ruby</string>
 		</dict>

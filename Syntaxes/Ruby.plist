@@ -737,7 +737,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%([^\w\s&gt;])</string>
+			<string>%([^\w\s])</string>
 			<key>comment</key>
 			<string>literal capable of interpolation -- wildcard</string>
 			<key>end</key>

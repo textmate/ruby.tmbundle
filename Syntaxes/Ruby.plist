@@ -47,9 +47,9 @@
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby\b</string>
 	<key>foldingStartMarker</key>
-	<string>^\s*(def|([^#])*(?&lt;=\s|^)do\b)\b(?!.*\bend\b\s*(#.*)?$)</string>
+	<string>^\s*((def|([^#])*(?&lt;=\s|^)do\b)\b(?!.*\bend\b\s*(#.*)?$))|(#.*\(fold\)$)</string>
 	<key>foldingStopMarker</key>
-	<string>(^\s*end|;\s*end)\s*(#.*)?$</string>
+	<string>((^\s*#?end|;\s*end)\s*(#.*)?)|(\s*#.*\(end\))$</string>
 	<key>keyEquivalent</key>
 	<string>^~R</string>
 	<key>name</key>

@@ -74,7 +74,7 @@ print <<EOF
 <body>
 <div id="script_output">
 <pre><strong>RubyMate v1.0 running Ruby v#{RUBY_VERSION}.</strong>
-<strong>&gt;&gt;&gt #{ARGV[0]}</strong>
+<strong>&gt;&gt;&gt #{ARGV[0].sub(ENV['HOME'], '~')}</strong>
 
 EOF
 

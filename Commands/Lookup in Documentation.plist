@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>echo "&lt;title&gt;Ruby doc for ${TM_SELECTED_TEXT:=$TM_CURRENT_WORD}&lt;/title&gt;"
+ri -Tf html "${TM_SELECTED_TEXT:=$TM_CURRENT_WORD}"|{
+	read MSG
+	if [[ $MSG == "More than one method matched your request. You can refine" ]]; then
+		read MSG; read MSG
+		cat &lt;&lt;'EOF'
+		&lt;script&gt;
+		function ri (arg) {
+			document.getElementById("result").innerText = "";
+
+			function output (str) {
+			   document.getElementById("result").innerText += str;
+			}
+
+			var cmd = "ri -Tf plain '" + arg + "'"
+			var myCommand = TextMate.system(cmd, function (task) { });
+			myCommand.onreadoutput = output;
+		}
+		&lt;/script&gt;
+		&lt;h1&gt;Multiple matches&lt;/h1&gt;
+		&lt;ul&gt;
+EOF
+		perl -pe 's/(.+?)(, |$)/&lt;li&gt;&lt;a href="javascript:ri(&amp;quot;$1&amp;quot;)"&gt;$1&lt;\/a&gt;&lt;\/li&gt;\n/g'
+		echo "&lt;/ul&gt;&lt;hr&gt;&lt;pre id="result"&gt;&lt;/pre&gt;"
+	else
+		echo "$MSG"; cat
+	fi
+}
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string></string>
+	<key>name</key>
+	<string>Lookup in Documentation</string>
+	<key>output</key>
+	<string>showAsHTML</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>uuid</key>
+	<string>63F3B3B7-CBE2-426B-B551-657733F3868B</string>
+</dict>
+</plist>

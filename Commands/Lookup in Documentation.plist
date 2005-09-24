@@ -16,7 +16,8 @@ ri -Tf html "${TM_SELECTED_TEXT:=$TM_CURRENT_WORD}"|{
 			document.getElementById("result").innerText = "";
 
 			function output (str) {
-			   document.getElementById("result").innerText += str;
+				document.getElementById("result").innerText += str;
+				window.location.hash = "result";
 			}
 
 			var cmd = "ri -Tf plain '" + arg + "'"

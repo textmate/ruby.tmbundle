@@ -1416,6 +1416,14 @@
 						</dict>
 					</array>
 				</dict>
+				<dict>
+					<key>comment</key>
+					<string>Does not allow / inside the comment, other than that works pretty well. The whitespace before # is to prevent partial regexes with # from being scoped.</string>
+					<key>match</key>
+					<string>(?&lt;=\s)#[^/]*$</string>
+					<key>name</key>
+					<string>comment.line.number-sign.ruby</string>
+				</dict>
 			</array>
 		</dict>
 	</dict>

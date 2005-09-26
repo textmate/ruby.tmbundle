@@ -5,7 +5,7 @@
 	<key>beforeRunningCommand</key>
 	<string>saveActiveFile</string>
 	<key>command</key>
-	<string>[[ $TM_WARN_LEVEL -gt 0 ]] &amp;&amp; w='-w' || w=''
+	<string>[[ ${TM_WARN_LEVEL:=0} &gt; 0 ]] &amp;&amp; w='-w' || w=''
 ${TM_RUBY:=ruby} $w -- "$TM_BUNDLE_SUPPORT/tmruby.rb" "$TM_FILEPATH"</string>
 	<key>input</key>
 	<string>none</string>

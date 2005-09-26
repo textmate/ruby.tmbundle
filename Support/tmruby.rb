@@ -1,12 +1,13 @@
 #!/usr/bin/ruby
 #
-# RubyMate v1.1, 08-09-2005.
+# RubyMate v1.2, 2005-09-26.
 # By Sune Foldager.
 #
-# v1.1    (08-09-2005): Now links for syntax errors work as well.
-# v1.0    (03-09-2005): Proper HTML encoding and exit report. General code cleanup. Renamed.
-# v0.2    (13-08-2005): Exception backtrace implemented. Correctly handles threads and DATA.
-# v0.1    (12-08-2005): Initial version.
+# v1.2    (2005-09-26): Added link to toggle wrapping for script output
+# v1.1    (2005-09-08): Now links for syntax errors work as well.
+# v1.0    (2005-09-03): Proper HTML encoding and exit report. General code cleanup. Renamed.
+# v0.2    (2005-08-13): Exception backtrace implemented. Correctly handles threads and DATA.
+# v0.1    (2005-08-12): Initial version.
 #
 # TODO:
 # • Co-ordinate with PyMate.
@@ -70,12 +71,28 @@ EOF
 dump_file(myDir + 'pastel.css')
 print <<EOF
 </style>
-</head>
-<body>
-<div id="script_output">
-<pre><strong>RubyMate v1.0 running Ruby v#{RUBY_VERSION}.</strong>
-<strong>&gt;&gt;&gt #{ARGV[0].sub(ENV['HOME'], '~')}</strong>
+<script>
+function toggle_ws () {
+	// change style sheet property
+	var style = document.getElementById('actual_output').style;
+	var switchToPre = style.whiteSpace == 'normal';
+	style.whiteSpace = switchToPre ? 'pre' : 'normal';
 
+	// toggle link text
+	var elm = document.getElementById('reflow_link');
+	elm.innerHTML = switchToPre ? 'Wrap output' : 'Unwrap output';
+
+	// store new value in defaults
+	TextMate.system("defaults write org.cyanite.rubymate wrapOutput " + (switchToPre ? "0" : "1"), null);
+}
+</script>
+</head>
+<body #{'onLoad="javascript:toggle_ws()"' if(%x{defaults read org.cyanite.rubymate wrapOutput 2>/dev/null} == "1\n")}>
+<div id="script_output" class="framed">
+<div style="float: right;"><a href="javascript:toggle_ws()" id="reflow_link">Wrap output</a></div>
+<pre><strong>RubyMate v1.2 running Ruby v#{RUBY_VERSION}.</strong>
+<strong>&gt;&gt;&gt #{ARGV[0].sub(ENV['HOME'], '~')}</strong>
+<div id="actual_output">
 EOF
 
 
@@ -112,7 +129,7 @@ Process.fork do
       alias unreal_write write
       alias write real_write
     end
-    puts '</pre></div>'
+    puts '</div></pre></div>'
 
   # We had an error!
   rescue Exception => e
@@ -123,7 +140,7 @@ Process.fork do
       alias unreal_write write
       alias write real_write
     end
-    puts '</pre></div>'
+    puts '</div></pre></div>'
 
     # If the user code simply called 'exit', don't treat it as an error.
     exit(e.status) if e.instance_of?(SystemExit)
@@ -145,7 +162,7 @@ Process.fork do
     end
 
     # Exception header and message.
-    puts '<div id="exception_report">'
+    puts '<div id="exception_report" class="framed">'
     print '<p id="exception"><strong>', esc(e.class.name), '</strong>: ', esc(msg), "</p>\n"
 
     # If there is anything, display it.
@@ -174,7 +191,7 @@ end
 # Wait for user threads to complete and create an exit report, if needed.
 Process.wait
 if (code = $?.exitstatus) != 0xff
-  puts '<div id="exception_report">'
+  puts '<div id="exception_report" class="framed">'
   print 'Program exited ', (code == 0) ? 'normally.' : "with return code #{code}."
   puts '</div>'
 end

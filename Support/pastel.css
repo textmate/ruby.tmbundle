@@ -29,7 +29,7 @@ p#version
 	color: #005C3E;
 }
 
-div
+div.framed
 {
 	border-style: dotted;
 	border-width: 1px 0;

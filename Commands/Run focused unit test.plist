@@ -35,7 +35,7 @@ ${TM_RUBY:=ruby} "$TM_FILEPATH" --name=$method</string>
 	<key>lineCaptureRegister</key>
 	<string>2</string>
 	<key>name</key>
-	<string>Run focused Ruby unit test</string>
+	<string>Run Focused Unit Test</string>
 	<key>output</key>
 	<string>separateWindow</string>
 	<key>scope</key>

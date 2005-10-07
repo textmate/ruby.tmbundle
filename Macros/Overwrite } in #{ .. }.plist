@@ -43,7 +43,7 @@
 	<key>keyEquivalent</key>
 	<string>}</string>
 	<key>name</key>
-	<string>Overwrite } in #{ .. }</string>
+	<string>Overwrite '}' in #{ .. }</string>
 	<key>scope</key>
 	<string>source.ruby string.quoted source.ruby.embedded</string>
 	<key>scopeType</key>

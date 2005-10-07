@@ -12,9 +12,9 @@ fi
 
 # save file, add shebang if it's missing (RubyMate needs it)
 {  read SHEBANG
-   if [[ "${SHEBANG:0:2}" != "#!" ]]; then
-      echo "#!${TM_RUBY:-/usr/bin/env ruby}"
-   fi
+#  if [[ "${SHEBANG:0:2}" != "#!" ]]; then
+#     echo "#!${TM_RUBY:-/usr/bin/env ruby}"
+#  fi
    echo "$SHEBANG"; cat; } &gt;"${TM_FILEPATH:=$TM_RUBYMATE_TMPFILE}"
 
 [[ ${TM_WARN_LEVEL:-0} &gt; 0 ]] &amp;&amp; w='-w' || w=''
@@ -29,7 +29,7 @@ fi</string>
 	<key>keyEquivalent</key>
 	<string>@r</string>
 	<key>name</key>
-	<string>Run Ruby</string>
+	<string>Run Script</string>
 	<key>output</key>
 	<string>showAsHTML</string>
 	<key>scope</key>

@@ -24,7 +24,7 @@ EOF</string>
 	<key>keyEquivalent</key>
 	<string>^E</string>
 	<key>name</key>
-	<string>Execute Line with Ruby</string>
+	<string>Execute Line as Ruby</string>
 	<key>output</key>
 	<string>afterSelectedText</string>
 	<key>uuid</key>

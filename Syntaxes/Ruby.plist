@@ -485,7 +485,23 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?:^|(?&lt;=[=&gt;~(\[,|&amp;]|(\s|;)when\s|(\s|;)or\s|(\s|;)and\s|(\s|;|.)gsub\s|(\s|;|.)gsub!\s|(\s|;)if\s|(\s|;)elsif\s))\s*/(?![*+{}?])</string>
+			<string>(?x)
+			   (?:
+			     ^                      # begin of line
+			   | (?&lt;=                   # …or look-behind on:
+			        [=&gt;~(\[,|&amp;]
+			      | (\s|;)when\s
+			      | (\s|;)or\s
+			      | (\s|;)and\s
+			      | (\s|;|\.)scan\s
+			      | (\s|;|\.)gsub\s
+			      | (\s|;|\.)gsub!\s
+			      | (\s|;)if\s
+			      | (\s|;)elsif\s
+			     )
+			   )
+			   \s*/(?![*+{}?])
+			</string>
 			<key>comment</key>
 			<string>regular expressions (normal)
 			we only start a regexp if the character before it (excluding whitespace)

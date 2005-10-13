@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Spacing</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>settings</key>
+	<dict>
+		<key>softTabs</key>
+		<string>1</string>
+		<key>tabSize</key>
+		<string>2</string>
+	</dict>
+	<key>uuid</key>
+	<string>0F692270-484A-4CA9-AA9B-079C30E4CB13</string>
+</dict>
+</plist>

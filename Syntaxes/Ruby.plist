@@ -489,16 +489,24 @@
 			   (?:
 			     ^                      # beginning of line
 			   | (?&lt;=                   # or look-behind on:
-			        [=&gt;~(\[,|&amp;]
-			      | (\s|;)when\s
-			      | (\s|;)or\s
-			      | (\s|;)and\s
-			      | (\s|;|\.)scan\s
-			      | (\s|;|\.)gsub\s
-			      | (\s|;|\.)gsub!\s
-			      | (\s|;)if\s
-			      | (\s|;)elsif\s
+			       [=&gt;~(\[,|&amp;]
+			     | (\s|;)when\s
+			     | (\s|;)or\s
+			     | (\s|;)and\s
+			     | (\s|;|\.)scan\s
+			     | (\s|;|\.)gsub\s
+			     | (\s|;|\.)gsub!\s
+			     | (\s|;)if\s
+			     | (\s|;)elsif\s
 			     )
+			   | (?&lt;=                  # or a look-behind with line anchor:
+			        ^when\s              # duplication necessary due to limits of regex
+			      | ^scan\s
+			      | ^gsub\s
+			      | ^gsub!\s
+			      | ^if\s
+			      | ^elsif\s
+			      )
 			   )
 			   \s*/(?![*+{}?])
 			</string>

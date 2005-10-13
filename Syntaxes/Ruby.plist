@@ -487,8 +487,8 @@
 			<key>begin</key>
 			<string>(?x)
 			   (?:
-			     ^                      # begin of line
-			   | (?&lt;=                   # …or look-behind on:
+			     ^                      # beginning of line
+			   | (?&lt;=                   # or look-behind on:
 			        [=&gt;~(\[,|&amp;]
 			      | (\s|;)when\s
 			      | (\s|;)or\s

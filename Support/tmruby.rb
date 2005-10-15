@@ -62,14 +62,14 @@ myDir = File.dirname(myFile) + '/'
 
 
 # Headers...
-print <<EOF
+print <<-EOF
 <html>
 <head>
 <title>Ruby TextMate Runtime</title>
 <style type="text/css">
 EOF
 dump_file(myDir + 'pastel.css')
-print <<EOF
+print <<-EOF
 </style>
 <script>
 function toggle_ws () {
@@ -198,7 +198,7 @@ end
 
 
 # Footer.
-print <<EOF
+print <<-EOF
 </body>
 </html>
 EOF

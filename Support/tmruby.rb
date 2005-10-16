@@ -100,6 +100,16 @@ EOF
 Process.fork do
   begin
 
+    # Prepare STDOUT.
+    class << STDOUT
+      alias real_write write
+      def write(thing)
+        real_write(esc(thing.to_s).gsub("\n", '<br />'))
+      end
+    end
+    STDOUT.flush
+    STDOUT.sync = true
+
     # Set up DATA environment, if appropriate.
     data = File.new(ARGV[0])
     begin
@@ -111,16 +121,6 @@ Process.fork do
       end
     rescue EOFError
     end
-
-    # Prepare STDOUT.
-    class << STDOUT
-      alias real_write write
-      def write(thing)
-        real_write(esc(thing.to_s).gsub("\n", '<br />'))
-      end
-    end
-    STDOUT.flush
-    STDOUT.sync = true
 
     # Execute user code, and fix up STDOUT afterwards.
     load ARGV[0]

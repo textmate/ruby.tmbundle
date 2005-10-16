@@ -5,25 +5,15 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string># if there's no file, create a tmp file
-if [[ -z "$TM_FILEPATH" ]]; then
-   TM_RUBYMATE_TMPFILE=$(mktemp -t rubymate)
-fi
-
-# save file, add shebang if it's missing (RubyMate needs it)
-{  read SHEBANG
-#  if [[ "${SHEBANG:0:2}" != "#!" ]]; then
-#     echo "#!${TM_RUBY:-/usr/bin/env ruby}"
-#  fi
-   echo "$SHEBANG"; cat; } &gt;"${TM_FILEPATH:=$TM_RUBYMATE_TMPFILE}"
+	<string># save file, use tmp-file if there's no filepath
+[[ -z "$TM_FILEPATH" ]] &amp;&amp; TM_RUBYMATE_TMPFILE=$(mktemp -t rubymate)
+: "${TM_FILEPATH:=$TM_RUBYMATE_TMPFILE}"; cat &gt;"$TM_FILEPATH"
 
 [[ ${TM_WARN_LEVEL:-0} &gt; 0 ]] &amp;&amp; w='-w' || w=''
 ${TM_RUBY:-ruby} $w -- "$TM_BUNDLE_SUPPORT/tmruby.rb" "$TM_FILEPATH"
 
-# remove our potential tmp file
-if [[ -e "$TM_RUBYMATE_TMPFILE" ]]; then
-   rm "$TM_RUBYMATE_TMPFILE"
-fi</string>
+rm -f "$TM_RUBYMATE_TMPFILE"
+</string>
 	<key>input</key>
 	<string>document</string>
 	<key>keyEquivalent</key>

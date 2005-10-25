@@ -9,7 +9,7 @@
 echo "&lt;title&gt;Ruby doc for ${TM_SELECTED_TEXT:=$TM_CURRENT_WORD}&lt;/title&gt;"
 ri -Tf html "$TM_SELECTED_TEXT"|{
 	read MSG
-	if grep -q &lt;&lt;&lt;$MSG "More than one method matched"; then
+	if grep -q &lt;&lt;&lt;${MSG:-x} "More than one method matched"; then
 		read MSG; read MSG
 		cat &lt;&lt;-'EOF'
 			&lt;script&gt;function ri (arg) {

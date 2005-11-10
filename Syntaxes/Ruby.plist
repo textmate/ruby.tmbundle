@@ -963,7 +963,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;\=\s*&lt;&lt;(\w+))(?!\s+#\s*([Cc]|sh))</string>
+			<string>(?&gt;\=\s*&lt;&lt;(\w+))(?!\s+#\s*([Cc]|sh|[Jj]ava))</string>
 			<key>end</key>
 			<string>^\1$</string>
 			<key>name</key>
@@ -1011,7 +1011,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;\=\s*&lt;&lt;(\w+))(?=\s+#\s*[Cc](?!\+\+))</string>
+			<string>(?&gt;\=\s*&lt;&lt;(\w+))(?=\s+#\s*[Cc](?!(\+\+|[Ss][Ss])))</string>
 			<key>end</key>
 			<string>^\1$</string>
 			<key>name</key>
@@ -1052,6 +1052,60 @@
 				<dict>
 					<key>include</key>
 					<string>source.c++</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?&gt;\=\s*&lt;&lt;(\w+))(?=\s+#\s*[Cc][Ss][Ss])</string>
+			<key>end</key>
+			<string>^\1$</string>
+			<key>name</key>
+			<string>string.unquoted.embedded.css.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#heredoc</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>source.css</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?&gt;\=\s*&lt;&lt;(\w+))(?=\s+#\s*[Jj]ava[Ss]cript)</string>
+			<key>end</key>
+			<string>^\1$</string>
+			<key>name</key>
+			<string>string.unquoted.embedded.js.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#heredoc</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>source.js</string>
 				</dict>
 				<dict>
 					<key>include</key>

@@ -986,6 +986,37 @@
 		</dict>
 		<dict>
 			<key>begin</key>
+			<string>(?&gt;&lt;&lt;-HTML\b)</string>
+			<key>comment</key>
+			<string>heredoc with embedded HTML and indented terminator</string>
+			<key>contentName</key>
+			<string>text.html.embedded.ruby</string>
+			<key>end</key>
+			<string>\s*HTML$</string>
+			<key>name</key>
+			<string>string.unquoted.embedded.html.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#heredoc</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>text.html.basic</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
 			<string>(?&gt;&lt;&lt;-(\w+))</string>
 			<key>comment</key>
 			<string>heredoc with indented terminator</string>

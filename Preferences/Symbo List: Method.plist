@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>name</key>
-	<string>Symbo List: Method</string>
+	<string>Symbol List: Method</string>
 	<key>scope</key>
 	<string>source.ruby declaration.function</string>
 	<key>settings</key>

@@ -69,7 +69,7 @@ print <<-EOF
 <style type="text/css">
 EOF
 dump_file(myDir + 'pastel.css')
-print <<-EOF
+print <<-HTML
 </style>
 <script>
 function toggle_ws () {
@@ -93,7 +93,7 @@ function toggle_ws () {
 <pre><strong>RubyMate v1.2 running Ruby v#{RUBY_VERSION}.</strong>
 <strong>&gt;&gt;&gt #{ARGV[0].sub(ENV['HOME'], '~')}</strong>
 <div id="actual_output">
-EOF
+HTML
 
 
 # Fork in preparation for user code.

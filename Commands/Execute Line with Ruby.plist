@@ -5,22 +5,22 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>"${TM_RUBY:=ruby}" &lt;&lt;"EOF"
+	<string>#!/usr/bin/env ruby
 
-  print (ENV['TM_SELECTED_TEXT'] ? " " : "\n")
+begin
+  print(ENV['TM_SELECTED_TEXT'] ? " " : "\n")
+  r = eval(STDIN.read)
+rescue Object
+  r = $!.class.to_s
+end
 
-  begin
-    r = eval(ENV['TM_SELECTED_TEXT'] || ENV['TM_CURRENT_LINE'])
-  rescue Object
-    r = $!.class.to_s
-  end
-
-  print (r.class != Hash and r.class != Array and r.respond_to? :to_s) ?
-             r.to_s : r.inspect
-
-EOF</string>
+print (r.class != Hash and r.class != Array and r.respond_to? :to_s) ?
+           r.to_s : r.inspect
+</string>
+	<key>fallbackInput</key>
+	<string>line</string>
 	<key>input</key>
-	<string>none</string>
+	<string>selection</string>
 	<key>keyEquivalent</key>
 	<string>^E</string>
 	<key>name</key>

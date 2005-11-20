@@ -24,7 +24,7 @@ $KCODE = 'u'
 class MyStdIn < IO
 
   def getLine(info)
-    s = `\"#{ENV['TM_SUPPORT_PATH']}/bin/CocoaDialog.app/Contents/MacOS/CocoaDialog\" inputbox --title Input --informative-text '#{info}' --button1 Ok --button2 '^D' --button3 'Abort'`
+    s = `\"#{ENV['TM_SUPPORT_PATH']}/bin/CocoaDialog.app/Contents/MacOS/CocoaDialog\" inputbox --title 'Input Requested' --informative-text '#{info}' --button1 'Send Text' --button2 'Send EOF (^D)' --button3 'Abort Script'`
     case (a = s.split("\n"))[0].to_i
     when 1: a[1] + "\n" if a[1]
     when 2: nil
@@ -33,7 +33,7 @@ class MyStdIn < IO
   end
 
   def gets(sep = nil)
-    getLine('Line input.')
+    getLine('Script is Requesting Input:')
   end
 
 end

@@ -19,16 +19,17 @@
 require 'cgi'
 $KCODE = 'u'
 
+$VERSION = "$Revision$"
 
 # Input override.
 class MyStdIn < IO
 
   def getLine(info)
-    s = `\"#{ENV['TM_SUPPORT_PATH']}/bin/CocoaDialog.app/Contents/MacOS/CocoaDialog\" inputbox --title 'Input Requested' --informative-text '#{info}' --button1 'Send Text' --button2 'Send EOF (^D)' --button3 'Abort Script'`
+    s = `\"#{ENV['TM_SUPPORT_PATH']}/bin/CocoaDialog.app/Contents/MacOS/CocoaDialog\" inputbox --title 'Input Requested' --informative-text '#{info}' --button1 'Send Text' --button2 'Cancel' --button3 'Send EOF (^D)'`
     case (a = s.split("\n"))[0].to_i
     when 1: a[1] + "\n" if a[1]
-    when 2: nil
-    when 3: abort
+    when 2: abort
+    when 3: nil
     end
   end
 
@@ -90,11 +91,10 @@ function toggle_ws () {
 <body #{'onLoad="javascript:toggle_ws()"' if(%x{defaults read org.cyanite.rubymate wrapOutput 2>/dev/null} == "1\n")}>
 <div id="script_output" class="framed">
 <div style="float: right;"><a href="javascript:toggle_ws()" id="reflow_link">Wrap output</a></div>
-<pre><strong>RubyMate v1.2 running Ruby v#{RUBY_VERSION}.</strong>
+<pre><strong>RubyMate r#{$VERSION[/\d+/]} running Ruby v#{RUBY_VERSION}.</strong>
 <strong>&gt;&gt;&gt #{ARGV[0].sub(ENV['HOME'], '~')}</strong>
 <div id="actual_output">
 HTML
-
 
 # Fork in preparation for user code.
 Process.fork do

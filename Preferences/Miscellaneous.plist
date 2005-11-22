@@ -11,7 +11,7 @@
 		<key>decreaseIndentPattern</key>
 		<string>^\s*(\}|end|rescue|else|elsif|when)$</string>
 		<key>increaseIndentPattern</key>
-		<string>^(\s*(module|class|begin|def|if|else|elsif|unless|case|when|rescue|for|while|unless|("(\\.|[^"])*"|'(\\.|[^'])*'|[^#"'])*\sdo)\b(?!.*?;.*?\&lt;end\&gt;)|[^#"']*\{(?!.*?\})).*$</string>
+		<string>^(\s*(module|class|begin|def|if|else|elsif|unless|case|when|rescue|for|while|unless|(?=.*\bdo\b)("(\\.|[^"])*"|'(\\.|[^'])*'|[^#"'])*\sdo)\b(?!.*?;.*?\&lt;end\&gt;)|[^#"']*\{(?!.*?\})).*$</string>
 		<key>shellVariables</key>
 		<array>
 			<dict>

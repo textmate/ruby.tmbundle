@@ -24,7 +24,7 @@ print (r.class != Hash and r.class != Array and r.respond_to? :to_s) ?
 	<key>keyEquivalent</key>
 	<string>^E</string>
 	<key>name</key>
-	<string>Execute Line as Ruby</string>
+	<string>Execute Line / Selection as Ruby</string>
 	<key>output</key>
 	<string>afterSelectedText</string>
 	<key>uuid</key>

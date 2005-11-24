@@ -197,7 +197,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(^|\s+)(def)\b\s+((?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?(?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?|===?|&gt;[&gt;=]?|&lt;[&lt;=]?|&lt;=&gt;|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?))\s*\(</string>
+			<string>(?:^|\s+)(def)\b\s+((?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?(?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?|===?|&gt;[&gt;=]?|&lt;[&lt;=]?|&lt;=&gt;|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?))\s*\(</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -244,7 +244,7 @@
 			<key>comment</key>
 			<string> the optional name is just to catch the def also without a method-name</string>
 			<key>match</key>
-			<string>(^|\s+)(def)\b(\s+((?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?(?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?|===?|&gt;[&gt;=]?|&lt;[&lt;=]?|&lt;=&gt;|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?)))?</string>
+			<string>(?:^|\s+)(def)\b(\s+((?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?(?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?|===?|&gt;[&gt;=]?|&lt;[&lt;=]?|&lt;=&gt;|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?)))?</string>
 			<key>name</key>
 			<string>declaration.function.method.without-arguments.ruby</string>
 		</dict>

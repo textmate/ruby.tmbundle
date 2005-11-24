@@ -14,7 +14,7 @@ echo "using ruby-$2"
 	<key>keyEquivalent</key>
 	<string>^V</string>
 	<key>name</key>
-	<string>Check Ruby Syntax</string>
+	<string>Validate Syntax</string>
 	<key>output</key>
 	<string>showAsTooltip</string>
 	<key>scope</key>

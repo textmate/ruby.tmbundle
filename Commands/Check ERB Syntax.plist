@@ -14,7 +14,7 @@ echo "using ruby-$2 / erb"
 	<key>keyEquivalent</key>
 	<string>^V</string>
 	<key>name</key>
-	<string>Check ERB Syntax</string>
+	<string>Validate Syntax (ERB)</string>
 	<key>output</key>
 	<string>showAsTooltip</string>
 	<key>scope</key>

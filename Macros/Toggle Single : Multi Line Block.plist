@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>commands</key>
+	<array>
+		<dict>
+			<key>command</key>
+			<string>moveToBeginningOfLine:</string>
+		</dict>
+		<dict>
+			<key>argument</key>
+			<dict>
+				<key>action</key>
+				<string>findNext</string>
+				<key>findInProjectIgnoreCase</key>
+				<false/>
+				<key>findInProjectRegularExpression</key>
+				<false/>
+				<key>findString</key>
+				<string>^([\s&amp;&amp;[^\n]]*)(.*?)\s*(?:\{\s*(\|[^|]+\|)\s*(.*?)\s*\}|do\s*(\|[^|]+\|)\s*(\S.*$)\s*end)</string>
+				<key>ignoreCase</key>
+				<false/>
+				<key>regularExpression</key>
+				<true/>
+				<key>replaceAllScope</key>
+				<string>selection</string>
+				<key>replaceString</key>
+				<string>$1$2(?3: do $3\n$1  $4\n$1end: { $5 $6 })</string>
+				<key>wrapAround</key>
+				<false/>
+			</dict>
+			<key>command</key>
+			<string>findWithOptions:</string>
+		</dict>
+		<dict>
+			<key>argument</key>
+			<dict>
+				<key>action</key>
+				<string>replaceAll</string>
+				<key>findInProjectIgnoreCase</key>
+				<false/>
+				<key>findInProjectRegularExpression</key>
+				<false/>
+				<key>findString</key>
+				<string>^([\s&amp;&amp;[^\n]]*)(.*?)\s*(?:\{\s*(\|[^|]+\|)\s*(.*?)\s*\}|do\s*(\|[^|]+\|)\s*(\S.*$)\s*end)</string>
+				<key>ignoreCase</key>
+				<false/>
+				<key>regularExpression</key>
+				<true/>
+				<key>replaceAllScope</key>
+				<string>selection</string>
+				<key>replaceString</key>
+				<string>$1$2(?3: do $3\n$1  $4\n$1end: { $5 $6 })</string>
+				<key>wrapAround</key>
+				<false/>
+			</dict>
+			<key>command</key>
+			<string>findWithOptions:</string>
+		</dict>
+		<dict>
+			<key>command</key>
+			<string>moveLeft:</string>
+		</dict>
+	</array>
+	<key>keyEquivalent</key>
+	<string>^{</string>
+	<key>name</key>
+	<string>Toggle Single / Multi Line Block</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>scopeType</key>
+	<string>local</string>
+	<key>uuid</key>
+	<string>7990EE60-C850-4779-A8C0-7FD2C853B99B</string>
+</dict>
+</plist>

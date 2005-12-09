@@ -13,14 +13,14 @@ ri -Tf html "$TM_SELECTED_TEXT"|{
 		read MSG; read MSG
 		cat &lt;&lt;-'EOF'
 			&lt;script&gt;function ri (arg) {
-				var res = TextMate.system("ri -T '" + arg + "'", null).outputString;
-				document.getElementById("result").innerText = res;
+				var res = TextMate.system("ri -Tf html '" + arg + "'", null).outputString;
+				document.getElementById("result").innerHTML = res;
 				window.location.hash = "result";
 			}
 			&lt;/script&gt;&lt;h1&gt;Multiple matches&lt;/h1&gt;&lt;ul&gt;
 		EOF
 		perl -pe $'s%(.+?)(, |$)%&lt;li&gt;&lt;a href=\'javascript:ri("$1")\'&gt;$1&lt;/a&gt;&lt;/li&gt;%g'
-		echo '&lt;/ul&gt;&lt;hr&gt;&lt;pre id="result"&gt;&lt;/pre&gt;'
+		echo '&lt;/ul&gt;&lt;hr&gt;&lt;div id="result"&gt;&lt;/div&gt;'
 	else
 		echo "$MSG"; cat
 	fi

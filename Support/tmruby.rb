@@ -96,19 +96,19 @@ function toggle_ws()
 {
 	// Change style sheet property.
 	var style = document.getElementById('actual_output').style;
- 	var switchToPre = style.wordWrap != 'break-word';
- 	style.wordWrap = switchToPre ? 'break-word' : null;
+ 	var wrapOutput = style.wordWrap != 'break-word';
+ 	style.wordWrap = wrapOutput ? 'break-word' : null;
 
 	// Toggle link text.
 	var elm = document.getElementById('reflow_link');
-	elm.innerText = switchToPre ? 'Wrap output' : 'Unwrap output';
+	elm.innerText = wrapOutput ? 'Disable Word Wrap' : 'Enable Word Wrap';
 
 	// Store new value in defaults.
-	TextMate.system("defaults write org.cyanite.rubymate wrapOutput " + (switchToPre ? "0" : "1"), null);
+	TextMate.system("defaults write org.cyanite.rubymate disableWordWrap " + (wrapOutput ? "0" : "1"), null);
 }
 </script>
 </head>
-<body #{'onLoad="javascript:toggle_ws()"' if(%x{defaults read org.cyanite.rubymate wrapOutput 2>/dev/null} == "1\n")}>
+<body #{'onLoad="javascript:toggle_ws()"' unless(%x{defaults read org.cyanite.rubymate disableWordWrap 2>/dev/null} == "1\n")}>
 <div id="script_output" class="framed">
 <div style="float: right;"><a href="javascript:toggle_ws()" id="reflow_link">Wrap output</a></div>
 <pre><strong>RubyMate r#{$VERSION[/\d+/]} running Ruby v#{RUBY_VERSION}.</strong>

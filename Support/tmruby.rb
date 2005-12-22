@@ -1,16 +1,17 @@
 #!/usr/bin/ruby
 #
-# RubyMate v1.2, 2005-09-26.
+# RubyMate v1.3, 2005-12-22.
 # By Sune Foldager.
 #
-# v1.2    (2005-09-26): Added link to toggle wrapping for script output
-# v1.1    (2005-09-08): Now links for syntax errors work as well.
-# v1.0    (2005-09-03): Proper HTML encoding and exit report. General code cleanup. Renamed.
-# v0.2    (2005-08-13): Exception backtrace implemented. Correctly handles threads and DATA.
-# v0.1    (2005-08-12): Initial version.
+# v1.3  (2005-12-22): Bug fixes relating to relative links in backtrace.
+# v1.2  (2005-09-26): Added link to toggle wrapping for script output
+# v1.1  (2005-09-08): Now links for syntax errors work as well.
+# v1.0  (2005-09-03): Proper HTML encoding and exit report. General code cleanup. Renamed.
+# v0.2  (2005-08-13): Exception backtrace implemented. Correctly handles threads and DATA.
+# v0.1  (2005-08-12): Initial version.
 #
 # TODO:
-# • Co-ordinate with PyMate.
+# • Perhabs co-ordinate with PyMate.
 # • Perhabs indicate errors in foreign files differently.
 #
 
@@ -63,27 +64,28 @@ myDir = File.dirname(myFile) + '/'
 
 
 # Headers...
-print <<-EOF
+print <<-HTML
 <html>
 <head>
 <title>Ruby TextMate Runtime</title>
 <style type="text/css">
-EOF
+HTML
 dump_file(myDir + 'pastel.css')
 print <<-HTML
 </style>
 <script>
-function toggle_ws () {
-	// change style sheet property
+function toggle_ws()
+{
+	// Change style sheet property.
 	var style = document.getElementById('actual_output').style;
 	var switchToPre = style.whiteSpace == 'normal';
 	style.whiteSpace = switchToPre ? 'pre' : 'normal';
 
-	// toggle link text
+	// Toggle link text.
 	var elm = document.getElementById('reflow_link');
 	elm.innerHTML = switchToPre ? 'Wrap output' : 'Unwrap output';
 
-	// store new value in defaults
+	// Store new value in defaults.
 	TextMate.system("defaults write org.cyanite.rubymate wrapOutput " + (switchToPre ? "0" : "1"), null);
 }
 </script>
@@ -172,7 +174,7 @@ Process.fork do
 
         next unless b =~ /(.*?):(\d+)(?::in\s*`(.*?)')?/
         print '<tr><td><a class="near" title="in ', esc($1), '" href="txmt://open?url=file://'
-        print esc($1), '&line=', esc($2), '">', ($3 ? "method #{esc($3)}" :
+        print esc(File.expand_path($1)), '&line=', esc($2), '">', ($3 ? "method #{esc($3)}" :
           ((e.kind_of? SyntaxError) ? '<em>error</em>' : '<em>at top level</em>')), '</a></td>'
         print '<td>in <strong>', esc(File.basename($1)), '</strong> at line ', esc($2), '</td></tr>'
 
@@ -202,4 +204,3 @@ print <<-EOF
 </body>
 </html>
 EOF
-

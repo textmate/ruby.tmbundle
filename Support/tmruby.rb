@@ -22,6 +22,8 @@ $KCODE = 'u'
 
 $VERSION = "$Revision$"
 
+TempDoc = '(untitled document)'
+
 # Input override.
 class MyStdIn < IO
 
@@ -110,7 +112,7 @@ function toggle_ws()
 <div id="script_output" class="framed">
 <div style="float: right;"><a href="javascript:toggle_ws()" id="reflow_link">Wrap output</a></div>
 <pre><strong>RubyMate r#{$VERSION[/\d+/]} running Ruby v#{RUBY_VERSION}.</strong>
-<strong>&gt;&gt;&gt #{temp ? '(temporary buffer)' : file.sub(ENV['HOME'], '~')}</strong>
+<strong>&gt;&gt;&gt #{temp ? TempDoc : file.sub(ENV['HOME'], '~')}</strong>
 <div id="actual_output">
 HTML
 
@@ -192,13 +194,13 @@ Process.fork do
         next unless b =~ /(.*?):(\d+)(?::in\s*`(.*?)')?/
         print '<tr><td><a class="near" title="in '
         if temp
-          print '(temporary buffer)" href="txmt://open?'
+          print TempDoc, '" href="txmt://open?'
         else
           print esc($1), '" href="txmt://open?url=file://', esc(File.expand_path($1)), '&'
         end
         print 'line=', esc($2), '">', ($3 ? "method #{esc($3)}" :
           ((e.kind_of? SyntaxError) ? '<em>error</em>' : '<em>at top level</em>')), '</a></td>'
-        print '<td>in <strong>', (temp ? '(temporary buffer)' : esc(File.basename($1))),
+        print '<td>in <strong>', (temp ? TempDoc : esc(File.basename($1))),
           '</strong> at line ', esc($2), '</td></tr>'
 
       }

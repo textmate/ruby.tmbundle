@@ -5,14 +5,14 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string># save file, use tmp-file if there's no filepath
-[[ -z "$TM_FILEPATH" ]] &amp;&amp; TM_RUBYMATE_TMPFILE=$(mktemp -t rubymate)
-: "${TM_FILEPATH:=$TM_RUBYMATE_TMPFILE}"; cat &gt;"$TM_FILEPATH"
+	<string># Save file, use tmp-file if there's no filepath.
+[[ -z "$TM_FILEPATH" ]] &amp;&amp; TM_TMPFILE=$(mktemp -t rubymate)
+: "${TM_FILEPATH:=$TM_TMPFILE}"; cat &gt;"$TM_FILEPATH"
 
 [[ ${TM_WARN_LEVEL:-0} &gt; 0 ]] &amp;&amp; w='-w' || w=''
-${TM_RUBY:-ruby} $w -- "$TM_BUNDLE_SUPPORT/tmruby.rb" "$TM_FILEPATH"
+${TM_RUBY:-ruby} $w -- "$TM_BUNDLE_SUPPORT/tmruby.rb" ${TM_TMPFILE:+-t} "$TM_FILEPATH"
 
-rm -f "$TM_RUBYMATE_TMPFILE"
+rm -f "$TM_TMPFILE"
 </string>
 	<key>input</key>
 	<string>document</string>

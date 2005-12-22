@@ -58,18 +58,34 @@ def dump_file(name)
 end
 
 
+# Look for options and file name.
+temp = false
+file = nil
+ARGV.each do |a|
+  if a[0] == ?-
+    a[1..-1].each_byte { |c|
+      case c
+      when ?t: temp = true
+      end
+    }
+  else
+    file = a
+  end
+end
+
+
 # Prepare some values for later.
 myFile = __FILE__
 myDir = File.dirname(myFile) + '/'
 
 
 # Headers...
-print <<-HTML
+print <<-EOS
 <html>
 <head>
 <title>Ruby TextMate Runtime</title>
 <style type="text/css">
-HTML
+EOS
 dump_file(myDir + 'pastel.css')
 print <<-HTML
 </style>
@@ -94,7 +110,7 @@ function toggle_ws()
 <div id="script_output" class="framed">
 <div style="float: right;"><a href="javascript:toggle_ws()" id="reflow_link">Wrap output</a></div>
 <pre><strong>RubyMate r#{$VERSION[/\d+/]} running Ruby v#{RUBY_VERSION}.</strong>
-<strong>&gt;&gt;&gt #{ARGV[0].sub(ENV['HOME'], '~')}</strong>
+<strong>&gt;&gt;&gt #{temp ? '(temporary buffer)' : file.sub(ENV['HOME'], '~')}</strong>
 <div id="actual_output">
 HTML
 
@@ -113,7 +129,7 @@ Process.fork do
     STDOUT.sync = true
 
     # Set up DATA environment, if appropriate.
-    data = File.new(ARGV[0])
+    data = File.new(file)
     begin
       loop do
         if data.readline.chomp == "__END__"
@@ -125,7 +141,8 @@ Process.fork do
     end
 
     # Execute user code, and fix up STDOUT afterwards.
-    load ARGV[0]
+    exit unless file
+    load file
     STDOUT.sync = false
     class << STDOUT
       alias unreal_write write
@@ -173,10 +190,16 @@ Process.fork do
       bt.each {|b|
 
         next unless b =~ /(.*?):(\d+)(?::in\s*`(.*?)')?/
-        print '<tr><td><a class="near" title="in ', esc($1), '" href="txmt://open?url=file://'
-        print esc(File.expand_path($1)), '&line=', esc($2), '">', ($3 ? "method #{esc($3)}" :
+        print '<tr><td><a class="near" title="in '
+        if temp
+          print '(temporary buffer)" href="txmt://open?'
+        else
+          print esc($1), '" href="txmt://open?url=file://', esc(File.expand_path($1)), '&'
+        end
+        print 'line=', esc($2), '">', ($3 ? "method #{esc($3)}" :
           ((e.kind_of? SyntaxError) ? '<em>error</em>' : '<em>at top level</em>')), '</a></td>'
-        print '<td>in <strong>', esc(File.basename($1)), '</strong> at line ', esc($2), '</td></tr>'
+        print '<td>in <strong>', (temp ? '(temporary buffer)' : esc(File.basename($1))),
+          '</strong> at line ', esc($2), '</td></tr>'
 
       }
       puts '</table></blockquote>'

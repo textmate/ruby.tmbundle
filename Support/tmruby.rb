@@ -96,12 +96,12 @@ function toggle_ws()
 {
 	// Change style sheet property.
 	var style = document.getElementById('actual_output').style;
-	var switchToPre = style.whiteSpace == 'normal';
-	style.whiteSpace = switchToPre ? 'pre' : 'normal';
+ 	var switchToPre = style.wordWrap != 'break-word';
+ 	style.wordWrap = switchToPre ? 'break-word' : null;
 
 	// Toggle link text.
 	var elm = document.getElementById('reflow_link');
-	elm.innerHTML = switchToPre ? 'Wrap output' : 'Unwrap output';
+	elm.innerText = switchToPre ? 'Wrap output' : 'Unwrap output';
 
 	// Store new value in defaults.
 	TextMate.system("defaults write org.cyanite.rubymate wrapOutput " + (switchToPre ? "0" : "1"), null);

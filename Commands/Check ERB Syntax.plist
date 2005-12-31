@@ -18,7 +18,7 @@ echo "using ruby-$2 / erb"
 	<key>output</key>
 	<string>showAsTooltip</string>
 	<key>scope</key>
-	<string>text.html.ruby</string>
+	<string>text.html.ruby, text.html source.ruby</string>
 	<key>uuid</key>
 	<string>76FCF165-54CB-4213-BC55-BD60B9C6A3EC</string>
 </dict>

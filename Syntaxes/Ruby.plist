@@ -39,6 +39,7 @@
 	<key>fileTypes</key>
 	<array>
 		<string>rb</string>
+		<string>rbx</string>
 		<string>Rakefile</string>
 		<string>rake</string>
 		<string>cgi</string>

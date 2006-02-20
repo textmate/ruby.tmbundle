@@ -177,7 +177,8 @@ Process.fork do
 
       # Filter backtrace and grab exception message.
       bt = e.backtrace
-      bt = bt[0...(bt.each_index {|i| break i if bt[i].index(__FILE__) == 0 })]
+      max = bt.each_index {|i| break i-1 if bt[i].index(__FILE__) == 0 }
+      bt = bt[0..(max == bt ? -1 : max)]
       msg = e.message
 
     end

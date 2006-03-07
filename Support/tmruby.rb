@@ -112,47 +112,23 @@ function toggle_ws()
 <div id="script_output" class="framed">
 <div style="float: right;"><a href="javascript:toggle_ws()" id="reflow_link">Wrap output</a></div>
 <pre><strong>RubyMate r#{$VERSION[/\d+/]} running Ruby v#{RUBY_VERSION}.</strong>
-<strong>&gt;&gt;&gt; #{temp ? TempDoc : (ENV['HOME'] ? file.sub(ENV['HOME'], '~') : file)}</strong>
+<strong>&gt;&gt;&gt #{temp ? TempDoc : (ENV['HOME'] ? file.sub(ENV['HOME'], '~') : file)}</strong>
 <div id="actual_output" style="-khtml-line-break: after-white-space;">
 HTML
-
-
-# Setup named pipes to which we redirect output for the loaded script.
-# This allows us to escape output properly even when the script launch new processes.
-stdout_pipe = "/tmp/tmruby_stdout.#{$$}"
-stderr_pipe = "/tmp/tmruby_stderr.#{$$}"
-%x{mkfifo #{stdout_pipe}}
-%x{mkfifo #{stderr_pipe}}
 
 # Fork in preparation for user code.
 Process.fork do
   begin
 
-    # Prepare STDOUT/STDERR.
-    STDOUT.sync = true
-    Process.fork do
-      File.open("#{stdout_pipe}", "r") do |f|
-        while(str = f.gets) do
-          print esc(str).gsub(/\n/, '<br>')
-        end
+    # Prepare STDOUT.
+    class << STDOUT
+      alias real_write write
+      def write(thing)
+        real_write(esc(thing.to_s).gsub("\n", '<br />'))
       end
     end
-
-    Process.fork do
-      File.open("#{stderr_pipe}", "r") do |f|
-        while(str = f.gets) do
-          str = esc(str).gsub(/\n/, '<br>')
-          print "<span style='color: red'>#{str}</span>"
-        end
-      end
-    end
-
-    old_stdout = STDOUT.dup
-    old_stderr = STDERR.dup
-    STDOUT.reopen("#{stdout_pipe}", "w+")
-    STDERR.reopen("#{stderr_pipe}", "w+")
+    STDOUT.flush
     STDOUT.sync = true
-    STDERR.sync = true
 
     # Set up DATA environment, if appropriate.
     data = File.new(file)
@@ -166,23 +142,25 @@ Process.fork do
     rescue EOFError
     end
 
-    # Execute user code, and fix up STDOUT/STDERR afterwards.
+    # Execute user code, and fix up STDOUT afterwards.
     exit unless file
     load file
-    STDOUT.reopen(old_stdout)
-    STDERR.reopen(old_stderr)
-    # Wait for the child processes which filter STDOUT/STDERR.
-    Process.wait
+    STDOUT.sync = false
+    class << STDOUT
+      alias unreal_write write
+      alias write real_write
+    end
     puts '</div></pre></div>'
 
   # We had an error!
   rescue Exception => e
 
     # Fix up STDOUT.
-    STDOUT.reopen(old_stdout)
-    STDOUT.reopen(old_stderr)
-    # Wait for the child processes which filter STDOUT/STDERR.
-    Process.wait
+    STDOUT.sync = false
+    class << STDOUT
+      alias unreal_write write
+      alias write real_write
+    end
     puts '</div></pre></div>'
 
     # If the user code simply called 'exit', don't treat it as an error.
@@ -245,11 +223,6 @@ if (code = $?.exitstatus) != 0xff
   print 'Program exited ', (code == 0) ? 'normally.' : "with return code #{code}."
   puts '</div>'
 end
-
-
-# Remove our named pipes
-File.delete "#{stdout_pipe}"
-File.delete "#{stderr_pipe}"
 
 
 # Footer.

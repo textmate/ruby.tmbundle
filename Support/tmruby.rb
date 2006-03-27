@@ -112,7 +112,7 @@ function toggle_ws()
 <div id="script_output" class="framed">
 <div style="float: right;"><a href="javascript:toggle_ws()" id="reflow_link">Wrap output</a></div>
 <pre><strong>RubyMate r#{$VERSION[/\d+/]} running Ruby v#{RUBY_VERSION}.</strong>
-<strong>&gt;&gt;&gt #{temp ? TempDoc : (ENV['HOME'] ? file.sub(ENV['HOME'], '~') : file)}</strong>
+<strong>&gt;&gt;&gt; #{temp ? TempDoc : (ENV['HOME'] ? file.sub(ENV['HOME'], '~') : file)}</strong>
 <div id="actual_output" style="-khtml-line-break: after-white-space;">
 HTML
 
@@ -226,7 +226,7 @@ end
 
 
 # Footer.
-print <<-EOF
+print <<-HTML
 </body>
 </html>
-EOF
+HTML

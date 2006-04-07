@@ -954,13 +954,21 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>^__END__\b</string>
+			<string>^__END__\n</string>
+			<key>captures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>string.unquoted.program-block.ruby</string>
+				</dict>
+			</dict>
 			<key>comment</key>
 			<string>__END__ marker</string>
+			<key>contentName</key>
+			<string>text.plain</string>
 			<key>end</key>
-			<string>\z</string>
-			<key>name</key>
-			<string>string.unquoted.program-block.ruby</string>
+			<string>(?!impossible)impossible</string>
 		</dict>
 		<dict>
 			<key>begin</key>

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>class ${1:class_name}
+	<string>class ${1:ClassName}
 	$0
 end</string>
 	<key>name</key>

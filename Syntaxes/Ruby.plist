@@ -495,6 +495,8 @@
 			     | (\s|;)or\s
 			     | (\s|;)and\s
 			     | (\s|;|\.)scan\s
+			     | (\s|;|\.)sub\s
+			     | (\s|l|\.)sub!\s
 			     | (\s|;|\.)gsub\s
 			     | (\s|;|\.)gsub!\s
 			     | (\s|;)if\s
@@ -503,6 +505,8 @@
 			   | (?&lt;=                  # or a look-behind with line anchor:
 			        ^when\s              # duplication necessary due to limits of regex
 			      | ^scan\s
+			      | ^sub\s
+			      | ^gsub\s
 			      | ^gsub\s
 			      | ^gsub!\s
 			      | ^if\s

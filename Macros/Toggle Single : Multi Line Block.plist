@@ -20,36 +20,7 @@
 				<key>findInProjectRegularExpression</key>
 				<false/>
 				<key>findString</key>
-				<string>\{|\bdo\b</string>
-				<key>ignoreCase</key>
-				<false/>
-				<key>regularExpression</key>
-				<true/>
-				<key>replaceAllScope</key>
-				<string>document</string>
-				<key>replaceString</key>
-				<string></string>
-				<key>wrapAround</key>
-				<false/>
-			</dict>
-			<key>command</key>
-			<string>findWithOptions:</string>
-		</dict>
-		<dict>
-			<key>command</key>
-			<string>moveLeft:</string>
-		</dict>
-		<dict>
-			<key>argument</key>
-			<dict>
-				<key>action</key>
-				<string>findNext</string>
-				<key>findInProjectIgnoreCase</key>
-				<false/>
-				<key>findInProjectRegularExpression</key>
-				<false/>
-				<key>findString</key>
-				<string>\{(?m:.*?)\}|do\b(?m:.*?)\bend\b</string>
+				<string>\{(?m:.*?\x{FFFC}.*?)\}|do\b(?m:.*?\x{FFFC}.*?)\bend\b</string>
 				<key>ignoreCase</key>
 				<false/>
 				<key>regularExpression</key>

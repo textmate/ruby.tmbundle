@@ -3,11 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>inject(${1:object}) { |${2:injection}, ${3:element}| $0 }</string>
+	<string>inject(${1:object}) { |${2:injection}, ${3:element}| $4 }$0</string>
 	<key>name</key>
 	<string>inject object (inject)</string>
-	<key>scope</key>
-	<string>source.ruby</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

@@ -5,8 +5,39 @@
 	<key>commands</key>
 	<array>
 		<dict>
+			<key>argument</key>
+			<string>&#xFFFC;</string>
 			<key>command</key>
-			<string>moveToBeginningOfLine:</string>
+			<string>insertText:</string>
+		</dict>
+		<dict>
+			<key>argument</key>
+			<dict>
+				<key>action</key>
+				<string>findPrevious</string>
+				<key>findInProjectIgnoreCase</key>
+				<false/>
+				<key>findInProjectRegularExpression</key>
+				<false/>
+				<key>findString</key>
+				<string>\{|\bdo\b</string>
+				<key>ignoreCase</key>
+				<false/>
+				<key>regularExpression</key>
+				<true/>
+				<key>replaceAllScope</key>
+				<string>document</string>
+				<key>replaceString</key>
+				<string></string>
+				<key>wrapAround</key>
+				<false/>
+			</dict>
+			<key>command</key>
+			<string>findWithOptions:</string>
+		</dict>
+		<dict>
+			<key>command</key>
+			<string>moveLeft:</string>
 		</dict>
 		<dict>
 			<key>argument</key>
@@ -18,15 +49,15 @@
 				<key>findInProjectRegularExpression</key>
 				<false/>
 				<key>findString</key>
-				<string>^([\s&amp;&amp;[^\n]]*)(.*?)\s*(?:\{\s*(\|[^|]+\|)\s*(.*?)\s*\}|do\s*(\|[^|]+\|)\s*(\S.*$)\s*end)</string>
+				<string>\{(?m:.*?)\}|do\b(?m:.*?)\bend\b</string>
 				<key>ignoreCase</key>
 				<false/>
 				<key>regularExpression</key>
 				<true/>
 				<key>replaceAllScope</key>
-				<string>selection</string>
+				<string>document</string>
 				<key>replaceString</key>
-				<string>$1$2(?3: do $3\n$1  $4\n$1end: { $5 $6 })</string>
+				<string></string>
 				<key>wrapAround</key>
 				<false/>
 			</dict>
@@ -36,37 +67,21 @@
 		<dict>
 			<key>argument</key>
 			<dict>
-				<key>action</key>
-				<string>replaceAll</string>
-				<key>findInProjectIgnoreCase</key>
-				<false/>
-				<key>findInProjectRegularExpression</key>
-				<false/>
-				<key>findString</key>
-				<string>^([\s&amp;&amp;[^\n]]*)(.*?)\s*(?:\{\s*(\|[^|]+\|)\s*(.*?)\s*\}|do\s*(\|[^|]+\|)\s*(\S.*$)\s*end)</string>
-				<key>ignoreCase</key>
-				<false/>
-				<key>regularExpression</key>
-				<true/>
-				<key>replaceAllScope</key>
+				<key>command</key>
+				<string>toggle_block.rb</string>
+				<key>input</key>
 				<string>selection</string>
-				<key>replaceString</key>
-				<string>$1$2(?3: do $3\n$1  $4\n$1end: { $5 $6 })</string>
-				<key>wrapAround</key>
-				<false/>
+				<key>output</key>
+				<string>insertAsSnippet</string>
 			</dict>
 			<key>command</key>
-			<string>findWithOptions:</string>
-		</dict>
-		<dict>
-			<key>command</key>
-			<string>moveLeft:</string>
+			<string>executeCommandWithOptions:</string>
 		</dict>
 	</array>
 	<key>keyEquivalent</key>
 	<string>^{</string>
 	<key>name</key>
-	<string>Toggle Single / Multi Line Block</string>
+	<string>Toggle Block</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>scopeType</key>

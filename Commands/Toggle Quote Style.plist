@@ -18,10 +18,17 @@ class String
 end
 
 print case str = STDIN.read
+  # Handle standard quotes
   when /\A"(.*)"\z/m: "%{" + $1.unescape('"').escape("}") + "}"
   when /\A%\{(.*)\}\z/m: "'" + $1.unescape("}").escape("'") + "'"
   when /\A'(.*)'\z/m: "%q{" + $1.unescape("'").escape("}") + "}"
   when /\A%q\{(.*)\}\z/m: '"' + $1.unescape("}").escape('"') + '"'
+
+  # Handle shell escapes
+  when /\A`(.*)`\z/m: "%x{" + $1.unescape("`").escape("}") + "}"
+  when /\A%x\{(.*)\}\z/m: "`" + $1.unescape("}").escape("`") + "`"
+
+  # Default case
   else str
 end
 </string>
@@ -36,7 +43,7 @@ end
 	<key>output</key>
 	<string>replaceSelectedText</string>
 	<key>scope</key>
-	<string>source.ruby string.quoted.double, source.ruby string.quoted.single</string>
+	<string>source.ruby string.quoted.double, source.ruby string.quoted.single, source.ruby string</string>
 	<key>uuid</key>
 	<string>6519CB08-8326-4B77-A251-54722FFBFC1F</string>
 </dict>

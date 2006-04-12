@@ -6,7 +6,7 @@
 	<string>when ${1:condition}
 	$0</string>
 	<key>name</key>
-	<string>when</string>
+	<string>when … (when)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

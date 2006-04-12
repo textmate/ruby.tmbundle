@@ -9,9 +9,7 @@ end</string>
 	<key>keyEquivalent</key>
 	<string></string>
 	<key>name</key>
-	<string>do .. end (do)</string>
-	<key>scope</key>
-	<string>source.ruby</string>
+	<string>do … end (do)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

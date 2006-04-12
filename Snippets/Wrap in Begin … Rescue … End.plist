@@ -5,16 +5,18 @@
 	<key>content</key>
 	<string>${TM_SELECTED_TEXT/([\t ]*).*/$1/m}begin
 ${1:${TM_SELECTED_TEXT/(.+)|\n\z/(?1:\t$0)/g}}
-${TM_SELECTED_TEXT/([\t ]*).*/$1/m}rescue
+${TM_SELECTED_TEXT/([\t ]*).*/$1/m}rescue ${1:Exception} =&gt; ${2:e}
 ${TM_SELECTED_TEXT/([\t ]*).*/$1/m}	$0
 ${TM_SELECTED_TEXT/([\t ]*).*/$1/m}end
 </string>
 	<key>keyEquivalent</key>
 	<string>^W</string>
 	<key>name</key>
-	<string>Wrap Selection in Begin … Rescue … End</string>
+	<string>begin … rescue … end (begin)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>begin</string>
 	<key>uuid</key>
 	<string>0F940CBC-2173-49FF-B6FD-98A62863F8F2</string>
 </dict>

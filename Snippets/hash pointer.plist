@@ -7,7 +7,7 @@
 	<key>keyEquivalent</key>
 	<string>^l</string>
 	<key>name</key>
-	<string>hash pointer</string>
+	<string>Hash Pointer — =&gt;</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>uuid</key>

@@ -7,7 +7,7 @@
 	<key>keyEquivalent</key>
 	<string>#</string>
 	<key>name</key>
-	<string>embed string variable</string>
+	<string>Embedded Code — #{…}</string>
 	<key>scope</key>
 	<string>(string.quoted.double.ruby|string.interpolated.ruby) - string source</string>
 	<key>uuid</key>

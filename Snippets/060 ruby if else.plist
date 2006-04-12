@@ -9,7 +9,7 @@ else
 	$3
 end</string>
 	<key>name</key>
-	<string>if .. else .. end (ife)</string>
+	<string>if … else … end (ife)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

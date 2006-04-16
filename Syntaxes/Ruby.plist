@@ -490,17 +490,17 @@
 			   (?:
 			     ^                      # beginning of line
 			   | (?&lt;=                   # or look-behind on:
-			       [=&gt;~(\[,|&amp;]
-			     | (\s|;)when\s
-			     | (\s|;)or\s
-			     | (\s|;)and\s
-			     | (\s|;|\.)scan\s
-			     | (\s|;|\.)sub\s
-			     | (\s|l|\.)sub!\s
-			     | (\s|;|\.)gsub\s
-			     | (\s|;|\.)gsub!\s
-			     | (\s|;)if\s
-			     | (\s|;)elsif\s
+			       [=&gt;~(?:\[,|&amp;]
+			     | (?:\s|;)when\s
+			     | (?:\s|;)or\s
+			     | (?:\s|;)and\s
+			     | (?:\s|;|\.)scan\s
+			     | (?:\s|;|\.)sub\s
+			     | (?:\s|l|\.)sub!\s
+			     | (?:\s|;|\.)gsub\s
+			     | (?:\s|;|\.)gsub!\s
+			     | (?:\s|;)if\s
+			     | (?:\s|;)elsif\s
 			     )
 			   | (?&lt;=                  # or a look-behind with line anchor:
 			        ^when\s              # duplication necessary due to limits of regex
@@ -513,17 +513,25 @@
 			      | ^elsif\s
 			      )
 			   )
-			   \s*/(?![*+{}?])
+			   \s*(/)(?![*+{}?])
 			</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>string.regexp.classic.ruby</string>
+				</dict>
+			</dict>
 			<key>comment</key>
 			<string>regular expressions (normal)
 			we only start a regexp if the character before it (excluding whitespace)
 			is what we think is before a regexp
 			</string>
-			<key>end</key>
-			<string>/[eimnosux]*</string>
-			<key>name</key>
+			<key>contentName</key>
 			<string>string.regexp.classic.ruby</string>
+			<key>end</key>
+			<string>(/[eimnosux]*)</string>
 			<key>patterns</key>
 			<array>
 				<dict>

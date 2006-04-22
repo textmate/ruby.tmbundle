@@ -40,6 +40,7 @@
 	<array>
 		<string>rb</string>
 		<string>rbx</string>
+		<string>rjs</string>
 		<string>Rakefile</string>
 		<string>rake</string>
 		<string>cgi</string>

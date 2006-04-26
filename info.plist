@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>isDefault</key>
+	<true/>
 	<key>name</key>
 	<string>Ruby</string>
 	<key>ordering</key>
@@ -30,22 +32,16 @@
 		<string>F53E098D-D08E-4CE2-990A-B0BD70E60614</string>
 		<string>48D8E498-C9A5-4B1B-9A18-71A5860276FB</string>
 		<string>BE3B3E5E-733E-11D9-A833-000A95A89C98</string>
-		<string>C9486312-BDB4-415A-B62A-A8EA4909FBA7</string>
 		<string>66708792-62C3-11D9-B8CF-000D93589AF6</string>
-		<string>E1AC214F-BB9D-4291-880F-2FFC766F6B72</string>
 		<string>667089D2-62C3-11D9-B8CF-000D93589AF6</string>
-		<string>D982D275-2E9F-4E73-B049-CC3D26CDD23D</string>
 		<string>667080D9-62C3-11D9-B8CF-000D93589AF6</string>
-		<string>C1C179B1-5AC9-47B7-8B2D-E9ABE5885353</string>
-		<string>EE81EEF5-3E1C-4777-BC28-C11D19EDA8F6</string>
 		<string>667081DE-62C3-11D9-B8CF-000D93589AF6</string>
-		<string>5039A8FF-7CAA-46E2-B48F-EFD359387CB0</string>
 		<string>66708259-62C3-11D9-B8CF-000D93589AF6</string>
-		<string>3F8777BF-33DD-4731-B700-1C87DB93AA0B</string>
 		<string>855FC4EF-7B1E-48EE-AD4E-5ECB8ED79D1C</string>
 		<string>EEE6D060-C5A0-400D-A2E0-0835013C5365</string>
 		<string>840B9C4C-7037-4C3B-9028-EB9DC75EDB3E</string>
 		<string>B9E3A6DF-875D-11D9-897C-000393CBCE2E</string>
+		<string>66708470-62C3-11D9-B8CF-000D93589AF6</string>
 		<string>E00B62AC-6B1C-11D9-9B1F-000D93589AF6</string>
 		<string>1D26F26C-C6F7-434F-84F8-FEE895372E8A</string>
 		<string>6FEAF60F-F0F3-4618-9259-DE93285F50D1</string>

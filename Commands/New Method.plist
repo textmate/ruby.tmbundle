@@ -6,7 +6,7 @@
 	<string>nop</string>
 	<key>command</key>
 	<string>cat &lt;&lt;SNIPPET
-def ${TM_SELECTED_TEXT:-$TM_CURRENT_WORD}
+def ${TM_SELECTED_TEXT:-$TM_CURRENT_WORD}(\${1:args})
 	\$0
 end
 SNIPPET</string>

@@ -63,7 +63,12 @@ end
 # Look for options and file name.
 temp = false
 file = nil
-ARGV.each do |a|
+# 
+# The following line was changed to remove arguments from ARGV, instead of just
+# iterating over them.  This ensures that the called script does not see
+# arguments to tmruby.rb.
+# 
+while a = ARGV.shift
   if a[0] == ?-
     a[1..-1].each_byte { |c|
       case c

@@ -6,7 +6,7 @@
 	<array>
 		<dict>
 			<key>argument</key>
-			<string>&#xFFFC;</string>
+			<string>￼</string>
 			<key>command</key>
 			<string>insertText:</string>
 		</dict>
@@ -52,7 +52,7 @@
 	<key>keyEquivalent</key>
 	<string>^{</string>
 	<key>name</key>
-	<string>Toggle Block</string>
+	<string>Toggle ‘do … end’ / ‘{ … }’</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>scopeType</key>

@@ -25,7 +25,7 @@ File.open(ENV['TM_FILEPATH']) do |f|
 end
 EOF)
 
-${TM_RUBY:=ruby} "$TM_FILEPATH" --name=$method</string>
+${TM_RUBY:=ruby} "$TM_FILEPATH" --name=$method|pre</string>
 	<key>fileCaptureRegister</key>
 	<string>1</string>
 	<key>input</key>
@@ -37,7 +37,7 @@ ${TM_RUBY:=ruby} "$TM_FILEPATH" --name=$method</string>
 	<key>name</key>
 	<string>Run Focused Unit Test</string>
 	<key>output</key>
-	<string>separateWindow</string>
+	<string>showAsHTML</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>uuid</key>

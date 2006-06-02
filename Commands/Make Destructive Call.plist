@@ -18,7 +18,7 @@ fi</string>
 	<key>keyEquivalent</key>
 	<string>^!</string>
 	<key>name</key>
-	<string>Make Destructive Call</string>
+	<string>Add ! to Method</string>
 	<key>output</key>
 	<string>insertAsSnippet</string>
 	<key>scope</key>

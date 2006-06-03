@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert_instance_of(${1:expected_class}, ${0:actual_instance})</string>
+	<string>assert_instance_of(${1:ExpectedClass}, ${0:actual_instance})</string>
 	<key>name</key>
 	<string>assert_instance_of(..)  (asio)</string>
 	<key>scope</key>

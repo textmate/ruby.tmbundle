@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert_kind_of(${1:expected_kind}, ${0:actual_instance})</string>
+	<string>assert_kind_of(${1:ExpectedKind}, ${0:actual_instance})</string>
 	<key>name</key>
 	<string>assert_kind_of(..)  (asko)</string>
 	<key>scope</key>

@@ -58,9 +58,10 @@
 			<dict>
 				<key>items</key>
 				<array>
-					<string>2514FC26-468C-4D08-A788-494A444C4286</string>
-					<string>66802933-B49F-479B-9DF9-1D898FF1FA90</string>
 					<string>8021944C-CEA4-4983-8D1C-78D18D4004A1</string>
+					<string>2514FC26-468C-4D08-A788-494A444C4286</string>
+					<string>------------------------------------</string>
+					<string>66802933-B49F-479B-9DF9-1D898FF1FA90</string>
 				</array>
 				<key>name</key>
 				<string>Strings</string>
@@ -71,16 +72,18 @@
 				<array>
 					<string>9E0B4D4B-2956-4B3A-800A-3D8CE54E66BF</string>
 					<string>BA9440C9-36C3-4031-BB61-67B581D5B179</string>
+					<string>------------------------------------</string>
 					<string>B0CE57EC-FB2E-4482-8CCE-448DC2588715</string>
 				</array>
 				<key>name</key>
-				<string>Sorting</string>
+				<string>Ordering</string>
 			</dict>
 			<key>607DFBB6-D4BD-46B1-A221-698CC657143B</key>
 			<dict>
 				<key>items</key>
 				<array>
 					<string>DAE6A754-D906-4763-B816-CE67125CEF08</string>
+					<string>------------------------------------</string>
 					<string>263C94DC-63CF-4BA3-9692-C5582CA8F1AB</string>
 					<string>6021BBDC-4AAD-447B-A0C2-A4BB31721558</string>
 					<string>3DDB99C4-486D-4C11-A217-5680FDD8EC19</string>
@@ -216,14 +219,18 @@
 					<string>A150C2D8-25B3-4339-BC92-8A0160A70486</string>
 					<string>3D383096-A03F-4EF8-9060-3C727045AB34</string>
 					<string>D7A7D3C9-1714-4C50-8CC0-D83A03883E8F</string>
+					<string>------------------------------------</string>
 					<string>AAD5D511-6BE7-41DA-8F2B-1593A48FBB08</string>
 					<string>6C9D6B3D-D8E9-4606-9534-577C8D21FFF6</string>
+					<string>------------------------------------</string>
 					<string>58FDEA60-10AF-4C49-AA09-29B77030DB25</string>
 					<string>7F46C90A-595B-4B83-A4F7-058F63CE4218</string>
+					<string>------------------------------------</string>
 					<string>7C6E88FA-CA0E-4110-8C75-A94E54286A75</string>
 					<string>87D5F8AD-8DA6-4AED-A0D8-B51CAC980445</string>
 					<string>C44ED391-614F-4BA2-BB0F-87668EEA9954</string>
 					<string>4A6EFD6B-88E2-4822-AD48-03460EDBC796</string>
+					<string>------------------------------------</string>
 					<string>988C8AEF-FC71-4455-9C4F-9338C05685A4</string>
 				</array>
 				<key>name</key>
@@ -233,13 +240,13 @@
 			<dict>
 				<key>items</key>
 				<array>
-					<string>9E56B46B-80D0-4397-91B1-E5BEF5FF2811</string>
-					<string>A2F24A2E-6791-4005-8E32-5D436AB075DB</string>
-					<string>8D131E43-1245-410B-A7D8-E00222CE5412</string>
-					<string>42D15F0C-0A45-4580-944E-20229EB8C92E</string>
-					<string>33312F8F-A75F-49E5-AC1B-B65944C1309C</string>
-					<string>D9BCA6DC-DEB5-465D-A8BD-EFFD21217B62</string>
 					<string>607DFBB6-D4BD-46B1-A221-698CC657143B</string>
+					<string>A2F24A2E-6791-4005-8E32-5D436AB075DB</string>
+					<string>9E56B46B-80D0-4397-91B1-E5BEF5FF2811</string>
+					<string>D9BCA6DC-DEB5-465D-A8BD-EFFD21217B62</string>
+					<string>42D15F0C-0A45-4580-944E-20229EB8C92E</string>
+					<string>8D131E43-1245-410B-A7D8-E00222CE5412</string>
+					<string>33312F8F-A75F-49E5-AC1B-B65944C1309C</string>
 				</array>
 				<key>name</key>
 				<string>Iterators</string>
@@ -285,8 +292,8 @@
 					<string>418F1817-255F-430A-B09A-222964ED66A7</string>
 					<string>8CEF9711-88D5-4202-AFB9-29EF4EFD25C1</string>
 					<string>------------------------------------</string>
-					<string>C3C48948-4F49-484E-A8DE-DEB44723099E</string>
 					<string>209D5D73-7A77-4931-A158-3FB6D5B48A88</string>
+					<string>C3C48948-4F49-484E-A8DE-DEB44723099E</string>
 				</array>
 				<key>name</key>
 				<string>Files</string>
@@ -302,6 +309,7 @@
 					<string>E98FB8F9-7302-431D-8BF2-275A68A6126C</string>
 					<string>121B334B-2AA6-4E9A-A8B8-BF93B627982B</string>
 					<string>AFE1D078-EA16-45F5-AD8A-FAC1B523D861</string>
+					<string>------------------------------------</string>
 					<string>2B73EC5F-06D2-460C-A14F-6FA05AFCF0CC</string>
 					<string>0E85EC81-2FAB-4648-B590-119CC1BB6E41</string>
 					<string>A71A18CF-2D71-4BFF-AA0C-D9B8C59BC4EB</string>
@@ -314,8 +322,9 @@
 				<key>items</key>
 				<array>
 					<string>E16EE658-1CA0-4950-954B-B962E50B754F</string>
-					<string>B9E3A6DF-875D-11D9-897C-000393CBCE2E</string>
+					<string>------------------------------------</string>
 					<string>840B9C4C-7037-4C3B-9028-EB9DC75EDB3E</string>
+					<string>B9E3A6DF-875D-11D9-897C-000393CBCE2E</string>
 				</array>
 				<key>name</key>
 				<string>Hashes</string>

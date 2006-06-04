@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>inject(Array.new) { |${1:arr}, ${2:a}| ${1:arr}.push(*${2:a}) }</string>
 	<key>name</key>
-	<string>flatton_once()  (flao)</string>
+	<string>flatten_once()  (flao)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

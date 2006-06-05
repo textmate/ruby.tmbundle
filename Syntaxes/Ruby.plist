@@ -1056,11 +1056,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>source.ruby</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby</string>
+					<string>source.ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>

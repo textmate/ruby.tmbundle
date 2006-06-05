@@ -1041,7 +1041,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;&lt;&lt;-(["\\']?)(\w+_eval)\1)</string>
+			<string>(?&gt;&lt;&lt;-(["\\']?)(\w+_(?i:eval))\1)</string>
 			<key>comment</key>
 			<string>ruby code in heredoc, interpolated</string>
 			<key>end</key>

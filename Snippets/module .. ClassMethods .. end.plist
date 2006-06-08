@@ -10,9 +10,8 @@
 	
 	extend ClassMethods
 	
-	def self.append_feature(cls)
-		super
-		cls.extend(ClassMethods)
+	def self.included(receiver)
+		receiver.extend(ClassMethods)
 	end
 	
 	

@@ -24,7 +24,7 @@ end
 	<key>keyEquivalent</key>
 	<string>^S</string>
 	<key>name</key>
-	<string>Toggle String/Symbol</string>
+	<string>Toggle String / Symbol</string>
 	<key>output</key>
 	<string>replaceSelectedText</string>
 	<key>scope</key>

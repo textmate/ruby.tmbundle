@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>scan(/${1:pattern}/) { |${2:match}| $0 }</string>
 	<key>name</key>
-	<string>scan(/../) { |match| .. }  (sca)</string>
+	<string>scan(/../) { |match| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

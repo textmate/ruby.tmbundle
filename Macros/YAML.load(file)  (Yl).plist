@@ -44,7 +44,7 @@
 	<key>keyEquivalent</key>
 	<string></string>
 	<key>name</key>
-	<string>YAML.load(file)  (Yl)</string>
+	<string>YAML.load(file)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>scopeType</key>

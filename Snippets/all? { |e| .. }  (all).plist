@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>all? { |${1:e}| $0 }</string>
 	<key>name</key>
-	<string>all? { |e| .. }  (all)</string>
+	<string>all? { |e| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

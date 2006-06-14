@@ -33,7 +33,7 @@ ARGV.options do |opts|
 end
 </string>
 	<key>name</key>
-	<string>option_parse { .. }  (optp)</string>
+	<string>option_parse { .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>upto(${1:1.0/0.0}) { ${2/(^(?&lt;var&gt;\s*(?:\*|\*?[a-z_])[a-zA-Z0-9_]*\s*)(,\g&lt;var&gt;)*,?\s*$)|.*/(?1:|)/}${2:n}${2/(^(?&lt;var&gt;\s*(?:\*|\*?[a-z_])[a-zA-Z0-9_]*\s*)(,\g&lt;var&gt;)*,?\s*$)|.*/(?1:| )/}$0 }</string>
 	<key>name</key>
-	<string>upto(1.0/0.0) { |n| .. }  (upt)</string>
+	<string>upto(1.0/0.0) { |n| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

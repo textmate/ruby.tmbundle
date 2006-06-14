@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>min { |a, b| $0 }</string>
 	<key>name</key>
-	<string>min { |a, b| .. }  (min)</string>
+	<string>min { |a, b| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

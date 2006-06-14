@@ -42,7 +42,7 @@
 		</dict>
 	</array>
 	<key>name</key>
-	<string>map_with_index { |e, i| .. }  (mapwi)</string>
+	<string>map_with_index { |e, i| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>scopeType</key>

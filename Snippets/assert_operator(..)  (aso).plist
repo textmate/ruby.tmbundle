@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>assert_operator(${1:left}, :${2:operator}, ${0:right})</string>
 	<key>name</key>
-	<string>assert_operator(..)  (aso)</string>
+	<string>assert_operator(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

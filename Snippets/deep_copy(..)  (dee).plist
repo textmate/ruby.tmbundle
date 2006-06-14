@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>Marshal.load(Marshal.dump(${0:obj_to_copy}))</string>
 	<key>name</key>
-	<string>deep_copy(..)  (dee)</string>
+	<string>deep_copy(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>partition { |${1:e}| $0 }</string>
 	<key>name</key>
-	<string>partition { |e| .. }  (par)</string>
+	<string>partition { |e| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

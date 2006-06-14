@@ -42,7 +42,7 @@
 		</dict>
 	</array>
 	<key>name</key>
-	<string>each_slice(..) { |group| .. }  (eas)</string>
+	<string>each_slice(..) { |group| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>scopeType</key>

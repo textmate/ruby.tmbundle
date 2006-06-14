@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>assert_match(/${1:expected_pattern}/, ${0:actual_string})</string>
 	<key>name</key>
-	<string>assert_match(..)  (asm)</string>
+	<string>assert_match(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

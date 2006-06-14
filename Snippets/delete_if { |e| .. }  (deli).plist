@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>delete_if { |${1:e}| $0 }</string>
 	<key>name</key>
-	<string>delete_if { |e| .. }  (deli)</string>
+	<string>delete_if { |e| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

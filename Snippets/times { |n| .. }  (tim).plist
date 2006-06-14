@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>times { ${1/(^(?&lt;var&gt;\s*(?:\*|\*?[a-z_])[a-zA-Z0-9_]*\s*)(,\g&lt;var&gt;)*,?\s*$)|.*/(?1:|)/}${1:n}${1/(^(?&lt;var&gt;\s*(?:\*|\*?[a-z_])[a-zA-Z0-9_]*\s*)(,\g&lt;var&gt;)*,?\s*$)|.*/(?1:| )/}$0 }</string>
 	<key>name</key>
-	<string>times { |n| .. }  (tim)</string>
+	<string>times { |n| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

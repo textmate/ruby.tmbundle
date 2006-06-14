@@ -9,7 +9,7 @@ def each(&amp;block)
 	$0
 end</string>
 	<key>name</key>
-	<string>include Enumerable ..  (Enum)</string>
+	<string>include Enumerable ..</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

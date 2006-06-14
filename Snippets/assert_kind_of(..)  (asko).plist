@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>assert_kind_of(${1:ExpectedKind}, ${0:actual_instance})</string>
 	<key>name</key>
-	<string>assert_kind_of(..)  (asko)</string>
+	<string>assert_kind_of(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

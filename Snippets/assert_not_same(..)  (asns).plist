@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>assert_not_same(${1:unexpected}, ${0:actual})</string>
 	<key>name</key>
-	<string>assert_not_same(..)  (asns)</string>
+	<string>assert_not_same(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

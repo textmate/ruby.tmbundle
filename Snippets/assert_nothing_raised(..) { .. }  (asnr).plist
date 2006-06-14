@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>assert_nothing_raised(${1:Exception}) { $0 }</string>
 	<key>name</key>
-	<string>assert_nothing_raised(..) { .. }  (asnr)</string>
+	<string>assert_nothing_raised(..) { .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>alias_method :${1:new_name}, :${0:old_name}</string>
 	<key>name</key>
-	<string>alias_method ..  (am)</string>
+	<string>alias_method ..</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

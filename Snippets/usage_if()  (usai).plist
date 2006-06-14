@@ -8,7 +8,7 @@
   exit
 end</string>
 	<key>name</key>
-	<string>usage_if()  (usai)</string>
+	<string>usage_if()</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

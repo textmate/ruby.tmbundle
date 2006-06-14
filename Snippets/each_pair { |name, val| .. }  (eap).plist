@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>each_pair { |${1:name}, ${2:val}| $0 }</string>
 	<key>name</key>
-	<string>each_pair { |name, val| .. }  (eap)</string>
+	<string>each_pair { |name, val| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

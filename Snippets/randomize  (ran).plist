@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>sort_by { rand }</string>
 	<key>name</key>
-	<string>randomize()  (ran)</string>
+	<string>randomize()</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

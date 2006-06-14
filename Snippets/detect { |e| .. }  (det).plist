@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>detect { |${1:e}| $0 }</string>
 	<key>name</key>
-	<string>detect { |e| .. }  (det)</string>
+	<string>detect { |e| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

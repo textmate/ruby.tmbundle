@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>grep(${1:/${2:pattern}/}) { |${3:match}| $0 }</string>
 	<key>name</key>
-	<string>grep(/pattern/) { |match| .. }  (gre)</string>
+	<string>grep(/pattern/) { |match| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

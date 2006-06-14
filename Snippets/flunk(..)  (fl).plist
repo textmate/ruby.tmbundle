@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>flunk("${0:Failure message.}")</string>
 	<key>name</key>
-	<string>flunk(..)  (fl)</string>
+	<string>flunk(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>assert_instance_of(${1:ExpectedClass}, ${0:actual_instance})</string>
 	<key>name</key>
-	<string>assert_instance_of(..)  (asio)</string>
+	<string>assert_instance_of(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

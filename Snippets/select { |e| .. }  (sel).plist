@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>select { |${1:e}| $0 }</string>
 	<key>name</key>
-	<string>select { |e| .. }  (sel)</string>
+	<string>select { |e| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

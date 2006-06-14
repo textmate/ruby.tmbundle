@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>:${1:key} =&gt; ${2:"${3:value}"}${4:, }</string>
 	<key>name</key>
-	<string>Hash Pair — :key =&gt; "value" (:)</string>
+	<string>Hash Pair — :key =&gt; "value"</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

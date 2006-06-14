@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>each_cons(${1:2}) { |${2:group}| $0 }</string>
 	<key>name</key>
-	<string>each_cons(..) { |group| .. }  (eac-)</string>
+	<string>each_cons(..) { |group| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

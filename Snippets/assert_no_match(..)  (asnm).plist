@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>assert_no_match(/${1:unexpected_pattern}/, ${0:actual_string})</string>
 	<key>name</key>
-	<string>assert_no_match(..)  (asnm)</string>
+	<string>assert_no_match(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>attr_reader :${0:attr_names}</string>
 	<key>name</key>
-	<string>attr_reader ..  (r)</string>
+	<string>attr_reader ..</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

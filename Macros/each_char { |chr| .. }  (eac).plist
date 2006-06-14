@@ -42,7 +42,7 @@
 		</dict>
 	</array>
 	<key>name</key>
-	<string>each_char { |chr| .. }  (eac)</string>
+	<string>each_char { |chr| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>scopeType</key>

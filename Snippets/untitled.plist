@@ -8,7 +8,7 @@
 	$0
 end</string>
 	<key>name</key>
-	<string>option(..)  (opt)</string>
+	<string>option(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

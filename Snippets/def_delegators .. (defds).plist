@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>def_delegators :${1:@del_obj}, :${0:del_methods}</string>
 	<key>name</key>
-	<string>def_delegators .. (defds)</string>
+	<string>def_delegators ..</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

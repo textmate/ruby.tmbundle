@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>classify { |${1:e}| $0 }</string>
 	<key>name</key>
-	<string>classify { |e| .. }  (cl)</string>
+	<string>classify { |e| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

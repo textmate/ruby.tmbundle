@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>assert_equal(${1:expected}, ${0:actual})</string>
 	<key>name</key>
-	<string>assert_equal(..)  (ase)</string>
+	<string>assert_equal(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

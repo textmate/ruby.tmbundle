@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>assert(${1:test}, "${0:Failure message.}")</string>
 	<key>name</key>
-	<string>assert(..)  (as)</string>
+	<string>assert(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

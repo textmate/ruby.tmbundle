@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>attr_accessor :${0:attr_names}</string>
 	<key>name</key>
-	<string>attr_accessor ..  (rw)</string>
+	<string>attr_accessor ..</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

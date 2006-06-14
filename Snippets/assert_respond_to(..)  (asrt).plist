@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>assert_respond_to(${1:object}, :${0:method})</string>
 	<key>name</key>
-	<string>assert_respond_to(..)  (asrt)</string>
+	<string>assert_respond_to(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

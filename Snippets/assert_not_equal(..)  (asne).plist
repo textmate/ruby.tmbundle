@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>assert_not_equal(${1:unexpected}, ${0:actual})</string>
 	<key>name</key>
-	<string>assert_not_equal(..)  (asne)</string>
+	<string>assert_not_equal(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

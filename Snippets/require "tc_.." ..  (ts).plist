@@ -9,7 +9,7 @@ require "tc_${1:test_case_file}"
 require "tc_${2:test_case_file}"
 </string>
 	<key>name</key>
-	<string>require "tc_.." ..  (ts)</string>
+	<string>require "tc_.." ..</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

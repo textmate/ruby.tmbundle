@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>each_with_index { |${1:e}, ${2:i}| $0 }</string>
 	<key>name</key>
-	<string>each_with_index { |e, i| .. }  (eawi)</string>
+	<string>each_with_index { |e, i| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

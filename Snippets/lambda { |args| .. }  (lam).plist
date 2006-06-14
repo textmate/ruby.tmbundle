@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>lambda { ${1/(^(?&lt;var&gt;\s*(?:\*|\*?[a-z_])[a-zA-Z0-9_]*\s*)(,\g&lt;var&gt;)*,?\s*$)|.*/(?1:|)/}${1:args}${1/(^(?&lt;var&gt;\s*(?:\*|\*?[a-z_])[a-zA-Z0-9_]*\s*)(,\g&lt;var&gt;)*,?\s*$)|.*/(?1:| )/}$0 }</string>
 	<key>name</key>
-	<string>lambda { |args| .. }  (lam)</string>
+	<string>lambda { |args| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

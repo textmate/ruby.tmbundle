@@ -42,7 +42,7 @@
 		</dict>
 	</array>
 	<key>name</key>
-	<string>each_cons(..) { |group| .. }  (eac)</string>
+	<string>each_cons(..) { |group| .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>scopeType</key>

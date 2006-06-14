@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>assert_nil(${0:instance})</string>
 	<key>name</key>
-	<string>assert_nil(..)  (asn)</string>
+	<string>assert_nil(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

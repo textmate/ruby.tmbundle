@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>Hash.new { |${1:hash}, ${2:key}| ${1:hash}[${2:key}] = $0 }</string>
 	<key>name</key>
-	<string>Hash.new { |hash, key| hash[key] = .. }  (Hash)</string>
+	<string>Hash.new { |hash, key| hash[key] = .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>split("::").inject(Object) { |par, const| par.const_get(const) }</string>
 	<key>name</key>
-	<string>class_from_name()  (clafn)</string>
+	<string>class_from_name()</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

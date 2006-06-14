@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>assert_in_delta(${1:expected_float}, ${2:actual_float}, ${0:2 ** -20})</string>
 	<key>name</key>
-	<string>assert_in_delta(..)  (asid)</string>
+	<string>assert_in_delta(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

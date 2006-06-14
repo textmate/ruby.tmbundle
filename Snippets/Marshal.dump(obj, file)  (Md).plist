@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>File.open(${1:"${2:path/to/file}.yaml"}, "w") { |${3:file}| Marshal.dump(${4:obj}, ${3:file}) }</string>
 	<key>name</key>
-	<string>Marshal.dump(.., file)  (Md)</string>
+	<string>Marshal.dump(.., file)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

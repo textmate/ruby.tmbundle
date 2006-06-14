@@ -25,10 +25,8 @@ echo "&lt;html&gt;&lt;head&gt;&lt;meta http-equiv=\"refresh\" content=\"0;URL=tm
 </string>
 	<key>input</key>
 	<string>none</string>
-	<key>keyEquivalent</key>
-	<string>^H</string>
 	<key>name</key>
-	<string>Show RDoc for current file/project</string>
+	<string>Show RDoc for Current File / Project</string>
 	<key>output</key>
 	<string>showAsHTML</string>
 	<key>scope</key>

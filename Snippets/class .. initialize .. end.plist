@@ -11,7 +11,7 @@
 	
 end</string>
 	<key>name</key>
-	<string>class .. initialize .. end  (cla)</string>
+	<string>class .. initialize .. end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

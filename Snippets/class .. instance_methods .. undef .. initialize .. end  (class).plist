@@ -19,7 +19,7 @@
 	
 end</string>
 	<key>name</key>
-	<string>class BlankSlate .. initialize .. end  (cla)</string>
+	<string>class BlankSlate .. initialize .. end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

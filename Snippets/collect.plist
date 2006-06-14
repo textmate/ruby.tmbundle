@@ -5,9 +5,7 @@
 	<key>content</key>
 	<string>collect { |${1:element}| ${1:element}.$0 }</string>
 	<key>name</key>
-	<string>collect element (collect)</string>
-	<key>scope</key>
-	<string>source.ruby</string>
+	<string>collect element</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>inject(${1:object}) { |${2:injection}, ${3:element}| $4 }$0</string>
 	<key>name</key>
-	<string>inject object (inject)</string>
+	<string>inject object</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

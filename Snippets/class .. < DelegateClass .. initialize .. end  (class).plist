@@ -13,7 +13,7 @@
 	
 end</string>
 	<key>name</key>
-	<string>class .. &lt; DelegateClass .. initialize .. end  (cla-)</string>
+	<string>class .. &lt; DelegateClass .. initialize .. end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

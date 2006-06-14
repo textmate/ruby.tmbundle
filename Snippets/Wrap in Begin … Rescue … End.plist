@@ -12,7 +12,7 @@ ${TM_SELECTED_TEXT/([\t ]*).*/$1/m}end
 	<key>keyEquivalent</key>
 	<string>^W</string>
 	<key>name</key>
-	<string>begin … rescue … end (begin)</string>
+	<string>begin … rescue … end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

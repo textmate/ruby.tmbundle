@@ -7,7 +7,7 @@
 	$0
 end</string>
 	<key>name</key>
-	<string>Dir.glob("..") do |file| .. end  (Dir)</string>
+	<string>Dir.glob("..") do |file| .. end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

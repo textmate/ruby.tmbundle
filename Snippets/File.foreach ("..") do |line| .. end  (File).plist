@@ -7,7 +7,7 @@
 	$0
 end</string>
 	<key>name</key>
-	<string>File.foreach ("..") do |line| .. end  (File)</string>
+	<string>File.foreach ("..") do |line| .. end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

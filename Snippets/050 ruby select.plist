@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string>select { |${1:element}| ${1:element}.$2 }$0</string>
 	<key>name</key>
-	<string>select element (select)</string>
+	<string>select element</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

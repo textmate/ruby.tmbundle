@@ -7,7 +7,7 @@
 	${1:element}.$0
 end</string>
 	<key>name</key>
-	<string>for … in … end (forin)</string>
+	<string>for … in … end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

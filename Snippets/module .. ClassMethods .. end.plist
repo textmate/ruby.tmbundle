@@ -17,7 +17,7 @@
 	
 end</string>
 	<key>name</key>
-	<string>module .. ClassMethods .. end  (mod)</string>
+	<string>module .. ClassMethods .. end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

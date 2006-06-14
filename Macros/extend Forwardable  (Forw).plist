@@ -42,7 +42,7 @@
 		</dict>
 	</array>
 	<key>name</key>
-	<string>extend Forwardable  (Forw)</string>
+	<string>extend Forwardable</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>scopeType</key>

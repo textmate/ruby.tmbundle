@@ -5,9 +5,7 @@
 	<key>content</key>
 	<string>reject { |${1:element}| ${1:element}.$0 }</string>
 	<key>name</key>
-	<string>reject element (reject)</string>
-	<key>scope</key>
-	<string>source.ruby</string>
+	<string>reject element</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

@@ -7,7 +7,7 @@
 	$0
 end</string>
 	<key>name</key>
-	<string>Insert do |object| … end (doo)</string>
+	<string>Insert do |object| … end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

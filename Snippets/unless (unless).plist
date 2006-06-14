@@ -7,7 +7,7 @@
 	$0
 end</string>
 	<key>name</key>
-	<string>unless … end (unless)</string>
+	<string>unless … end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

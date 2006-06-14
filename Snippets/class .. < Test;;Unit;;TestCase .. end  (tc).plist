@@ -13,7 +13,7 @@ class Test${2:NameOfTestCases} &lt; Test::Unit::TestCase
 	end
 end</string>
 	<key>name</key>
-	<string>class .. &lt; Test::Unit::TestCase .. end  (tc)</string>
+	<string>class .. &lt; Test::Unit::TestCase .. end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

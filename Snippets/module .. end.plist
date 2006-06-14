@@ -7,7 +7,7 @@
 	$0
 end</string>
 	<key>name</key>
-	<string>module .. end  (mod)</string>
+	<string>module .. end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

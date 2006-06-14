@@ -5,9 +5,7 @@
 	<key>content</key>
 	<string>each { |${1:element}| ${1:element}.$0 }</string>
 	<key>name</key>
-	<string>each element (each)</string>
-	<key>scope</key>
-	<string>source.ruby</string>
+	<string>each element</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

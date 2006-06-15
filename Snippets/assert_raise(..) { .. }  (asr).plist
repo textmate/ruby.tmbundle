@@ -3,7 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert_raise(${1:Exception}) { $0 }</string>
+	<string>assert_raise(${1:Exception}) { $0 }
+</string>
 	<key>name</key>
 	<string>assert_raise(..) { .. }</string>
 	<key>scope</key>

@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert_equal ${1:value}, ${2:@${3:thing}.${4:attr}}</string>
+	<string>assert_equal(${1:expected}, ${0:actual})</string>
 	<key>name</key>
-	<string>assert_equal</string>
+	<string>assert_equal(..)</string>
 	<key>scope</key>
-	<string>source.ruby.rails</string>
+	<string>source.ruby</string>
 	<key>tabTrigger</key>
 	<string>ase</string>
 	<key>uuid</key>

@@ -7,7 +7,7 @@
 	$0
 end</string>
 	<key>name</key>
-	<string>open("path/or/url", "w") do |doc| .. end</string>
+	<string>open("path/or/url", "w") do |io| .. end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

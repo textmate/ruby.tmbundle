@@ -13,11 +13,8 @@ include ERB::Util
 RAKEMATE_VERSION = "1.0.0".freeze
 
 rake = ENV["TM_RAKE"] ||
-       %w[ /usr/local/bin/rake
-           /usr/bin/rake
-           /bin/rake
-           /usr/sbin/rake
-           /sbin/rake ].find { |bin| File.exist? bin }
+       ENV["PATH"].split(":").map { |dir| File.join(dir, "rake") }.
+                              find { |r| File.exist? r }
 if rake.nil?
   puts "Rake not found.  Please set TM_RAKE."
   exit 206

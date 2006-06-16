@@ -20,7 +20,7 @@ if rake.nil?
   exit 206
 end
 
-Dir.chdir(ENV["TM_PROJECT_DIRECTORY"])
+Dir.chdir(ENV["TM_PROJECT_DIRECTORY"] || ENV["TM_DIRECTORY"])
 tasks = `#{rake} --tasks`
 
 unless $?.exited?
@@ -54,7 +54,7 @@ if selection.first == "1"
   &lt;body&gt;
     &lt;div id="script_output" class="framed"&gt;
     &lt;pre&gt;&lt;strong&gt;RakeMate r#{RAKEMATE_VERSION} running Ruby v#{RUBY_VERSION}.&lt;/strong&gt;
-&lt;strong&gt;&amp;gt;&amp;gt;&amp;gt; #{ENV["TM_PROJECT_DIRECTORY"]}&lt;/strong&gt;
+&lt;strong&gt;&amp;gt;&amp;gt;&amp;gt; #{Dir.pwd}&lt;/strong&gt;
 &lt;div id="actual_output" style="-khtml-line-break: after-white-space;"&gt;
 START_HTML
   open("|#{rake} #{task} 2&gt;&amp;1") do |output|

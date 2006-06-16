@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby
+
+require "erb"
+include ERB::Util
+
+RAKEMATE_VERSION = "1.0.0".freeze
+
+rake = ENV["TM_RAKE"] ||
+       %w[ /usr/local/bin/rake
+           /usr/bin/rake
+           /bin/rake
+           /usr/sbin/rake
+           /sbin/rake ].find { |bin| File.exist? bin }
+if rake.nil?
+  puts "Rake not found.  Please set TM_RAKE."
+  exit 206
+end
+
+Dir.chdir(ENV["TM_PROJECT_DIRECTORY"])
+tasks = `#{rake} --tasks`
+
+unless $?.exited?
+  puts "Could not fetch task list."
+  exit 206
+end
+
+tasks = tasks.grep(/^rake\s+(\S+)/) { |t| t.split[1] }
+dialog = "\"#{ENV['TM_SUPPORT_PATH']}" +
+         "/bin/CocoaDialog.app/" +
+         "Contents/MacOS/CocoaDialog\" " +
+         "standard-dropdown " +
+         "--items \"(default task)\" " +
+         tasks.map { |t| t.inspect}.join(" ") +
+         " --text \"Select a task to execute:\" " +
+         "--title \"Rake Tasks\""
+selection = `#{dialog}`.split("\n")
+tasks.unshift("")
+
+if selection.first == "1"
+  task    = tasks[selection.last.to_i]
+  testing = task =~ /test/i || task == ""
+  print &lt;&lt;START_HTML
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Rake TextMate Runtime&lt;/title&gt;
+    &lt;style type="text/css" media="screen"&gt;
+      #{File.read(File.join(ENV["TM_BUNDLE_SUPPORT"], "pastel.css"))}
+    &lt;/style&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id="script_output" class="framed"&gt;
+    &lt;pre&gt;&lt;strong&gt;RakeMate r#{RAKEMATE_VERSION} running Ruby v#{RUBY_VERSION}.&lt;/strong&gt;
+&lt;strong&gt;&amp;gt;&amp;gt;&amp;gt; #{ENV["TM_PROJECT_DIRECTORY"]}&lt;/strong&gt;
+&lt;div id="actual_output" style="-khtml-line-break: after-white-space;"&gt;
+START_HTML
+  open("|#{rake} #{task} 2&gt;&amp;1") do |output|
+	  while line = output.gets
+	    if testing and line =~ /^\d+ tests, \d+ assertions, (\d+) failures, (\d+) errors/
+	      print "&lt;span style=\"color: ",
+	            ($1 + $2 == "00" ? "green" : "red"),
+	            "\"&gt;#{line.chomp}&lt;/span&gt;&lt;br /&gt;"
+	    elsif testing and line =~ /^(\s+)((\S+):(\d+))(:in.*)$/ and File.exist? $3
+	      print "#{$1}&lt;a href='txmt://open?url=file://#{u(File.expand_path($3))}&amp;line=#{$4}'&gt;#{$2}&lt;/a&gt;#{$5.strip}&lt;br /&gt;"
+      else
+	      print h(line).sub("\n", "&lt;br /&gt;")
+      end
+	    $stdout.flush
+	    if testing and line =~ /^Started\s*/
+	      wrap = 0
+	      while test = output.getc.chr
+	        wrap += 1
+	        if %w[. E F].include? test
+	          print test.sub(/^[EF]$/, "&lt;span style=\"color: red\"&gt;\\&amp;&lt;/span&gt;"),
+	                (wrap % 80 == 0 ? "&lt;br /&gt;" : "&lt;br style=\"display: none\"/&gt;")
+	          $stdout.flush
+          else
+	          print test.sub("\n", "&lt;br /&gt;")
+	          $stdout.flush
+	          break
+          end
+        end
+      end
+	  end
+  end
+  print &lt;&lt;END_HTML
+    &lt;/div&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+END_HTML
+end
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>^R</string>
+	<key>name</key>
+	<string>Run Rake Task</string>
+	<key>output</key>
+	<string>showAsHTML</string>
+	<key>uuid</key>
+	<string>569C9822-8C41-4907-94C7-1A8A0031B66D</string>
+</dict>
+</plist>

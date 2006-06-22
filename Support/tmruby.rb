@@ -146,6 +146,9 @@ Process.fork do
       end
     rescue EOFError
     end
+    
+    # make it look like the program is running solo
+    $0 = $PROGRAM_NAME = file
 
     # Execute user code, and fix up STDOUT afterwards.
     exit unless file

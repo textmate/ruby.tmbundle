@@ -13,7 +13,7 @@ def place_requires( code, new_reqs )
 end
 
 def tm_escape( text )
-  text.sub(/[$`\\]/, '\\\\\&')
+  text.gsub(/[$`\\]/, '\\\\\&')
 end
 
 def add_requires( code, reqs )

@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require "escape"
+
 def build_requires( code, libs )
   libs.reject { |lib| code =~ /require\s*(['"])#{lib}\1/ }.
        map { |lib| "require \"#{lib}\"\n" }.join
@@ -12,14 +14,10 @@ def place_requires( code, new_reqs )
   code.sub(/\A(?:\s*(?:#.*)?\n)*/, "\\&#{new_reqs}\n")
 end
 
-def tm_escape( text )
-  text.gsub(/[$`\\]/, '\\\\\&')
-end
-
 def add_requires( code, reqs )
   new_reqs = build_requires(code, reqs)
   code     = place_requires(code, new_reqs)
-  tm_escape(code)
+  e_sn(code)
 end
 
 if __FILE__ == $PROGRAM_NAME

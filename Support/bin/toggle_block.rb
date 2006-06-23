@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby -w
 
+require "escape"
+
 # Unicode code point 0xFFFC
 CURSOR = [0xFFFC].pack("U").freeze
 
@@ -82,10 +84,6 @@ rescue        # if anything goes wrong...
   block_text  # just send back the original text
 end
 
-def tm_escape( snippet )
-  snippet.gsub(/[$`\\]/, '\\\\\&').gsub(CURSOR, "$0")
-end
-
 if __FILE__ == $PROGRAM_NAME
-  print tm_escape(toggle_block(STDIN.read))
+  print e_sn(toggle_block(STDIN.read))
 end

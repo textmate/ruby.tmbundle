@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require "escape"
+
 CURSOR = [0xFFFC].pack("U").freeze
 line   = STDIN.read
 begin
@@ -10,7 +12,7 @@ end
 
 line.sub!(/\b(chomp|chop|collect|compact|delete|downcase|exit|flatten|gsub|lstrip|map|next|reject|reverse|rstrip|slice|sort|squeeze|strip|sub|succs|swapcase|tr|tr_s|uniq|upcase)\b(?!\!)/, "\\1!")
 
-line.gsub!(/[$`\\]/, '\\\\\&')
+line = e_sn(line)
 line.sub!(CURSOR, "$0")
 
 print line

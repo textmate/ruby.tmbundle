@@ -85,5 +85,5 @@ rescue        # if anything goes wrong...
 end
 
 if __FILE__ == $PROGRAM_NAME
-  print e_sn(toggle_block(STDIN.read))
+  print e_sn(toggle_block(STDIN.read)).gsub(CURSOR, "$0")
 end

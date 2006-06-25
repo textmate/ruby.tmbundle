@@ -147,7 +147,7 @@
 			<key>comment</key>
 			<string> just as above but being not a logical operation</string>
 			<key>match</key>
-			<string>(?&lt;!\.)\b(alias|alias_method|break|next|redo|retry|return|super|undef|yield)\b(?![?!])|\bdefined\?</string>
+			<string>(?&lt;!\.)\b(alias|alias_method|break|next|redo|retry|return|super|undef|yield)\b(?![?!])|\bdefined\?|\bblock_given\?</string>
 			<key>name</key>
 			<string>keyword.control.pseudo-method.ruby</string>
 		</dict>

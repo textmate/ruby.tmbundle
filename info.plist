@@ -119,10 +119,13 @@
 				<key>items</key>
 				<array>
 					<string>1AD6A138-2E89-4D6A-AB3F-416BF9CE968D</string>
+					<string>------------------------------------</string>
 					<string>1BE427C6-0071-4BFF-8CDA-1DC13534E7D8</string>
-					<string>ED6368FB-A11D-4622-9F42-7879481094F1</string>
+					<string>------------------------------------</string>
 					<string>05984208-D559-4C04-A69C-2019361A985A</string>
 					<string>BF4CA9F1-51CD-48D4-8357-852234F59046</string>
+					<string>------------------------------------</string>
+					<string>ED6368FB-A11D-4622-9F42-7879481094F1</string>
 				</array>
 				<key>name</key>
 				<string>RDoc</string>

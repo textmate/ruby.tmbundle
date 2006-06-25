@@ -5,15 +5,12 @@ def esc(str)
   CGI.escapeHTML(str).gsub(/\n/, '<br>')
 end
 
-html = DATA.read
-html.gsub!(/\$\{BUNDLE_SUPPORT\}/, "tm-file://#{ENV['TM_BUNDLE_SUPPORT'].gsub(/ /, '%20')}")
-puts html
+puts DATA.read.gsub(/\$\{BUNDLE_SUPPORT\}/, "tm-file://#{ENV['TM_BUNDLE_SUPPORT'].gsub(/ /, '%20')}")
 
 rd, wr = IO.pipe
 ENV['TM_ERROR_FD'] = wr.to_i.to_s
 stdin, stdout, stderr = Open3.popen3('ruby', '-rcatch_exception.rb', '-')
-stdin.write STDIN.read
-stdin.close
+Thread.new { stdin.write STDIN.read; stdin.close }
 wr.close
 
 descriptors = [ stdout, stderr, rd ]
@@ -25,11 +22,11 @@ until descriptors.empty?
     if str.to_s.empty? then
       descriptors.delete io
       io.close
-    elsif io == stdout
+    elsif io == stdout then
       print esc(str)
-    elsif io == stderr
+    elsif io == stderr then
       print "<span style='color: red'>#{esc str}</span>"
-    else
+    elsif io == rd then
       error += str
     end
   end

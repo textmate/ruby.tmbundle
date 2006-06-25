@@ -57,9 +57,9 @@
 			<dict>
 				<key>items</key>
 				<array>
-					<string>2DDB6FE0-6111-4C40-A149-8E67E76F8272</string>
-					<string>DAA69A0C-FC1E-4509-9931-DFFB38B4D6AE</string>
 					<string>931DD73E-615E-476E-9B0D-8341023AE730</string>
+					<string>DAA69A0C-FC1E-4509-9931-DFFB38B4D6AE</string>
+					<string>2DDB6FE0-6111-4C40-A149-8E67E76F8272</string>
 				</array>
 				<key>name</key>
 				<string>Format</string>

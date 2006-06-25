@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+$: << "#{ENV['TM_SUPPORT_PATH']}/lib" if ENV.has_key?('TM_SUPPORT_PATH')
 require "escape"
 
 def build_requires( code, libs )
@@ -22,7 +23,6 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   code = STDIN.read
-  
   if ARGV.empty?
     REQUIRES = { "abbrev"           => [/\babbrev\b/],
                  "base64"           => [/\bBase64\b/],
@@ -117,7 +117,7 @@ if __FILE__ == $PROGRAM_NAME
     libs = REQUIRES.select { |lib, usage| usage.any? { |test| code =~ test } }.
                     map { |kv| kv.first }
     
-    print build_requires(code, libs).strip
+    print add_requires(code, libs)
   else
     print add_requires(code, ARGV)
   end

@@ -5,7 +5,25 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>"$TM_BUNDLE_SUPPORT/bin/insert_requires.rb"</string>
+	<string>#!/usr/bin/env ruby
+$: &lt;&lt; "#{ENV['TM_SUPPORT_PATH']}/lib"
+
+require "escape"
+require "open3"
+
+CURSOR = [0xFFFC].pack("U").freeze
+line, col = ENV["TM_LINE_NUMBER"].to_i - 1, ENV["TM_LINE_INDEX"].to_i
+
+stdin, stdout, stderr = Open3.popen3("/usr/bin/env", "ruby", "#{ENV['TM_BUNDLE_SUPPORT']}/bin/insert_requires.rb")
+Thread.new do
+  code = STDIN.read.to_a
+  code[line][col...col] = CURSOR
+  stdin.write code.join
+  stdin.close
+end
+
+print stdout.read.split(CURSOR).join('${0}')
+</string>
 	<key>fallbackInput</key>
 	<string>document</string>
 	<key>input</key>

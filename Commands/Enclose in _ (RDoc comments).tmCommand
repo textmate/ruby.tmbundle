@@ -22,7 +22,7 @@ end</string>
 	<key>keyEquivalent</key>
 	<string>@i</string>
 	<key>name</key>
-	<string>Emphasize</string>
+	<string>Italic</string>
 	<key>output</key>
 	<string>insertAsSnippet</string>
 	<key>scope</key>

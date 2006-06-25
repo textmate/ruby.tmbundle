@@ -7,7 +7,7 @@
 	$0
 =end</string>
 	<key>name</key>
-	<string>Documentation Block</string>
+	<string>New Block</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

@@ -22,7 +22,7 @@ end</string>
 	<key>keyEquivalent</key>
 	<string>^+</string>
 	<key>name</key>
-	<string>Enclose in + (RDoc comments)</string>
+	<string>Typewriter</string>
 	<key>output</key>
 	<string>insertAsSnippet</string>
 	<key>scope</key>

@@ -20,7 +20,7 @@ end</string>
 	<key>keyEquivalent</key>
 	<string>^~O</string>
 	<key>name</key>
-	<string>Omit from RDoc</string>
+	<string>Omit</string>
 	<key>output</key>
 	<string>insertAsSnippet</string>
 	<key>scope</key>

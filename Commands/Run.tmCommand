@@ -10,6 +10,8 @@
 </string>
 	<key>input</key>
 	<string>document</string>
+	<key>keyEquivalent</key>
+	<string>@r</string>
 	<key>name</key>
 	<string>Run</string>
 	<key>output</key>

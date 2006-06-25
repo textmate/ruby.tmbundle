@@ -16,8 +16,6 @@ rm -f "$TM_TMPFILE"
 </string>
 	<key>input</key>
 	<string>document</string>
-	<key>keyEquivalent</key>
-	<string>@r</string>
 	<key>name</key>
 	<string>Run Script</string>
 	<key>output</key>

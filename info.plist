@@ -35,8 +35,9 @@
 			<string>------------------------------------</string>
 			<string>EE5F1FB2-6C02-11D9-92BA-0011242E4184</string>
 			<string>FBFC214F-B019-4967-95D2-028F374A3221</string>
-			<string>1AD6A138-2E89-4D6A-AB3F-416BF9CE968D</string>
 			<string>EE5F1AE5-6C02-11D9-92BA-0011242E4184</string>
+			<string>------------------------------------</string>
+			<string>6EA7AE06-3EA9-497D-A6DE-732DE43DA6E9</string>
 			<string>------------------------------------</string>
 			<string>9FB64639-F776-499B-BA6F-BB45F86F80FD</string>
 			<string>7F79BC8D-8A4F-4570-973B-05DFEC25747F</string>
@@ -49,10 +50,20 @@
 			<string>D94AD09E-ADF4-47C9-8236-C7B38B44804E</string>
 			<string>803A6BDF-D74A-4B69-AFF0-98B824AB478D</string>
 			<string>2765038A-1CFC-4BBD-B19C-6EB2B400D528</string>
-			<string>6EA7AE06-3EA9-497D-A6DE-732DE43DA6E9</string>
 		</array>
 		<key>submenus</key>
 		<dict>
+			<key>1BE427C6-0071-4BFF-8CDA-1DC13534E7D8</key>
+			<dict>
+				<key>items</key>
+				<array>
+					<string>2DDB6FE0-6111-4C40-A149-8E67E76F8272</string>
+					<string>DAA69A0C-FC1E-4509-9931-DFFB38B4D6AE</string>
+					<string>931DD73E-615E-476E-9B0D-8341023AE730</string>
+				</array>
+				<key>name</key>
+				<string>Format</string>
+			</dict>
 			<key>2765038A-1CFC-4BBD-B19C-6EB2B400D528</key>
 			<dict>
 				<key>items</key>
@@ -107,12 +118,11 @@
 			<dict>
 				<key>items</key>
 				<array>
+					<string>1AD6A138-2E89-4D6A-AB3F-416BF9CE968D</string>
+					<string>1BE427C6-0071-4BFF-8CDA-1DC13534E7D8</string>
 					<string>ED6368FB-A11D-4622-9F42-7879481094F1</string>
 					<string>05984208-D559-4C04-A69C-2019361A985A</string>
 					<string>BF4CA9F1-51CD-48D4-8357-852234F59046</string>
-					<string>931DD73E-615E-476E-9B0D-8341023AE730</string>
-					<string>DAA69A0C-FC1E-4509-9931-DFFB38B4D6AE</string>
-					<string>2DDB6FE0-6111-4C40-A149-8E67E76F8272</string>
 				</array>
 				<key>name</key>
 				<string>RDoc</string>

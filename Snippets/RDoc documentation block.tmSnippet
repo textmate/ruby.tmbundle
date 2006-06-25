@@ -7,7 +7,7 @@
 	$0
 =end</string>
 	<key>name</key>
-	<string>RDoc documentation block</string>
+	<string>Documentation Block</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

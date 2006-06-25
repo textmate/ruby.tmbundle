@@ -20,9 +20,9 @@ end</string>
 	<key>input</key>
 	<string>selection</string>
 	<key>keyEquivalent</key>
-	<string>^*</string>
+	<string>@b</string>
 	<key>name</key>
-	<string>Enclose in * (RDoc comments)</string>
+	<string>Bold</string>
 	<key>output</key>
 	<string>insertAsSnippet</string>
 	<key>scope</key>

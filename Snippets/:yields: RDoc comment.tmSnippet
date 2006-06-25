@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string> :yields: ${0:arguments}</string>
 	<key>name</key>
-	<string>:yields: RDoc comment</string>
+	<string>:yields:</string>
 	<key>scope</key>
 	<string>source.ruby comment</string>
 	<key>tabTrigger</key>

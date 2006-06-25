@@ -17,7 +17,7 @@ line, col = ENV["TM_LINE_NUMBER"].to_i - 1, ENV["TM_LINE_INDEX"].to_i
 stdin, stdout, stderr = Open3.popen3("/usr/bin/env", "ruby", "#{ENV['TM_BUNDLE_SUPPORT']}/bin/insert_requires.rb")
 Thread.new do
   code = STDIN.read.to_a
-  code[line][col...col] = CURSOR
+  code[line][col...col] = CURSOR unless ENV.has_key?('TM_SELECTED_TEXT')
   stdin.write code.join
   stdin.close
 end

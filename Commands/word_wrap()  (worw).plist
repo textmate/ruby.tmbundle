@@ -5,16 +5,15 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>res=$(CocoaDialog inputbox --title "Wrap Size" \
-    --informative-text "Enter a character width:" \
-    --button1 "Build Snippet" --button2 "Cancel")
-
-[[ $(head -n1 &lt;&lt;&lt;"$res") == "2" ]] &amp;&amp; exit_discard
-
-res=$(tail -n1 &lt;&lt;&lt;"$res")
-ruby &lt;&lt;END
-  print %Q{gsub!(/(.{1,$res}|\\\\S{#{$res + 1},})(?:\\\\s+|\$)/, "\\\\\\\\1\\\\n")}
-END
+	<string>#!/usr/bin/env ruby
+$: &lt;&lt; ENV['TM_SUPPORT_PATH'] + '/lib'
+require "dialog"
+Dialog.request_string(:title =&gt; "Wrap Size",
+                     :prompt =&gt; "Enter a character width:",
+                    :button1 =&gt; "Build Snippet") do |col|
+  col = col.to_i
+  print %Q{gsub!(/(.{1,#{col}}|\\S{#{col + 1},})(?: +|$\\n?)/, "\\\\1\\n")}
+end
 </string>
 	<key>input</key>
 	<string>none</string>

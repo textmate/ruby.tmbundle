@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>#!`which ruby` -w
+	<string>#!/usr/bin/env ruby -w
 
 </string>
 	<key>name</key>

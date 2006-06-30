@@ -1,5 +1,6 @@
-require "open3"
+require 'open3'
 require 'cgi'
+require 'fcntl'
 
 def esc(str)
   CGI.escapeHTML(str).gsub(/\n/, '<br>')
@@ -13,9 +14,11 @@ stdin, stdout, stderr = Open3.popen3('ruby', '-rcatch_exception.rb', '-rstdin_di
 Thread.new { stdin.write STDIN.read; stdin.close }
 wr.close
 
-descriptors = [ stdout, stderr, rd ]
-descriptors.each { |fd| fd.fcntl(4, 4) } # F_SETFL, O_NONBLOCK
 error = ""
+STDOUT.sync = true
+
+descriptors = [ stdout, stderr, rd ]
+descriptors.each { |fd| fd.fcntl(Fcntl::F_SETFL, Fcntl::O_NONBLOCK) } # F_SETFL, O_NONBLOCK
 until descriptors.empty?
   select(descriptors).shift.each do |io|
     str = io.read
@@ -27,7 +30,7 @@ until descriptors.empty?
     elsif io == stderr then
       print "<span style='color: red'>#{esc str}</span>"
     elsif io == rd then
-      error += str
+      error << str
     end
   end
 end

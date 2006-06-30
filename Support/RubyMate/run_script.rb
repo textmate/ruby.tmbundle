@@ -9,7 +9,7 @@ puts DATA.read.gsub(/\$\{BUNDLE_SUPPORT\}/, "tm-file://#{ENV['TM_BUNDLE_SUPPORT'
 
 rd, wr = IO.pipe
 ENV['TM_ERROR_FD'] = wr.to_i.to_s
-stdin, stdout, stderr = Open3.popen3('ruby', '-rcatch_exception.rb', '-')
+stdin, stdout, stderr = Open3.popen3('ruby', '-rcatch_exception.rb', '-rstdin_dialog.rb', '-')
 Thread.new { stdin.write STDIN.read; stdin.close }
 wr.close
 

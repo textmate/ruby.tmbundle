@@ -2,23 +2,58 @@ require 'open3'
 require 'cgi'
 require 'fcntl'
 
+$RUBYMATE_VERSION = "$Revision: 3762 $"
+
 def esc(str)
   CGI.escapeHTML(str).gsub(/\n/, '<br>')
 end
 
-puts DATA.read.gsub(/\$\{BUNDLE_SUPPORT\}/, "tm-file://#{ENV['TM_BUNDLE_SUPPORT'].gsub(/ /, '%20')}")
+class UserScript
+	def initialize
+		@content = STDIN.read
+		@arg0 = $1       if @content =~ /\A#!([^ \n]+\/ruby\b)/
+		@args = $1.split if @content =~ /\A#!.*?\bruby[ \t]+(.*)$/
 
-rd, wr = IO.pipe
-ENV['TM_ERROR_FD'] = wr.to_i.to_s
-stdin, stdout, stderr = Open3.popen3('ruby', '-rcatch_exception.rb', '-rstdin_dialog.rb', '-')
-Thread.new { stdin.write STDIN.read; stdin.close }
-wr.close
+		if ENV.has_key? 'TM_FILEPATH' then
+			@path = ENV['TM_FILEPATH']
+			@display_name = File.basename(@path)
+			# save file
+			open(@path, "w") { |io| io.write @content }
+		else
+			@path = '-'
+			@display_name = 'untitled'
+		end
+	end
+
+	def ruby_version_string
+		# ideally we should get this back from the script we execute
+		res = %x{ #{@arg0 || 'ruby'} -e 'print RUBY_VERSION' }
+		res + " (#{@arg0 || `which ruby`.chomp})"
+	end
+
+	def run
+		rd, wr = IO.pipe
+		rd.fcntl(Fcntl::F_SETFD, 1)
+		ENV['TM_ERROR_FD'] = wr.to_i.to_s
+		stdin, stdout, stderr = Open3.popen3(@arg0 || 'ruby', '-rcatch_exception.rb', '-rstdin_dialog.rb', @path, *Array(@args))
+		Thread.new { stdin.write @content; stdin.close }
+		wr.close
+
+		[ stdout, stderr, rd ]
+	end
+
+	attr_reader :display_name
+end
 
 error = ""
 STDOUT.sync = true
 
-descriptors = [ stdout, stderr, rd ]
-descriptors.each { |fd| fd.fcntl(Fcntl::F_SETFL, Fcntl::O_NONBLOCK) } # F_SETFL, O_NONBLOCK
+script = UserScript.new
+puts DATA.read.gsub(/\$\{BUNDLE_SUPPORT\}/, "tm-file://#{ENV['TM_BUNDLE_SUPPORT'].gsub(/ /, '%20')}").gsub(/\$\{RUBY_VERSION\}/, script.ruby_version_string).gsub(/\$\{SCRIPT_NAME\}/, script.display_name).gsub(/\$\{RUBYMATE_VERSION\}/, $RUBYMATE_VERSION[/\d+/])
+stdout, stderr, stack_dump = script.run
+
+descriptors = [ stdout, stderr, stack_dump ]
+descriptors.each { |fd| fd.fcntl(Fcntl::F_SETFL, Fcntl::O_NONBLOCK) }
 until descriptors.empty?
   select(descriptors).shift.each do |io|
     str = io.read
@@ -29,7 +64,7 @@ until descriptors.empty?
       print esc(str)
     elsif io == stderr then
       print "<span style='color: red'>#{esc str}</span>"
-    elsif io == rd then
+    elsif io == stack_dump then
       error << str
     end
   end
@@ -43,11 +78,11 @@ puts '</body></html>'
 __END__
 <html>
   <head>
-    <title>RubyMate</title>
+    <title>RubyMate — ${SCRIPT_NAME}</title>
     <link rel="stylesheet" href="${BUNDLE_SUPPORT}/pastel.css" type="text/css">
   </head>
 <body>
   <div id="script_output" class="framed">
-  <pre><strong>RubyMate r${VERSION} running Ruby v${RUBY_VERSION}.</strong>
+  <pre><strong>RubyMate r${RUBYMATE_VERSION} running Ruby v${RUBY_VERSION}</strong>
 <strong>>>> ${SCRIPT_NAME}</strong>
 <div id="actual_output" style="-khtml-line-break: after-white-space;">

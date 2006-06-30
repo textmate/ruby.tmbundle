@@ -46,7 +46,7 @@ if ARGV.empty?
                "net/telnet"       => [/\bNet::Telnet\b/],
                "nkf"              => [/\bNKF\b/],
                "observer"         => [/\bObservable\b/],
-               "open2"            => [/\bOpen3\b/],
+               "open3"            => [/\bOpen3\b/],
                "optparse"         => [/\bOptionParser\b/],
                "ostruct"          => [/\bOpenStruct\b/],
                "pathname"         => [/\bPathname\b/],

@@ -3,6 +3,8 @@ STDERR.sync = true
 
 at_exit do
   if (e = $!) && !e.instance_of?(SystemExit)
+    require "#{ENV['TM_SUPPORT_PATH']}/lib/escape"
+    require "cgi"
     io = IO.for_fd(ENV['TM_ERROR_FD'].to_i)
 
     io.write "<div id='exception_report' class='framed'>\n"
@@ -13,9 +15,16 @@ at_exit do
     e.backtrace.each do |b|
       if b =~ /(.*?):(\d+)(?::in\s*`(.*?)')?/ then
         file, line, method = $1, $2, $3
-        io.write "<tr><td><a class='near' href='txmt://open?line=#{line}'>"
+
+        url, display_name = '', 'untitled document';
+        unless file == '-' then
+          url = '&url=file://' + e_url(file)
+          display_name = File.basename(file)
+        end
+          
+        io.write "<tr><td><a class='near' href='txmt://open?line=#{line + url}'>"
         io.write(method ? "method #{method.gsub(/</, '&lt;').gsub(/&/, '&amp;')}" : ((e.kind_of? SyntaxError) ? '<em>error</em>' : '<em>at top level</em>'))
-        io.write "</a></td>\n<td>in <strong>#{File.basename(file).gsub(/</, '&lt;').gsub(/&/, '&amp;')}</strong> at line #{line}</td></tr>\n"
+        io.write "</a></td>\n<td>in <strong>#{CGI::escapeHTML(display_name)}</strong> at line #{line}</td></tr>\n"
       end
     end
     

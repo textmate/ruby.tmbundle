@@ -49,10 +49,17 @@ error = ""
 STDOUT.sync = true
 
 script = UserScript.new
-puts DATA.read.gsub(/\$\{BUNDLE_SUPPORT\}/, "tm-file://#{ENV['TM_BUNDLE_SUPPORT'].gsub(/ /, '%20')}").gsub(/\$\{RUBY_VERSION\}/, script.ruby_version_string).gsub(/\$\{SCRIPT_NAME\}/, script.display_name).gsub(/\$\{RUBYMATE_VERSION\}/, $RUBYMATE_VERSION[/\d+/])
-stdout, stderr, stack_dump = script.run
+map = {
+	'SCRIPT_NAME'    		=> script.display_name,
+	'RUBY_VERSION'   		=> script.ruby_version_string,
+	'RUBYMATE_VERSION'	=> $RUBYMATE_VERSION[/\d+/],
+	'BUNDLE_SUPPORT' 		=> "tm-file://#{ENV['TM_BUNDLE_SUPPORT'].gsub(/ /, '%20')}",
+}
+puts DATA.read.gsub(/\$\{([^}]+)\}/) { |m| map[$1] }
 
+stdout, stderr, stack_dump = script.run
 descriptors = [ stdout, stderr, stack_dump ]
+
 descriptors.each { |fd| fd.fcntl(Fcntl::F_SETFL, Fcntl::O_NONBLOCK) }
 until descriptors.empty?
   select(descriptors).shift.each do |io|

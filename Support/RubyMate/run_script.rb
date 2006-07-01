@@ -36,7 +36,7 @@ class UserScript
 		rd.fcntl(Fcntl::F_SETFD, 1)
 		ENV['TM_ERROR_FD'] = wr.to_i.to_s
 		stdin, stdout, stderr = Open3.popen3(@arg0 || 'ruby', '-rcatch_exception.rb', '-rstdin_dialog.rb', @path, *Array(@args))
-		Thread.new { stdin.write @content; stdin.close }
+		Thread.new { stdin.write @content; stdin.close } unless ENV.has_key? 'TM_FILEPATH'
 		wr.close
 
 		[ stdout, stderr, rd ]

@@ -2,7 +2,7 @@ require 'open3'
 require 'cgi'
 require 'fcntl'
 
-$RUBYMATE_VERSION = "$Revision: 3762 $"
+$RUBYMATE_VERSION = "$Revision$"
 
 def esc(str)
   CGI.escapeHTML(str).gsub(/\n/, '<br>')

@@ -6,7 +6,7 @@ at_exit do
     io = IO.for_fd(ENV['TM_ERROR_FD'].to_i)
 
     io.write "<div id='exception_report' class='framed'>\n"
-    io.write "<p id='exception'><strong>#{e.class.name}:</strong> #{e.message}</p>\n"
+    io.write "<p id='exception'><strong>#{e.class.name}:</strong> #{e.message.sub(/`(\w+)'/, '‘\1’')}</p>\n"
 
     io.write "<blockquote><table border='0' cellspacing='0' cellpadding='0'>\n"
     
@@ -21,9 +21,6 @@ at_exit do
     
     io.write "</table></blockquote></div>"
     io.flush
-
-    IO.for_fd(1).flush
-    IO.for_fd(2).flush
 
     exit!
   end

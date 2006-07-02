@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string># =&gt; </string>
 	<key>name</key>
-	<string>Add '# =&gt;' Marker</string>
+	<string>Add ‘# =&gt;’ Marker</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

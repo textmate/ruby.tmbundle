@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>name</key>
-	<string>Miscellaneous</string>
+	<string>Indent</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>settings</key>
@@ -16,8 +16,8 @@
         (module|class|def
         |unless|if|else|elsif
         |case|when
-        |begin|rescue|until
-        |for|while
+        |begin|rescue|ensure
+        |for|while|until
         |(?= .*? \b(do|begin|case|if|unless)\b )
          # the look-ahead above is to quickly discard non-candidates
          (  "(\\.|[^"])*+"          # eat a double quoted string
@@ -33,7 +33,9 @@
      | '(\\.|[^'])*+'            # eat a single quoted string
      |   [^#"']                    # eat all but comments and strings
      )*
-     \{ (?! [^}]*+ \} )
+     ( \{ (?!  [^}]*+ \} )
+     | \[ (?! [^\]]*+ \] )
+     )
     ).*$</string>
 	</dict>
 	<key>uuid</key>

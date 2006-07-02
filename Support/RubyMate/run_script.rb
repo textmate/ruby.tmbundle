@@ -9,40 +9,40 @@ def esc(str)
 end
 
 class UserScript
-	def initialize
-		@content = STDIN.read
-		@arg0 = $1       if @content =~ /\A#!([^ \n]+\/ruby\b)/
-		@args = $1.split if @content =~ /\A#!.*?\bruby[ \t]+(.*)$/
+  def initialize
+    @content = STDIN.read
+    @arg0 = $1       if @content =~ /\A#!([^ \n]+\/ruby\b)/
+    @args = $1.split if @content =~ /\A#!.*?\bruby[ \t]+(.*)$/
 
-		if ENV.has_key? 'TM_FILEPATH' then
-			@path = ENV['TM_FILEPATH']
-			@display_name = File.basename(@path)
-			# save file
-			open(@path, "w") { |io| io.write @content }
-		else
-			@path = '-'
-			@display_name = 'untitled'
-		end
-	end
+    if ENV.has_key? 'TM_FILEPATH' then
+      @path = ENV['TM_FILEPATH']
+      @display_name = File.basename(@path)
+      # save file
+      open(@path, "w") { |io| io.write @content }
+    else
+      @path = '-'
+      @display_name = 'untitled'
+    end
+  end
 
-	def ruby_version_string
-		# ideally we should get this back from the script we execute
-		res = %x{ #{@arg0 || 'ruby'} -e 'print RUBY_VERSION' }
-		res + " (#{@arg0 || `which ruby`.chomp})"
-	end
+  def ruby_version_string
+    # ideally we should get this back from the script we execute
+    res = %x{ #{@arg0 || 'ruby'} -e 'print RUBY_VERSION' }
+    res + " (#{@arg0 || `which ruby`.chomp})"
+  end
 
-	def run
-		rd, wr = IO.pipe
-		rd.fcntl(Fcntl::F_SETFD, 1)
-		ENV['TM_ERROR_FD'] = wr.to_i.to_s
-		stdin, stdout, stderr = Open3.popen3(@arg0 || 'ruby', '-rcatch_exception.rb', '-rstdin_dialog.rb', @path, *Array(@args))
-		Thread.new { stdin.write @content; stdin.close } unless ENV.has_key? 'TM_FILEPATH'
-		wr.close
+  def run
+    rd, wr = IO.pipe
+    rd.fcntl(Fcntl::F_SETFD, 1)
+    ENV['TM_ERROR_FD'] = wr.to_i.to_s
+    stdin, stdout, stderr = Open3.popen3(@arg0 || 'ruby', '-rcatch_exception.rb', '-rstdin_dialog.rb', @path, *Array(@args))
+    Thread.new { stdin.write @content; stdin.close } unless ENV.has_key? 'TM_FILEPATH'
+    wr.close
 
-		[ stdout, stderr, rd ]
-	end
+    [ stdout, stderr, rd ]
+  end
 
-	attr_reader :display_name
+  attr_reader :display_name
 end
 
 error = ""
@@ -50,10 +50,10 @@ STDOUT.sync = true
 
 script = UserScript.new
 map = {
-	'SCRIPT_NAME'    		=> script.display_name,
-	'RUBY_VERSION'   		=> script.ruby_version_string,
-	'RUBYMATE_VERSION'	=> $RUBYMATE_VERSION[/\d+/],
-	'BUNDLE_SUPPORT' 		=> "tm-file://#{ENV['TM_BUNDLE_SUPPORT'].gsub(/ /, '%20')}",
+  'SCRIPT_NAME'       => script.display_name,
+  'RUBY_VERSION'      => script.ruby_version_string,
+  'RUBYMATE_VERSION'  => $RUBYMATE_VERSION[/\d+/],
+  'BUNDLE_SUPPORT'    => "tm-file://#{ENV['TM_BUNDLE_SUPPORT'].gsub(/ /, '%20')}",
 }
 puts DATA.read.gsub(/\$\{([^}]+)\}/) { |m| map[$1] }
 

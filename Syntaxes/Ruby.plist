@@ -192,9 +192,32 @@
 			<key>comment</key>
 			<string> everything being a method but having a special function is a..</string>
 			<key>match</key>
-			<string>\b(initialize|new|loop|include|require|raise|attr_reader|attr_writer|attr_accessor|attr|catch|throw|private|module_function|public|protected)\b(?![?!])</string>
+			<string>\b(initialize|new|loop|include|raise|attr_reader|attr_writer|attr_accessor|attr|catch|throw|private|module_function|public|protected)\b(?![?!])</string>
 			<key>name</key>
 			<string>keyword.other.special-method.ruby</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>\b(require)\b</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.other.special-method.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>$|(?=#)</string>
+			<key>name</key>
+			<string>meta.require.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$base</string>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>match</key>

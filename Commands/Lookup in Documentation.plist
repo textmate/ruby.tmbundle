@@ -5,26 +5,40 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string># this requires Ruby &gt; 1.8.1 or an earlier version with ri installed. 
-echo "&lt;title&gt;Ruby doc for ${TM_SELECTED_TEXT:=$TM_CURRENT_WORD}&lt;/title&gt;"
-ri -Tf html "$TM_SELECTED_TEXT"|{
-	read MSG
-	if grep -q &lt;&lt;&lt;${MSG:-x} "More than one method matched"; then
-		read MSG; read MSG
-		cat &lt;&lt;-'EOF'
-			&lt;script&gt;function ri (arg) {
-				var res = TextMate.system("ri -Tf html '" + arg + "'", null).outputString;
-				document.getElementById("result").innerHTML = res;
-				window.location.hash = "result";
-			}
-			&lt;/script&gt;&lt;h1&gt;Multiple matches&lt;/h1&gt;&lt;ul&gt;
-		EOF
-		perl -pe $'s%(.+?)(, |$)%&lt;li&gt;&lt;a href=\'javascript:ri("$1")\'&gt;$1&lt;/a&gt;&lt;/li&gt;%g'
-		echo '&lt;/ul&gt;&lt;hr&gt;&lt;div id="result"&gt;&lt;/div&gt;'
-	else
-		echo "$MSG"; cat
-	fi
-}
+	<string>#!/usr/bin/env ruby -w
+
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/exit_codes"
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
+
+unless term = STDIN.read
+  TextMate.exit_show_tool_tip("Please select a term to look up.")
+end
+term.strip!
+
+linked_ri     = "#{ENV["TM_BUNDLE_SUPPORT"].sub(" ", "\\ ")}/bin/linked_ri.rb"
+documentation = `#{linked_ri} #{term}` rescue "&lt;h1&gt;ri Command Error.&lt;/h1&gt;"
+
+puts &lt;&lt;-HTML
+&lt;html&gt;&lt;head&gt;
+  &lt;title&gt;RDoc for #{term}&lt;/title&gt;
+  &lt;style type="text/css" media="screen"&gt;
+    #{File.read("#{ENV["TM_BUNDLE_SUPPORT"]}/pastel.css")}
+  &lt;/style&gt;
+  &lt;script type="text/javascript" charset="utf-8"&gt;
+    function ri (arg) {
+			var res = TextMate.system("#{linked_ri.sub("\\", "\\\\\\\\")} '" + arg + "'", null).outputString;
+			document.getElementById("actual_output").innerHTML = res;
+			window.location.hash = "actual_output";
+		}
+  &lt;/script&gt;
+&lt;/head&gt;&lt;body&gt;
+  &lt;div id="script_output" class="framed"&gt;
+    &lt;div id="actual_output"&gt;
+      #{documentation}
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;&lt;/html&gt;
+HTML
 </string>
 	<key>fallbackInput</key>
 	<string>word</string>

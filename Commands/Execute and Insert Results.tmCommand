@@ -10,7 +10,7 @@
 # This script is from http://eigenclass.org/hiki.rb?Enhanced+xmp+code+evaluation+and+annotation
 #
 # If you add ‘# =&gt;’ after a line in your script and run this
-# command the value of that line gets inserted afte the arrow.
+# command the value of that line gets inserted after the arrow.
 #
 # Example:
 #    a = [ :foo ] # =&gt;

@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby -w
 
+# if we are not called directly from TM (e.g. JavaScript) the caller should ensure that RUBYLIB is set properly
+$: << "#{ENV["TM_SUPPORT_PATH"]}/lib" if ENV.has_key? "TM_SUPPORT_PATH"
+require "escape"
+
 term = ARGV.shift
 
 def link_methods(prefix, methods)
@@ -8,7 +12,7 @@ def link_methods(prefix, methods)
   end.join(", ")
 end
 
-documentation = `ri -Tf html #{term}` rescue "<h1>ri Command Error.</h1>"
+documentation = `ri -Tf html #{e_sh term}` rescue "<h1>ri Command Error.</h1>"
 
 if documentation.include? "More than one method matched"
   methods       = documentation.to_a.last.split(/,\s*/)

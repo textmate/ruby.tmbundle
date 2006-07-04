@@ -10,23 +10,26 @@
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/exit_codes"
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
 
+# first escape for use in the shell, then escape for use in a JS string
+def e_js_sh(str)
+  (e_sh str).gsub("\\", "\\\\\\\\")
+end
+
 unless term = STDIN.read
   TextMate.exit_show_tool_tip("Please select a term to look up.")
 end
 term.strip!
 
-linked_ri     = "#{ENV["TM_BUNDLE_SUPPORT"].sub(" ", "\\ ")}/bin/linked_ri.rb"
-documentation = `#{linked_ri} #{term}` rescue "&lt;h1&gt;ri Command Error.&lt;/h1&gt;"
+linked_ri     = "#{ENV["TM_BUNDLE_SUPPORT"]}/bin/linked_ri.rb"
+documentation = `#{e_sh linked_ri} #{e_sh term}` rescue "&lt;h1&gt;ri Command Error.&lt;/h1&gt;"
 
 puts &lt;&lt;-HTML
 &lt;html&gt;&lt;head&gt;
   &lt;title&gt;RDoc for #{term}&lt;/title&gt;
-  &lt;style type="text/css" media="screen"&gt;
-    #{File.read("#{ENV["TM_BUNDLE_SUPPORT"]}/pastel.css")}
-  &lt;/style&gt;
+  &lt;link rel="stylesheet" href="file://#{e_url ENV['TM_BUNDLE_SUPPORT']}/pastel.css" type="text/css"&gt;
   &lt;script type="text/javascript" charset="utf-8"&gt;
     function ri (arg) {
-			var res = TextMate.system("#{linked_ri.sub("\\", "\\\\\\\\")} '" + arg + "'", null).outputString;
+			var res = TextMate.system("RUBYLIB=#{e_js_sh "#{ENV['TM_SUPPORT_PATH']}/lib"} #{e_js_sh linked_ri} 2&gt;&amp;1 '" + arg + "'", null).outputString;
 			document.getElementById("actual_output").innerHTML = res;
 			window.location.hash = "actual_output";
 		}

@@ -16,6 +16,15 @@ body
 /*	height: 100%; */
 }
 
+hr
+{
+	color: rgb(170, 200, 255);
+	margin: 8px 2px;
+	background-color: rgb(170, 200, 255);
+	height: 1px;
+	border: 0px;
+}
+
 p
 {
 	margin: 0;

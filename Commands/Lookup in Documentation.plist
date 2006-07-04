@@ -15,15 +15,14 @@ def e_js_sh(str)
   (e_sh str).gsub("\\", "\\\\\\\\")
 end
 
-unless term = STDIN.read
-  TextMate.exit_show_tool_tip("Please select a term to look up.")
-end
-term.strip!
+term = STDIN.read.strip
+TextMate.exit_show_tool_tip("Please select a term to look up.") if term.empty?
 
 linked_ri     = "#{ENV["TM_BUNDLE_SUPPORT"]}/bin/linked_ri.rb"
-documentation = `#{e_sh linked_ri} #{e_sh term}` rescue "&lt;h1&gt;ri Command Error.&lt;/h1&gt;"
+documentation = `#{e_sh linked_ri} 2&gt;&amp;1 #{e_sh term}` rescue "&lt;h1&gt;ri Command Error.&lt;/h1&gt;"
+TextMate.exit_show_tool_tip(documentation) if documentation =~ /Nothing known about /
 
-puts &lt;&lt;-HTML
+TextMate.exit_show_html &lt;&lt;-HTML
 &lt;html&gt;&lt;head&gt;
   &lt;title&gt;RDoc for #{term}&lt;/title&gt;
   &lt;link rel="stylesheet" href="file://#{e_url ENV['TM_BUNDLE_SUPPORT']}/pastel.css" type="text/css"&gt;
@@ -41,8 +40,7 @@ puts &lt;&lt;-HTML
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/body&gt;&lt;/html&gt;
-HTML
-</string>
+HTML</string>
 	<key>fallbackInput</key>
 	<string>word</string>
 	<key>input</key>
@@ -52,7 +50,7 @@ HTML
 	<key>name</key>
 	<string>Documentation for Word / Selection</string>
 	<key>output</key>
-	<string>showAsHTML</string>
+	<string>showAsTooltip</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>uuid</key>

@@ -8,7 +8,7 @@ at_exit do
     io = IO.for_fd(ENV['TM_ERROR_FD'].to_i)
 
     io.write "<div id='exception_report' class='framed'>\n"
-    io.write "<p id='exception'><strong>#{e.class.name}:</strong> #{e.message.sub(/`(\w+)'/, '‘\1’')}</p>\n"
+    io.write "<p id='exception'><strong>#{e.class.name}:</strong> #{e.message.sub(/`(\w+)'/, '‘\1’').sub(/ -- /, ' — ')}</p>\n"
 
     io.write "<blockquote><table border='0' cellspacing='0' cellpadding='0'>\n"
     
@@ -22,9 +22,9 @@ at_exit do
           display_name = File.basename(file)
         end
           
-        io.write "<tr><td><a class='near' href='txmt://open?line=#{line + url}'>"
-        io.write(method ? "method #{method.gsub(/</, '&lt;').gsub(/&/, '&amp;')}" : ((e.kind_of? SyntaxError) ? '<em>error</em>' : '<em>at top level</em>'))
-        io.write "</a></td>\n<td>in <strong>#{CGI::escapeHTML(display_name)}</strong> at line #{line}</td></tr>\n"
+        io << "<tr><td><a class='near' href='txmt://open?line=#{line + url}'>"
+        io << (method ? "method #{CGI::escapeHTML method}" : '<em>at top level</em>')
+        io << "</a></td>\n<td>in <strong>#{CGI::escapeHTML display_name}</strong> at line #{line}</td></tr>\n"
       end
     end
     

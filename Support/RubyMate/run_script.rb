@@ -92,4 +92,4 @@ __END__
   <div id="script_output" class="framed">
   <pre><strong>RubyMate r${RUBYMATE_VERSION} running Ruby v${RUBY_VERSION}</strong>
 <strong>>>> ${SCRIPT_NAME}</strong>
-<div id="actual_output" style="-khtml-line-break: after-white-space;">
+<div id="actual_output" style="word-wrap: break-word;">

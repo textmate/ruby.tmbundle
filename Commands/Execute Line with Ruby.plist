@@ -8,15 +8,16 @@
 	<string>#!/usr/bin/env ruby
 
 begin
+  # insert a space if input was a selection, if it was a line insert \n
   print(ENV['TM_SELECTED_TEXT'] ? " " : "\n")
   r = eval(STDIN.read)
 rescue Object
   r = $!.class.to_s
 end
 
-print (r.class != Hash and r.class != Array and r.respond_to? :to_s) ?
-           r.to_s : r.inspect
-</string>
+# try to_s, if it doesnt work use inspect
+# Array and Hash are shown via inspect because they look better with formating
+print( (r.class != Hash and r.class != Array and r.respond_to? :to_s) ? r.to_s : r.inspect )</string>
 	<key>fallbackInput</key>
 	<string>line</string>
 	<key>input</key>

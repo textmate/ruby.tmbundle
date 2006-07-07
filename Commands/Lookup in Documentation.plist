@@ -35,9 +35,7 @@ TextMate.exit_show_html &lt;&lt;-HTML
   &lt;/script&gt;
 &lt;/head&gt;&lt;body&gt;
   &lt;div id="script_output" class="framed"&gt;
-    &lt;div id="actual_output"&gt;
-      #{documentation}
-    &lt;/div&gt;
+    &lt;pre&gt;&lt;div id="actual_output"&gt;#{documentation}&lt;/div&gt;&lt;/pre&gt;
   &lt;/div&gt;
 &lt;/body&gt;&lt;/html&gt;
 HTML</string>

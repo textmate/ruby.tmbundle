@@ -7,49 +7,49 @@
 	<key>command</key>
 	<string>#!/usr/bin/env ruby
 
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/exit_codes"
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/dialog"
+
 require "erb"
 include ERB::Util
+require "pstore"
 
-RAKEMATE_VERSION = "1.0.0".freeze
+RAKEMATE_VERSION = "1.1.0".freeze
 
 rake = ENV["TM_RAKE"] ||
        ENV["PATH"].split(":").map { |dir| File.join(dir, "rake") }.
                               find { |r| File.exist? r }
-if rake.nil?
-  puts "Rake not found.  Please set TM_RAKE."
-  exit 206
-end
+TextMate.exit_show_tool_tip("Rake not found.  Please set TM_RAKE.") if rake.nil?
 
-Dir.chdir(ENV["TM_PROJECT_DIRECTORY"] || ENV["TM_DIRECTORY"])
+DEFAULT_TASK = "(default task)".freeze
+RAKEFILE_DIR = (ENV["TM_PROJECT_DIRECTORY"] || ENV["TM_DIRECTORY"]).freeze
+
+prefs = PStore.new( File.expand_path( "~/Library/Preferences/" +
+                                      "com.macromates.textmate.run_rake" ) )
+
+Dir.chdir(RAKEFILE_DIR)
 tasks = `#{rake} --tasks`
 
-unless $?.exited?
-  puts "Could not fetch task list."
-  exit 206
+TextMate.exit_show_tool_tip("Could not fetch task list.") unless $?.exited?
+
+tasks = [DEFAULT_TASK] + tasks.grep(/^rake\s+(\S+)/) { |t| t.split[1] }
+if last_task = tasks.index(prefs.transaction(true) { prefs[RAKEFILE_DIR] })
+  tasks.unshift(tasks.slice!(last_task))
 end
 
-tasks = tasks.grep(/^rake\s+(\S+)/) { |t| t.split[1] }
-dialog = "\"#{ENV['TM_SUPPORT_PATH']}" +
-         "/bin/CocoaDialog.app/" +
-         "Contents/MacOS/CocoaDialog\" " +
-         "standard-dropdown " +
-         "--items \"(default task)\" " +
-         tasks.map { |t| t.inspect}.join(" ") +
-         " --text \"Select a task to execute:\" " +
-         "--title \"Rake Tasks\""
-selection = `#{dialog}`.split("\n")
-tasks.unshift("")
-
-if selection.first == "1"
-  task    = tasks[selection.last.to_i]
-  testing = task =~ /test/i || task == ""
+if task = Dialog.request_item( :title   =&gt; "Rake Tasks",
+                               :prompt  =&gt; "Select a task to execute:",
+                               :items   =&gt; tasks,
+                               :button1 =&gt; "Run Task")
+  prefs.transaction { prefs[RAKEFILE_DIR] = task }
+  
+  testing = task =~ /test/i || task == DEFAULT_TASK
   print &lt;&lt;START_HTML
 &lt;html&gt;
   &lt;head&gt;
     &lt;title&gt;Rake TextMate Runtime&lt;/title&gt;
-    &lt;style type="text/css" media="screen"&gt;
-      #{File.read(File.join(ENV["TM_BUNDLE_SUPPORT"], "pastel.css"))}
-    &lt;/style&gt;
+    &lt;link rel="stylesheet" href="file://#{e_url ENV['TM_BUNDLE_SUPPORT']}/pastel.css" type="text/css"&gt;
   &lt;/head&gt;
   &lt;body&gt;
     &lt;div id="script_output" class="framed"&gt;
@@ -57,7 +57,7 @@ if selection.first == "1"
 &lt;strong&gt;&amp;gt;&amp;gt;&amp;gt; #{Dir.pwd}&lt;/strong&gt;
 &lt;div id="actual_output" style="-khtml-line-break: after-white-space;"&gt;
 START_HTML
-  open("|#{rake} #{task} 2&gt;&amp;1") do |output|
+  open("|#{rake} #{task == "(default task)" ? "" : task} 2&gt;&amp;1") do |output|
 	  while line = output.gets
 	    if testing and line =~ /^\d+ tests, \d+ assertions, (\d+) failures, (\d+) errors/
 	      print "&lt;span style=\"color: ",

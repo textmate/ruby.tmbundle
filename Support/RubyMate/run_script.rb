@@ -106,7 +106,7 @@ until descriptors.empty?
               indent, file, line, method = $1, $2, $3, $4
 
               url, display_name = '', 'untitled document';
-              unless script.path == "-"
+              unless file == "-"
                 url = '&url=file://' + e_url(file)
                 display_name = File.basename(file)
               end

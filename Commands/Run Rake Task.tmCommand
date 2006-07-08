@@ -15,7 +15,7 @@ require "erb"
 include ERB::Util
 require "pstore"
 
-RAKEMATE_VERSION = "1.1.0".freeze
+RAKEMATE_VERSION = "1.2.0".freeze
 
 rake = ENV["TM_RAKE"] ||
        ENV["PATH"].split(":").map { |dir| File.join(dir, "rake") }.
@@ -63,8 +63,18 @@ START_HTML
 	      print "&lt;span style=\"color: ",
 	            ($1 + $2 == "00" ? "green" : "red"),
 	            "\"&gt;#{line.chomp}&lt;/span&gt;&lt;br /&gt;"
-	    elsif testing and line =~ /^(\s+)((\S+):(\d+))(:in.*)$/ and File.exist? $3
-	      print "#{$1}&lt;a href='txmt://open?url=file://#{u(File.expand_path($3))}&amp;line=#{$4}'&gt;#{$2}&lt;/a&gt;#{$5.strip}&lt;br /&gt;"
+	    elsif testing and line =~ /^(\s+)(\S.*?):(\d+)(?::in\s*`(.*?)')?/ and File.exist? $2
+        indent, file, line, method = $1, $2, $3, $4
+
+        url, display_name = '', 'untitled document';
+        unless file == "-"
+          url = '&amp;url=file://' + e_url(File.expand_path(file))
+          display_name = File.basename(file)
+        end
+
+        print "#{indent}&lt;a class='near' href='txmt://open?line=#{line + url}'&gt;" +
+              (method ? "method #{h method}" : '&lt;em&gt;at top level&lt;/em&gt;') +
+              "&lt;/a&gt; in &lt;strong&gt;#{h display_name}&lt;/strong&gt; at line #{line}&lt;br/&gt;"
       else
 	      print h(line).sub("\n", "&lt;br /&gt;")
       end

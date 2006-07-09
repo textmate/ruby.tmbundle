@@ -7,6 +7,14 @@
 	<key>command</key>
 	<string>#!/usr/bin/env ruby
 
+# be smart, dont print something if we already have..
+$write_count = 0
+def STDOUT.write(what)
+   super(what)
+   $write_count += 1
+end
+
+# execure the code
 begin
   # insert a space if input was a selection, if it was a line insert \n
   print(ENV['TM_SELECTED_TEXT'] ? " " : "\n")
@@ -17,7 +25,8 @@ end
 
 # try to_s, if it doesnt work use inspect
 # Array and Hash are shown via inspect because they look better with formating
-print( (r.class != Hash and r.class != Array and r.respond_to? :to_s) ? r.to_s : r.inspect )</string>
+# do this just if the script did not print anything itself
+print( (r.class != Hash and r.class != Array and r.respond_to? :to_s) ? r.to_s : r.inspect )  if $write_count == 1</string>
 	<key>fallbackInput</key>
 	<string>line</string>
 	<key>input</key>

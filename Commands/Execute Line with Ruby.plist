@@ -10,8 +10,8 @@
 # be smart, dont print something if we already have..
 $write_count = 0
 def STDOUT.write(what)
-   super(what)
    $write_count += 1
+   super(what)
 end
 
 # execure the code

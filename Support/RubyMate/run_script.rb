@@ -114,6 +114,9 @@ until descriptors.empty?
               "#{indent}<a class='near' href='txmt://open?line=#{line + url}'>" +
               (method ? "method #{CGI::escapeHTML method}" : '<em>at top level</em>') +
               "</a> in <strong>#{CGI::escapeHTML display_name}</strong> at line #{line}<br/>"
+            elsif line =~ /([\w\_]+).*\[([\w\_\/\.]+)\:(\d+)\]/
+              method, file, line = $1, $2, $3
+              "<span><a style=\"color: blue;\" href=\"txmt://open?url=file://#{e_url(file)}&line=#{line}\">#{method}</span>:#{line}<br/>"
             elsif line =~ /^\d+ tests, \d+ assertions, (\d+) failures, (\d+) errors/
               "<span style=\"color: #{$1 + $2 == "00" ? "green" : "red"}\">#{$&}</span><br/>"
             else

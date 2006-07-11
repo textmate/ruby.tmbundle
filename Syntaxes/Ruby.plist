@@ -114,7 +114,7 @@
 			<key>match</key>
 			<string>^\s*(class)\s+(([.a-zA-Z0-9_:]+(\s*&lt;\s*[.a-zA-Z0-9_:]+)?)|(&lt;&lt;\s*[.a-zA-Z0-9_:]+))</string>
 			<key>name</key>
-			<string>declaration.class.ruby</string>
+			<string>meta.class.ruby</string>
 		</dict>
 		<dict>
 			<key>captures</key>
@@ -138,7 +138,7 @@
 			<key>match</key>
 			<string>^\s*(module)\s+((([A-Z]\w*::)*)[A-Z]\w*)</string>
 			<key>name</key>
-			<string>declaration.module.ruby</string>
+			<string>meta.module.ruby</string>
 		</dict>
 		<dict>
 			<key>comment</key>
@@ -272,7 +272,7 @@
 			<key>end</key>
 			<string>\)</string>
 			<key>name</key>
-			<string>declaration.function.method.with-arguments.ruby</string>
+			<string>meta.function.method.with-arguments.ruby</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -300,7 +300,7 @@
 			<key>match</key>
 			<string>(?:^|\s+)(def)\b(\s+((?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?(?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?|===?|&gt;[&gt;=]?|&lt;=&gt;|&lt;[&lt;=]?|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?)))?</string>
 			<key>name</key>
-			<string>declaration.function.method.without-arguments.ruby</string>
+			<string>meta.function.method.without-arguments.ruby</string>
 		</dict>
 		<dict>
 			<key>match</key>

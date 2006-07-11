@@ -5,7 +5,7 @@
 	<key>name</key>
 	<string>Symbol List: Method</string>
 	<key>scope</key>
-	<string>source.ruby declaration.function</string>
+	<string>source.ruby meta.function</string>
 	<key>settings</key>
 	<dict>
 		<key>showInSymbolList</key>

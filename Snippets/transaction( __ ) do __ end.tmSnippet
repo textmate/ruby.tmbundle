@@ -3,11 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>transaction${1/(^.*?\S.*)|.*/(?1:\()/}${1:true}${1/(^.*?\S.*)|.*/(?1:\))/} do
-	$0
-end</string>
+	<string>transaction${1/(^.*?\S.*)|.*/(?1:\()/}${1:true}${1/(^.*?\S.*)|.*/(?1:\))/} { $0 }</string>
 	<key>name</key>
-	<string>transaction( .. ) do .. end</string>
+	<string>transaction( .. ) { .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

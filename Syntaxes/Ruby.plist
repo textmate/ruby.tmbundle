@@ -142,6 +142,14 @@
 		</dict>
 		<dict>
 			<key>comment</key>
+			<string>else if is a common mistake carried over from other languages. it works if you put in a second end, but it’s never what you want.</string>
+			<key>match</key>
+			<string>(?&lt;!\.)\belse(\s)+if\b</string>
+			<key>name</key>
+			<string>invalid.deprecated.ruby</string>
+		</dict>
+		<dict>
+			<key>comment</key>
 			<string>everything being a reserved word, not a value and needing a 'end' is a..</string>
 			<key>match</key>
 			<string>(?&lt;!\.)\b(BEGIN|begin|case|class|else|elsif|END|end|ensure|for|if|in|module|rescue|then|unless|until|when|while)\b(?![?!])</string>

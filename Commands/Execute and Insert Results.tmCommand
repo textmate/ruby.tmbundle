@@ -65,7 +65,8 @@ if exception = /^-:[0-9]+:.*/m.match(output.join)
   puts exception[0].map{|line| "# ~&gt; " + line }
 end
 if (s = stdout.read) != ""
-  puts "# &gt;&gt; #{s.inspect}" 
+  s.each { |line| puts "# &gt;&gt; #{line}" }
+  # puts "# &gt;&gt; #{s.inspect}" # restore this line for old behavior
 end
 </string>
 	<key>fallbackInput</key>

@@ -712,7 +712,7 @@
 			<key>end</key>
 			<string>\)</string>
 			<key>name</key>
-			<string>string.quoted.literal.upper.ruby</string>
+			<string>string.quoted.other.literal.upper.ruby</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -739,7 +739,7 @@
 			<key>end</key>
 			<string>\]</string>
 			<key>name</key>
-			<string>string.quoted.literal.upper.ruby</string>
+			<string>string.quoted.other.literal.upper.ruby</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -766,7 +766,7 @@
 			<key>end</key>
 			<string>\&gt;</string>
 			<key>name</key>
-			<string>string.quoted.literal.upper.ruby</string>
+			<string>string.quoted.other.literal.upper.ruby</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -820,7 +820,7 @@
 			<key>end</key>
 			<string>\1</string>
 			<key>name</key>
-			<string>string.quoted.literal.upper.ruby</string>
+			<string>string.quoted.other.literal.upper.ruby</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -843,7 +843,7 @@
 			<key>end</key>
 			<string>\1</string>
 			<key>name</key>
-			<string>string.quoted.literal.upper.ruby</string>
+			<string>string.quoted.other.literal.upper.ruby</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -866,7 +866,7 @@
 			<key>end</key>
 			<string>\)</string>
 			<key>name</key>
-			<string>string.quoted.literal.lower.ruby</string>
+			<string>string.quoted.other.literal.lower.ruby</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -891,7 +891,7 @@
 			<key>end</key>
 			<string>\&gt;</string>
 			<key>name</key>
-			<string>string.quoted.literal.lower.ruby</string>
+			<string>string.quoted.other.literal.lower.ruby</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -916,7 +916,7 @@
 			<key>end</key>
 			<string>\]</string>
 			<key>name</key>
-			<string>string.quoted.literal.lower.ruby</string>
+			<string>string.quoted.other.literal.lower.ruby</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -966,7 +966,7 @@
 			<key>end</key>
 			<string>\1</string>
 			<key>name</key>
-			<string>string.quoted.literal.lower.ruby</string>
+			<string>string.quoted.other.literal.lower.ruby</string>
 			<key>swallow</key>
 			<string>\\.</string>
 		</dict>

@@ -127,12 +127,12 @@
 				<key>2</key>
 				<dict>
 					<key>name</key>
-					<string>entity.name.module.ruby</string>
+					<string>entity.name.class.module.ruby</string>
 				</dict>
 				<key>3</key>
 				<dict>
 					<key>name</key>
-					<string>entity.other.parent-module.ruby</string>
+					<string>entity.other.inherited-class.module.ruby</string>
 				</dict>
 			</dict>
 			<key>match</key>

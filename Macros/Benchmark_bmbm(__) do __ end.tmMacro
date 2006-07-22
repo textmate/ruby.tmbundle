@@ -25,7 +25,7 @@
 			<key>argument</key>
 			<dict>
 				<key>content</key>
-				<string>TESTS = ${1:10_000}.freeze
+				<string>TESTS = ${1:10_000}
 Benchmark.bmbm(${2:10}) do |results|
   $0
 end</string>

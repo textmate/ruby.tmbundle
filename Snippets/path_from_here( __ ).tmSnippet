@@ -3,17 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>TESTS = ${1:10_000}
-Benchmark.bmbm(${2:10}) do |results|
-  $0
-end</string>
+	<string>File.join(File.dirname(__FILE__), *%w[${1:rel path here}])</string>
 	<key>name</key>
-	<string>Benchmark.bmbm(..) do .. end</string>
+	<string>path_from_here( .. )</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>
-	<string>bm-</string>
+	<string>patfh</string>
 	<key>uuid</key>
-	<string>942F20E2-C40A-44B8-A3F2-99AAC68CB534</string>
+	<string>A4E89D97-D5ED-48BB-B5FF-1BFB79211FCD</string>
 </dict>
 </plist>

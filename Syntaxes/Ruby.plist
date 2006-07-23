@@ -253,6 +253,12 @@
 		</dict>
 		<dict>
 			<key>match</key>
+			<string>\b[A-Z][a-z]\w*(?=(\.[A-Za-z]|\[))</string>
+			<key>name</key>
+			<string>support.class.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
 			<string>\b[A-Z]\w*\b</string>
 			<key>name</key>
 			<string>variable.other.constant.ruby</string>

@@ -3,9 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>File.foreach(${1:"${2:path/to/file}"}) do |${3:line}|
-	$0
-end</string>
+	<string>File.foreach(${1:"${2:path/to/file}"}) { |${3:line}| $0 }</string>
 	<key>name</key>
 	<string>File.foreach ("..") do |line| .. end</string>
 	<key>scope</key>

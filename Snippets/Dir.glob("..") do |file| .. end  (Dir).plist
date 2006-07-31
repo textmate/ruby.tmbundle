@@ -3,9 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>Dir.glob(${1:"${2:dir/glob/*}"}) do |${3:file}|
-	$0
-end</string>
+	<string>Dir.glob(${1:"${2:dir/glob/*}"}) { |${3:file}| $0 }</string>
 	<key>name</key>
 	<string>Dir.glob("..") do |file| .. end</string>
 	<key>scope</key>

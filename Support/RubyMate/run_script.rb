@@ -107,6 +107,7 @@ until descriptors.empty?
 
               url, display_name = '', 'untitled document';
               unless file == "-"
+                indent += " " if file.sub!(/^\[/, "")
                 url = '&url=file://' + e_url(file)
                 display_name = File.basename(file)
               end

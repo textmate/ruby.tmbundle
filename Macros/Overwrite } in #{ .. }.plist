@@ -16,7 +16,7 @@
 				<key>findInProjectIgnoreCase</key>
 				<false/>
 				<key>findString</key>
-				<string>\}|([^}])</string>
+				<string>((?m:.){2,})|\}|([^}])</string>
 				<key>ignoreCase</key>
 				<false/>
 				<key>regularExpression</key>
@@ -24,7 +24,7 @@
 				<key>replaceAllScope</key>
 				<string>selection</string>
 				<key>replaceString</key>
-				<string>}$1</string>
+				<string>$1}$2</string>
 				<key>wrapAround</key>
 				<false/>
 			</dict>

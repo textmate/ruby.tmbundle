@@ -329,8 +329,15 @@
 			<string>'</string>
 			<key>name</key>
 			<string>constant.other.symbol.single-quoted.ruby</string>
-			<key>swallow</key>
-			<string>\\['\\]</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\\['\\]</string>
+					<key>name</key>
+					<string>constant.character.escape.ruby</string>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -350,8 +357,6 @@
 					<string>#escaped_char</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -371,8 +376,6 @@
 					<string>constant.character.escape.ruby</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -394,8 +397,6 @@
 					<string>#escaped_char</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -417,8 +418,6 @@
 					<string>#escaped_char</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -444,8 +443,6 @@
 					<string>#nest_curly_i</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -471,8 +468,6 @@
 					<string>#nest_brackets_i</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -498,8 +493,6 @@
 					<string>#nest_ltgt_i</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -525,8 +518,6 @@
 					<string>#nest_parens_i</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -548,8 +539,6 @@
 					<string>#escaped_char</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -734,8 +723,6 @@
 					<string>#nest_parens_i</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -761,8 +748,6 @@
 					<string>#nest_brackets_i</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -788,8 +773,6 @@
 					<string>#nest_ltgt_i</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -815,8 +798,6 @@
 					<string>#nest_curly_i</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -838,8 +819,6 @@
 					<string>#escaped_char</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -861,8 +840,6 @@
 					<string>#escaped_char</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -886,8 +863,6 @@
 					<string>#nest_parens</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -911,8 +886,6 @@
 					<string>#nest_ltgt</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -936,8 +909,6 @@
 					<string>#nest_brackets</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -947,7 +918,7 @@
 			<key>end</key>
 			<string>\}</string>
 			<key>name</key>
-			<string>string.quoted.single.ruby.mod</string>
+			<string>string.quoted.other.literal.lower.ruby</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -961,8 +932,6 @@
 					<string>#nest_curly</string>
 				</dict>
 			</array>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -973,8 +942,15 @@
 			<string>\1</string>
 			<key>name</key>
 			<string>string.quoted.other.literal.lower.ruby</string>
-			<key>swallow</key>
-			<string>\\.</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>comment</key>
+					<string>Cant be named because its not neccesarily an escape.</string>
+					<key>match</key>
+					<string>\\.</string>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>comment</key>
@@ -993,8 +969,6 @@
 			<string>^=end</string>
 			<key>name</key>
 			<string>comment.documentation.ruby</string>
-			<key>swallow</key>
-			<string>\\.</string>
 		</dict>
 		<dict>
 			<key>match</key>

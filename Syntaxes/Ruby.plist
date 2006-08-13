@@ -290,7 +290,7 @@
 			<key>comment</key>
 			<string> the method pattern comes from the symbol pattern, see there for a explaination</string>
 			<key>contentName</key>
-			<string>variable.parameter</string>
+			<string>variable.parameter.function.ruby</string>
 			<key>end</key>
 			<string>\)</string>
 			<key>name</key>

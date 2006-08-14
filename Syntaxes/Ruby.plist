@@ -197,12 +197,16 @@
 			<string>keyword.control.pseudo-method.ruby</string>
 		</dict>
 		<dict>
-			<key>comment</key>
-			<string> every reserved word, being a value is a..</string>
 			<key>match</key>
-			<string>\b(nil|true|false|__(FILE|LINE)__|self)\b(?![?!])</string>
+			<string>\b(nil|true|false)\b(?![?!])</string>
 			<key>name</key>
-			<string>constant.language.pseudo-variable.ruby</string>
+			<string>constant.language.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(__(FILE|LINE)__|self)\b(?![?!])</string>
+			<key>name</key>
+			<string>variable.language.ruby</string>
 		</dict>
 		<dict>
 			<key>comment</key>

@@ -106,7 +106,7 @@
 				<key>2</key>
 				<dict>
 					<key>name</key>
-					<string>entity.name.class.ruby</string>
+					<string>entity.name.type.class.ruby</string>
 				</dict>
 				<key>4</key>
 				<dict>
@@ -135,7 +135,7 @@
 				<key>2</key>
 				<dict>
 					<key>name</key>
-					<string>entity.name.class.module.ruby</string>
+					<string>entity.name.type.module.ruby</string>
 				</dict>
 				<key>3</key>
 				<dict>

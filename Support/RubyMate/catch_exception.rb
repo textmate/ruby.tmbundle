@@ -1,6 +1,8 @@
 STDOUT.sync = true
 STDERR.sync = true
 
+require 'pathname'
+
 at_exit do
   if (e = $!) && !e.instance_of?(SystemExit)
     require "#{ENV['TM_SUPPORT_PATH']}/lib/escape"
@@ -18,6 +20,7 @@ at_exit do
 
         url, display_name = '', 'untitled document';
         unless file == '-' then
+          file = Pathname.new(file).realpath.to_s
           url = '&url=file://' + e_url(file)
           display_name = File.basename(file)
         end

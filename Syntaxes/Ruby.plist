@@ -53,6 +53,7 @@
 		<string>rake</string>
 		<string>cgi</string>
 		<string>fcgi</string>
+		<string>gemspec</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby\b</string>

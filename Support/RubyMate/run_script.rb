@@ -82,7 +82,19 @@ map = {
   'RUBY_VERSION'      => script.ruby_version_string,
   'RUBYMATE_VERSION'  => $RUBYMATE_VERSION[/\d+/],
   'BUNDLE_SUPPORT'    => "tm-file://#{ENV['TM_BUNDLE_SUPPORT'].gsub(/ /, '%20')}",
+  'TM_SUPPORT_PATH'   => ENV['TM_SUPPORT_PATH'],
+  'TM_HTML_LANG'      => ENV['TM_MODE'],
+  'TM_HTML_TITLE'     => 'RubyMate',
+  'TM_EXTRA_HEAD'     => '',
+  'TM_CSS'            => `cat "${TM_SUPPORT_PATH}/css/webpreview.css" | sed "s|TM_SUPPORT_PATH|${TM_SUPPORT_PATH}|"`,
 }
+# $TM_SUPPORT_PATH = ENV['TM_SUPPORT_PATH']
+# $TM_HTML_LANG =    ENV['TM_MODE']
+# $TM_HTML_TITLE =   'RubyMate'
+# $TM_EXTRA_HEAD =   ''
+# $TM_CSS =          `cat "${TM_SUPPORT_PATH}/css/webview.css" | sed "s|TM_SUPPORT_PATH|${TM_SUPPORT_PATH}|"`
+
+
 puts DATA.read.gsub(/\$\{([^}]+)\}/) { |m| map[$1] }
 
 stdout, stderr, stack_dump = script.run
@@ -108,7 +120,7 @@ until descriptors.empty?
               url, display_name = '', 'untitled document';
               unless file == "-"
                 indent += " " if file.sub!(/^\[/, "")
-                url = '&url=file://' + e_url(file)
+                url = '&amp;url=file://' + e_url(file)
                 display_name = File.basename(file)
               end
 
@@ -117,7 +129,7 @@ until descriptors.empty?
               "</a> in <strong>#{CGI::escapeHTML display_name}</strong> at line #{line}<br/>"
             elsif line =~ /([\w\_]+).*\[([\w\_\/\.]+)\:(\d+)\]/
               method, file, line = $1, $2, $3
-              "<span><a style=\"color: blue;\" href=\"txmt://open?url=file://#{e_url(file)}&line=#{line}\">#{method}</span>:#{line}<br/>"
+              "<span><a style=\"color: blue;\" href=\"txmt://open?url=file://#{e_url(file)}&amp;line=#{line}\">#{method}</span>:#{line}<br/>"
             elsif line =~ /^\d+ tests, \d+ assertions, (\d+) failures, (\d+) errors/
               "<span style=\"color: #{$1 + $2 == "00" ? "green" : "red"}\">#{$&}</span><br/>"
             else
@@ -139,16 +151,44 @@ end
 puts '</div></pre></div>'
 puts error
 puts '<div id="exception_report" class="framed">Program exited.</div>'
+puts '</div>'
 puts '</body></html>'
 
 __END__
-<html>
-  <head>
-    <title>RubyMate — ${SCRIPT_NAME}</title>
-    <link rel="stylesheet" href="${BUNDLE_SUPPORT}/pastel.css" type="text/css">
-  </head>
-<body>
-  <div id="script_output" class="framed">
-  <pre><strong>RubyMate r${RUBYMATE_VERSION} running Ruby v${RUBY_VERSION}</strong>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+   <title>RubyMate — ${SCRIPT_NAME}</title>
+	<style type="text/css" media="screen">
+		${TM_CSS}
+	</style>
+	<script src="file://${TM_SUPPORT_PATH}/script/default.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+	<script src="file://${TM_SUPPORT_PATH}/script/webpreview.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+	${TM_EXTRA_HEAD}
+</head>
+<body id="tm_webpreview_body">
+	<div id="tm_webpreview_header">
+		<p class="headline">${TM_HTML_TITLE}</p>
+		<p class="type">${TM_HTML_LANG}</p>
+		<img class="teaser" src="file://${TM_SUPPORT_PATH}/images/gear2.png" alt="teaser" />
+		<div id="theme_switcher">
+			<form action="#" onsubmit="return false;">
+				Theme: 
+				<select onchange="selectTheme(this.value);" id="theme_selector">
+					<option>bright</option>
+					<option>dark</option>
+					<option value="default">no colors</option>
+				</select>
+			</form>
+		</div>
+	</div>
+	<div id="tm_webpreview_content" class="bright">
+	<div class="rubymate">
+		
+		<div><!-- first box containing version info and script output -->
+			<pre><strong>RubyMate r${RUBYMATE_VERSION} running Ruby v${RUBY_VERSION}</strong>
 <strong>>>> ${SCRIPT_NAME}</strong>
-<div id="actual_output" style="word-wrap: break-word;">
+<div> <!-- Script output -->

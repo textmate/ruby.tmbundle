@@ -20,8 +20,8 @@
         |for|while|until
         |(?= .*? \b(do|begin|case|if|unless)\b )
          # the look-ahead above is to quickly discard non-candidates
-         (  "(\\.|[^"])*+"          # eat a double quoted string
-         | '(\\.|[^'])*+'        # eat a single quoted string
+         (  "(\\.|[^\\"])*+"        # eat a double quoted string
+         | '(\\.|[^\\'])*+'      # eat a single quoted string
          |   [^#"']                # eat all but comments and strings
          )*
          (                 \s   (do|begin|case)
@@ -29,8 +29,8 @@
          )
         )\b
         (?! [^;]*+ ; .*? \bend\b )
-    |(  "(\\.|[^"])*+"              # eat a double quoted string
-     | '(\\.|[^'])*+'            # eat a single quoted string
+    |(  "(\\.|[^\\"])*+"            # eat a double quoted string
+     | '(\\.|[^\\'])*+'          # eat a single quoted string
      |   [^#"']                    # eat all but comments and strings
      )*
      ( \{ (?!  [^}]*+ \} )

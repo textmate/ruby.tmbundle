@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby
+
+$LOAD_PATH &lt;&lt; "#{ENV["TM_SUPPORT_PATH"]}/lib"
+require "escape"
+
+flags += " --retabify " if ENV["TM_SOFT_TABS"] == "NO"
+text =`echo -n "#{e_as(STDIN.read)}" | ruby "#{ENV["TM_SUPPORT_PATH"]}/bin/rubywrap.rb" #{flags}`
+print e_sn(text)
+</string>
+	<key>fallbackInput</key>
+	<string>scope</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>^q</string>
+	<key>name</key>
+	<string>Reformat Comment</string>
+	<key>output</key>
+	<string>insertAsSnippet</string>
+	<key>scope</key>
+	<string>comment.line.number-sign.ruby</string>
+	<key>uuid</key>
+	<string>F20AD964-3C68-4940-91B1-8A99B8E2A375</string>
+</dict>
+</plist>

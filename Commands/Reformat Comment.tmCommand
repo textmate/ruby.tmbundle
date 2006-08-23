@@ -10,6 +10,7 @@
 $LOAD_PATH &lt;&lt; "#{ENV["TM_SUPPORT_PATH"]}/lib"
 require "escape"
 
+flags =  ""
 flags += " --retabify " if ENV["TM_SOFT_TABS"] == "NO"
 text =`echo -n "#{e_as(STDIN.read)}" | ruby "#{ENV["TM_SUPPORT_PATH"]}/bin/rubywrap.rb" #{flags}`
 print e_sn(text)

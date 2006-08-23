@@ -7,7 +7,8 @@ require 'fcntl'
 $RUBYMATE_VERSION = "$Revision$"
 
 def esc(str)
-  CGI.escapeHTML(str).gsub(/\n/, '<br/>')
+  str = CGI.escapeHTML(str).gsub(/\n/, '<br/>')
+  str.reverse.gsub(/ (?= |$)/, ';psbn&').reverse
 end
 
 class UserScript
@@ -191,4 +192,5 @@ __END__
 		<div><!-- first box containing version info and script output -->
 			<pre><strong>RubyMate r${RUBYMATE_VERSION} running Ruby v${RUBY_VERSION}</strong>
 <strong>>>> ${SCRIPT_NAME}</strong>
-<div> <!-- Script output -->
+
+<div style="white-space: normal; -khtml-nbsp-mode: space; -khtml-line-break: after-white-space;"> <!-- Script output -->

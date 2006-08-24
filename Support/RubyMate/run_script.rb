@@ -86,6 +86,7 @@ map = {
   'TM_SUPPORT_PATH'   => ENV['TM_SUPPORT_PATH'],
   'TM_HTML_LANG'      => ENV['TM_MODE'],
   'TM_HTML_TITLE'     => 'RubyMate',
+  'TM_HTML_THEME'     => %x{bash -c #{e_sh ". #{e_sh ENV['TM_SUPPORT_PATH']}/lib/webpreview.sh && selected_theme"}}.chomp,
   'TM_EXTRA_HEAD'     => '',
   'TM_CSS'            => `cat "${TM_SUPPORT_PATH}/css/webpreview.css" | sed "s|TM_SUPPORT_PATH|${TM_SUPPORT_PATH}|"`,
 }
@@ -170,7 +171,7 @@ __END__
 	<script src="file://${TM_SUPPORT_PATH}/script/webpreview.js" type="text/javascript" language="javascript" charset="utf-8"></script>
 	${TM_EXTRA_HEAD}
 </head>
-<body id="tm_webpreview_body">
+<body id="tm_webpreview_body" class="${TM_HTML_THEME}">
 	<div id="tm_webpreview_header">
 		<p class="headline">${TM_HTML_TITLE}</p>
 		<p class="type">${TM_HTML_LANG}</p>
@@ -186,7 +187,7 @@ __END__
 			</form>
 		</div>
 	</div>
-	<div id="tm_webpreview_content" class="bright">
+	<div id="tm_webpreview_content" class="${TM_HTML_THEME}">
 	<div class="rubymate">
 		
 		<div><!-- first box containing version info and script output -->

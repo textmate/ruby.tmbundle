@@ -17,7 +17,7 @@
 	<key>output</key>
 	<string>showAsHTML</string>
 	<key>scope</key>
-	<string>source.ruby</string>
+	<string>source.ruby - text.html.ruby</string>
 	<key>uuid</key>
 	<string>35222962-C50D-4D58-A6AE-71E7AD980BE4</string>
 </dict>

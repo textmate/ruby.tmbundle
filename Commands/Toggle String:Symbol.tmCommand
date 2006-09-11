@@ -22,7 +22,7 @@ end
 	<key>input</key>
 	<string>selection</string>
 	<key>keyEquivalent</key>
-	<string>^S</string>
+	<string>^:</string>
 	<key>name</key>
 	<string>Toggle String / Symbol</string>
 	<key>output</key>

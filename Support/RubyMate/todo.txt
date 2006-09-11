@@ -11,8 +11,3 @@ The exit code from the process we span is not shown. This is a limitation of pop
 Errors From Included Files
 ==========================
 These could be shown differently to make them distinguishable.
-
-
-Unit Testing
-============
-The Run Focused Unit Test needs to be integrated with this.

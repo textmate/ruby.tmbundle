@@ -7,23 +7,34 @@
 	<key>command</key>
 	<string>#!/usr/bin/env ruby
 
-require "#{ENV["TM_SUPPORT_PATH"]}/lib/exit_codes"
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/dialog"
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/web_preview"
 
 require "erb"
 include ERB::Util
 require "pstore"
 
-RAKEMATE_VERSION = "1.2.0".freeze
+RAKEMATE_VERSION = "1.3.0".freeze
+DEFAULT_TASK     = "(default task)".freeze
+RAKEFILE_DIR     = (ENV["TM_PROJECT_DIRECTORY"] || ENV["TM_DIRECTORY"]).freeze
+
+html_header("RakeMate", "Rake")
+puts &lt;&lt;-HTML
+&lt;pre&gt;RakeMate v#{RAKEMATE_VERSION} running on Ruby v#{RUBY_VERSION} (#{`which ruby`.strip})
+&amp;gt;&amp;gt;&amp;gt; #{RAKEFILE_DIR}/Rakefile
+
+HTML
 
 rake = ENV["TM_RAKE"] ||
        ENV["PATH"].split(":").map { |dir| File.join(dir, "rake") }.
                               find { |r| File.exist? r }
-TextMate.exit_show_tool_tip("Rake not found.  Please set TM_RAKE.") if rake.nil?
-
-DEFAULT_TASK = "(default task)".freeze
-RAKEFILE_DIR = (ENV["TM_PROJECT_DIRECTORY"] || ENV["TM_DIRECTORY"]).freeze
+if rake.nil?
+  puts "Rake not found.  Please set TM_RAKE."
+  puts "&lt;/pre&gt;"
+  html_footer
+  exit
+end
 
 prefs = PStore.new( File.expand_path( "~/Library/Preferences/" +
                                       "com.macromates.textmate.run_rake" ) )
@@ -31,7 +42,18 @@ prefs = PStore.new( File.expand_path( "~/Library/Preferences/" +
 Dir.chdir(RAKEFILE_DIR)
 tasks = `#{rake} --tasks`
 
-TextMate.exit_show_tool_tip("Could not fetch task list.") unless $?.exited?
+unless $?.exited?
+  puts "Could not fetch task list."
+  puts "&lt;/pre&gt;"
+  html_footer
+  exit
+end
+if tasks.include? "No Rakefile found"
+  puts "Could not locate a Rakefile in #{RAKEFILE_DIR}."
+  puts "&lt;/pre&gt;"
+  html_footer
+  exit
+end
 
 tasks = [DEFAULT_TASK] + tasks.grep(/^rake\s+(\S+)/) { |t| t.split[1] }
 if last_task = tasks.index(prefs.transaction(true) { prefs[RAKEFILE_DIR] })
@@ -45,18 +67,6 @@ if task = Dialog.request_item( :title   =&gt; "Rake Tasks",
   prefs.transaction { prefs[RAKEFILE_DIR] = task }
   
   testing = task =~ /test/i || task == DEFAULT_TASK
-  print &lt;&lt;START_HTML
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;title&gt;Rake TextMate Runtime&lt;/title&gt;
-    &lt;link rel="stylesheet" href="file://#{e_url ENV['TM_BUNDLE_SUPPORT']}/pastel.css" type="text/css"&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;div id="script_output" class="framed"&gt;
-    &lt;pre&gt;&lt;strong&gt;RakeMate r#{RAKEMATE_VERSION} running Ruby v#{RUBY_VERSION}.&lt;/strong&gt;
-&lt;strong&gt;&amp;gt;&amp;gt;&amp;gt; #{Dir.pwd}&lt;/strong&gt;
-&lt;div id="actual_output" style="-khtml-line-break: after-white-space;"&gt;
-START_HTML
   open("|#{rake} #{task == "(default task)" ? "" : task} 2&gt;&amp;1") do |output|
 	  while line = output.gets
 	    if testing and line =~ /^\d+ tests, \d+ assertions, (\d+) failures, (\d+) errors/
@@ -96,12 +106,10 @@ START_HTML
       end
 	  end
   end
-  print &lt;&lt;END_HTML
-    &lt;/div&gt;&lt;/pre&gt;&lt;/div&gt;
-  &lt;/body&gt;
-&lt;/html&gt;
-END_HTML
+  puts "&lt;/pre&gt;"
+  html_footer
 end
+
 </string>
 	<key>input</key>
 	<string>none</string>

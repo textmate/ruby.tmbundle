@@ -48,4 +48,4 @@ else
   end
 end
 
-puts documentation
+puts documentation.gsub("\n", "<br />")

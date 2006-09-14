@@ -8,6 +8,7 @@ $RUBYMATE_VERSION = "$Revision$"
 
 def esc(str)
   str = CGI.escapeHTML(str).gsub(/\n/, '<br/>')
+  str = str.gsub(/\t+/, '<span style="white-space:pre;">\0</span>')
   str.reverse.gsub(/ (?= |$)/, ';psbn&').reverse
 end
 

@@ -2,15 +2,8 @@ require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
 
 require 'open3'
 require 'cgi'
-require 'fcntl'
 
 $RUBYMATE_VERSION = "$Revision$"
-
-def esc(str)
-  str = CGI.escapeHTML(str).gsub(/\n/, '<br/>')
-  str = str.gsub(/\t+/, '<span style="white-space:pre;">\0</span>')
-  str.reverse.gsub(/ (?= |$)/, ';psbn&').reverse
-end
 
 class UserScript
   def initialize
@@ -103,16 +96,18 @@ puts DATA.read.gsub(/\$\{([^}]+)\}/) { |m| map[$1] }
 stdout, stderr, stack_dump = script.run
 descriptors = [ stdout, stderr, stack_dump ]
 
-descriptors.each { |fd| fd.fcntl(Fcntl::F_SETFL, Fcntl::O_NONBLOCK) }
 until descriptors.empty?
   select(descriptors).shift.each do |io|
-    str = io.read
-    if str.to_s.empty? then
+    if io.eof? then
       descriptors.delete io
       io.close
-    elsif io == stdout then
+      next
+    end
+
+    str = io.readpartial(1024) # really just read a line
+    if io == stdout then
       if script.test_script? and str =~ /\A[.EF]+\Z/
-        print esc(str).gsub(/[EF]+/, "<span style=\"color: red\">\\&</span>") +
+        print htmlize(str).gsub(/[EF]+/, "<span style=\"color: red\">\\&</span>") +
               "<br style=\"display: none\"/>"
       else
         if script.test_script?
@@ -136,15 +131,15 @@ until descriptors.empty?
             elsif line =~ /^\d+ tests, \d+ assertions, (\d+) failures, (\d+) errors/
               "<span style=\"color: #{$1 + $2 == "00" ? "green" : "red"}\">#{$&}</span><br/>"
             else
-              esc(line)
+              htmlize(line)
             end
           end.join )
 	      else
-	        print esc(str)
+	        print htmlize(str)
         end
       end
     elsif io == stderr then
-      print "<span style='color: red'>#{esc str}</span>"
+      print "<span style='color: red'>#{htmlize str}</span>"
     elsif io == stack_dump then
       error << str
     end

@@ -87,6 +87,7 @@
 	<key>foldingStopMarker</key>
 	<string>(?x)
 		(   (^|;) \s*+ end   \s*+ ([#].*)? $
+		|   (^|;) \s*+ end \. .* $
 		|   ^     \s*+ [}\]] \s*+ ([#].*)? $
 		|   [#] .*? \(end\) \s*+ $    # Sune’s special marker
 		)</string>

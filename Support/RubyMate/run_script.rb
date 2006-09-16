@@ -1,5 +1,6 @@
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
 
+require 'fcntl'
 require 'open3'
 require 'cgi'
 

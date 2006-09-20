@@ -570,6 +570,7 @@
 			     | (?:\s|l|\.)sub!\s
 			     | (?:\s|;|\.)gsub\s
 			     | (?:\s|;|\.)gsub!\s
+			     | (?:\s|;|\.)match\s
 			     | (?:\s|;)if\s
 			     | (?:\s|;)elsif\s
 			     )
@@ -581,6 +582,7 @@
 			      | ^gsub\s
 			      | ^gsub\s
 			      | ^gsub!\s
+			      | ^match\s
 			      | ^if\s
 			      | ^elsif\s
 			      )

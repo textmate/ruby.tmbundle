@@ -1,8 +1,8 @@
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
 
-require 'fcntl'
 require 'open3'
 require 'cgi'
+require 'fcntl'
 
 $RUBYMATE_VERSION = "$Revision$"
 
@@ -97,16 +97,14 @@ puts DATA.read.gsub(/\$\{([^}]+)\}/) { |m| map[$1] }
 stdout, stderr, stack_dump = script.run
 descriptors = [ stdout, stderr, stack_dump ]
 
+descriptors.each { |fd| fd.fcntl(Fcntl::F_SETFL, Fcntl::O_NONBLOCK) }
 until descriptors.empty?
   select(descriptors).shift.each do |io|
-    if io.eof? then
+    str = io.read
+    if str.to_s.empty? then
       descriptors.delete io
       io.close
-      next
-    end
-
-    str = io.readpartial(1024) # really just read a line
-    if io == stdout then
+    elsif io == stdout then
       if script.test_script? and str =~ /\A[.EF]+\Z/
         print htmlize(str).gsub(/[EF]+/, "<span style=\"color: red\">\\&</span>") +
               "<br style=\"display: none\"/>"

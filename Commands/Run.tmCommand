@@ -8,7 +8,9 @@
 	<string>nop</string>
 	<key>command</key>
 	<string>export RUBYLIB="$TM_BUNDLE_SUPPORT/RubyMate${RUBYLIB:+:$RUBYLIB}"
-"${TM_RUBY:-ruby}" -- "$TM_BUNDLE_SUPPORT/RubyMate/run_script.rb"
+export TM_RUBY=$(which "${TM_RUBY:-ruby}")
+
+"${TM_RUBY}" -- "$TM_BUNDLE_SUPPORT/RubyMate/run_script.rb"
 </string>
 	<key>input</key>
 	<string>document</string>

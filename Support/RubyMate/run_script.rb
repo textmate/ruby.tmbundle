@@ -23,10 +23,13 @@ class UserScript
     end
   end
 
+  def ruby
+    @arg0 || ENV['TM_RUBY'] || 'ruby'
+  end
+
   def ruby_version_string
-    # ideally we should get this back from the script we execute
-    res = %x{ #{@arg0 || 'ruby'} -e 'print RUBY_VERSION' }
-    res + " (#{@arg0 || `which ruby`.chomp})"
+    res = %x{ #{e_sh ruby} -e 'print RUBY_VERSION' }
+    res + " (#{ruby})"
   end
   
   def test_script?
@@ -38,7 +41,7 @@ class UserScript
     rd, wr = IO.pipe
     rd.fcntl(Fcntl::F_SETFD, 1)
     ENV['TM_ERROR_FD'] = wr.to_i.to_s
-    args = add_test_path( *[ @arg0 || 'ruby',
+    args = add_test_path( *[ ruby,
                              '-rcatch_exception', '-rstdin_dialog',
                              Array(@args), @path, ARGV.to_a ].flatten )
     stdin, stdout, stderr = Open3.popen3(*args)

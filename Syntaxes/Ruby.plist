@@ -838,13 +838,13 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%([^\w\s])</string>
+			<string>%([^\w\s=])</string>
 			<key>comment</key>
 			<string>literal capable of interpolation -- wildcard</string>
 			<key>end</key>
 			<string>\1</string>
 			<key>name</key>
-			<string>string.quoted.other.literal.upper.ruby</string>
+			<string>string.quoted.other.literal.other.ruby</string>
 			<key>patterns</key>
 			<array>
 				<dict>

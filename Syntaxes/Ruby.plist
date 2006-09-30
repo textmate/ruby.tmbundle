@@ -580,7 +580,7 @@
 			      | ^scan\s
 			      | ^sub\s
 			      | ^gsub\s
-			      | ^gsub\s
+			      | ^sub!\s
 			      | ^gsub!\s
 			      | ^match\s
 			      | ^if\s

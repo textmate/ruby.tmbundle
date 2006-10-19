@@ -11,11 +11,9 @@
 		<key>completionCommand</key>
 		<string>#!/usr/bin/env ruby
 		ptrn = /^#{Regexp.escape ENV["TM_CURRENT_WORD"].to_s}[^.]+\..+/
-		res = []
-		$:.each do |path|
-		  Dir.new(path).grep(ptrn).map { |file| res &lt;&lt; file.sub(/\..+/, "") }
-		end
-		print res.sort.uniq.join("\n")</string>
+		puts( $LOAD_PATH.inject([]) do |res, path|
+		  res + Dir.new(path).grep(ptrn) { |file| file[/^[^.]+/] }
+		end.sort.uniq )</string>
 	</dict>
 	<key>uuid</key>
 	<string>AEDD6A5F-417F-4177-8589-B07518ACA9DE</string>

@@ -1548,7 +1548,25 @@
 			<key>contentName</key>
 			<string>text.plain</string>
 			<key>end</key>
-			<string>(?!impossible)impossible</string>
+			<string>(?=not)impossible</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(?=&lt;(?i:html\b)|!DOCTYPE (?i:html\b))</string>
+					<key>end</key>
+					<string>(?=not)impossible</string>
+					<key>name</key>
+					<string>text.html.embedded.ruby</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>text.html.basic</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>begin</key>

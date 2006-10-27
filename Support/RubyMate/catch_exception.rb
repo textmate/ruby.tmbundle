@@ -10,7 +10,7 @@ at_exit do
     io = IO.for_fd(ENV['TM_ERROR_FD'].to_i)
 
     io.write "<div id='exception_report' class='framed'>\n"
-    io.write "<p id='exception'><strong>#{e.class.name}:</strong> #{e.message.sub(/`(\w+)'/, '‘\1’').sub(/ -- /, ' — ')}</p>\n"
+    io.write "<p id='exception'><strong>#{e.class.name}:</strong> #{CGI.escapeHTML e.message.sub(/`(\w+)'/, '‘\1’').sub(/ -- /, ' — ')}</p>\n"
 
     io.write "<blockquote><table border='0' cellspacing='0' cellpadding='0'>\n"
     

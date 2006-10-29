@@ -1553,7 +1553,7 @@
 			<array>
 				<dict>
 					<key>begin</key>
-					<string>(?=&lt;(?i:html\b)|!DOCTYPE (?i:html\b))</string>
+					<string>(?=&lt;?xml|&lt;(?i:html\b)|!DOCTYPE (?i:html\b))</string>
 					<key>end</key>
 					<string>(?=not)impossible</string>
 					<key>name</key>

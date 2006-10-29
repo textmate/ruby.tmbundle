@@ -161,27 +161,33 @@ __END__
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-   <title>RubyMate — ${SCRIPT_NAME}</title>
-	<style type="text/css" media="screen">
-		${TM_CSS}
-	</style>
+  <title>RubyMate — ${SCRIPT_NAME}</title>
+	<link rel="stylesheet" href="file://${TM_SUPPORT_PATH}/themes/default/style.css" type="text/css" media="screen" charset="utf-8"/>
+	<link rel="stylesheet" href="file://${TM_SUPPORT_PATH}/themes/bright/style.css" type="text/css" media="screen" charset="utf-8"/>
+	<link rel="stylesheet" href="file://${TM_SUPPORT_PATH}/themes/dark/style.css" type="text/css" media="screen" charset="utf-8"/>
+	<link rel="stylesheet" href="file://${TM_SUPPORT_PATH}/themes/shiny/style.css" type="text/css" media="screen" charset="utf-8"/>
+	<link rel="stylesheet" href="file://${TM_SUPPORT_PATH}/themes/halloween/style.css" type="text/css" media="screen" charset="utf-8"/>
 	<script src="file://${TM_SUPPORT_PATH}/script/default.js" type="text/javascript" language="javascript" charset="utf-8"></script>
 	<script src="file://${TM_SUPPORT_PATH}/script/webpreview.js" type="text/javascript" language="javascript" charset="utf-8"></script>
 	${TM_EXTRA_HEAD}
 </head>
 <body id="tm_webpreview_body" class="${TM_HTML_THEME}">
 	<div id="tm_webpreview_header">
+		<img id="gradient" src="file://${TM_SUPPORT_PATH}/themes/${TM_HTML_THEME}/images/header.png"/>
 		<p class="headline">${TM_HTML_TITLE}</p>
 		<p class="type">${TM_HTML_LANG}</p>
-		<img class="teaser" src="file://${TM_SUPPORT_PATH}/images/gear2.png" alt="teaser" />
+		<img id="teaser" src="file://${TM_SUPPORT_PATH}/themes/${TM_HTML_THEME}/images/teaser.png" alt="teaser" />
 		<div id="theme_switcher">
 			<form action="#" onsubmit="return false;">
 				Theme: 
 				<select onchange="selectTheme(this.value);" id="theme_selector">
-					<option>bright</option>
-					<option>dark</option>
-					<option value="default">no colors</option>
+					<option value="bright" >bright</option>
+					<option value="dark"   >dark</option>
+					<option values="shiny" >shiny</option>
 				</select>
+				<script type="text/javascript" charset="utf-8">
+				  document.getElementById('theme_selector').value = '${TM_HTML_THEME}';
+				</script>
 			</form>
 		</div>
 	</div>

@@ -1,4 +1,5 @@
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/web_preview"
 
 require 'open3'
 require 'cgi'
@@ -76,26 +77,17 @@ error = ""
 STDOUT.sync = true
 
 script = UserScript.new
-map = {
-  'SCRIPT_NAME'       => script.display_name,
-  'RUBY_VERSION'      => script.ruby_version_string,
-  'RUBYMATE_VERSION'  => $RUBYMATE_VERSION[/\d+/],
-  'BUNDLE_SUPPORT'    => "tm-file://#{ENV['TM_BUNDLE_SUPPORT'].gsub(/ /, '%20')}",
-  'TM_SUPPORT_PATH'   => ENV['TM_SUPPORT_PATH'],
-  'TM_HTML_LANG'      => ENV['TM_MODE'],
-  'TM_HTML_TITLE'     => 'RubyMate',
-  'TM_HTML_THEME'     => %x{bash -c #{e_sh ". #{e_sh ENV['TM_SUPPORT_PATH']}/lib/webpreview.sh && selected_theme"}}.chomp,
-  'TM_EXTRA_HEAD'     => '',
-  'TM_CSS'            => `cat "${TM_SUPPORT_PATH}/css/webpreview.css" | sed "s|TM_SUPPORT_PATH|${TM_SUPPORT_PATH}|"`,
-}
-# $TM_SUPPORT_PATH = ENV['TM_SUPPORT_PATH']
-# $TM_HTML_LANG =    ENV['TM_MODE']
-# $TM_HTML_TITLE =   'RubyMate'
-# $TM_EXTRA_HEAD =   ''
-# $TM_CSS =          `cat "${TM_SUPPORT_PATH}/css/webview.css" | sed "s|TM_SUPPORT_PATH|${TM_SUPPORT_PATH}|"`
 
+puts html_head(:window_title => "#{script.display_name} — RubyMate", :page_title => 'RubyMate', :sub_title => 'Ruby')
+puts <<-HTML
+	<div class="rubymate">
+		
+		<div><!-- first box containing version info and script output -->
+			<pre><strong>RubyMate r#{$RUBYMATE_VERSION[/\d+/]} running Ruby v#{script.ruby_version_string}</strong>
+<strong>>>> #{script.display_name}</strong>
 
-puts DATA.read.gsub(/\$\{([^}]+)\}/) { |m| map[$1] }
+<div style="white-space: normal; -khtml-nbsp-mode: space; -khtml-line-break: after-white-space;"> <!-- Script output -->
+HTML
 
 stdout, stderr, stack_dump = script.run
 descriptors = [ stdout, stderr, stack_dump ]
@@ -153,50 +145,3 @@ puts error
 puts '<div id="exception_report" class="framed">Program exited.</div>'
 puts '</div>'
 puts '</body></html>'
-
-__END__
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-  <title>RubyMate — ${SCRIPT_NAME}</title>
-	<link rel="stylesheet" href="file://${TM_SUPPORT_PATH}/themes/default/style.css" type="text/css" media="screen" charset="utf-8"/>
-	<link rel="stylesheet" href="file://${TM_SUPPORT_PATH}/themes/bright/style.css" type="text/css" media="screen" charset="utf-8"/>
-	<link rel="stylesheet" href="file://${TM_SUPPORT_PATH}/themes/dark/style.css" type="text/css" media="screen" charset="utf-8"/>
-	<link rel="stylesheet" href="file://${TM_SUPPORT_PATH}/themes/shiny/style.css" type="text/css" media="screen" charset="utf-8"/>
-	<link rel="stylesheet" href="file://${TM_SUPPORT_PATH}/themes/halloween/style.css" type="text/css" media="screen" charset="utf-8"/>
-	<script src="file://${TM_SUPPORT_PATH}/script/default.js" type="text/javascript" language="javascript" charset="utf-8"></script>
-	<script src="file://${TM_SUPPORT_PATH}/script/webpreview.js" type="text/javascript" language="javascript" charset="utf-8"></script>
-	${TM_EXTRA_HEAD}
-</head>
-<body id="tm_webpreview_body" class="${TM_HTML_THEME}">
-	<div id="tm_webpreview_header">
-		<img id="gradient" src="file://${TM_SUPPORT_PATH}/themes/${TM_HTML_THEME}/images/header.png"/>
-		<p class="headline">${TM_HTML_TITLE}</p>
-		<p class="type">${TM_HTML_LANG}</p>
-		<img id="teaser" src="file://${TM_SUPPORT_PATH}/themes/${TM_HTML_THEME}/images/teaser.png" alt="teaser" />
-		<div id="theme_switcher">
-			<form action="#" onsubmit="return false;">
-				Theme: 
-				<select onchange="selectTheme(this.value);" id="theme_selector">
-					<option value="bright" >bright</option>
-					<option value="dark"   >dark</option>
-					<option values="shiny" >shiny</option>
-					<option values="halloween" >halloween</option>
-				</select>
-				<script type="text/javascript" charset="utf-8">
-				  document.getElementById('theme_selector').value = '${TM_HTML_THEME}';
-				</script>
-			</form>
-		</div>
-	</div>
-	<div id="tm_webpreview_content" class="${TM_HTML_THEME}">
-	<div class="rubymate">
-		
-		<div><!-- first box containing version info and script output -->
-			<pre><strong>RubyMate r${RUBYMATE_VERSION} running Ruby v${RUBY_VERSION}</strong>
-<strong>>>> ${SCRIPT_NAME}</strong>
-
-<div style="white-space: normal; -khtml-nbsp-mode: space; -khtml-line-break: after-white-space;"> <!-- Script output -->

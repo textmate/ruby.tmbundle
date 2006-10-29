@@ -1485,7 +1485,7 @@
 			<key>end</key>
 			<string>^=end</string>
 			<key>name</key>
-			<string>comment.documentation.ruby</string>
+			<string>comment.block.documentation.ruby</string>
 		</dict>
 		<dict>
 			<key>captures</key>

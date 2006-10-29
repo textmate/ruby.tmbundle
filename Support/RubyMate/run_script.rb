@@ -184,6 +184,7 @@ __END__
 					<option value="bright" >bright</option>
 					<option value="dark"   >dark</option>
 					<option values="shiny" >shiny</option>
+					<option values="halloween" >halloween</option>
 				</select>
 				<script type="text/javascript" charset="utf-8">
 				  document.getElementById('theme_selector').value = '${TM_HTML_THEME}';

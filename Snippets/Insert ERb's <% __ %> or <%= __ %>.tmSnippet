@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>&lt;%${1:= ${2:ruby code}} %&gt;</string>
+	<string>&lt;%${1:= ${0:ruby code}} %&gt;</string>
 	<key>keyEquivalent</key>
 	<string>^&gt;</string>
 	<key>name</key>

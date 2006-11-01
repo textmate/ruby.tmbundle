@@ -44,7 +44,7 @@ end</string>
 	<key>output</key>
 	<string>insertAsSnippet</string>
 	<key>scope</key>
-	<string>source.ruby.embedded</string>
+	<string>source.ruby.embedded, source.ruby.rails.embedded</string>
 	<key>uuid</key>
 	<string>835FAAC6-5431-436C-998B-241F7226B99B</string>
 </dict>

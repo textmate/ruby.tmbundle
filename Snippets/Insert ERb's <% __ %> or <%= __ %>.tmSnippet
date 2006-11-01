@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>&lt;%${1:= ${0:ruby code}} %&gt;</string>
+	<string>&lt;%= ${0:$TM_SELECTED_TEXT} %&gt;</string>
 	<key>keyEquivalent</key>
 	<string>^&gt;</string>
 	<key>name</key>

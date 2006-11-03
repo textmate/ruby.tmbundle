@@ -10,7 +10,7 @@
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
 require "enumerator"
 
-TAGS = %w[&lt;%= &lt;% &lt;%-].freeze
+TAGS = %w[&lt;%= &lt;%- &lt;%].freeze
 
 # locate caret (Allan's code)
 line = ENV['TM_LINE_NUMBER'].to_i - ENV['TM_INPUT_START_LINE'].to_i

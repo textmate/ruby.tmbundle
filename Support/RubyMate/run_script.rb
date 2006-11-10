@@ -33,7 +33,7 @@ class RubyScript < UserScript
                                   [".."] * (path_ary.length - index - 1) ) +
                                   ["lib"] )
         if File.exist? lib_path
-          args.insert(1, "-I#{lib_path}:#{test_path}")
+          args.insert(1, "-I#{e_sh lib_path}:#{e_sh test_path}")
         end
       end
     end

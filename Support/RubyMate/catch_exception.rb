@@ -13,7 +13,7 @@ at_exit do
     io.write "<p id='exception'><strong>#{e.class.name}:</strong> #{CGI.escapeHTML e.message.sub(/`(\w+)'/, '‘\1’').sub(/ -- /, ' — ')}</p>\n"
 
     io.write "<blockquote><table border='0' cellspacing='0' cellpadding='0'>\n"
-    
+
     e.backtrace.each do |b|
       if b =~ /(.*?):(\d+)(?::in\s*`(.*?)')?/ then
         file, line, method = $1, $2, $3

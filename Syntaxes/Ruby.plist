@@ -339,6 +339,29 @@
 			<string>support.class.ruby</string>
 		</dict>
 		<dict>
+			<key>begin</key>
+			<string>\b(ENV)\[</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>variable.other.constant.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>\]</string>
+			<key>name</key>
+			<string>meta.environment-variable.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
 			<key>match</key>
 			<string>\b[A-Z]\w*\b</string>
 			<key>name</key>

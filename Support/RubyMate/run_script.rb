@@ -1,36 +1,22 @@
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/scriptmate"
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
-require "#{ENV["TM_SUPPORT_PATH"]}/lib/web_preview"
+require "cgi"
 
-require 'open3'
-require 'cgi'
-require 'fcntl'
 
-$RUBYMATE_VERSION = "$Revision$"
+$SCRIPTMATE_VERSION = "$Revision$"
 
-class UserScript
-  def initialize
-    @content = STDIN.read
-    @arg0 = $1       if @content =~ /\A#!([^ \n]+\/ruby\b)/
-    @args = $1.split if @content =~ /\A#!.*?\bruby[ \t]+(.*)$/
+class RubyScript < UserScript
 
-    if ENV.has_key? 'TM_FILEPATH' then
-      @path = ENV['TM_FILEPATH']
-      @display_name = File.basename(@path)
-      # save file
-      open(@path, "w") { |io| io.write @content }
-    else
-      @path = '-'
-      @display_name = 'untitled'
-    end
-  end
+  @@execmatch = "ruby"
+  @@execargs = ['-rcatch_exception', '-rstdin_dialog']
 
-  def ruby
+  def executable
     @arg0 || ENV['TM_RUBY'] || 'ruby'
   end
 
-  def ruby_version_string
-    res = %x{ #{e_sh ruby} -e 'print RUBY_VERSION' }
-    res + " (#{ruby})"
+  def version_string
+    res = "Ruby r" + %x{ #{e_sh executable} -e 'print RUBY_VERSION' }
+    res + " (#{executable})"
   end
   
   def test_script?
@@ -38,25 +24,7 @@ class UserScript
     @content =~ /\brequire\b.+(?:test\/unit|test_helper)/
   end
 
-  def run
-    rd, wr = IO.pipe
-    rd.fcntl(Fcntl::F_SETFD, 1)
-    ENV['TM_ERROR_FD'] = wr.to_i.to_s
-    args = add_test_path( *[ ruby,
-                             '-rcatch_exception', '-rstdin_dialog',
-                             Array(@args), @path, ARGV.to_a ].flatten )
-    stdin, stdout, stderr = Open3.popen3(*args)
-    Thread.new { stdin.write @content; stdin.close } unless ENV.has_key? 'TM_FILEPATH'
-    wr.close
-
-    [ stdout, stderr, rd ]
-  end
-
-  attr_reader :display_name, :path
-  
-  private
-  
-  def add_test_path(*args)
+  def filter_args(*args)
     if test_script?
       path_ary = @path.split("/")
       if index = path_ary.rindex("test")
@@ -73,75 +41,42 @@ class UserScript
   end
 end
 
-error = ""
-STDOUT.sync = true
+class RubyMate < ScriptMate
+  @@matename = "RubyMate" # eg. RubyMate, PyMate, PerlMate...
+  @@langname = "Ruby" # eg. Python, Ruby, Perl...
 
-script = UserScript.new
-
-puts html_head(:window_title => "#{script.display_name} — RubyMate", :page_title => 'RubyMate', :sub_title => 'Ruby')
-puts <<-HTML
-	<div class="rubymate">
-		
-		<div><!-- first box containing version info and script output -->
-			<pre><strong>RubyMate r#{$RUBYMATE_VERSION[/\d+/]} running Ruby v#{script.ruby_version_string}</strong>
-<strong>>>> #{script.display_name}</strong>
-
-<div style="white-space: normal; -khtml-nbsp-mode: space; -khtml-line-break: after-white-space;"> <!-- Script output -->
-HTML
-
-stdout, stderr, stack_dump = script.run
-descriptors = [ stdout, stderr, stack_dump ]
-
-descriptors.each { |fd| fd.fcntl(Fcntl::F_SETFL, Fcntl::O_NONBLOCK) }
-until descriptors.empty?
-  select(descriptors).shift.each do |io|
-    str = io.read
-    if str.to_s.empty? then
-      descriptors.delete io
-      io.close
-    elsif io == stdout then
-      if script.test_script? and str =~ /\A[.EF]+\Z/
-        print htmlize(str).gsub(/[EF]+/, "<span style=\"color: red\">\\&</span>") +
-              "<br style=\"display: none\"/>"
-      else
-        if script.test_script?
-          print( str.map do |line|
-            if line =~ /^(\s+)(\S.*?):(\d+)(?::in\s*`(.*?)')?/
-              indent, file, line, method = $1, $2, $3, $4
-
-              url, display_name = '', 'untitled document';
-              unless file == "-"
-                indent += " " if file.sub!(/^\[/, "")
-                url = '&amp;url=file://' + e_url(file)
-                display_name = File.basename(file)
-              end
-
-              "#{indent}<a class='near' href='txmt://open?line=#{line + url}'>" +
-              (method ? "method #{CGI::escapeHTML method}" : '<em>at top level</em>') +
-              "</a> in <strong>#{CGI::escapeHTML display_name}</strong> at line #{line}<br/>"
-            elsif line =~ /([\w\_]+).*\[([\w\_\/\.]+)\:(\d+)\]/
-              method, file, line = $1, $2, $3
-              "<span><a style=\"color: blue;\" href=\"txmt://open?url=file://#{e_url(file)}&amp;line=#{line}\">#{method}</span>:#{line}<br/>"
-            elsif line =~ /^\d+ tests, \d+ assertions, (\d+) failures, (\d+) errors/
-              "<span style=\"color: #{$1 + $2 == "00" ? "green" : "red"}\">#{$&}</span><br/>"
-            else
-              htmlize(line)
+  def filter_stdout(str)
+    if @script.test_script? and str =~ /\A[.EF]+\Z/
+      return htmlize(str).gsub(/[EF]+/, "<span style=\"color: red\">\\&</span>") +
+            "<br style=\"display: none\"/>"
+    else
+      if @script.test_script?
+        return ( str.map do |line|
+          if line =~ /^(\s+)(\S.*?):(\d+)(?::in\s*`(.*?)')?/
+            indent, file, line, method = $1, $2, $3, $4
+            url, display_name = '', 'untitled document';
+            unless file == "-"
+              indent += " " if file.sub!(/^\[/, "")
+              url = '&amp;url=file://' + e_url(file)
+              display_name = File.basename(file)
             end
-          end.join )
-	      else
-	        print htmlize(str)
-        end
+            "#{indent}<a class='near' href='txmt://open?line=#{line + url}'>" +
+            (method ? "method #{CGI::escapeHTML method}" : '<em>at top level</em>') +
+            "</a> in <strong>#{CGI::escapeHTML display_name}</strong> at line #{line}<br/>"
+          elsif line =~ /([\w\_]+).*\[([\w\_\/\.]+)\:(\d+)\]/
+            method, file, line = $1, $2, $3
+            "<span><a style=\"color: blue;\" href=\"txmt://open?url=file://#{e_url(file)}&amp;line=#{line}\">#{method}</span>:#{line}<br/>"
+          elsif line =~ /^\d+ tests, \d+ assertions, (\d+) failures, (\d+) errors/
+            "<span style=\"color: #{$1 + $2 == "00" ? "green" : "red"}\">#{$&}</span><br/>"
+          else
+            htmlize(line)
+          end
+        end.join )
+      else
+        return htmlize(str)
       end
-    elsif io == stderr then
-      print "<span style='color: red'>#{htmlize str}</span>"
-    elsif io == stack_dump then
-      error << str
     end
   end
 end
 
-puts '</div></pre></div>'
-puts error
-puts '<div id="exception_report" class="framed">Program exited.</div>'
-puts '</div>'
-puts '</body></html>'
+RubyMate.new(RubyScript.new).emit_html

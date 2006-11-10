@@ -11,13 +11,22 @@ $: &lt;&lt; "#{ENV['TM_SUPPORT_PATH']}/lib"
 require "escape"
 require "open3"
 
+# make exceptions in the writing Thread kill the process so we don't hang
+Thread.abort_on_exception = true
+
 CURSOR = [0xFFFC].pack("U").freeze
 line, col = ENV["TM_LINE_NUMBER"].to_i - 1, ENV["TM_LINE_INDEX"].to_i
 
 stdin, stdout, stderr = Open3.popen3("/usr/bin/env", "ruby", "#{ENV['TM_BUNDLE_SUPPORT']}/bin/insert_requires.rb")
 Thread.new do
   code = STDIN.read.to_a
-  code[line][col...col] = CURSOR unless ENV.has_key?('TM_SELECTED_TEXT')
+  unless ENV.has_key?('TM_SELECTED_TEXT')
+    if code[line].nil?  # if cursor was on the last line and it was blank
+      code &lt;&lt; CURSOR
+    else
+      code[line][col...col] = CURSOR
+    end
+  end
   stdin.write code.join
   stdin.close
 end

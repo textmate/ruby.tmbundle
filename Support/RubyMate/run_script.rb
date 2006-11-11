@@ -15,7 +15,7 @@ class RubyScript < UserScript
   end
 
   def version_string
-    res = "Ruby r" + %x{ #{e_sh executable} -e 'print RUBY_VERSION' }
+    res = "Ruby r" + %x{ #{executable} -e 'print RUBY_VERSION' }
     res + " (#{executable})"
   end
   

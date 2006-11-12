@@ -3,11 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>#!/usr/bin/env ruby -w
-
+	<string>#!/usr/bin/env ruby -wKU
 </string>
 	<key>name</key>
-	<string>#!/usr/local/bin/ruby -w</string>
+	<string>#!/usr/local/bin/ruby -wKU</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

@@ -334,7 +334,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b[A-Z][a-z]\w*(?=(\.[A-Za-z]|\[))</string>
+			<string>\b[A-Z][a-z]\w*(?=((\.|::)[A-Za-z]|\[))</string>
 			<key>name</key>
 			<string>support.class.ruby</string>
 		</dict>
@@ -2026,6 +2026,10 @@
 						<dict>
 							<key>include</key>
 							<string>#nest_curly_and_self</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>$base</string>
 						</dict>
 					</array>
 				</dict>

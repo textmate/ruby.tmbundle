@@ -8,7 +8,7 @@
 	<string>set `${TM_RUBY:=ruby} --version`
 echo "using ruby-$2 / erb"
 
-"${TM_ERB:=erb}" -x "$TM_FILEPATH" | "${TM_RUBY:=ruby}" -c </string>
+"${TM_ERB:=erb}" -T - -x "$TM_FILEPATH" | "${TM_RUBY:=ruby}" -c </string>
 	<key>input</key>
 	<string>none</string>
 	<key>keyEquivalent</key>

@@ -24,7 +24,7 @@ class RubyScript < UserScript
     @content =~ /\brequire\b.+(?:test\/unit|test_helper)/
   end
 
-  def filter_args(*args)
+  def filter_args(args)
     if test_script?
       path_ary = @path.split("/")
       if index = path_ary.rindex("test")

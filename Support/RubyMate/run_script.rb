@@ -1,5 +1,4 @@
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/scriptmate"
-require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
 require "cgi"
 
 

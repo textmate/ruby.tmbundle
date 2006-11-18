@@ -5,25 +5,19 @@ require "cgi"
 $SCRIPTMATE_VERSION = "$Revision$"
 
 class RubyScript < UserScript
-
-  @@execmatch = "ruby"
-  @@execargs = ['-rcatch_exception', '-rstdin_dialog']
-
+  @@args = ['-rcatch_exception', '-rstdin_dialog']
   def executable
-    @arg0 || ENV['TM_RUBY'] || 'ruby'
+    @hashbang || ENV['TM_RUBY'] || 'ruby'
   end
-
   def version_string
     res = "Ruby r" + %x{ #{executable} -e 'print RUBY_VERSION' }
     res + " (#{executable})"
   end
-  
   def test_script?
     @path    =~ /(?:\b|_)(?:tc|ts|test)(?:\b|_)/ or
     @content =~ /\brequire\b.+(?:test\/unit|test_helper)/
   end
-
-  def filter_args(args)
+  def filter_cmd(cmd)
     if test_script?
       path_ary = @path.split("/")
       if index = path_ary.rindex("test")
@@ -32,18 +26,16 @@ class RubyScript < UserScript
                                   [".."] * (path_ary.length - index - 1) ) +
                                   ["lib"] )
         if File.exist? lib_path
-          args.insert(1, "-I#{e_sh lib_path}:#{e_sh test_path}")
+          cmd.insert(1, "-I#{e_sh lib_path}:#{e_sh test_path}")
         end
       end
     end
-    args
+    cmd
   end
 end
 
 class RubyMate < ScriptMate
-  @@matename = "RubyMate" # eg. RubyMate, PyMate, PerlMate...
-  @@langname = "Ruby" # eg. Python, Ruby, Perl...
-
+  @@lang = "Ruby" # eg. Python, Ruby, Perl...
   def filter_stdout(str)
     if @script.test_script? and str =~ /\A[.EF]+\Z/
       return htmlize(str).gsub(/[EF]+/, "<span style=\"color: red\">\\&</span>") +

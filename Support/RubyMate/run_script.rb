@@ -10,8 +10,9 @@ class RubyScript < UserScript
     @hashbang || ENV['TM_RUBY'] || 'ruby'
   end
   def version_string
+    ruby_path = %x{ #{executable} -e 'require "rbconfig"; print Config::CONFIG["bindir"] + "/" + Config::CONFIG["ruby_install_name"]'}
     res = "Ruby r" + %x{ #{executable} -e 'print RUBY_VERSION' }
-    res + " (#{executable})"
+    res + " (#{ruby_path})"
   end
   def test_script?
     @path    =~ /(?:\b|_)(?:tc|ts|test)(?:\b|_)/ or

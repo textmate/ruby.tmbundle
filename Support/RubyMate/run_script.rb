@@ -5,10 +5,9 @@ require "cgi"
 $SCRIPTMATE_VERSION = "$Revision$"
 
 class RubyScript < UserScript
-  @@args = ['-rcatch_exception', '-rstdin_dialog']
-  def executable
-    @hashbang || ENV['TM_RUBY'] || 'ruby'
-  end
+  def lang; "Ruby" end
+  def executable; @hashbang || ENV['TM_RUBY'] || 'ruby' end
+  def args; ['-rcatch_exception', '-rstdin_dialog'] end
   def version_string
     ruby_path = %x{ #{executable} -e 'require "rbconfig"; print Config::CONFIG["bindir"] + "/" + Config::CONFIG["ruby_install_name"]'}
     res = "Ruby r" + %x{ #{executable} -e 'print RUBY_VERSION' }
@@ -36,7 +35,6 @@ class RubyScript < UserScript
 end
 
 class RubyMate < ScriptMate
-  @@lang = "Ruby" # eg. Python, Ruby, Perl...
   def filter_stdout(str)
     if @script.test_script? and str =~ /\A[.EF]+\Z/
       return htmlize(str).gsub(/[EF]+/, "<span style=\"color: red\">\\&</span>") +
@@ -71,4 +69,5 @@ class RubyMate < ScriptMate
   end
 end
 
-RubyMate.new(RubyScript.new).emit_html
+script = RubyScript.new(STDIN.read)
+RubyMate.new(script).emit_html

@@ -33,17 +33,17 @@ elsif documentation.sub!( /\A(-+\s+)([A-Z_]\w*)(#|::|\.)/,
 else
   documentation.sub!( /\A(-+\s+Class: \w* < )([^\s<]+)/,
                             "\\1<a href=\"javascript:ri('\\2')\">\\2</a>" )
-  documentation.sub!(/(Includes:\s+-+\s+)(.+?)([ \t]*\n[ \t]*\n|\s*\Z)$/m) do
+  documentation.sub!(/(Includes:\s+-+\s+)(.+?)([ \t]*\n[ \t]*\n|\s*\Z)/m) do
     head, meths, foot = $1, $2, $3
     head + meths.gsub(/([A-Z_]\w*)\(([^)]*)\)/) do |match|
       "<a href=\"javascript:ri('#{$1}')\">#{$1}</a>(" +
       link_methods("#{$1}#", $2) + ")"
     end + foot
   end
-  documentation.sub!(/(Class methods:\s+-+\s+)(.+?)([ \t]*\n[ \t]*\n|\s*\Z)$/m) do
+  documentation.sub!(/(Class methods:\s+-+\s+)(.+?)([ \t]*\n[ \t]*\n|\s*\Z)/m) do
     $1 + link_methods("#{term}::", $2) + $3
   end
-  documentation.sub!(/(Instance methods:\s+-+\s+)(.+?)([ \t]*\n[ \t]*\n|\s*\Z)$/m) do
+  documentation.sub!(/(Instance methods:\s+-+\s+)(.+?)([ \t]*\n[ \t]*\n|\s*\Z)/m) do
     $1 + link_methods("#{term}#", $2) + $3
   end
 end

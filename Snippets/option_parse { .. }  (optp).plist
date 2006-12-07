@@ -9,7 +9,7 @@ require "ostruct"
 options = OpenStruct.new(${1::default =&gt; "args"})
 
 ARGV.options do |opts|
-	opts.banner = "Usage:  #{File.basename(\$PROGRAM_NAME)}  [OPTIONS]${2/^\s*$|(.*\S.*)/(?1: )/}${2:OTHER_ARGS}"
+	opts.banner = "Usage:  #{File.basename(\$PROGRAM_NAME)} [OPTIONS]${2/^\s*$|(.*\S.*)/(?1: )/}${2:OTHER_ARGS}"
 	
 	opts.separator ""
 	opts.separator "Specific Options:"

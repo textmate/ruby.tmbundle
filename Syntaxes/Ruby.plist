@@ -2007,6 +2007,25 @@
 			<key>patterns</key>
 			<array>
 				<dict>
+					<key>captures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.section.embedded.ruby</string>
+						</dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>source.ruby.embedded.source.empty</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>#\{(\})</string>
+					<key>name</key>
+					<string>source.ruby.embedded.source</string>
+				</dict>
+				<dict>
 					<key>begin</key>
 					<string>#\{</string>
 					<key>captures</key>

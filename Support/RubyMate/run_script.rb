@@ -1,7 +1,6 @@
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/scriptmate"
 require "cgi"
 
-
 $SCRIPTMATE_VERSION = "$Revision$"
 
 class RubyScript < UserScript
@@ -36,11 +35,11 @@ end
 
 class RubyMate < ScriptMate
   def filter_stdout(str)
-    if @script.test_script? and str =~ /\A[.EF]+\Z/
+    if @command.test_script? and str =~ /\A[.EF]+\Z/
       return htmlize(str).gsub(/[EF]+/, "<span style=\"color: red\">\\&</span>") +
             "<br style=\"display: none\"/>"
     else
-      if @script.test_script?
+      if @command.test_script?
         return ( str.map do |line|
           if line =~ /^(\s+)(\S.*?):(\d+)(?::in\s*`(.*?)')?/
             indent, file, line, method = $1, $2, $3, $4

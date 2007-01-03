@@ -1,0 +1,34 @@
+
+ rcodetools  http://eigenclass.org/hiki.rb?rcodetools
+ Copyright (c) 2005-2006 Mauricio Fernandez <mfp@acm.org> http://eigenclass.org
+ Copyright (c)      2006 rubikitch <rubikitch@ruby-lang.org> http://www.rubyist.net/~rubikitch/
+Use and distribution subject to the terms of the Ruby license.
+
+= Overview
+rcodetools is a collection of Ruby code manipulation tools. 
+It includes xmpfilter and editor-independent Ruby development helper tools,
+as well as emacs and vim interfaces.
+
+Currently, rcodetools comprises:
+* xmpfilter: Automagic Test::Unit assertions/RSpec expectations and code annotations
+* rct-complete: Accurate method/class/constant etc. completions
+* rct-doc: Document browsing and code navigator
+* rct-meth-args: Precise method info (meta-prog. aware) and TAGS generation
+
+See also README.xmpfilter.
+
+Originally rct-complete and rct-doc were subcommands of xmpfilter.
+Actually they use xmpfilter's code heavily.
+But the relationship between xmpfilter (annotation) and completion/doc is not
+intuitive, so I (rubikitch) split it into separate executables.
+
+= Usage
+xmpfilter, rct-complete and rct-doc take its input from stdin and write to
+stdout. They can run in several modes; see 
+ xmpfilter -h 
+ rct-complete -h 
+ rct-doc -h 
+README.emacs and README.vim describe how to use rcodetools from your editor.
+
+= License
+rcodetools is licensed under the same terms as Ruby.

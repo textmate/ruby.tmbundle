@@ -1,0 +1,18 @@
+
+xmpfilter was integrated into rcodetools as of 0.4.0.
+
+xmpfilter history
+=================
+User-visible changes since 0.3.1 (2006-10-17)
+* implemented --debug
+* --[no]-warnings
+* --cd working_dir
+* --rails
+* --no-poetry
+* more intelligent assertions: try to find which local variables hold the
+  values compared against in assertions/expectations
+* editor-independent completion (-C, --completion-emacs, --completion-vim)
+* quick method/class reference with -D (--refe, --ri*)
+
+User-visible changes since 0.3.0 (2006-10-16)
+* xmpfilter.rb --spec works on win32 too

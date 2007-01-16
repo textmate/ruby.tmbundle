@@ -1,3 +1,8 @@
+rcodetools history
+==================
+User-visible changes since 0.4.0
+* rct-meth-args: implemented -I
+* many bug fixes
 
 xmpfilter was integrated into rcodetools as of 0.4.0.
 

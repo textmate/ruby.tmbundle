@@ -77,11 +77,11 @@ See also `rct-interactive'. "
   "Function to use rct-complete-symbol.")
 ;; (setq rct-complete-symbol-function 'rct-complete-symbol--icicles)
 
-(defun rct-complete-symbol ()
+(defun rct-complete-symbol (&optional option)
   "Perform ruby method and class completion on the text around point.
 This command only calls a function according to `rct-complete-symbol-function'.
 See also `rct-interactive', `rct-complete-symbol--normal', and `rct-complete-symbol--icicles'."
-  (interactive)
+  (interactive (rct-interactive))
   (call-interactively rct-complete-symbol-function))
 
 (defun rct-complete-symbol--normal (&optional option)

@@ -28,6 +28,7 @@ stdout. They can run in several modes; see
  xmpfilter -h 
  rct-complete -h 
  rct-doc -h 
+ rct-meth-args -h
 README.emacs and README.vim describe how to use rcodetools from your editor.
 
 = License

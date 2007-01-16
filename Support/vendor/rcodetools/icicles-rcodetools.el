@@ -21,7 +21,7 @@ See also `rct-interactive'."
                          (insert result)) ;/function
                        "rct-complete: "       ;prompt
                        rct-method-completion-table
-                       nil t pattern nil nil nil
+                       nil nil pattern nil nil nil
                        ((end (point)) beg
                         pattern klass
                         (icicle-candidate-help-fn

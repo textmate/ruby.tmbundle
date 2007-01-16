@@ -24,7 +24,7 @@ task :analyze do
 end
 
 file "TAGS" => FileList["lib/rt/*.rb"] do
-  sh "method_args.rb -t lib/rt/*.rb > TAGS"
+  sh "rct-meth-args -t lib/rt/*.rb > TAGS"
 end
 
 

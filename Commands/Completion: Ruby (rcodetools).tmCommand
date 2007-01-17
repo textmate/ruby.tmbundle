@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby -w
+
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/exit_codes"
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/dialog"
+
+TM_RUBY    = ENV["TM_RUBY"] || "ruby"
+RCODETOOLS = "#{ENV['TM_BUNDLE_SUPPORT']}/vendor/rcodetools"
+
+command     = &lt;&lt;END_COMMAND.tr("\n", " ").strip
+"#{TM_RUBY}"
+-I "#{RCODETOOLS}/lib"
+--
+"#{RCODETOOLS}/bin/rct-complete"
+--line=#{ENV['TM_LINE_NUMBER']}
+--column=#{ENV['TM_LINE_INDEX']}
+END_COMMAND
+completions = `#{command}`.to_a.map { |l| l.strip }.select { |l| l =~ /\S/ }
+
+if completions.size == 1
+  selected = completions.first
+elsif completions.size &gt; 1
+  selected = completions[Dialog.menu(completions)] rescue exit
+else
+  TextMate.exit_show_tool_tip "No matches were found."
+end
+
+print selected.sub(/\A#{Regexp.escape(ENV['TM_CURRENT_WORD'].to_s)}/, "")
+</string>
+	<key>input</key>
+	<string>document</string>
+	<key>keyEquivalent</key>
+	<string>~</string>
+	<key>name</key>
+	<string>Completion: Ruby (rcodetools)</string>
+	<key>output</key>
+	<string>afterSelectedText</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>uuid</key>
+	<string>47D203ED-EB9B-4653-A07B-A897800CEB76</string>
+</dict>
+</plist>

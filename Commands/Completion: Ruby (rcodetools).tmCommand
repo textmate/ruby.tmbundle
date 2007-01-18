@@ -10,14 +10,34 @@
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/exit_codes"
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/dialog"
 
+require "pathname"
+
 TM_RUBY    = ENV["TM_RUBY"] || "ruby"
 RCODETOOLS = "#{ENV['TM_BUNDLE_SUPPORT']}/vendor/rcodetools"
+
+RAILS_DIR = nil
+dir = File.dirname(ENV["TM_FILE_PATH"]) rescue ENV["TM_PROJECT_DIRECTORY"]
+if dir
+  dir = Pathname.new(dir)
+  loop do
+    if (dir + "config/environment.rb").exist?
+      Object.send(:remove_const, :RAILS_DIR)
+      RAILS_DIR = dir.to_s
+      break
+    end
+    
+    break if dir.to_s == "/"
+    
+    dir += ".."
+  end
+end
 
 command     = &lt;&lt;END_COMMAND.tr("\n", " ").strip
 "#{TM_RUBY}"
 -I "#{RCODETOOLS}/lib"
 --
 "#{RCODETOOLS}/bin/rct-complete"
+#{"-r \"#{RAILS_DIR}/config/environment.rb\"" if RAILS_DIR}
 --line=#{ENV['TM_LINE_NUMBER']}
 --column=#{ENV['TM_LINE_INDEX']}
 END_COMMAND

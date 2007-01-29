@@ -1,30 +1,33 @@
 #!/usr/bin/env ruby
 # Copyright (c) 
-#  2006 Mauricio Fernandez <mfp@acm.org>    http://eigenclass.org
-#  2006 rubikitch <rubikitch@ruby-lang.org> http://www.rubyist.net/~rubikitch/
+#  2006-2007 Mauricio Fernandez <mfp@acm.org>    http://eigenclass.org
+#  2006-2007 rubikitch <rubikitch@ruby-lang.org> http://www.rubyist.net/~rubikitch/
 #                    
 # Use and distribution subject to the same conditions as Ruby.
 
-
+require 'rcodetools/options'
 $VERBOSE = nil
 $__method_args_off = true
 
-if ARGV.empty?
+if ARGV.empty? or ARGV.include? '-h' or ARGV.include? '--help'
   puts <<EOF
-rct-meth-args [-i] [-m] [-c] [-n] <file> [<file> ...]
+rct-meth-args [-Idirectory] [-i] [-m] [-c] [-n] <file> [<file> ...]
 
--i    omit instance methods defined in classes
--m    omit instance methods defined in modules
--c    omit class methods
+-Idirectory   specify $LOAD_PATH directory (same as ruby)
+--dev         Add this project's bin/ and lib/ to $LOAD_PATH.
+              A directory that has Rakefile is considered as project base direcotry.
+-i            omit instance methods defined in classes
+-m            omit instance methods defined in modules
+-c            omit class methods
 
--n    print the filename and line number with output lines
--t    generate TAGS output
+-n            print the filename and line number with output lines
+-t            generate TAGS output
 
 The given files will be #require()d in order.
 Examples:
-  ruby method_args.rb complex
-  ruby method_args.rb thread
-  ruby method_args.rb -c rubygems
+   rct-meth-args complex
+   rct-meth-args thread
+   rct-meth-args -c rubygems
 EOF
   exit
 end
@@ -246,13 +249,23 @@ new_args = []
 omissions = {}
 $__with_location = false
 $__printer = Printer.new
+i_opt_p = false
 
 ARGV.each do |arg|
   case arg
   when "-n"; $__with_location = true
   when "-t"; $__printer = TagsPrinter.new; $__with_location = true
-  when /-./; omissions[$&] = true
-  else new_args << arg
+  when /-I(.+)$/; $:.unshift $1
+  when "-I"; i_opt_p = true
+  when "--dev"; OptionHandler.auto_include_paths($:, Dir.pwd)
+  when /^-.$/; omissions[$&] = true
+  else
+    if i_opt_p
+      $:.unshift arg
+      i_opt_p = false
+    else
+      new_args << arg
+    end
   end
 end
 
@@ -386,7 +399,13 @@ end
 
 $__method_args_off = false
 
-ARGV.each{|x| require x}
+ARGV.each{|x|
+  begin
+    require x
+  rescue LoadError
+    load x
+  end
+}
 
 $__method_args_off = true
 # END { puts "zzzz OK" }

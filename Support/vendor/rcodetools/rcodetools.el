@@ -4,11 +4,11 @@
 ;;;
 ;;; Use and distribution subject to the terms of the Ruby license.
 
-(defvar xmpfilter-command-name "ruby -S xmpfilter"
+(defvar xmpfilter-command-name "ruby -S xmpfilter --dev"
   "The xmpfilter command name.")
-(defvar rct-doc-command-name "ruby -S rct-doc"
+(defvar rct-doc-command-name "ruby -S rct-doc --dev"
   "The rct-doc command name.")
-(defvar rct-complete-command-name "ruby -S rct-complete"
+(defvar rct-complete-command-name "ruby -S rct-complete --dev"
   "The rct-complete command name.")
 (defvar rct-option-history nil)                ;internal
 (defvar rct-option-local nil)     ;internal
@@ -89,7 +89,7 @@ See also `rct-interactive', `rct-complete-symbol--normal', and `rct-complete-sym
 See also `rct-interactive'."
   (interactive (rct-interactive))
   (let ((end (point)) beg
-	pattern
+	pattern alist
 	completion)
     (setq completion (rct-try-completion)) ; set also pattern / completion
     (save-excursion
@@ -108,7 +108,7 @@ See also `rct-interactive'."
 	   (message "Making completion list...")
 	   (with-output-to-temp-buffer "*Completions*"
 	     (display-completion-list
-	      (all-completions pattern rct-method-completion-table)))
+	      (all-completions pattern alist)))
 	   (message "Making completion list...%s" "done")))))
 
 ;; (define-key ruby-mode-map "\M-\C-i" 'rct-complete-symbol)

@@ -1,6 +1,15 @@
 rcodetools history
 ==================
+
+User-visible changes since 0.4.1
+--------------------------------
+* --dev: adds project directories to $:
+* --completion-class-info: list completion candidates and class info
+* display completion candidates with description, both in emacs
+  and vim (using the menu+preview window).
+
 User-visible changes since 0.4.0
+--------------------------------
 * rct-meth-args: implemented -I
 * many bug fixes
 

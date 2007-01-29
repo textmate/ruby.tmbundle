@@ -1,1 +1,1 @@
-Array.new(3).uni
+1.div

@@ -46,6 +46,7 @@ class XMPDocFilter < XMPFilter
 
   def __prepare_line(x)
     v = "#{VAR}"
+    result = "#{VAR}_result"
     klass = "#{VAR}_klass"
     flag = "#{VAR}_flag"
     which_methods = "#{VAR}_methods"
@@ -55,30 +56,18 @@ class XMPDocFilter < XMPFilter
     meth = x[:meth_or_constant] || x[:meth]
     debugprint "recv=#{recv}", "meth=#{meth}"
     if meth
+      # imported from fastri/MagicHelp
       code = <<-EOC
 #{v} = (#{recv})
-if Class === #{v}
-  #{flag} = #{v}.respond_to?('#{meth}') ? "." : "::"
-  #{klass} = #{v}
-  #{which_methods} = :methods
-else
-  #{flag} = "#"
-  #{klass} = #{v}.class
-  #{which_methods} = :instance_methods
-end
-#{ancestor_class} = #{klass}.ancestors.delete_if{|c| c==Kernel }.find{|c| c.__send__(#{which_methods}, false).include? '#{meth}' }
 $stderr.print("#{MARKER}[#{idx}] => " + #{v}.class.to_s  + " ")
 
-if #{ancestor_class}
-  $stderr.puts(#{ancestor_class}.to_s + #{flag} + '#{meth}')
+if Module === #{v} and '#{meth}' =~ /^[A-Z]/ and #{v}.const_defined?('#{meth}')
+  #{result} = #{v}.to_s + "::#{meth}"
 else
-  [Kernel, Module, Class].each do |k|
-    if (k.instance_methods(false) + k.private_instance_methods(false)).include? '#{meth}'
-      $stderr.printf("%s#%s\\n", k, '#{meth}'); exit
-    end
-  end
-  $stderr.puts(#{v}.to_s + '::' + '#{meth}')
+  #{__magic_help_code result, v, meth.dump}
 end
+
+$stderr.puts(#{result})
 exit
       EOC
     else
@@ -150,7 +139,7 @@ end
 
 class XMPRiFilter < XMPDocFilter
   def doc(code, lineno, column=nil)
-    "ri '#{super}'"
+    "ri '#{super.sub(/\./, '::')}'"
   end
 end
 

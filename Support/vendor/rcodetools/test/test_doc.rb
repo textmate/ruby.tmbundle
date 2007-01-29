@@ -39,6 +39,25 @@ $hoge.popen
 EOC
   end
 
+  # not File::Stat.methods(false).include? 'new'
+  def test_class_method__File_Stat_new
+    assert_equal("File::Stat.new", doit("File::Stat.new", 1))
+    assert_equal("File::Stat.new", doit("File::Stat::new", 1))
+
+    assert_equal("File::Stat.new", doit("::File::Stat.new", 1))
+    assert_equal("File::Stat.new", doit("::File::Stat::new", 1))
+  end
+
+  # IO.methods(false).include? 'new'
+  def test_class_method__IO_new
+    assert_equal("IO.new", doit("IO.new", 1))
+    assert_equal("IO.new", doit("IO::new", 1))
+
+    assert_equal("IO.new", doit("::IO.new", 1))
+    assert_equal("IO.new", doit("::IO::new", 1))
+  end
+
+
   def test_constant__File
     assert_equal("File", doit("File", 1))
     assert_equal("File", doit("::File", 1))
@@ -127,6 +146,14 @@ EOC
     assert_equal("Class#superclass", doit(<<EOC, 2))
 class Foo
   superclass
+end
+EOC
+  end
+
+  def test_bare_word__Class_object_id
+    assert_equal("Object#object_id", doit(<<EOC, 2))
+class Foo
+  object_id
 end
 EOC
   end
@@ -398,6 +425,20 @@ end
 EOC
     end
   end
+end
 
+class TestXMPRiFilter < Test::Unit::TestCase
+  def doit(code, lineno, column=nil, options={})
+    xmp = XMPRiFilter.new options
+    xmp.doc(code, lineno, column)
+  end
 
+  def test_class_method__IO_popen
+    assert_equal("ri 'IO::popen'", doit("IO::popen", 1))
+    assert_equal("ri 'IO::popen'", doit("IO.popen", 1))
+  end
+
+  def test_instance_method__Array
+    assert_equal("ri 'Array#length'", doit("[].length", 1))
+  end
 end

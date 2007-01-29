@@ -116,6 +116,11 @@ EOC
     assert_equal(["popen"], doit('::File::pop',1))
 
     assert_equal(["popen"], doit('File.pop',1))
+    assert_equal(["popen"], doit('::File.pop',1))
+
+    assert_equal(["new"], doit('::File::Stat.ne',1))
+    assert_equal(["new"], doit('File::Stat.ne',1))
+
   end
 
 
@@ -464,4 +469,172 @@ EOC
   def XXtest_oneline
     assert_equal(["aaa"], doit('aaa=1; aa', 1))
   end
+
+################################################################  
+
+  def get_class(code, lineno, column=nil, options={})
+    xmp = XMPCompletionFilter.new options
+    klass, = xmp.runtime_data_with_class(code, lineno, column).sort
+    klass
+  end
+
+  def test_class__Class
+    assert_equal("File", get_class("File::n", 1))
+    assert_equal("File", get_class("File.n", 1))
+    assert_equal("File::Stat", get_class("File::Stat::n", 1))
+    assert_equal("File::Stat", get_class("File::Stat.n", 1))
+
+    assert_equal("FileTest", get_class("FileTest.exis", 1))
+    assert_equal("FileTest", get_class("FileTest::exis", 1))
+  end
+
+  def test_class__NotClass
+    assert_equal("Fixnum", get_class("1.ch", 1))
+    assert_equal("String", get_class("'a'.siz", 1))
+  end
+end
+
+
+class TestXMPCompletionVerboseFilter < Test::Unit::TestCase
+  def doit(code, lineno, column=nil, options={})
+    xmp = XMPCompletionVerboseFilter.new options
+    xmp.candidates(code, lineno, column).sort
+  end
+
+  def test_complete_global_variable
+    assert_equal(["$hoge"], doit(<<EOC, 2))
+  $hoge = 100
+  $ho
+EOC
+  end
+
+  def test_complete_instance_variable
+    assert_equal(["@hoge"], doit(<<EOC, 2))
+  @hoge = 100
+  @ho
+EOC
+  end
+
+  def test_complete_class_variable_module
+    assert_equal(["@@hoge"], doit(<<EOC, 3))
+  module X
+    @@hoge = 100
+    @@ho
+  end
+EOC
+  end
+
+  def test_complete_constant__nested
+    assert_equal(["Stat"], doit('File::Sta',1))
+  end
+
+  def test_complete_class_method
+    assert_equal(["popen\0IO.popen"], doit('File::pop',1))
+    assert_equal(["popen\0IO.popen"], doit('::File::pop',1))
+
+    assert_equal(["popen\0IO.popen"], doit('File.pop',1))
+    assert_equal(["popen\0IO.popen"], doit('::File.pop',1))
+
+    assert_equal(["new\0File::Stat.new"], doit('::File::Stat.ne', 1))
+    assert_equal(["new\0File::Stat.new"], doit('File::Stat.ne',1))
+
+  end
+
+  def test_complete_constant__in_class
+    assert_equal(["Fixclass", "Fixnum"], doit(<<EOC, 3))
+  class Fixclass
+    class Bar
+      Fix
+    end
+  end
+EOC
+  end
+
+
+  def test_complete_toplevel_constant
+    assert_equal(["Fixnum"], doit(<<EOC,3))
+  class Foo
+    class Fixnum
+      ::Fixn
+    end
+  end
+EOC
+
+    assert_equal(["Fixnum"], doit(<<EOC,3))
+  class Foo
+    class Fixnum
+      ::Foo::Fixn
+    end
+  end
+EOC
+
+    assert_equal(["Bar"], doit(<<EOC,5))
+  class Foo
+    class Bar
+    end
+  end
+  ::Foo::B
+EOC
+  end
+
+  def test_complete_symbol
+    assert_equal([":vccaex"], doit(<<EOC,2))
+a = :vccaex
+:vcca
+EOC
+    
+  end
+
+  def test_method_chain__String
+    assert_equal(["length\0String#length"], doit('"a".upcase.capitalize.leng', 1))
+  end
+
+  def test_bare_word__local_variable
+    assert_equal(["aaaaaxx"], doit(<<EOC,2))
+  aaaaaxx = 1
+  aaaa
+EOC
+  end
+
+  def test_bare_word__method
+    assert_equal(["trace_var\0Kernel#trace_var"], doit("trace",1))
+  end
+
+  def test_bare_word__constant
+    assert_equal(["Fixnum"], doit("Fixn",1))
+  end
+    
+  def test_bare_word__method_in_class
+    assert_equal(["attr_accessor\0Module#attr_accessor"], doit(<<EOC,2))
+  class X
+    attr_acc
+  end
+EOC
+  end
+
+  def test_bare_word__public_method
+    assert_equal(["hoge\0X#hoge"], doit(<<EOC,4))
+  class X
+    def hoge() end
+    def boke
+      hog
+    end
+    new.boke
+  end
+EOC
+  end
+
+  def test_bare_word__private_method
+    assert_equal(["hoge\0X#hoge"], doit(<<EOC,5))
+  class X
+    def hoge() end
+    private :hoge
+    def boke
+      hog
+    end
+    new.boke
+  end
+EOC
+  end
+
 end

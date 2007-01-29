@@ -1,6 +1,6 @@
 ;;; icicles-rcodetools.el -- accurate completion with icicles
 
-;;; Copyright (c) 2006 rubikitch <rubikitch@ruby-lang.org>
+;;; Copyright (c) 2006-2007 rubikitch <rubikitch@ruby-lang.org>
 ;;;
 ;;; Use and distribution subject to the terms of the Ruby license.
 
@@ -23,9 +23,12 @@ See also `rct-interactive'."
                        rct-method-completion-table
                        nil nil pattern nil nil nil
                        ((end (point)) beg
-                        pattern klass
+                        (icicle-list-join-string "\t")
+                        (icicle-list-use-nth-parts '(1))
+                        (icicle-point-position-in-candidate 'input-end)
+                        pattern klass alist
                         (icicle-candidate-help-fn
-                         (lambda (result) (ri result klass)))) ;bindings
+                         (lambda (result) (ri (cdr (assoc result alist)))))) ;bindings
                        (rct-exec-and-eval rct-complete-command-name "--completion-emacs-icicles"))
 
 (provide 'icicles-rcodetools)

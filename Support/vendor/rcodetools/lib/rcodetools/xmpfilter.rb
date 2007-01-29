@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
-# Copyright (c) 2005-2006 Mauricio Fernandez <mfp@acm.org> http://eigenclass.org
+# Copyright (c) 2005-2007 Mauricio Fernandez <mfp@acm.org> http://eigenclass.org
 #                         rubikitch <rubikitch@ruby-lang.org>
 # Use and distribution subject to the terms of the Ruby license.
 
 class XMPFilter
-  VERSION = "0.4.0"
+  VERSION = "0.5.0"
 
   MARKER = "!XMP#{Time.new.to_i}_#{Process.pid}_#{rand(1000000)}!"
   XMP_RE = Regexp.new("^" + Regexp.escape(MARKER) + '\[([0-9]+)\] (=>|~>|==>) (.*)')
@@ -110,8 +110,9 @@ end || #{v}
   def execute_tmpfile(code)
     stdin, stdout, stderr = (1..3).map do |i|
       fname = "xmpfilter.tmpfile_#{Process.pid}-#{i}.rb"
-      at_exit { File.unlink fname }
-      File.open(fname, "w+")
+      f = File.open(fname, "w+")
+      at_exit { f.close unless f.closed?; File.unlink fname }
+      f
     end
     stdin.puts code
     stdin.close

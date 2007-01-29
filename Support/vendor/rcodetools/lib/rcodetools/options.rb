@@ -26,6 +26,10 @@ module OptionHandler
     on("-I PATH", "Add PATH to $LOAD_PATH") do |path|
       options[:include_paths] << path
     end
+    on("--dev", "Add this project's bin/ and lib/ to $LOAD_PATH.",
+       "A directory with a Rakefile is considered a project base directory.") do
+      auto_include_paths(options[:include_paths], Dir.pwd)
+    end
     on("-r LIB", "Require LIB before execution.") do |lib|
       options[:libs] << lib
     end
@@ -55,6 +59,14 @@ module OptionHandler
     end
   end
 
+  def auto_include_paths(include_paths, pwd)
+    if pwd =~ %r!^(.+)/(lib|bin)!
+      include_paths.unshift("#$1/lib").unshift("#$1/bin")
+    elsif File.file? "#{pwd}/Rakefile" or File.file? "#{pwd}/rakefile"
+      include_paths.unshift("#{pwd}/lib").unshift("#{pwd}/bin")
+    end
+  end
+  module_function :auto_include_paths
 
 end
 

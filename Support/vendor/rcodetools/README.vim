@@ -9,6 +9,22 @@ rcodetools.vim redefines user-defined completion for Ruby programs, so you can
 use the intelligent, 100%-accurate completion with <C-X><C-U> in insert mode.
 Note that this runs the code to obtain the exact candidate list.
 
+If you've set completeopt to menu,preview then rcodetools.vim can display
+information about the completion candidates. The menu will show the synopsis 
+as given in the RI documentation, and the preview window will contain the full
+RI documentation.
+
+This functionality relies on fri for quick lookups. It can be enabled by setting
+
+  let g:rct_completion_use_fri = 1  " 0 by default (disabled)
+
+in your .vimrc (don't forget to run fastri-server too). 
+Obtaining the documentation for many candidates can be slow, so you can set
+the threshold above which additional documentation will not be shown with
+
+ " 20 by default, about a couple secs max wait on a normal machine
+  let g:rct_completion_info_max_len = 20 
+
 Quick RI documentation and exact tag jumping
 ============================================
 When you're editing a Ruby file, <C-]> will jump to the definition of the

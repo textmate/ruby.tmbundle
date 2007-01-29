@@ -58,10 +58,30 @@ function! <SID>RCT_completion(findstart, base)
     else
 	let line    = line('.')
 	let column  = s:rct_completion_col
-	let command = "rct-complete --line=" . line . " --column=" . column . " " . s:rct_tmpfile
-	let ret = split(system(command))
+	let command = "rct-complete --completion-class-info --line=" . line . " --column=" . column . " " . s:rct_tmpfile
+	let data = split(system(command), '\n')
+
+	for dline in data
+	    let parts    = split(dline, "\t")
+	    let name     = get(parts, 0)
+	    let selector = get(parts, 1)
+	    echo name
+	    echo selector
+	    if s:GetOption('rct_completion_use_fri', 0) && s:GetOption('rct_completion_info_max_len', 20) >= len(data)
+		let fri_data = system('fri -f plain ' . "'" .  selector . "'" . ' 2>/dev/null')
+		call complete_add({'word': name,
+			        \  'menu': get(split(fri_data), 2, ''),
+			        \  'info': fri_data } )
+	    else
+		call complete_add(name)
+	    endif
+	    if complete_check()
+		break
+	    endif
+	endfor
+
 	call delete(s:rct_tmpfile)
-	return ret
+	return []
     endif
 endfunction
 

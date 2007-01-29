@@ -1,3 +1,6 @@
+# Nearly 100% accurate completion for any editors!!
+#  by rubikitch <rubikitch@ruby-lang.org>
+
 require 'rcodetools/xmpfilter'
 require 'enumerator'
 # Common routines for XMPCompletionFilter/XMPDocFilter
@@ -150,7 +153,7 @@ XXX
       i+1==lineno ? prepare_line(line.chomp, column) : line
     }.join
     newcode << add_BEGIN if @ignore_NoMethodError
-    debugprint "newcode", newcode, "-"*80
+    debugprint "newcode", newcode.gsub(/;/, "\n"), "-"*80
     stdout, stderr = execute(newcode)
     output = stderr.readlines
     debugprint "stdout", output, "-"*80
@@ -171,12 +174,26 @@ XXX
     runtime_data_with_class(code, lineno, column)[1]
   end
 
+  def __magic_help_code(result, v, meth)
+    code = <<-EOC
+  #{result} = #{v}.method(#{meth}).inspect.match( %r[\\A#<(?:Unbound)?Method: (.*?)>\\Z] )[1].sub(/\\A.*?\\((.*?)\\)(.*)\\Z/){ "\#{$1}\#{$2}" }.sub(/#<Class:(.*?)>#/) { "\#{$1}." }
+  #{result} = #{v}.to_s + ".new" if #{result} == 'Class#new' and #{v}.private_method_defined?(:initialize)
+  #{result} = "Object#" + #{meth} if #{result} =~ /^Kernel#/ and Kernel.instance_methods(false).include? #{meth}
+  #{result}
+EOC
+  end
+
 end
 
 # Nearly 100% accurate completion for any editors!!
 #  by rubikitch <rubikitch@ruby-lang.org>
 class XMPCompletionFilter < XMPFilter
   include ProcessParticularLine
+
+  class << self
+    attr_accessor :candidates_with_description_flag
+  end
+  @candidates_with_description_flag = false
 
   # String completion begins with this.
   attr :prefix
@@ -185,43 +202,77 @@ class XMPCompletionFilter < XMPFilter
     new(opts).completion_code(code, opts[:lineno], opts[:column])
   end
 
+  def magic_help_code(recv, meth)
+    oneline_ize __magic_help_code("#{VAR}_result", recv, meth)
+  end
+
+  def methods_map_code(recv)
+    # delimiter is \0
+    %Q[map{|m| "\#{m}\\0" + #{magic_help_code((recv), 'm')}}]
+  end
+
+  def split_method_info(minfo)
+    minfo.split(/\0/,2)
+  end
+
   def prepare_line(expr, column)
     set_expr_and_postfix!(expr, column){|c| /^.{#{c}}/ }
     @prefix = expr
     case expr
     when /^\$\w+$/              # global variable
-      __prepare_line 'global_variables'
+      __prepare_line 'nil', 'global_variables', '%n'
     when /^@@\w+$/              # class variable
-      __prepare_line 'Module === self ? class_variables : self.class.class_variables'
+      __prepare_line 'nil', 'Module === self ? class_variables : self.class.class_variables', '%n'
     when /^@\w+$/               # instance variable
-      __prepare_line 'instance_variables'
-    when /^([A-Z].*)::(.*)$/    # nested constants / class methods
+      __prepare_line 'nil', 'instance_variables', '%n'
+    when /^([A-Z].*)::([^.]*)$/    # nested constants / class methods
       @prefix = $2
-      __prepare_line "#$1.constants | #$1.methods(true)"
+      __prepare_line $1, "#$1.constants | #$1.methods(true)",
+      %Q[#$1.constants + #$1.methods(true).#{methods_map_code($1)}]
     when /^[A-Z]\w*$/           # normal constants
-      __prepare_line 'Module.constants'
-    when /^::(.+)::(.*)$/       # toplevel nested constants
+      __prepare_line 'nil', 'Module.constants', '%n'
+    when /^(.*::.+)\.(.+)$/       # toplevel class methods
       @prefix = $2
-      __prepare_line "::#$1.constants | ::#$1.methods"
+      __prepare_line $1, "#$1.methods",
+      %Q[%n.#{methods_map_code($1)}]
+    when /^(::.+)::(.*)$/       # toplevel nested constants
+      @prefix = $2
+      __prepare_line $1, "#$1.constants | #$1.methods",
+      %Q[#$1.constants + #$1.methods.#{methods_map_code($1)}]
     when /^::(.*)/              # toplevel constant
       @prefix = $1
-      __prepare_line 'Object.constants'
+      __prepare_line 'nil', 'Object.constants', '%n'
     when /^(:[^:.]*)$/          # symbol
-      __prepare_line 'Symbol.all_symbols.map{|s| ":" + s.id2name}'
+      __prepare_line 'nil', 'Symbol.all_symbols.map{|s| ":" + s.id2name}', '%n'
     when /\.([^.]*)$/           # method call
       @prefix = $1
-      __prepare_line "(#{Regexp.last_match.pre_match}).methods(true)"
+      recv = Regexp.last_match.pre_match
+      __prepare_line recv, "(#{recv}).methods(true)",
+      %Q[%n.#{methods_map_code(recv)}]
     else                        # bare words
-      __prepare_line "methods | private_methods | local_variables | self.class.constants"
+      __prepare_line 'self', "methods | private_methods | local_variables | self.class.constants",
+      %Q[(methods | private_methods).#{methods_map_code('self')} + local_variables | self.class.constants]
     end
   end
 
-  def __prepare_line(all_completion_expr)
+  def __prepare_line(recv, all_completion_expr, all_completion_expr_verbose)
+    if self.class.candidates_with_description_flag
+      ___prepare_line(recv, all_completion_expr_verbose.gsub(/%n/, '('+all_completion_expr+')'))
+    else
+      ___prepare_line(recv, all_completion_expr) 
+    end
+
+  end
+
+  def ___prepare_line(recv, all_completion_expr)
     v = "#{VAR}"
+    rcv = "#{VAR}_recv"
     idx = 1
     oneline_ize(<<EOC)
+#{rcv} = (#{recv})
 #{v} = (#{all_completion_expr}).grep(/^#{Regexp.quote(@prefix)}/)
-$stderr.puts("#{MARKER}[#{idx}] => " + #{v}.class.to_s  + " " + #{v}.join(" ")) || #{v}
+#{rcv} = Module === #{rcv} ? #{rcv} : #{rcv}.class
+$stderr.puts("#{MARKER}[#{idx}] => " + #{rcv}.to_s  + " " + #{v}.join(" ")) || #{v}
 exit
 EOC
   end
@@ -229,7 +280,7 @@ EOC
   # Array of completion candidates.
   def candidates(code, lineno, column=nil)
     methods = runtime_data(code, lineno, column) rescue ""
-    methods.split.sort
+    methods.split(/ /).sort
   end
 
   # Completion code for editors.
@@ -238,18 +289,38 @@ EOC
   end
 end
 
+# for debugging XMPCompletionEmacsFilter
+class XMPCompletionVerboseFilter < XMPCompletionFilter
+  @candidates_with_description_flag = true
+end
+
+class XMPCompletionClassInfoFilter < XMPCompletionFilter
+  @candidates_with_description_flag = true
+
+  def completion_code(code, lineno, column=nil)
+    candidates(code, lineno, column).join("\n").tr("\0", "\t")
+  end
+end
+
 class XMPCompletionEmacsFilter < XMPCompletionFilter
+  @candidates_with_description_flag = true
+
   def completion_code(code, lineno, column=nil)
     elisp = "(progn\n"
-    elisp <<  "(setq rct-method-completion-table '("
+    table = "(setq rct-method-completion-table '("
+    alist = "(setq alist '("
     begin
-      candidates(code, lineno, column).each do |meth|
-        elisp << format('("%s") ', meth)
+      candidates(code, lineno, column).sort.each do |minfo|
+        meth, description = split_method_info(minfo)
+        table << format('("%s") ', meth)
+        alist << format('("%s\\t[%s]") ', meth, description)
       end
+      table << "))\n"
+      alist << "))\n"
     rescue Exception => err
       return %Q[(error "#{err.message}")]
     end
-    elisp << "))\n"
+    elisp << table << alist
     elisp << %Q[(setq pattern "#{prefix}")\n]
     elisp << %Q[(try-completion pattern rct-method-completion-table nil)\n]
     elisp << ")"                # /progn
@@ -257,23 +328,31 @@ class XMPCompletionEmacsFilter < XMPCompletionFilter
 end
 
 class XMPCompletionEmacsIciclesFilter < XMPCompletionFilter
+  @candidates_with_description_flag = true
+
   def candidates(code, lineno, column=nil)
     klass, methods = runtime_data_with_class(code, lineno, column) rescue ["", ""]
     @klass = klass
-    methods.split.sort
+    methods.split(/ /).sort
   end
 
   def completion_code(code, lineno, column=nil)
     elisp = "(progn\n"
-    elisp <<  "(setq rct-method-completion-table '("
+    table = "(setq rct-method-completion-table '("
+    help_alist = "(setq alist '("
+    
     begin
-      candidates(code, lineno, column).each do |meth|
-        elisp << format('("%s") ', meth)
+      candidates(code, lineno, column).sort.each do |minfo|
+        meth, description = split_method_info(minfo)
+        table << format('("%s\\t[%s]") ', meth, description)
+        help_alist << format('("%s" . "%s")', meth, description)
       end
+      table << "))\n"
+      help_alist << "))\n"
     rescue Exception => err
       return %Q[(error "#{err.message}")]
     end
-    elisp << "))\n"
+    elisp << table << help_alist
     elisp << %Q[(setq pattern "#{prefix}")\n]
     elisp << %Q[(setq klass "#{@klass}")\n]
     elisp << ")"                # /progn

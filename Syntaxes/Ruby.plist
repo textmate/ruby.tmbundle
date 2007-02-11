@@ -820,6 +820,8 @@
 			     | (?:\s|;|\.)match\s
 			     | (?:\s|;)if\s
 			     | (?:\s|;)elsif\s
+			     | (?:\s|;)while\s
+			     | (?:\s|;)unless\s
 			     )
 			   | (?&lt;=                  # or a look-behind with line anchor:
 			        ^when\s              # duplication necessary due to limits of regex
@@ -832,6 +834,8 @@
 			      | ^match\s
 			      | ^if\s
 			      | ^elsif\s
+			      | ^while\s
+			      | ^unless\s
 			      )
 			   )
 			   \s*((/))(?![*+{}?])

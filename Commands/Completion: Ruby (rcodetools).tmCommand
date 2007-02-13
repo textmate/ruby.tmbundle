@@ -40,10 +40,13 @@ command     = &lt;&lt;END_COMMAND.tr("\n", " ").strip
 #{"-r \"#{RAILS_DIR}/config/environment.rb\"" if RAILS_DIR}
 --line=#{ENV['TM_LINE_NUMBER']}
 --column=#{ENV['TM_LINE_INDEX']}
+2&gt; /dev/null
 END_COMMAND
 completions = `#{command}`.to_a.map { |l| l.strip }.select { |l| l =~ /\S/ }
 
-if completions.size == 1
+if not $?.success?
+  TextMate.exit_show_tool_tip "Parse error."
+elsif completions.size == 1
   selected = completions.first
 elsif completions.size &gt; 1
   selected = completions[Dialog.menu(completions)] rescue exit

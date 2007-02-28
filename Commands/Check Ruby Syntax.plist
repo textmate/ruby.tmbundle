@@ -3,14 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>beforeRunningCommand</key>
-	<string>saveActiveFile</string>
+	<string>nop</string>
 	<key>command</key>
-	<string>set `${TM_RUBY:=ruby} --version`
-echo "using ruby-$2"
-
-"${TM_RUBY:=ruby}" -wc "$TM_FILEPATH"</string>
+	<string>#!/usr/bin/env ruby
+require ENV['TM_SUPPORT_PATH'] + '/lib/textmate'
+puts "using ruby-" + RUBY_VERSION.to_s
+result = `"${TM_RUBY:=ruby}" -wc 2&gt;&amp;1`
+puts result
+TextMate.go_to :line =&gt; $1 if result =~ /-:(\d+):/
+</string>
 	<key>input</key>
-	<string>none</string>
+	<string>document</string>
 	<key>keyEquivalent</key>
 	<string>^V</string>
 	<key>name</key>

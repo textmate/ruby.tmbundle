@@ -144,7 +144,7 @@ end || #{v}
   end
 
   def interpreter_command
-    r = [@interpreter, "-w"]
+    r = [@interpreter, "-wKu"]
     r << "-d" if $DEBUG
     r << "-I#{@include_paths.join(":")}" unless @include_paths.empty?
     @libs.each{|x| r << "-r#{x}" } unless @libs.empty?

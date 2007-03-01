@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert_send([${1:object}, :${2:message}, ${0:args}])</string>
+	<string>assert_send`snippet_paren.rb`[${1:object}, :${2:message}, ${0:args}]`snippet_paren.rb end`</string>
 	<key>name</key>
 	<string>assert_send(..)</string>
 	<key>scope</key>

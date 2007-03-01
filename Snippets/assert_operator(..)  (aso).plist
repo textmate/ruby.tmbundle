@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert_operator(${1:left}, :${2:operator}, ${0:right})</string>
+	<string>assert_operator`snippet_paren.rb`${1:left}, :${2:operator}, ${0:right}`snippet_paren.rb end`</string>
 	<key>name</key>
 	<string>assert_operator(..)</string>
 	<key>scope</key>

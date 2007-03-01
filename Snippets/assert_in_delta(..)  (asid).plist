@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert_in_delta(${1:expected_float}, ${2:actual_float}, ${0:2 ** -20})</string>
+	<string>assert_in_delta`snippet_paren.rb`${1:expected_float}, ${2:actual_float}, ${0:2 ** -20}`snippet_paren.rb end`</string>
 	<key>name</key>
 	<string>assert_in_delta(..)</string>
 	<key>scope</key>

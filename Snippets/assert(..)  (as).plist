@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert(${1:test}, "${0:Failure message.}")</string>
+	<string>assert`snippet_paren.rb`${1:test}, "${0:Failure message.}"`snippet_paren.rb end`</string>
 	<key>name</key>
 	<string>assert(..)</string>
 	<key>scope</key>

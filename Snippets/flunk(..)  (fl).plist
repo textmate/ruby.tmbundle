@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>flunk("${0:Failure message.}")</string>
+	<string>flunk`snippet_paren.rb`"${0:Failure message.}"`snippet_paren.rb end`</string>
 	<key>name</key>
 	<string>flunk(..)</string>
 	<key>scope</key>

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert_same(${1:expected}, ${0:actual})</string>
+	<string>assert_same`snippet_paren.rb`${1:expected}, ${0:actual}`snippet_paren.rb end`</string>
 	<key>name</key>
 	<string>assert_same(..)</string>
 	<key>scope</key>

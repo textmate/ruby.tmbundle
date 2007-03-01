@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert_not_same(${1:unexpected}, ${0:actual})</string>
+	<string>assert_not_same`snippet_paren.rb`${1:unexpected}, ${0:actual}`snippet_paren.rb end`</string>
 	<key>name</key>
 	<string>assert_not_same(..)</string>
 	<key>scope</key>

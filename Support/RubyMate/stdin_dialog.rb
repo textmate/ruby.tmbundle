@@ -3,7 +3,7 @@ require "dialog"
 class TextMateSTDIN < IO
   def gets(sep = nil)
     Dialog.request_string( :prompt  => "Script is Requesting Input:",
-                           :button1 => "Send" )
+                           :button1 => "Send" ) + "\n"
   end
 end
 

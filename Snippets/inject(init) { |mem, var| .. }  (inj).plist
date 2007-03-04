@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>inject(${1:init}) { |${2:mem}, ${3:var}| $0 }</string>
+	<string>inject${1/.+/(/}${1:init}${1/.+/)/} { |${2:mem}, ${3:var}| $0 }</string>
 	<key>name</key>
 	<string>inject(init) { |mem, var| .. }</string>
 	<key>scope</key>

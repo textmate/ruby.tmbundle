@@ -4,9 +4,8 @@
 <dict>
 	<key>content</key>
 	<string>require "optparse"
-require "ostruct"
 
-options = OpenStruct.new(${1::default =&gt; "args"})
+options = {${1::default =&gt; "args"}}
 
 ARGV.options do |opts|
 	opts.banner = "Usage:  #{File.basename(\$PROGRAM_NAME)} [OPTIONS]${2/^\s*$|(.*\S.*)/(?1: )/}${2:OTHER_ARGS}"

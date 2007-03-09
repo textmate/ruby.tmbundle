@@ -5,6 +5,7 @@
 $: << "#{ENV["TM_SUPPORT_PATH"]}/lib" if ENV.has_key? "TM_SUPPORT_PATH"
 require "escape"
 
+require "enumerator"
 require "erb"
 include ERB::Util
 
@@ -27,9 +28,13 @@ if documentation.include? "More than one method matched"
     str + "<li><a href=\"javascript:ri('#{item}')\">#{item}</a></li>\n"
   end
   documentation = "<h1>Multiple Matches:</h1>\n<ul>\n#{list_items}</ul>\n"
-elsif documentation.sub!( /\A(-+\s+)([A-Z_]\w*)(#|::|\.)/,
-                          "\\1<a href=\"javascript:ri('\\2')\">\\2</a>\\3" )
-  # do nothing--added class/module link
+elsif documentation =~ /\A(?:-+\s+)((?:[A-Z_]\w*::)*[A-Z_]\w*)(#|::|\.)/
+  nesting   = $1
+  constants = nesting.split("::")
+  linked    = constants.enum_with_index.map do |const, i|
+    "<a href=\"javascript:ri('#{constants[0..i].join('::')}')\">#{const}</a>"
+  end
+  documentation.sub!(nesting, linked.join("::"))
 else
   documentation.sub!( /\A(-+\s+Class: \w* < )([^\s<]+)/,
                             "\\1<a href=\"javascript:ri('\\2')\">\\2</a>" )

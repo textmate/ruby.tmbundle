@@ -16,7 +16,7 @@ TM_RUBY    = ENV["TM_RUBY"] || "ruby"
 RCODETOOLS = "#{ENV['TM_BUNDLE_SUPPORT']}/vendor/rcodetools"
 
 RAILS_DIR = nil
-dir = File.dirname(ENV["TM_FILE_PATH"]) rescue ENV["TM_PROJECT_DIRECTORY"]
+dir = File.dirname(ENV["TM_FILEPATH"]) rescue ENV["TM_PROJECT_DIRECTORY"]
 if dir
   dir = Pathname.new(dir)
   loop do
@@ -63,7 +63,7 @@ print selected.sub(/\A#{Regexp.escape(ENV['TM_CURRENT_WORD'].to_s)}/, "")
 	<key>name</key>
 	<string>Completion: Ruby (rcodetools)</string>
 	<key>output</key>
-	<string>afterSelectedText</string>
+	<string>showAsTooltip</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>uuid</key>

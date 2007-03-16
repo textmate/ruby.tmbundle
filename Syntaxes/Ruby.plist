@@ -65,7 +65,7 @@
 	        |case
 	        |begin
 	        |for|while|until
-			 |^=begin$
+			 |^=begin
 	        |(  "(\\.|[^"])*+"          # eat a double quoted string
 	         | '(\\.|[^'])*+'        # eat a single quoted string
 	         |   [^#"']                # eat all but comments and strings
@@ -91,7 +91,7 @@
 		|   (^|;) \s*+ end \. .* $
 		|   ^     \s*+ [}\]] \s*+ ([#].*)? $
 		|   [#] .*? \(end\) \s*+ $    # Sune’s special marker
-		|   ^=end$
+		|   ^=end
 		)</string>
 	<key>keyEquivalent</key>
 	<string>^~R</string>

@@ -63,7 +63,7 @@ print selected.sub(/\A#{Regexp.escape(ENV['TM_CURRENT_WORD'].to_s)}/, "")
 	<key>name</key>
 	<string>Completion: Ruby (rcodetools)</string>
 	<key>output</key>
-	<string>showAsTooltip</string>
+	<string>afterSelectedText</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>uuid</key>

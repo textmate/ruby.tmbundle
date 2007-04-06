@@ -19,6 +19,8 @@ export TM_RAKE=$(which "${TM_RAKE:-rake}")
 	<string>Run Rake Task</string>
 	<key>output</key>
 	<string>showAsHTML</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>uuid</key>
 	<string>569C9822-8C41-4907-94C7-1A8A0031B66D</string>
 </dict>

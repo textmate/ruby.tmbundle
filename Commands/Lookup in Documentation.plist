@@ -20,7 +20,8 @@ term = STDIN.read.strip
 TextMate.exit_show_tool_tip("Please select a term to look up.") if term.empty?
 
 linked_ri     = "#{ENV["TM_BUNDLE_SUPPORT"]}/bin/linked_ri.rb"
-documentation = `#{e_sh linked_ri} 2&gt;&amp;1 #{e_sh term}` rescue "&lt;h1&gt;ri Command Error.&lt;/h1&gt;"
+puts "#{e_sh linked_ri} #{e_sh term} 2&gt;&amp;1"
+documentation = `#{e_sh linked_ri} "#{e_sh term}" 2&gt;&amp;1` rescue "&lt;h1&gt;ri Command Error.&lt;/h1&gt;"
 TextMate.exit_show_tool_tip(documentation) if documentation =~ /Nothing known about /
 
 html_header("Documentation for ‘#{term}’", "RDoc", &lt;&lt;-HTML)
@@ -33,7 +34,7 @@ html_header("Documentation for ‘#{term}’", "RDoc", &lt;&lt;-HTML)
   &lt;/script&gt;
 HTML
 puts &lt;&lt;-HTML
-  &lt;pre&gt;&lt;div id="actual_output"&gt;#{documentation}&lt;/div&gt;&lt;/pre&gt;
+  &lt;div id="actual_output"&gt;#{documentation}&lt;/div&gt;
 HTML
 html_footer
 TextMate.exit_show_html</string>

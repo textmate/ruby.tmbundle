@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
-require "#{ENV["TM_SUPPORT_PATH"]}/lib/dialog"
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/ui"
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/web_preview"
 
 require "run_rake_task"
@@ -51,7 +51,7 @@ if last_task = tasks.index(prefs.transaction(true) { prefs[RAKEFILE_DIR] })
   tasks.unshift(tasks.slice!(last_task))
 end
 
-if task = Dialog.request_item( :title   => "Rake Tasks",
+if task = TextMate::UI.request_item( :title   => "Rake Tasks",
                                :prompt  => "Select a task to execute:",
                                :items   => tasks,
                                :button1 => "Run Task")

@@ -7,8 +7,8 @@
 	<key>command</key>
 	<string>#!/usr/bin/env ruby
 $: &lt;&lt; ENV['TM_SUPPORT_PATH'] + '/lib'
-require "dialog"
-Dialog.request_string(:title =&gt; "Wrap Size",
+require "ui"
+TextMate::UI.request_string(:title =&gt; "Wrap Size",
                      :prompt =&gt; "Enter a character width:",
                     :button1 =&gt; "Build Snippet") do |col|
   col = col.to_i

@@ -1,8 +1,8 @@
-require "dialog"
+require "ui"
 
 class TextMateSTDIN < IO
   def gets(sep = nil)
-    Dialog.request_string( :prompt  => "Script is Requesting Input:",
+    TextMate::UI.request_string( :prompt  => "Script is Requesting Input:",
                            :button1 => "Send" ) + "\n"
   end
 end

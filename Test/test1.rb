@@ -98,7 +98,7 @@ u.abort_on_exception=(  'something') #' Fix String overflow
 
 u.success ?  'something'  :  'something else'
 u.success ? ('something') : ('something else')
-u.success ?( 'something') :( 'something else')
+u.success ?( 'something') :( 'something else') #?( shouldn't be scoped as constant.numeric
 u.success?   'something'  :  'something else' 
 u.success?  ('something') : ('something else')
 u.success?(  'something') :( 'something else')
@@ -118,6 +118,17 @@ password=   'something'  #' Fix String overflow
 password=  ('something') #' Fix String overflow
 password=(  'something') #' Fix String overflow
 
+
+# this Totally kills Ruby Experimental ATM (Mon Jan 29 10:38:00 EST 2007)
+
+fred(  )fred()
+fred( ) fred()
+fred( ).fred()
+fred() .fred()
+fred.fred()
+
+
+# /kills
 
 
 ############

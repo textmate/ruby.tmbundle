@@ -68,6 +68,15 @@ u.whatever=   'something'
 u.whatever=  ('something')
 u.whatever=(  'something')
 
+u.whatever =  12345
+u.whatever = (12345)
+u.whatever =( 12345)
+u.whatever=   12345
+u.whatever=  (12345)
+u.whatever=(  12345)
+u.whatever =12345
+u.whatever=12345
+
 u.whatever ==  'something'
 u.whatever == ('something')
 u.whatever ==( 'something')
@@ -85,16 +94,16 @@ u.whatever===(  'something')
 u.password =  'something'
 u.password = ('something')
 u.password =( 'something')
-u.password=   'something'  #' Fix String overflow
-u.password=  ('something') #' Fix String overflow
-u.password=(  'something') #' Fix String overflow
+u.password=   'something'
+u.password=  ('something')
+u.password=(  'something')
 
 u.abort_on_exception =  'something'
 u.abort_on_exception = ('something')
 u.abort_on_exception =( 'something')
-u.abort_on_exception=   'something'  #' Fix String overflow
-u.abort_on_exception=  ('something') #' Fix String overflow
-u.abort_on_exception=(  'something') #' Fix String overflow
+u.abort_on_exception=   'something'
+u.abort_on_exception=  ('something')
+u.abort_on_exception=(  'something')
 
 u.success ?  'something'  :  'something else'
 u.success ? ('something') : ('something else')
@@ -114,9 +123,9 @@ whatever=(  'something')
 password =  'something'
 password = ('something')
 password =( 'something')
-password=   'something'  #' Fix String overflow
-password=  ('something') #' Fix String overflow
-password=(  'something') #' Fix String overflow
+password=   'something'
+password=  ('something')
+password=(  'something')
 
 
 # this Totally kills Ruby Experimental ATM (Mon Jan 29 10:38:00 EST 2007)

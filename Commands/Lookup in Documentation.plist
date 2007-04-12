@@ -49,7 +49,7 @@ TextMate.exit_show_html</string>
 	<key>output</key>
 	<string>showAsTooltip</string>
 	<key>scope</key>
-	<string>source.ruby</string>
+	<string>source.ruby, source.ruby.rails</string>
 	<key>uuid</key>
 	<string>63F3B3B7-CBE2-426B-B551-657733F3868B</string>
 </dict>

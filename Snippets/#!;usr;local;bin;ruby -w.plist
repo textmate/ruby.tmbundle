@@ -6,7 +6,7 @@
 	<string>#!/usr/bin/env ruby -wKU
 </string>
 	<key>name</key>
-	<string>#!/usr/local/bin/ruby -wKU</string>
+	<string>#!/usr/bin/env ruby -wKU</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

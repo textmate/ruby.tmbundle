@@ -53,6 +53,21 @@ x, y = b2vxay(m.begin(0) + b1)
 stream.next
 self.class
 
+
+# keyword.operator
+
+var1 ==  var2
+var1 === var2
+var1 =~  var2
+var1 =   var2
+var1 *   var2
+var1 -   var2
+var1 +   var2
+var1 %   var2
+var1 ^   var2
+var1 &   var2
+var1 *   var2
+
 # Method
 u.whatever +  'something'
 u.whatever + ('something')
@@ -136,8 +151,18 @@ fred( ).fred()
 fred() .fred()
 fred.fred()
 
-
 # /kills
+
+# method calls no dot or round brackets
+puts "shmoo"
+foo {}
+foo bar
+
+# Regular Variables
+foo
+bar
+foo = 1
+foo = bar
 
 
 ############

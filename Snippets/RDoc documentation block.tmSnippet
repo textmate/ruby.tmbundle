@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>=begin rdoc
+	<string>`[[ $TM_LINE_INDEX != 0 ]] &amp;&amp; echo; echo`=begin rdoc
 	$0
 =end</string>
 	<key>name</key>
@@ -14,5 +14,7 @@
 	<string>=b</string>
 	<key>uuid</key>
 	<string>05984208-D559-4C04-A69C-2019361A985A</string>
+	<key>disableAutoIndent</key>
+	<true />
 </dict>
 </plist>

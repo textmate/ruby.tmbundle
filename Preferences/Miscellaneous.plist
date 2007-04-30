@@ -24,8 +24,8 @@
          | '(\\.|[^\\'])*+'      # eat a single quoted string
          |   [^#"']                # eat all but comments and strings
          )*
-         (                 \s   (do|begin|case)
-         | [-+=&amp;|*/~%^&lt;&gt;~] \s*+ (if|unless)
+         (                         \s   (do|begin|case)
+         | [-+=&amp;|*/~%^&lt;&gt;~](?&lt;!\$.) \s*+ (if|unless)
          )
         )\b
         (?! [^;]*+ ; .*? \bend\b )

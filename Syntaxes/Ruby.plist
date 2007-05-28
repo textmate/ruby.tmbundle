@@ -336,7 +336,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b[A-Z][a-z]\w*(?=((\.|::)[A-Za-z]|\[))</string>
+			<string>\b[A-Z]\w*(?=((\.|::)[A-Za-z]|\[))</string>
 			<key>name</key>
 			<string>support.class.ruby</string>
 		</dict>

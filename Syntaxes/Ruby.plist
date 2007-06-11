@@ -2039,7 +2039,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>(?&lt;=[ \t])!|\bnot\b|&amp;&amp;|\band\b|\|\||\bor\b|\^</string>
+			<string>(?&lt;=[ \t])!+|\bnot\b|&amp;&amp;|\band\b|\|\||\bor\b|\^</string>
 			<key>name</key>
 			<string>keyword.operator.logical.ruby</string>
 		</dict>

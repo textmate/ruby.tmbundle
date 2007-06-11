@@ -24,10 +24,7 @@ documentation.gsub!(/(\s|^)\+(\w+)\+(\s|$)/, "\\1<code>\\2</code>\\3")
 
 if documentation.include? "More than one method matched"
   methods       = documentation.split(/\n[ \t]*\n/).last.strip.split(/,\s*/)
-  list_items    = methods.inject("") do |str, item|
-    str + "<li><a href=\"javascript:ri('#{item}')\">#{item}</a></li>\n"
-  end
-  documentation = "<h1>Multiple Matches:</h1>\n<ul>\n#{list_items}</ul>\n"
+  documentation = ">> #{methods.join(' ')}"
 elsif documentation =~ /\A(?:-+\s+)((?:[A-Z_]\w*::)*[A-Z_]\w*)(#|::|\.)/
   nesting   = $1
   constants = nesting.split("::")

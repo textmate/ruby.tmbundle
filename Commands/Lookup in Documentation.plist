@@ -5,54 +5,7 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>#!/usr/bin/env ruby -w
-
-require "#{ENV["TM_SUPPORT_PATH"]}/lib/exit_codes"
-require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
-require "#{ENV["TM_SUPPORT_PATH"]}/lib/web_preview"
-require "#{ENV["TM_SUPPORT_PATH"]}/lib/ui"
-
-LINKED_RI = "#{ENV["TM_BUNDLE_SUPPORT"]}/bin/linked_ri.rb"
-
-# first escape for use in the shell, then escape for use in a JS string
-def e_js_sh(str)
-  (e_sh str).gsub("\\", "\\\\\\\\")
-end
-
-def ri(term)
-  documentation = `#{e_sh LINKED_RI} '#{term}' 2&gt;&amp;1` \
-                  rescue "&lt;h1&gt;ri Command Error.&lt;/h1&gt;"
-  if documentation =~ /Nothing known about /
-    TextMate.exit_show_tool_tip(documentation)
-  elsif documentation.sub!(/\A&gt;&gt;\s*/, "")
-    choices = documentation.split
-    choice  = TextMate::UI.menu(choices)
-    exit if choice.nil?
-    ri(choices[choice])
-  else
-    documentation
-  end
-end
-
-term = STDIN.read.strip
-TextMate.exit_show_tool_tip("Please select a term to look up.") if term.empty?
-
-documentation = ri(term)
-
-html_header("Documentation for ‘#{term}’", "RDoc", &lt;&lt;-HTML)
-  &lt;script type="text/javascript" charset="utf-8"&gt;
-    function ri (arg) {
-			var res = TextMate.system("RUBYLIB=#{e_js_sh "#{ENV['TM_SUPPORT_PATH']}/lib"} #{e_js_sh LINKED_RI} 2&gt;&amp;1 '" + arg + "'", null).outputString;
-			document.getElementById("actual_output").innerHTML = res;
-			window.location.hash = "actual_output";
-		}
-  &lt;/script&gt;
-HTML
-puts &lt;&lt;-HTML
-  &lt;div id="actual_output"&gt;#{documentation}&lt;/div&gt;
-HTML
-html_footer
-TextMate.exit_show_html</string>
+	<string>"${TM_BUNDLE_SUPPORT}/bin/ri.rb"</string>
 	<key>fallbackInput</key>
 	<string>word</string>
 	<key>input</key>

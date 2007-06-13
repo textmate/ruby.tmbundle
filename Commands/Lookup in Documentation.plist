@@ -5,7 +5,7 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>"${TM_BUNDLE_SUPPORT}/bin/ri.rb"</string>
+	<string>"${TM_BUNDLE_SUPPORT}/bin/linked_ri.rb"</string>
 	<key>fallbackInput</key>
 	<string>word</string>
 	<key>input</key>

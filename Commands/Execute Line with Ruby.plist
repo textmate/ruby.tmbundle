@@ -26,7 +26,11 @@ end
 # try to_s, if it doesnt work use inspect
 # Array and Hash are shown via inspect because they look better with formating
 # do this just if the script did not print anything itself
-print( (r.class != Hash and r.class != Array and not r.nil? and r.respond_to? :to_s) ? r.to_s : r.inspect )  if $write_count == 1</string>
+if $write_count == 1
+  print( (r.class != Hash and r.class != Array and not r.nil? and r.respond_to? :to_s) ? r.to_s : r.inspect )
+  print( "\n" ) unless ENV.has_key?('TM_SELECTED_TEXT')
+end
+</string>
 	<key>fallbackInput</key>
 	<string>line</string>
 	<key>input</key>

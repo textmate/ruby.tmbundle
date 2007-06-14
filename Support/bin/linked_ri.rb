@@ -38,7 +38,7 @@ def ri(term)
     exit if choice.nil?
     ri(choices[choice])
   else
-    documentation
+    [term, documentation]
   end
 end
 
@@ -48,24 +48,25 @@ if mode.nil? then
   term = STDIN.read.strip
   TextMate.exit_show_tool_tip("Please select a term to look up.") if term.empty?
 
-  documentation = ri(term)
+  term, documentation = ri(term)
 
   html_header("Documentation for ‘#{term}’", "RDoc", <<-HTML)
 <script type="text/javascript" charset="utf-8">
   function ri (arg, _history) {
-  TextMate.isBusy = true;
-  var res = TextMate.system("RUBYLIB=#{e_js_sh "#{ENV['TM_SUPPORT_PATH']}/lib"} #{e_js_sh LINKED_RI} 2>&1 '" + arg + "' 'js'", null).outputString;
-  document.getElementById("actual_output").innerHTML = res;
-  TextMate.isBusy = false;
-  if(!_history)
-  {
-    var history = document.getElementById('search_history');
-    var new_option = document.createElement('option');
-    new_option.setAttribute('value', arg);
-    new_option.appendChild(document.createTextNode(arg));
-    history.appendChild(new_option);
+    TextMate.isBusy = true;
+    var res = TextMate.system("RUBYLIB=#{e_js_sh "#{ENV['TM_SUPPORT_PATH']}/lib"} #{e_js_sh LINKED_RI} 2>&1 '" + arg + "' 'js'", null).outputString;
+    document.getElementById("actual_output").innerHTML = res;
+    TextMate.isBusy = false;
+    if(!_history)
+    {
+      var history = document.getElementById('search_history');
+      var new_option = document.createElement('option');
+      new_option.setAttribute('value', arg);
+      new_option.appendChild(document.createTextNode(arg));
+      history.appendChild(new_option);
+      history.value = arg;
+    }
   }
-}
 </script>
 HTML
   puts <<-HTML

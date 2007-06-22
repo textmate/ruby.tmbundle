@@ -46,19 +46,36 @@ endfunction
 
 
 "{{{ RCT_completion function
+
+let s:last_test_file = ""
+let s:last_test_lineno = 0
+
 let s:rct_completion_col = 0
 let s:rct_tmpfile = ""
+
+function! <SID>RCT_command_with_test_options(cmd)
+    if s:last_test_file != ""
+	return a:cmd .
+		    \ "-" . "-filename='" . expand("%:p") . "' " .
+		    \ "-t '" . s:last_test_file . "@" . s:last_test_lineno . "' "
+    endif
+    return a:cmd
+endfunction
 
 function! <SID>RCT_completion(findstart, base)
     if a:findstart
 	let s:rct_completion_col = col('.') - 1
-	let s:rct_tmpfile = "tmp-rcodetools" . strftime("Y-%m-%d-%T.rb")
+	let s:rct_tmpfile = "tmp-rcodetools" . strftime("Y-%m-%d-%H-%M-%S.rb")
         silent exec ":w " . s:rct_tmpfile
 	return strridx(getline('.'), '.', col('.')) + 1
     else
 	let line    = line('.')
 	let column  = s:rct_completion_col
-	let command = "rct-complete --completion-class-info --line=" . line . " --column=" . column . " " . s:rct_tmpfile
+
+	let command = "rct-complete --completion-class-info --dev --fork --line=" .
+		    \ line . " --column=" . column . " "
+	let command = <SID>RCT_command_with_test_options(command) . s:rct_tmpfile
+
 	let data = split(system(command), '\n')
 
 	for dline in data
@@ -116,23 +133,41 @@ function! RCT_find_tag_or_ri(fullname)
 endfunction
 
 function! <SID>RCT_smart_ri()
-  let tmpfile = "tmp-rcodetools" . strftime("Y-%m-%d-%T.rb")
+  let tmpfile = "tmp-rcodetools" . strftime("Y-%m-%d-%H-%M-%S.rb")
   silent exec ":w " . tmpfile
 
   let line    = line('.')
   let column  = col('.') - 1
-  let command = "rct-doc --ri-vim --line=" . line . " --column=" . column . " " . tmpfile
+  let command = "rct-doc --ri-vim --line=" . line . " --column=" . column . " "
+  let command = <SID>RCT_command_with_test_options(command) . tmpfile
   "let term = matchstr(system(command), "\\v[^\n]+")
   exec system(command)
   call delete(tmpfile)
   "call RCT_find_tag_or_ri(term)
 endfunction
 
+function! <SID>RCT_ruby_toggle()
+  let curr_file = expand("%:p")
+  let cmd = "ruby -S ruby-toggle-file " . curr_file
+  if match(curr_file, '\v_test|test_') != -1
+      let s:last_test_file = curr_file
+      let s:last_test_lineno = line(".")
+  endif
+  let dest = system(cmd)
+  silent exec ":w"
+  exec ("edit " . dest)
+  silent! normal g;
+endfunction
+
 "{{{ bindings and au
 
-execute "au Filetype ruby setlocal completefunc=" . s:sid . "RCT_completion"
+if v:version >= 700
+    execute "au Filetype ruby setlocal completefunc=" . s:sid . "RCT_completion"
+endif
 execute 'au Filetype ruby nmap <buffer><silent> <C-]> :exec "call ' .
          \ 'RCT_find_tag_or_ri(''" . expand("<cword>") . "'')"<cr>'
-execute 'au Filetype ruby nmap <buffer><silent>' . s:GetOption("RCT_ri_binding", "<LocalLeader>r") . 
+execute 'au Filetype ruby nmap <buffer><silent>' . s:GetOption("RCT_ri_binding", "<LocalLeader>r") .
         \ ' :call ' .  s:sid . 'RCT_smart_ri()<cr>'
+execute 'au Filetype ruby nmap <buffer><silent>' . s:GetOption("RCT_toggle_binding", "<LocalLeader>t") .
+        \ ' :call ' .  s:sid . 'RCT_ruby_toggle()<cr>'
 let &cpo = s:save_cpo

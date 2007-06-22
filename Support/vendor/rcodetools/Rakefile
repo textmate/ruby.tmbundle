@@ -4,7 +4,7 @@ PKG_REVISION = ".0"
 $:.unshift "lib" if File.directory? "lib"
 require 'rcodetools/xmpfilter'
 require 'rake/testtask'
-
+include Rcodetools
 RCT_VERSION  = XMPFilter::VERSION
 
 desc "Run the unit tests in pure-Ruby mode ."
@@ -40,7 +40,20 @@ end
 #  DO NOT EDIT!!                         EDITABLE
 [ ["test/data/rspec_poetry-input.rb", "test/data/rspec-input.rb"],
   ["test/data/unit_test_poetry-input.rb", "test/data/unit_test-input.rb"],
-  ["test/data/completion_emacs-input.rb", "test/data/completion-input.rb"]
+  ["test/data/completion_emacs-input.rb", "test/data/completion-input.rb"],
+  ["test/data/unit_test_detect_rbtest-input.rb", "test/data/unit_test-input.rb"],
+  ["test/data/unit_test_detect_rbtest-output.rb", "test/data/unit_test-output.rb"],
+  ["test/data/unit_test_detect_rbtest2-input.rb", "test/data/unit_test_rbtest-input.rb"],
+  ["test/data/unit_test_detect_rbtest2-output.rb", "test/data/unit_test_rbtest-output.rb"],
+  ["test/data/completion_detect_rbtest-input.rb", "test/data/completion_rbtest-input.rb"],
+  ["test/data/completion_detect_rbtest-output.rb", "test/data/completion_rbtest-output.rb"],
+  ["test/data/completion_detect_rbtest2-input.rb", "test/data/completion-input.rb"],
+  ["test/data/completion_detect_rbtest2-output.rb", "test/data/completion-output.rb"],
+  ["test/data/doc_detect_rbtest-input.rb", "test/data/doc-input.rb"],
+  ["test/data/doc_detect_rbtest-output.rb", "test/data/doc-output.rb"],
+  ["test/data/doc_detect_rbtest2-input.rb", "test/data/doc_rbtest-input.rb"],
+  ["test/data/doc_detect_rbtest2-output.rb", "test/data/doc_rbtest-output.rb"],
+
 ].each do |outfile, infile|
   basetestfiles << outfile
   file(outfile => infile, &copy)

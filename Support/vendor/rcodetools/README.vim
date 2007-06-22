@@ -3,6 +3,17 @@ Copy rcodetools.vim to your plugin directory (typically $HOME/.vim/plugin) in
 order to enable accurate code completion, quick RI execution and exact tag
 jumping.
 
+Switching between implementation and test files
+===============================================
+The <localleader>t binding (by default \t) will call ruby-toggle-file to
+switch from test to implementation and vice versa. Moreover, when you switch
+from the test to the implementation, rcodetools will remember which test
+you were editing (based on the cursor position), and call it as needed for
+advanced code completion or precise RI documentation, as documented below.
+
+The actual binding can be changed in your .vimrc as follows:
+ let g:RCT_toggle_binding="<C-X><C-t>"  " use ^X^T to go test <=> implementation
+
 Code completion
 ===============
 rcodetools.vim redefines user-defined completion for Ruby programs, so you can

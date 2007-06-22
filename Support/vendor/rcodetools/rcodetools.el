@@ -4,15 +4,20 @@
 ;;;
 ;;; Use and distribution subject to the terms of the Ruby license.
 
-(defvar xmpfilter-command-name "ruby -S xmpfilter --dev"
+(defvar xmpfilter-command-name "ruby -S xmpfilter --dev --detect-rbtest"
   "The xmpfilter command name.")
-(defvar rct-doc-command-name "ruby -S rct-doc --dev"
+(defvar rct-doc-command-name "ruby -S rct-doc --dev --fork --detect-rbtest"
   "The rct-doc command name.")
-(defvar rct-complete-command-name "ruby -S rct-complete --dev"
+(defvar rct-complete-command-name "ruby -S rct-complete --dev --fork --detect-rbtest"
   "The rct-complete command name.")
+(defvar ruby-toggle-file-command-name "ruby -S ruby-toggle-file"
+  "The ruby-toggle-file command name.")
 (defvar rct-option-history nil)                ;internal
 (defvar rct-option-local nil)     ;internal
 (make-variable-buffer-local 'rct-option-local)
+(defvar rct-debug nil
+  "If non-nil, output debug message into *Messages*.")
+;; (setq rct-debug t)
 
 (defadvice comment-dwim (around rct-hack activate)
   "If comment-dwim is successively called, add => mark."
@@ -55,7 +60,7 @@
 See also `rct-interactive'. "
   (interactive (rct-interactive))
   (rct-save-position
-   (lambda () (shell-command-on-region (point-min) (point-max) (xmpfilter-command option) t t))))
+   (lambda () (shell-command-on-region (point-min) (point-max) (xmpfilter-command option) t t " *rct-error*"))))
 
 (defun xmpfilter-command (&optional option)
   "The xmpfilter command line, DWIM."
@@ -76,6 +81,8 @@ See also `rct-interactive'. "
 (defvar rct-complete-symbol-function 'rct-complete-symbol--normal
   "Function to use rct-complete-symbol.")
 ;; (setq rct-complete-symbol-function 'rct-complete-symbol--icicles)
+(defvar rct-use-test-script t
+  "Whether rct-complete/rct-doc use test scripts.")
 
 (defun rct-complete-symbol (&optional option)
   "Perform ruby method and class completion on the text around point.
@@ -113,20 +120,60 @@ See also `rct-interactive'."
 
 ;; (define-key ruby-mode-map "\M-\C-i" 'rct-complete-symbol)
 
+(defun rct-debuglog (logmsg)
+  "if `rct-debug' is non-nil, output LOGMSG into *Messages*. Returns LOGMSG."
+  (if rct-debug
+      (message "%s" logmsg))
+  logmsg)
+
 (defun rct-exec-and-eval (command opt)
   "Execute rct-complete/rct-doc and evaluate the output."
   (let ((eval-buffer  (get-buffer-create " *rct-eval*")))
     ;; copy to temporary buffer to do completion at non-EOL.
     (shell-command-on-region
      (point-min) (point-max)
-     (format "%s %s %s --line=%d --column=%d"
-             command opt (or rct-option-local "")
-             (rct-current-line) (current-column))
-     eval-buffer)
+     (rct-debuglog (format "%s %s %s --line=%d --column=%d %s"
+                           command opt (or rct-option-local "")
+                           (rct-current-line) (current-column)
+                           (if rct-use-test-script (rct-test-script-option-string) "")))
+     eval-buffer nil " *rct-error*")
     (message "")
     (eval (with-current-buffer eval-buffer
             (goto-char 1)
-            (read (current-buffer))))))
+            (unwind-protect
+                (read (current-buffer))
+              (unless rct-debug (kill-buffer eval-buffer)))))))
+
+(defun rct-test-script-option-string ()
+  (if (null buffer-file-name)
+      ""
+    (let ((test-buf (rct-find-test-script-buffer))
+          (bfn buffer-file-name)
+          t-opt test-filename)
+      (if test-buf
+          ;; pass test script's filename and lineno
+          (with-current-buffer test-buf
+            (setq t-opt (format "%s@%s" buffer-file-name (rct-current-line)))
+            (format "-t %s --filename=%s" t-opt bfn))
+        ""))))
+
+(require 'cl)
+
+(defun rct-find-test-script-buffer (&optional buffer-list)
+  "Find the latest used Ruby test script buffer."
+  (setq buffer-list (or buffer-list (buffer-list)))
+  (dolist (buf buffer-list)
+    (with-current-buffer buf
+      (if (and buffer-file-name (string-match "test.*\.rb$" buffer-file-name))
+          (return buf)))))
+
+;; (defun rct-find-test-method (buffer)
+;;   "Find test method on point on BUFFER."
+;;   (with-current-buffer buffer
+;;     (save-excursion
+;;       (forward-line 1)
+;;       (if (re-search-backward "^ *def *\\(test_[A-Za-z0-9?!_]+\\)" nil t)
+;;           (match-string 1)))))
 
 (defun rct-try-completion ()
   "Evaluate the output of rct-complete."
@@ -158,5 +205,13 @@ See also `rct-interactive'. "
           (find-tag-in-order (concat "::" fullname) 'search-forward '(tag-exact-match-p) nil  "containing" t))
       (error
        (ri fullname)))))
+
+;;;;
+(defun ruby-toggle-buffer ()
+  "Open a related file to the current buffer. test<=>impl."
+  (interactive)
+  (find-file (shell-command-to-string
+              (format "%s %s" ruby-toggle-file-command-name buffer-file-name))))
+
 
 (provide 'rcodetools)

@@ -28,7 +28,8 @@ See also `rct-interactive'."
                         (icicle-point-position-in-candidate 'input-end)
                         pattern klass alist
                         (icicle-candidate-help-fn
-                         (lambda (result) (ri (cdr (assoc result alist)))))) ;bindings
+                         (lambda (result)
+                           (ri (cdr (assoc result alist)))))) ;bindings
                        (rct-exec-and-eval rct-complete-command-name "--completion-emacs-icicles"))
 
 (provide 'icicles-rcodetools)

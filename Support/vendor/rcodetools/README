@@ -14,6 +14,10 @@ Currently, rcodetools comprises:
 * rct-complete: Accurate method/class/constant etc. completions
 * rct-doc: Document browsing and code navigator
 * rct-meth-args: Precise method info (meta-prog. aware) and TAGS generation
+* rct-fork: Pre-load heavy library(Rails etc) and speed up rct-complete/rct-doc (server)
+* rct-fork-client: Run Ruby programs from state the rct-fork server has
+* ruby-toggle-file: Toggle implementation file and test file
+* rbtest: Embedded Test::Unit for small scripts
 
 See also README.xmpfilter.
 
@@ -29,7 +33,66 @@ stdout. They can run in several modes; see
  rct-complete -h 
  rct-doc -h 
  rct-meth-args -h
+ rct-fork -h
+ rct-fork-client -h
+ ruby-toggle-file -h
+ rbtest -h
 README.emacs and README.vim describe how to use rcodetools from your editor.
+
+= Accurate Completion Internal and Caveat
+rct-complete and rct-doc use xmpfilter engine, ie they get runtime information by executing code.
+In Ruby (dynamic languages), type of any expressions except literals cannot be known without actually executing code.
+Moreover Ruby has open classes and singleton methods.
+Rcodetools asks `ruby' run-time informations, so we can get very accurate informations.
+Completion and document browsing are essentially identical operations,
+they both need the object value in question.
+Therefore we discuss completion.
+
+rct-complete does:
+(1) replaces target line with completion magic
+    (it calculates methods the target object has).
+(2) executes modified script.
+(3) once the control reaches completion magic, modified script exits.
+(4) outputs in specified format. (list candidates, EmacsLisp...)
+
+But this methodology has two big drawbacks, side-effects and inability to get any informations of uncovered code!
+
+An extreme side-effect example:
+  File.unlink a_file
+  File. <-
+
+If you call rct-complete, it removes a_file (sends a mail, accesses DB ...).
+So you must be careful to use, especially at TOPLEVEL.
+I (rubikitch) often experiment at TOPLEVEL with rcodetools, I NEVER use irb(sh) since rcodetools!
+
+An uncovered code example:
+  def foo
+    1. <-
+  end
+
+If the code does not call foo, we cannot do any completions.
+
+Useless eh? But we already have a way to elude the drawbacks, test scripts (unit tests)!
+Test scripts are self-enclosed and expected to be executed, so side-effects are not problem.
+Moreover tests call methods we write.
+Because Ruby's Test::Unit has an ability to test only one test method, we can do lightning-fast completion.
+Let's call it Test-Driven Completion (TDC).
+
+To support TDC, rct-complete has -t option.
+With -t, it concatenate modified script and test/unit code.
+If the control does not reach target line, test/unit code calls the line.
+
+How do we select test script and test method?
+The editor selects recently selected buffer of test script as test script of TDC,
+because the test-infected tend to go and return between test script and implementation script.
+It considers files matching /test.*\.rb/ as test script.
+It selects test method at the cursor position.
+
+TDC adds roles of test scripts.
+Enjoy TDC magic!
+
+See also README.TDC.
+
 
 = License
 rcodetools is licensed under the same terms as Ruby.

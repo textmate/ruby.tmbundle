@@ -54,6 +54,7 @@
 		<string>cgi</string>
 		<string>fcgi</string>
 		<string>gemspec</string>
+		<string>irbrc</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby\b</string>

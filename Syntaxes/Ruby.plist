@@ -336,12 +336,6 @@
 			<string>variable.other.readwrite.global.pre-defined.ruby</string>
 		</dict>
 		<dict>
-			<key>match</key>
-			<string>\b[A-Z]\w*(?=((\.|::)[A-Za-z]|\[))</string>
-			<key>name</key>
-			<string>support.class.ruby</string>
-		</dict>
-		<dict>
 			<key>begin</key>
 			<string>\b(ENV)\[</string>
 			<key>beginCaptures</key>
@@ -363,6 +357,12 @@
 					<string>$self</string>
 				</dict>
 			</array>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b[A-Z]\w*(?=((\.|::)[A-Za-z]|\[))</string>
+			<key>name</key>
+			<string>support.class.ruby</string>
 		</dict>
 		<dict>
 			<key>match</key>

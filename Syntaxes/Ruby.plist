@@ -810,7 +810,7 @@
 			   (?:
 			     ^                      # beginning of line
 			   | (?&lt;=                   # or look-behind on:
-			       [=&gt;~(?:\[,|&amp;]
+			       [=&gt;~(?:\[,|&amp;;]
 			     | (?:\s|;)when\s
 			     | (?:\s|;)or\s
 			     | (?:\s|;)and\s

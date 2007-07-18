@@ -61,12 +61,12 @@
 	<key>foldingStartMarker</key>
 	<string>(?x)^
 	    (\s*+
-	        (module|class|def
+	        (module|class|def(?!.*\bend\s*$)
 	        |unless|if
 	        |case
 	        |begin
 	        |for|while|until
-			 |^=begin
+	         |^=begin
 	        |(  "(\\.|[^"])*+"          # eat a double quoted string
 	         | '(\\.|[^'])*+'        # eat a single quoted string
 	         |   [^#"']                # eat all but comments and strings

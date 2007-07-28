@@ -55,6 +55,7 @@
 		<string>fcgi</string>
 		<string>gemspec</string>
 		<string>irbrc</string>
+		<string>capfile</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby\b</string>

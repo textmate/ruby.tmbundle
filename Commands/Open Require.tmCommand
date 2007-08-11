@@ -7,11 +7,26 @@
 	<key>command</key>
 	<string>#!/usr/bin/env ruby
 
-file = STDIN.read.sub(/\A(["'])(.*)(\.rb)?\1\z/, '\2.rb')
-dir = $:.find { |d| File.exist?(File.join(d, file)) }
+gems_installed = begin
+                   require 'rubygems'
+                   true
+                 rescue LoadError
+                   false
+                 end
 
-if dir &amp;&amp; file then
-  ENV['FILE'] = File.join(dir, file)
+file = $stdin.read.sub(/\A(["']?)(.*)(\.rb|["'])?\1/, '\2.rb')
+dir  = $LOAD_PATH.find { |d| File.exist?(File.join(d, file)) }
+
+project_root = if dir and file
+                 File.dirname(File.join(dir, file))
+               elsif gems_installed
+                 if gem_spec = Gem::GemPathSearcher.new.find(file)
+                   gem_spec.full_gem_path
+                 end
+               end
+
+if project_root
+  ENV['FILE'] = project_root
   %x{ "$TM_SUPPORT_PATH/bin/mate" "$FILE" }
 else
   puts "Could not find include: ‘#{file}’"

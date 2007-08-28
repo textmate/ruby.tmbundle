@@ -21,7 +21,7 @@ export TM_RUBY=$(which "${TM_RUBY:-ruby}")
 	<key>output</key>
 	<string>showAsHTML</string>
 	<key>scope</key>
-	<string>source.ruby - text.html.ruby</string>
+	<string>source.ruby - source.ruby.embedded</string>
 	<key>uuid</key>
 	<string>35222962-C50D-4D58-A6AE-71E7AD980BE4</string>
 </dict>

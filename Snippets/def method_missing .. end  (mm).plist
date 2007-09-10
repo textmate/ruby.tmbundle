@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>def method_missing(meth, *args, &amp;block)
+	<string>def method_missing(meth, *args, &amp;blk)
 	$0
 end</string>
 	<key>name</key>
@@ -11,7 +11,7 @@ end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>
-	<string>mm</string>
+	<string>defmm</string>
 	<key>uuid</key>
 	<string>87D5F8AD-8DA6-4AED-A0D8-B51CAC980445</string>
 </dict>

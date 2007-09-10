@@ -3,15 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>do |${1:object}|
+	<string>do${1/(^(?&lt;var&gt;\s*[a-z_][a-zA-Z0-9_]*\s*)(,\g&lt;var&gt;)*,?\s*$)|.*/(?1: |)/}${1:variable}${1/(^(?&lt;var&gt;\s*[a-z_][a-zA-Z0-9_]*\s*)(,\g&lt;var&gt;)*,?\s*$)|.*/(?1:|)/}
 	$0
 end</string>
 	<key>name</key>
-	<string>Insert do |object| … end</string>
+	<string>Insert do |variable| … end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>
-	<string>doo</string>
+	<string>do</string>
 	<key>uuid</key>
 	<string>4B72C5C3-6CA7-41AC-B2F9-51DEA25D469E</string>
 </dict>

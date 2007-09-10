@@ -3,17 +3,15 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>class ${1:ClassName} &lt; Struct.new(:${2:attr_names})
-	def initialize(*args)
-		super
-		
+	<string>${1:ClassName} = Struct.new(:${2:attr_names}) do
+	def ${3:method_name}
 		$0
 	end
 	
 	
 end</string>
 	<key>name</key>
-	<string>class .. &lt; Struct .. initialize .. end</string>
+	<string>ClassName = Struct .. do .. end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

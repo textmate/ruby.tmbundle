@@ -4,8 +4,7 @@
 <dict>
 	<key>content</key>
 	<string>unless ARGV.$1
-  puts "Usage:  #{\$PROGRAM_NAME} ${2:ARGS_GO_HERE}"
-  exit
+	abort "Usage:  #{\$PROGRAM_NAME} ${2:ARGS_GO_HERE}"
 end</string>
 	<key>name</key>
 	<string>usage_unless()</string>

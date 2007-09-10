@@ -8,13 +8,14 @@
 		$0
 	end
 	
-	extend ClassMethods
-	
-	def self.included(receiver)
-		receiver.extend(ClassMethods)
+	module InstanceMethods
+		
 	end
 	
-	
+	def self.included(receiver)
+		receiver.extend         ClassMethods
+		receiver.send :include, InstanceMethods
+	end
 end</string>
 	<key>name</key>
 	<string>module .. ClassMethods .. end</string>

@@ -13,6 +13,10 @@ require "enumerator"
 require "erb"
 include ERB::Util
 
+tm_var_or_qri = 'RI=$(type -P ${TM_RUBY_RI:-qri})'
+ri_default    = '[[ ! -x "$RI" ]] && RI=$(type -P ri)'
+RI_EXE        = `#{tm_var_or_qri}; #{ri_default}; echo -n $RI`
+
 term = ARGV.shift
 
 # first escape for use in the shell, then escape for use in a JS string
@@ -30,7 +34,15 @@ end
 def ri(term)
   documentation = `#{e_sh LINKED_RI} '#{term}' 'js' 2>&1` \
                   rescue "<h1>ri Command Error.</h1>"
-  if documentation =~ /Nothing known about /
+  if documentation =~ /\ACouldn't open the index/
+    TextMate.exit_show_tool_tip(
+      "Index needed by #{RI_EXE} not found.\n" +
+      "You may need to run:\n\n"               +
+      "  fastri-server -b"
+    )
+  elsif documentation =~ /\ACouldn't initialize DRb and locate the Ring server./
+    TextMate.exit_show_tool_tip("Your fastri-server is not running.")
+  elsif documentation =~ /Nothing known about /
     TextMate.exit_show_tool_tip(documentation)
   elsif documentation.sub!(/\A>>\s*/, "")
     choices = documentation.split
@@ -83,12 +95,12 @@ HTML
   html_footer
   TextMate.exit_show_html
 elsif mode == 'js' then
-  
-  documentation = h(`ri -T #{e_sh term}`) rescue "<h1>ri Command Error.</h1>"
+  documentation = h(`#{RI_EXE} -T -f plain #{e_sh term}`) \
+    rescue "<h1>ri Command Error.</h1>"
 
   documentation.gsub!(/(\s|^)\+(\w+)\+(\s|$)/, "\\1<code>\\2</code>\\3")
 
-  if documentation.include? "More than one method matched"
+  if documentation =~ /\A(?:More than one method matched|-+\s+Multiple choices)/
     methods       = documentation.split(/\n[ \t]*\n/).last.strip.split(/,\s*/)
     documentation = ">> #{methods.join(' ')}"
   elsif documentation =~ /\A(?:-+\s+)((?:[A-Z_]\w*::)*[A-Z_]\w*)(#|::|\.)/

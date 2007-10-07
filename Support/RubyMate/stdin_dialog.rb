@@ -1,14 +1,16 @@
 require "ui"
+require "io/wait"
 
 class TextMateSTDIN < IO
-  def gets(sep = nil)
+  def gets(*args)
+    return super if ready?
     TextMate::UI.request_string( :prompt  => "Script is Requesting Input:",
-                           :button1 => "Send" ) + "\n"
+                                 :button1 => "Send" ) + "\n"
   end
 end
 
 $TM_STDIN = TextMateSTDIN.new(STDIN.fileno)
 STDIN.reopen($TM_STDIN)
-def gets(sep = nil)
-  $TM_STDIN.gets(sep)
+def gets(*args)
+  $TM_STDIN.gets(*args)
 end

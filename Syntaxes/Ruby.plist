@@ -276,7 +276,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>$base</string>
+					<string>$self</string>
 				</dict>
 			</array>
 		</dict>
@@ -412,7 +412,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>$base</string>
+					<string>$self</string>
 				</dict>
 			</array>
 		</dict>
@@ -2126,7 +2126,7 @@
 			<array>
 				<dict>
 					<key>include</key>
-					<string>$base</string>
+					<string>$self</string>
 				</dict>
 			</array>
 		</dict>

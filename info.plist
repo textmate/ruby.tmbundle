@@ -34,14 +34,6 @@
 			<string>835FAAC6-5431-436C-998B-241F7226B99B</string>
 			<string>A83F68A9-F751-4BB4-AE16-56812878C16A</string>
 			<string>47D203ED-EB9B-4653-A07B-A897800CEB76</string>
-			<string>8394EDEF-87E8-11D9-A6A3-000D93589AF6</string>
-			<string>BE3B3E5E-733E-11D9-A833-000A95A89C98</string>
-			<string>66708792-62C3-11D9-B8CF-000D93589AF6</string>
-			<string>667089D2-62C3-11D9-B8CF-000D93589AF6</string>
-			<string>667080D9-62C3-11D9-B8CF-000D93589AF6</string>
-			<string>667081DE-62C3-11D9-B8CF-000D93589AF6</string>
-			<string>66708259-62C3-11D9-B8CF-000D93589AF6</string>
-			<string>66708052-62C3-11D9-B8CF-000D93589AF6</string>
 		</array>
 		<key>items</key>
 		<array>
@@ -232,7 +224,6 @@
 					<string>667083EE-62C3-11D9-B8CF-000D93589AF6</string>
 					<string>48D8E498-C9A5-4B1B-9A18-71A5860276FB</string>
 					<string>4E9A7A73-875C-11D9-897C-000393CBCE2E</string>
-					<string>6670881E-62C3-11D9-B8CF-000D93589AF6</string>
 					<string>6670835F-62C3-11D9-B8CF-000D93589AF6</string>
 					<string>667082E6-62C3-11D9-B8CF-000D93589AF6</string>
 					<string>CD1609FA-47DA-4EE4-9C5B-5C56D953F5B1</string>
@@ -365,8 +356,8 @@
 					<string>418F1817-255F-430A-B09A-222964ED66A7</string>
 					<string>8CEF9711-88D5-4202-AFB9-29EF4EFD25C1</string>
 					<string>------------------------------------</string>
-					<string>209D5D73-7A77-4931-A158-3FB6D5B48A88</string>
 					<string>C3C48948-4F49-484E-A8DE-DEB44723099E</string>
+					<string>209D5D73-7A77-4931-A158-3FB6D5B48A88</string>
 				</array>
 				<key>name</key>
 				<string>Files</string>
@@ -514,8 +505,8 @@
 		<string>8F594E5E-6F46-4E98-B5FB-1C8F3BA9828F</string>
 		<string>418F1817-255F-430A-B09A-222964ED66A7</string>
 		<string>8CEF9711-88D5-4202-AFB9-29EF4EFD25C1</string>
-		<string>209D5D73-7A77-4931-A158-3FB6D5B48A88</string>
 		<string>C3C48948-4F49-484E-A8DE-DEB44723099E</string>
+		<string>209D5D73-7A77-4931-A158-3FB6D5B48A88</string>
 		<string>9E0B4D4B-2956-4B3A-800A-3D8CE54E66BF</string>
 		<string>BA9440C9-36C3-4031-BB61-67B581D5B179</string>
 		<string>B0CE57EC-FB2E-4482-8CCE-448DC2588715</string>

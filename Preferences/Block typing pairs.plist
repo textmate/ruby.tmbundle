@@ -5,7 +5,7 @@
 	<key>name</key>
 	<string>Typing Pairs: Block Opening</string>
 	<key>scope</key>
-	<string>keyword.control.ruby.start-block, meta.syntax.ruby.start-block</string>
+	<string>keyword.control.start-block.ruby, meta.syntax.ruby.start-block</string>
 	<key>settings</key>
 	<dict>
 		<key>smartTypingPairs</key>

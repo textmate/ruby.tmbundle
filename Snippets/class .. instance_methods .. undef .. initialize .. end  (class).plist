@@ -6,7 +6,7 @@
 	<string>class ${1:BlankSlate}
 	instance_methods.each { |meth| undef_method(meth) unless meth =~ /\A__/ }
 	
-	def initialize${2/(^(?&lt;var&gt;\s*[*&amp;]?[a-z_][a-zA-Z0-9_]*\s*)(,\g&lt;var&gt;)*,?\s*$)|.*/(?1:\()/}${2:args}${2/(^(?&lt;var&gt;\s*[*&amp;]?[a-z_][a-zA-Z0-9_]*\s*)(,\g&lt;var&gt;)*,?\s*$)|.*/(?1:\))/}
+	def initialize${2/(^.*?\S.*)|.*/(?1:\()/}${2:args}${2/(^.*?\S.*)|.*/(?1:\))/}
 		@${3:delegate} = ${4:delegate_object}
 		
 		$0

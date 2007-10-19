@@ -19,20 +19,19 @@ end
 
 print case str = STDIN.read
   # Handle standard quotes
-  when /\A"(.*)"\z/m; "%{" + $1.unescape('"').escape("}") + "}"
-  when /\A%Q?\{(.*)\}\z/m; "'" + $1.unescape("}").escape("'") + "'"
-  when /\A'(.*)'\z/m; "%q{" + $1.unescape("'").escape("}") + "}"
-  when /\A%q\{(.*)\}\z/m; '"' + $1.unescape("}").escape('"') + '"'
+  when /\A"(.*)"\z/m;          "'"   + $1.unescape('"').escape("'") + "'"
+  when /\A'(.*)'\z/m;          "%Q{" + $1.unescape("'").escape("}") + "}"
+  when /\A%[Qq]?\{(.*)\}\z/m;  '"'   + $1.unescape("}").escape('"') + '"'
 
   # Handle the more esoteric quote styles
-  when /\A%Q?\[(.*)(\])\z/m, /\A%Q?\((.*)(\))\z/m, /\A%Q?&lt;(.*)(&gt;)\z/m; "'" + $1.unescape($2).escape("'") + "'"
-  when /\A%Q?(.)(.*)\1\z/m; "'" + $2.unescape($1).escape("'") + "'"
-  when /\A%q\[(.*)(\])\z/m, /\A%q\((.*)(\))\z/m, /\A%q&lt;(.*)(&gt;)\z/m; '"' + $1.unescape($2).escape('"') + '"'
-  when /\A%q(.)(.*)\1\z/m; '"' + $2.unescape($1).escape('"') + '"'
+  when /\A%[Qq]?\[(.*)(\])\z/m,
+       /\A%[Qq]?\((.*)(\))\z/m,
+       /\A%[Qq]?&lt;(.*)(&gt;)\z/m;  '"' + $1.unescape($2).escape('"') + '"'
+  when /\A%[Qq]?(.)(.*)\1\z/m; '"' + $2.unescape($1).escape('"') + '"'
 
   # Handle shell escapes
-  when /\A`(.*)`\z/m; "%x{" + $1.unescape("`").escape("}") + "}"
-  when /\A%x\{(.*)\}\z/m; "`" + $1.unescape("}").escape("`") + "`"
+  when /\A`(.*)`\z/m;          "%x{" + $1.unescape("`").escape("}") + "}"
+  when /\A%x\{(.*)\}\z/m;      "`"   + $1.unescape("}").escape("`") + "`"
 
   # Default case
   else str

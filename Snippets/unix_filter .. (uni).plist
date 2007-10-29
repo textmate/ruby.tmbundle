@@ -11,7 +11,7 @@ end</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>
-	<string>uni</string>
+	<string>unif</string>
 	<key>uuid</key>
 	<string>8CEF9711-88D5-4202-AFB9-29EF4EFD25C1</string>
 </dict>

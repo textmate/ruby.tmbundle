@@ -7,7 +7,7 @@
 	$0
 end</string>
 	<key>name</key>
-	<string>application_code { .. }</string>
+	<string>application { .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

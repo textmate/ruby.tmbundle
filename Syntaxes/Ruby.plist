@@ -823,6 +823,7 @@
 			     | (?:\s|;|\.)gsub\s
 			     | (?:\s|;|\.)gsub!\s
 			     | (?:\s|;|\.)match\s
+			     | (?:\s|;|\.)assert_match\s
 			     | (?:\s|;)if\s
 			     | (?:\s|;)elsif\s
 			     | (?:\s|;)while\s

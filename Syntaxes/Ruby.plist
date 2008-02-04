@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>comment</key>
@@ -865,32 +865,25 @@
 			     ^                      # beginning of line
 			   | (?&lt;=                   # or look-behind on:
 			       [=&gt;~(?:\[,|&amp;;]
-			     | (?:\s|;)when\s
-			     | (?:\s|;)or\s
-			     | (?:\s|;)and\s
-			     | (?:\s|;)not\s
-			     | (?:\s|;|\.)index\s
-			     | (?:\s|;|\.)scan\s
-			     | (?:\s|;|\.)sub\s
-			     | (?:\s|l|\.)sub!\s
-			     | (?:\s|;|\.)gsub\s
-			     | (?:\s|;|\.)gsub!\s
-			     | (?:\s|;|\.)match\s
-			     | (?:\s|;|\.)assert_match\s
-			     | (?:\s|;)if\s
-			     | (?:\s|;)elsif\s
-			     | (?:\s|;)while\s
-			     | (?:\s|;)unless\s
+			     | [\s;]if\s			# keywords
+			     | [\s;]elsif\s
+			     | [\s;]while\s
+			     | [\s;]unless\s
+			     | [\s;]when\s
+			     | [\s;]assert_match\s
+			     | [\s;]or\s			# boolean opperators
+			     | [\s;]and\s
+			     | [\s;]not\s
+			     | [\s.]index\s			# methods
+			     | [\s.]scan\s
+			     | [\s.]sub\s
+			     | [\s.]sub!\s
+			     | [\s.]gsub\s
+			     | [\s.]gsub!\s
+			     | [\s.]match\s
 			     )
 			   | (?&lt;=                  # or a look-behind with line anchor:
-			        ^when\s              # duplication necessary due to limits of regex
-			      | ^index\s
-			      | ^scan\s
-			      | ^sub\s
-			      | ^gsub\s
-			      | ^sub!\s
-			      | ^gsub!\s
-			      | ^match\s
+			        ^when\s            # duplication necessary due to limits of regex
 			      | ^if\s
 			      | ^elsif\s
 			      | ^while\s

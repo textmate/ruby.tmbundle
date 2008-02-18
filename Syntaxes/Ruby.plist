@@ -2071,12 +2071,6 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\+@|-@</string>
-			<key>name</key>
-			<string>keyword.operator.unary.ruby</string>
-		</dict>
-		<dict>
-			<key>match</key>
 			<string>&lt;&lt;=|%=|&amp;=|\*=|\*\*=|\+=|\-=|\^=|\|{1,2}=|/=|&lt;&lt;</string>
 			<key>name</key>
 			<string>keyword.operator.assignment.augmented.ruby</string>

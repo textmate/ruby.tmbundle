@@ -90,7 +90,7 @@ HTML
     ri(document.getElementById('search_history').value, true);
   }, false);
 </script>
-<div id="actual_output">#{documentation}</div>
+<div id="actual_output" style="margin-top: 3em">#{documentation}</div>
 HTML
   html_footer
   TextMate.exit_show_html

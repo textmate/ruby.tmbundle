@@ -432,6 +432,7 @@
 			           (?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?                              # the method name
 			           |===?|&gt;[&gt;=]?|&lt;=&gt;|&lt;[&lt;=]?|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?) )  # …or an operator method
 			         [ \t]                                                          # the space separating the arguments
+			         (?=[ \t]*[^\s#])                                               # make sure arguments and not a comment follow
 			        </string>
 			<key>beginCaptures</key>
 			<dict>

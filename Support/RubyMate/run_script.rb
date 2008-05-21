@@ -5,7 +5,7 @@ $SCRIPTMATE_VERSION = "$Revision$"
 
 class RubyScript < UserScript
   def lang; "Ruby" end
-  def executable; @hashbang || ENV['TM_RUBY'] || 'ruby' end
+  def executable; ENV['TM_RUBY'] || 'ruby' end
   def args; ['-rcatch_exception', '-rstdin_dialog'] end
   def version_string
     ruby_path = %x{ #{executable} -e 'require "rbconfig"; print Config::CONFIG["bindir"] + "/" + Config::CONFIG["ruby_install_name"]'}

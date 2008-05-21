@@ -5,7 +5,7 @@ $SCRIPTMATE_VERSION = "$Revision$"
 
 class RubyScript < UserScript
   def lang; "Ruby" end
-  def executable; ENV['TM_RUBY'] || 'ruby' end
+  def executable; @hashbang || ENV['TM_RUBY'] || 'ruby' end
   def args; ['-rcatch_exception', '-rstdin_dialog'] end
   def version_string
     ruby_path = %x{ #{executable} -e 'require "rbconfig"; print Config::CONFIG["bindir"] + "/" + Config::CONFIG["ruby_install_name"]'}
@@ -25,7 +25,7 @@ class RubyScript < UserScript
                                   [".."] * (path_ary.length - index - 1) ) +
                                   ["lib"] )
         if File.exist? lib_path
-          cmd.insert(1, "-I#{lib_path}:#{test_path}")
+          cmd.insert(1, "-I#{e_sh lib_path}:#{e_sh test_path}")
         end
       end
     end

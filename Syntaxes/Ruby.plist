@@ -2201,7 +2201,7 @@
 		<key>escaped_char</key>
 		<dict>
 			<key>match</key>
-			<string>\\(?:0\d{1,2}|x[\da-fA-F]{1,2}|.)</string>
+			<string>\\(?:[0-7]{1,3}|x[\da-fA-F]{1,2}|.)</string>
 			<key>name</key>
 			<string>constant.character.escape.ruby</string>
 		</dict>

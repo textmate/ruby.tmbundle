@@ -19,7 +19,7 @@ at_exit do
         file, line, method = $1, $2, $3
 
         url, display_name = '', 'untitled document';
-        if file != '-' && File.exists?(file) then
+        if file != '-' && File.exists?(file) && !ENV['TM_SCRIPT_IS_UNTITLED'] then
           file = Pathname.new(file).realpath.to_s
           url = '&url=file://' + e_url(file)
           display_name = File.basename(file)

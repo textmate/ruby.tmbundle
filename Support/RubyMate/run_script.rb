@@ -5,6 +5,7 @@ $SCRIPTMATE_VERSION = "$Revision$"
 
 class RubyScript < UserScript
   def lang; "Ruby" end
+  def default_extension; ".rb" end
   def executable; @hashbang || ENV['TM_RUBY'] || 'ruby' end
   def args; ['-rcatch_exception'] end
   def version_string

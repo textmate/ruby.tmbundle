@@ -12,12 +12,14 @@ cmd = [ENV['TM_RUBY'] || 'ruby', '-rcatch_exception']
 if is_test_script and not ENV['TM_FILE_IS_UNTITLED']
   path_ary = (ENV['TM_ORIG_FILEPATH'] || ENV['TM_FILEPATH']).split("/")
   if index = path_ary.rindex("test")
-    test_path = File.join(*path_ary[0..-2])
+    test_path = "#{File.join(*path_ary[0..index])}:#{File.join(*path_ary[0..-2])}"
     lib_path  = File.join( *( path_ary[0..-2] +
                               [".."] * (path_ary.length - index - 1) ) +
                               ["lib"] )
     if File.exist? lib_path
       cmd << "-I#{lib_path}:#{test_path}"
+    else
+      cmd << "-I#{test_path}"
     end
   end
 end

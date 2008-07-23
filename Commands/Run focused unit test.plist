@@ -42,7 +42,10 @@ exit_show_tool_tip
 fi
 
 export RUBYLIB="$TM_BUNDLE_SUPPORT/RubyMate${RUBYLIB:+:$RUBYLIB}"
-"${TM_RUBY:-ruby}" -- "$TM_BUNDLE_SUPPORT/RubyMate/run_script.rb" $args</string>
+export TM_RUBY=$(type -p "${TM_RUBY:-ruby}")
+
+"${TM_RUBY}" -- "$TM_BUNDLE_SUPPORT/RubyMate/run_script.rb"
+</string>
 	<key>fileCaptureRegister</key>
 	<string>1</string>
 	<key>input</key>

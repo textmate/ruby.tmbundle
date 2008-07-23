@@ -9,7 +9,9 @@
 	<key>capturePattern</key>
 	<string>(/[^:]+):(\d+)</string>
 	<key>command</key>
-	<string># Assumes the current file is a unittest file
+	<string>#!/bin/sh
+
+# Assumes the current file is a unittest file
 # Runs with the currently-focused method as the test name
 
 export RUBYLIB="$TM_BUNDLE_SUPPORT/RubyMate${RUBYLIB:+:$RUBYLIB}"
@@ -32,16 +34,16 @@ end
 
 # puts [name, spec, context].inspect
 
-if !name.empty?
+if name and !name.empty?
 print "--name=#{name}"
-elsif !spec.empty? &amp;&amp; !context.empty?
+elsif spec and !spec.empty? and context and !context.empty?
 print "--name=\"/test_spec \\{.*#{context}\\} \\d{3} \\[#{spec}\\]/\""
 end
 EOF)
 
 if [[ -z "$args" ]]; then
-echo -e "This doesn't appear to be a TestCase class."
-exit_show_tool_tip
+echo -n "This doesn't appear to be a TestCase or spec."
+exit 205
 fi
 
 "${TM_RUBY}" -- "$TM_BUNDLE_SUPPORT/RubyMate/run_script.rb" $args

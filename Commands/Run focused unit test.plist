@@ -27,7 +27,7 @@ spec      = $3 || $4 if lines.find { |line| line =~ /^\s*(specify|it)\s+('(.*)'|
 context   = $3 || $4 if lines.find { |line| line =~ /^\s*(context|describe)\s+('(.*)'|"(.*)")+\s*(\{|do)/ }
 end
 
-puts [name, spec, context].inspect
+# puts [name, spec, context].inspect
 
 if !name.empty?
 print "--name=#{name}"

@@ -1,5 +1,6 @@
 require ENV["TM_SUPPORT_PATH"] + "/lib/tm/executor"
 require ENV["TM_SUPPORT_PATH"] + "/lib/tm/save_current_document"
+
 require 'pathname'
 
 TextMate.save_current_document
@@ -26,7 +27,8 @@ end
 
 cmd << ENV["TM_FILEPATH"]
 
-TextMate::Executor.run(cmd, :version_args => ["--version"]) do |str, type|
+TextMate::Executor.run( cmd, :version_args => ["--version"],
+                             :script_args  => ARGV ) do |str, type|
   case type
   when :out
     if is_test_script and str =~ /\A[.EF]+\Z/

@@ -55,6 +55,7 @@ cmd << ENV["TM_FILEPATH"]
 
 TextMate::Executor.run( cmd, :version_args => ["--version"],
                              :script_args  => args ) do |str, type|
+  str.gsub!(ENV["TM_FILEPATH"], "untitled") if ENV["TM_FILE_IS_UNTITLED"]
   case type
   when :out
     if is_test_script and str =~ /\A[.EF]+\Z/
@@ -91,7 +92,7 @@ TextMate::Executor.run( cmd, :version_args => ["--version"],
       out.join()
     else
       htmlize(str)
-    end    
+    end
   when :err
     "<span style=\"color: red\">#{htmlize str}</span>"
   end

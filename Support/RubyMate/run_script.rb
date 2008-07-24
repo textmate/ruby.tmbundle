@@ -5,6 +5,32 @@ require 'pathname'
 
 TextMate.save_current_document
 
+# For Run focused unit test, find the name of the test the user wishes to run.
+args = [ ]
+if ARGV.first == "--name="
+  n = ENV['TM_LINE_NUMBER'].to_i
+
+  spec, context, name = nil, nil, nil
+
+  File.open(ENV['TM_FILEPATH']) do |f|
+    # test/unit
+    lines     = f.read.split("\n")[0...n].reverse
+    name      = lines.find { |line| line =~ /^\s*def test[_a-z0-9]*[\?!]?/i }.to_s.sub(/^\s*def (.*?)\s*$/) { $1 }
+    # test/spec.
+    spec      = $3 || $4 if lines.find { |line| line =~ /^\s*(specify|it)\s+('(.*)'|"(.*)")+\s*(\{|do)/ }
+    context   = $3 || $4 if lines.find { |line| line =~ /^\s*(context|describe)\s+('(.*)'|"(.*)")+\s*(\{|do)/ }
+  end
+
+  if name and !name.empty?
+    args << "--name=#{name}"
+  elsif spec and !spec.empty? and context and !context.empty?
+    args << %Q{--name="/test_spec \\{.*#{context}\\} \\d{3} \\[#{spec}\\]/"}
+  else
+    puts "Error:  This doesn't appear to be a TestCase or spec."
+    exit
+  end
+end
+
 is_test_script = ENV["TM_FILEPATH"] =~ /(?:\b|_)(?:tc|ts|test)(?:\b|_)/ or
   File.read(ENV["TM_FILEPATH"]) =~ /\brequire\b.+(?:test\/unit|test_helper)/
 
@@ -28,7 +54,7 @@ end
 cmd << ENV["TM_FILEPATH"]
 
 TextMate::Executor.run( cmd, :version_args => ["--version"],
-                             :script_args  => ARGV ) do |str, type|
+                             :script_args  => args ) do |str, type|
   case type
   when :out
     if is_test_script and str =~ /\A[.EF]+\Z/

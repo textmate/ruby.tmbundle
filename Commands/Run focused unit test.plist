@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>beforeRunningCommand</key>
-	<string>saveActiveFile</string>
+	<string>nop</string>
 	<key>captureFormatString</key>
 	<string>$0</string>
 	<key>capturePattern</key>
@@ -11,42 +11,10 @@
 	<key>command</key>
 	<string>#!/bin/sh
 
-# Assumes the current file is a unittest file
-# Runs with the currently-focused method as the test name
-
 export RUBYLIB="$TM_BUNDLE_SUPPORT/RubyMate${RUBYLIB:+:$RUBYLIB}"
 export TM_RUBY=$(type -p "${TM_RUBY:-ruby}")
 
-args=$(${TM_RUBY} &lt;&lt;"EOF"
-
-n = ENV['TM_LINE_NUMBER'].to_i
-
-spec, context, name = nil, nil, nil
-
-File.open(ENV['TM_FILEPATH']) do |f|
-# test/unit
-lines     = f.read.split("\n")[0...n].reverse
-name      = lines.find { |line| line =~ /^\s*def test[_a-z0-9]*[\?!]?/i }.to_s.sub(/^\s*def (.*?)\s*$/) { $1 }
-# test/spec.
-spec      = $3 || $4 if lines.find { |line| line =~ /^\s*(specify|it)\s+('(.*)'|"(.*)")+\s*(\{|do)/ }
-context   = $3 || $4 if lines.find { |line| line =~ /^\s*(context|describe)\s+('(.*)'|"(.*)")+\s*(\{|do)/ }
-end
-
-# puts [name, spec, context].inspect
-
-if name and !name.empty?
-print "--name=#{name}"
-elsif spec and !spec.empty? and context and !context.empty?
-print "--name=\"/test_spec \\{.*#{context}\\} \\d{3} \\[#{spec}\\]/\""
-end
-EOF)
-
-if [[ -z "$args" ]]; then
-echo -n "This doesn't appear to be a TestCase or spec."
-exit 205
-fi
-
-"${TM_RUBY}" -- "$TM_BUNDLE_SUPPORT/RubyMate/run_script.rb" $args
+"${TM_RUBY}" -- "$TM_BUNDLE_SUPPORT/RubyMate/run_script.rb" --name=
 </string>
 	<key>fileCaptureRegister</key>
 	<string>1</string>

@@ -95,5 +95,7 @@ TextMate::Executor.run( cmd, :version_args => ["--version"],
     end
   when :err
     "<span style=\"color: red\">#{htmlize str}</span>"
+  when :echo
+    "<span style=\"font-style: italic\">#{htmlize str}</span>"
   end
 end

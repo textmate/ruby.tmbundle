@@ -9,7 +9,6 @@ require "exit_codes"
 require "ui"
 require "web_preview"
 
-require "enumerator"
 require "erb"
 include ERB::Util
 
@@ -106,8 +105,8 @@ elsif mode == 'js' then
   elsif documentation =~ /\A(?:-+\s+)((?:[A-Z_]\w*::)*[A-Z_]\w*)(#|::|\.)/
     nesting   = $1
     constants = nesting.split("::")
-    linked    = constants.enum_with_index.map do |const, i|
-      "<a href=\"javascript:ri('#{constants[0..i].join('::')}')\">#{const}</a>"
+    linked    = (0...constants.size).map do |i|
+      "<a href=\"javascript:ri('#{constants[0..i].join('::')}')\">#{constants[i]}</a>"
     end
     documentation.sub!(nesting, linked.join("::"))
   else

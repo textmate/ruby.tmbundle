@@ -31,8 +31,8 @@ if ARGV.first == "--name="
   end
 end
 
-is_test_script = ENV["TM_FILEPATH"] =~ /(?:\b|_)(?:tc|ts|test)(?:\b|_)/ or
-  File.read(ENV["TM_FILEPATH"]) =~ /\brequire\b.+(?:test\/unit|test_helper)/
+is_test_script = !(ENV["TM_FILEPATH"].match(/(?:\b|_)(?:tc|ts|test)(?:\b|_)/).nil? and
+  File.read(ENV["TM_FILEPATH"]).match(/\brequire\b.+(?:test\/unit|test_helper)/).nil?)
 
 cmd = [ENV['TM_RUBY'] || 'ruby', '-rcatch_exception']
 
@@ -53,49 +53,44 @@ end
 
 cmd << ENV["TM_FILEPATH"]
 
+def path_to_url_chunk(path)
+  unless path == "untitled"
+    file = Pathname.new(path).realpath.to_s
+    "url=file://#{e_url(path)}&amp;"
+  else
+    ''
+  end
+end
+
 TextMate::Executor.run( cmd, :version_args => ["--version"],
-                             :script_args  => args ) do |str, type|
-  str.gsub!(ENV["TM_FILEPATH"], "untitled") if ENV["TM_FILE_IS_UNTITLED"]
-  case type
-  when :out
-    if is_test_script and str =~ /\A[.EF]+\Z/
-      htmlize(str).gsub(/[EF]+/, "<span style=\"color: red\">\\&</span>") +
-            "<br style=\"display: none\"/>"
-    elsif is_test_script
-      out = str.send(str.respond_to?(:lines) ? :lines : :to_s).map do |line|
-        if line =~ /^(\s+)(\S.*?):(\d+)(?::in\s*`(.*?)')?/
-          indent, file, line, method = $1, $2, $3, $4
-          url, display_name = '', 'untitled document';
-          unless file == "-"
-            indent += " " if file.sub!(/^\[/, "")
-            file = Pathname.new(file).realpath.to_s
-            url = '&amp;url=file://' + e_url(file)
-            display_name = File.basename(file)
-          end
-          "#{indent}<a class='near' href='txmt://open?line=#{line + url}'>" +
-          (method ? "method #{CGI::escapeHTML method}" : '<em>at top level</em>') +
-          "</a> in <strong>#{CGI::escapeHTML display_name}</strong> at line #{line}<br/>"
-        elsif line =~ /(\[[^\]]+\]\([^)]+\))\s+\[([\w\_\/\.]+)\:(\d+)\]/
-          spec, file, line = $1, $2, $3, $4
-          file = Pathname.new(file).realpath.to_s
-          "<span><a style=\"color: blue;\" href=\"txmt://open?url=file://#{e_url(file)}&amp;line=#{line}\">#{spec}</span>:#{line}<br/>"
-        elsif line =~ /([\w\_]+).*\[([\w\_\/\.]+)\:(\d+)\]/
-          method, file, line = $1, $2, $3
-          file = Pathname.new(file).realpath.to_s
-          "<span><a style=\"color: blue;\" href=\"txmt://open?url=file://#{e_url(file)}&amp;line=#{line}\">#{method}</span>:#{line}<br/>"
-        elsif line =~ /^\d+ tests, \d+ assertions, (\d+) failures, (\d+) errors\b.*/
-          "<span style=\"color: #{$1 + $2 == "00" ? "green" : "red"}\">#{$&}</span><br/>"
-        else
-          htmlize(line)
-        end
-      end
-      out.join()
+                             :script_args  => args ) do |line, type|
+  if is_test_script and type == :out
+    if line =~ /\A[.EF]+\Z/
+      line.gsub!(/([.])/, "<span class=\"test ok\">\\1</span>")
+      line.gsub!(/([EF])/, "<span class=\"test fail\">\\1</span>")
+      line + "<br/>\n"
     else
-      htmlize(str)
+      if line =~ /^(\s+)(\S.*?):(\d+)(?::in\s*`(.*?)')?/
+        indent, file, line, method = $1, $2, $3, $4
+        url, display_name = '', 'untitled document';
+        unless file == "untitled"
+          indent += " " if file.sub!(/^\[/, "")
+          file = Pathname.new(file).realpath.to_s
+          url = '&amp;url=file://' + e_url(file)
+          display_name = File.basename(file)
+        end
+        "#{indent}<a class='near' href='txmt://open?line=#{line + url}'>" +
+        (method ? "method #{CGI::escapeHTML method}" : '<em>at top level</em>') +
+        "</a> in <strong>#{CGI::escapeHTML display_name}</strong> at line #{line}<br/>"
+      elsif line =~ /(\[[^\]]+\]\([^)]+\))\s+\[([\w\_\/\.]+)\:(\d+)\]/
+        spec, file, line = $1, $2, $3, $4
+        "<span><a href=\"txmt://open?#{path_to_url_chunk(file)}line=#{line}\">#{spec}</a></span>:#{line}<br/>"
+      elsif line =~ /([\w\_]+).*\[([\w\_\/\.]+)\:(\d+)\]/
+        method, file, line = $1, $2, $3
+        "<span><a href=\"txmt://open?#{path_to_url_chunk(file)}line=#{line}\">#{method}</a></span>:#{line}<br/>"
+      elsif line =~ /^\d+ tests, \d+ assertions, (\d+) failures, (\d+) errors\b.*/
+        "<div class=\"test #{$1 + $2 == "00" ? "ok" : "fail"}\">#{$&}</div>\n"
+      end
     end
-  when :err
-    "<span style=\"color: red\">#{htmlize str}</span>"
-  when :echo
-    "<span style=\"font-style: italic\">#{htmlize str}</span>"
   end
 end

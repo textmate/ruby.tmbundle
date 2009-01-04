@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby -w
+# encoding: utf-8
 
 # if we are not called directly from TM (e.g. JavaScript) the caller
 # should ensure that RUBYLIB is set properly

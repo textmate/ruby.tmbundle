@@ -75,13 +75,20 @@ TextMate::Executor.run( cmd, :version_args => ["--version"],
         url, display_name = '', 'untitled document';
         unless file == "untitled"
           indent += " " if file.sub!(/^\[/, "")
-          file = Pathname.new(file).realpath.to_s
-          url = '&amp;url=file://' + e_url(file)
-          display_name = File.basename(file)
+          if file == '(eval)'
+            display_name = file
+          else
+            file = Pathname.new(file).realpath.to_s
+            url = '&amp;url=file://' + e_url(file)
+            display_name = File.basename(file)
+          end
         end
-        "#{indent}<a class='near' href='txmt://open?line=#{line + url}'>" +
-        (method ? "method #{CGI::escapeHTML method}" : '<em>at top level</em>') +
-        "</a> in <strong>#{CGI::escapeHTML display_name}</strong> at line #{line}<br/>"
+        out = indent
+        out += "<a class='near' href='txmt://open?line=#{line + url}'>" unless url.empty?
+        out += (method ? "method #{CGI::escapeHTML method}" : '<em>at top level</em>')
+        out += "</a>" unless url.empty?
+        out += " in <strong>#{CGI::escapeHTML display_name}</strong> at line #{line}<br/>"
+        out
       elsif line =~ /(\[[^\]]+\]\([^)]+\))\s+\[([\w\_\/\.]+)\:(\d+)\]/
         spec, file, line = $1, $2, $3, $4
         "<span><a href=\"txmt://open?#{path_to_url_chunk(file)}line=#{line}\">#{spec}</a></span>:#{line}<br/>"

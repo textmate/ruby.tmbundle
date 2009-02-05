@@ -78,9 +78,13 @@ TextMate::Executor.run( cmd, :version_args => ["--version"],
           if file == '(eval)'
             display_name = file
           else
-            file = Pathname.new(file).realpath.to_s
-            url = '&amp;url=file://' + e_url(file)
-            display_name = File.basename(file)
+            begin
+              file = Pathname.new(file).realpath.to_s
+              url = '&amp;url=file://' + e_url(file)
+              display_name = File.basename(file)
+            rescue Errno::ENOENT
+              display_name = file
+            end
           end
         end
         out = indent

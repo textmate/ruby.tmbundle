@@ -10,12 +10,14 @@ args = [ ]
 if ARGV.first == "--name="
   n = ENV['TM_LINE_NUMBER'].to_i
 
-  spec, context, name = nil, nil, nil
+  spec, context, name, test_name = nil, nil, nil
 
   File.open(ENV['TM_FILEPATH']) do |f|
     # test/unit
     lines     = f.read.split("\n")[0...n].reverse
     name      = lines.find { |line| line =~ /^\s*def test[_a-z0-9]*[\?!]?/i }.to_s.sub(/^\s*def (.*?)\s*$/) { $1 }
+    # test helper
+    test_name = $2 || $3 if lines.find { |line| line =~ /^\s*test\s+('(.*)'|"(.*)")+\s*(\{|do)/ }
     # test/spec.
     spec      = $3 || $4 if lines.find { |line| line =~ /^\s*(specify|it)\s+('(.*)'|"(.*)")+\s*(\{|do)/ }
     context   = $3 || $4 if lines.find { |line| line =~ /^\s*(context|describe)\s+('(.*)'|"(.*)")+\s*(\{|do)/ }
@@ -23,6 +25,8 @@ if ARGV.first == "--name="
 
   if name and !name.empty?
     args << "--name=#{name}"
+  elsif test_name and !test_name.empty?
+    args << "--name=test_#{test_name.gsub(/\s+/,'_')}"
   elsif spec and !spec.empty? and context and !context.empty?
     args << %Q{--name="/test_spec \\{.*#{context}\\} \\d{3} \\[#{spec}\\]/"}
   else

@@ -98,8 +98,9 @@ elsif mode == 'js' then
 
   documentation.gsub!(/(\s|^)\+(\w+)\+(\s|$)/, "\\1<code>\\2</code>\\3")
 
-  if documentation =~ /\A(?:More than one method matched|-+\s+Multiple choices)/
-    methods       = documentation.split(/\n[ \t]*\n/).last.strip.split(/,\s*/)
+  if documentation =~ /\A(?:\s*More than one method matched|-+\s+Multiple choices)/
+    methods       = documentation.split(/\n[ \t]*\n/).last.
+                    strip.split(/(?:,\s*|\n)/).map { |m| m[/\S+/] }.compact
     documentation = ">> #{methods.join(' ')}"
   elsif documentation =~ /\A(?:-+\s+)((?:[A-Z_]\w*::)*[A-Z_]\w*)(#|::|\.)/
     nesting   = $1

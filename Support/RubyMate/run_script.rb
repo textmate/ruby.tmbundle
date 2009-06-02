@@ -66,6 +66,22 @@ def path_to_url_chunk(path)
   end
 end
 
+def actual_path_name(path)
+  prefix = ''
+  2.times do
+    begin
+      file = Pathname.new(prefix + path).realpath.to_s
+      url = '&amp;url=file://' + e_url(file)
+      display_name = File.basename(file)
+      return file, url, display_name
+    rescue Errno::ENOENT
+      # Hmm lets try to prefix with project directory
+      prefix = "#{ENV['TM_PROJECT_DIRECTORY']}/"
+    end
+  end
+  return path, '', path
+end
+
 TextMate::Executor.run( cmd, :version_args => ["--version"],
                              :script_args  => args ) do |line, type|
   if is_test_script and type == :out
@@ -89,6 +105,7 @@ TextMate::Executor.run( cmd, :version_args => ["--version"],
             rescue Errno::ENOENT
               display_name = file
             end
+            file, url, display_name = actual_path_name(file)
           end
         end
         out = indent

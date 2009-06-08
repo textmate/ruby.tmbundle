@@ -59,8 +59,16 @@ cmd << ENV["TM_FILEPATH"]
 
 def path_to_url_chunk(path)
   unless path == "untitled"
-    file = Pathname.new(path).realpath.to_s
-    "url=file://#{e_url(path)}&amp;"
+    prefix = ''
+    2.times do
+      begin
+        file = Pathname.new(prefix + path).realpath.to_s
+        "url=file://#{e_url(file)}&amp;"
+      rescue Errno::ENOENT
+        # Hmm lets try to prefix with project directory
+        prefix = "#{ENV['TM_PROJECT_DIRECTORY']}/"
+      end
+    end
   else
     ''
   end

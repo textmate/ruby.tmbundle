@@ -56,6 +56,13 @@ mode = ARGV.shift
 if mode.nil? then
 
   term = STDIN.read.strip
+
+  if term.empty?
+    term = TextMate::UI.request_string( :title => "Ruby Documentation Search",
+                                        :prompt => "Enter a term to search for:",
+                                        :button1 => "search")
+  end
+  
   TextMate.exit_show_tool_tip("Please select a term to look up.") if term.empty?
 
   term, documentation = ri(term)

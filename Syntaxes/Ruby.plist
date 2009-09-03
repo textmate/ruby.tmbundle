@@ -58,7 +58,7 @@
 		<string>capfile</string>
 	</array>
 	<key>firstLineMatch</key>
-	<string>^#!/.*\bruby\b</string>
+	<string>^#!/.*\bruby</string>
 	<key>foldingStartMarker</key>
 	<string>(?x)^
 	    (\s*+

@@ -12,9 +12,8 @@
 	<string>#!/bin/sh
 
 export RUBYLIB="$TM_BUNDLE_SUPPORT/RubyMate${RUBYLIB:+:$RUBYLIB}"
-export TM_RUBY=$(type -p "${TM_RUBY:-ruby}")
 
-"${TM_RUBY}" -KU -- "$TM_BUNDLE_SUPPORT/RubyMate/run_script.rb" --name=
+/usr/bin/env ruby -KU -- "$TM_BUNDLE_SUPPORT/RubyMate/run_script.rb" --name=
 </string>
 	<key>fileCaptureRegister</key>
 	<string>1</string>

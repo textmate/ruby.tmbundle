@@ -20,6 +20,7 @@
 		<string>66708259-62C3-11D9-B8CF-000D93589AF6</string>
 		<string>66708052-62C3-11D9-B8CF-000D93589AF6</string>
 		<string>6670881E-62C3-11D9-B8CF-000D93589AF6</string>
+		<string>7990EE60-C850-4779-A8C0-7FD2C853B99B</string>
 	</array>
 	<key>description</key>
 	<string>Support for the &lt;a href="http://www.ruby-lang.org/"&gt;Ruby&lt;/a&gt; programming language.</string>
@@ -290,7 +291,7 @@
 			<dict>
 				<key>items</key>
 				<array>
-					<string>7990EE60-C850-4779-A8C0-7FD2C853B99B</string>
+					<string>59E811FF-E722-46BE-8938-04713612FABB</string>
 					<string>------------------------------------</string>
 					<string>855FC4EF-7B1E-48EE-AD4E-5ECB8ED79D1C</string>
 					<string>4B72C5C3-6CA7-41AC-B2F9-51DEA25D469E</string>
@@ -442,12 +443,12 @@
 		<string>B297E4B8-A8FF-49CE-B9C4-6D4911724D43</string>
 		<string>835FAAC6-5431-436C-998B-241F7226B99B</string>
 		<string>0275EF39-9357-408F-AF20-79E415CA9504</string>
+		<string>59E811FF-E722-46BE-8938-04713612FABB</string>
 		<string>97054C4D-E4A3-45B1-9C00-B82DBCB30CAD</string>
 		<string>569C9822-8C41-4907-94C7-1A8A0031B66D</string>
 		<string>6519CB08-8326-4B77-A251-54722FFBFC1F</string>
 		<string>47D203ED-EB9B-4653-A07B-A897800CEB76</string>
 		<string>C122CD92-DDBE-4869-9C7A-CC2B254C9411</string>
-		<string>7990EE60-C850-4779-A8C0-7FD2C853B99B</string>
 		<string>121B334B-2AA6-4E9A-A8B8-BF93B627982B</string>
 		<string>58FDEA60-10AF-4C49-AA09-29B77030DB25</string>
 		<string>33969819-62C5-4E03-B824-C2337205F364</string>

@@ -23,9 +23,11 @@ end
 input = $stdin.read
 
 # snippetize output
-lines       = input.to_a
+lines       = RUBY_VERSION &lt; "1.9" ? input.to_a : input.lines.to_a
 lines[line] = e_sn(lines[line][0...col]) + "${0}" + e_sn(lines[line][col..-1])
-output      = lines.enum_with_index.inject(String.new) do |out, (l, i)|
+enum        = RUBY_VERSION &lt; "1.9" ? lines.enum_with_index :
+                                     lines.each.with_index
+output      = enum.inject(String.new) do |out, (l, i)|
   i == line ? out + l : out + e_sn(l)
 end
 

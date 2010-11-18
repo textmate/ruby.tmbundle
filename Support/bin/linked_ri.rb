@@ -29,6 +29,44 @@ def link_methods(prefix, methods)
   end.join
 end
 
+def htmlize_ri_output(text, term)
+  text = text.gsub(/&/, '&amp;').gsub(/</, '&lt;')
+
+  text.sub!(/\A(-+\s+Class: )(.*)$\n*/) do
+    "<h2>Class: " + $2.gsub(/([A-Z_]\w*)(\s+&lt;)?/, "<a href=\"javascript:ri('\\1')\">\\1</a>\\2") + "</h2>\n<pre>"
+  end
+
+  text.sub!(/\A(-+\s+)(([A-Z_]\w*::)*[A-Z_]\w*)((#|::|\.).*)$/) do
+    method    = $4
+    namespace = $2.split("::")
+    linked    = (0...namespace.size).map do |i|
+      "<a href=\"javascript:ri('#{namespace[0..i].join('::')}')\">#{namespace[i]}</a>"
+    end
+    "<h2>#{linked.join("::")}#{method}</h2>\n<pre>"
+  end
+
+  text.sub!(/^(Includes:\s+-+\s+)(.+?)([ \t]*\n[ \t]*\n|\s*\Z)/m) do
+    head, meths, foot = $1, $2, $3
+    head + meths.gsub(/([A-Z_]\w*)\(([^)]*)\)/) do |match|
+      "<a href=\"javascript:ri('#{$1}')\">#{$1}</a>(" +
+      link_methods("#{$1}#", $2) + ")"
+    end + foot
+  end
+
+  text.sub!(/^(Class methods:\s+-+\s+)(.+?)([ \t]*\n[ \t]*\n|\s*\Z)/m) do
+    $1 + link_methods("#{term}::", $2) + $3
+  end
+
+  text.sub!(/^(Instance methods:\s+-+\s+)(.+?)([ \t]*\n[ \t]*\n|\s*\Z)/m) do
+    $1 + link_methods("#{term}#", $2) + $3
+  end
+
+  text.gsub!(/(?:\n+-+$)?\n+([\w\s]+)[:.]$\n-+\n+/, "</pre>\n\n<h2>\\1</h2>\n<pre>")
+  text.gsub!(/^-+$/, '<hr>')
+
+  text.chomp + "</pre>"
+end
+
 def ri(term)
   documentation = `#{e_sh LINKED_RI} '#{term}' 'js' 2>&1` \
                   rescue "<h1>ri Command Error.</h1>"
@@ -100,39 +138,16 @@ HTML
   html_footer
   TextMate.exit_show_html
 elsif mode == 'js' then
-  documentation = h(`#{e_sh RI_EXE} -T -f plain #{e_sh term}`) \
+  documentation = `#{e_sh RI_EXE} -T -f plain #{e_sh term}` \
     rescue "<h1>ri Command Error.</h1>"
-
-  documentation.gsub!(/(\s|^)\+(\w+)\+(\s|$)/, "\\1<code>\\2</code>\\3")
 
   if documentation =~ /\A(?:\s*More than one method matched|-+\s+Multiple choices)/
     methods       = documentation.split(/\n[ \t]*\n/).last.
                     strip.split(/(?:,\s*|\n)/).map { |m| m[/\S+/] }.compact
     documentation = ">> #{methods.join(' ')}"
-  elsif documentation =~ /\A(?:-+\s+)((?:[A-Z_]\w*::)*[A-Z_]\w*)(#|::|\.)/
-    nesting   = $1
-    constants = nesting.split("::")
-    linked    = (0...constants.size).map do |i|
-      "<a href=\"javascript:ri('#{constants[0..i].join('::')}')\">#{constants[i]}</a>"
-    end
-    documentation.sub!(nesting, linked.join("::"))
   else
-    documentation.sub!( /\A(-+\s+Class: \w* < )([^\s<]+)/,
-                              "\\1<a href=\"javascript:ri('\\2')\">\\2</a>" )
-    documentation.sub!(/(Includes:\s+-+\s+)(.+?)([ \t]*\n[ \t]*\n|\s*\Z)/m) do
-      head, meths, foot = $1, $2, $3
-      head + meths.gsub(/([A-Z_]\w*)\(([^)]*)\)/) do |match|
-        "<a href=\"javascript:ri('#{$1}')\">#{$1}</a>(" +
-        link_methods("#{$1}#", $2) + ")"
-      end + foot
-    end
-    documentation.sub!(/(Class methods:\s+-+\s+)(.+?)([ \t]*\n[ \t]*\n|\s*\Z)/m) do
-      $1 + link_methods("#{term}::", $2) + $3
-    end
-    documentation.sub!(/(Instance methods:\s+-+\s+)(.+?)([ \t]*\n[ \t]*\n|\s*\Z)/m) do
-      $1 + link_methods("#{term}#", $2) + $3
-    end
+    documentation = htmlize_ri_output(documentation, term)
   end
 
-  puts documentation.gsub("\n", "<br />")
+  puts documentation
 end

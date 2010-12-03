@@ -63,7 +63,7 @@ def path_to_url_chunk(path)
     2.times do
       begin
         file = Pathname.new(prefix + path).realpath.to_s
-        "url=file://#{e_url(file)}&amp;"
+        return "url=file://#{e_url(file)}&amp;"
       rescue Errno::ENOENT
         # Hmm lets try to prefix with project directory
         prefix = "#{ENV['TM_PROJECT_DIRECTORY']}/"
@@ -106,13 +106,6 @@ TextMate::Executor.run( cmd, :version_args => ["--version"],
           if file == '(eval)'
             display_name = file
           else
-            begin
-              file = Pathname.new(file).realpath.to_s
-              url = '&amp;url=file://' + e_url(file)
-              display_name = File.basename(file)
-            rescue Errno::ENOENT
-              display_name = file
-            end
             file, url, display_name = actual_path_name(file)
           end
         end
@@ -122,10 +115,14 @@ TextMate::Executor.run( cmd, :version_args => ["--version"],
         out += "</a>" unless url.empty?
         out += " in <strong>#{CGI::escapeHTML display_name}</strong> at line #{line}<br/>"
         out
-      elsif line =~ /(\[[^\]]+\]\([^)]+\))\s+\[([\w\_\/\.]+)\:(\d+)\]/
+      elsif line =~ /test\_(should\_[\w\_]+)\((\w+)\)\s+\[([\w\_\/\.]+)\:(\d+)\]\:/ # shoulda 2.11.3 output test_should_fulfill(SomeTest) [test/unit/some_test.rb:42]:
+        spec, mod, file, line = $1, $2, $3, $4
+        spec.gsub!('_',' ')
+        "<span><a href=\"txmt://open?url=file://#{e_url(file)}&amp;line=#{line}\">#{mod}: #{spec}</a></span>:#{line}<br/>"
+      elsif line =~ /(\[[^\]]+\]\([^)]+\))\s+\[([\w\_\/\.]+)\:(\d+)\]/ # [spec](file) some text [function_name:line_no]
         spec, file, line = $1, $2, $3, $4
         "<span><a href=\"txmt://open?#{path_to_url_chunk(file)}line=#{line}\">#{spec}</a></span>:#{line}<br/>"
-      elsif line =~ /([\w\_]+).*\[([\w\_\/\.]+)\:(\d+)\]/
+      elsif line =~ /([\w\_]+).*\[([\w\_\/\.]+)\:(\d+)\]/   # whatever_message....[function_name/.whatever:line_no]
         method, file, line = $1, $2, $3
         "<span><a href=\"txmt://open?#{path_to_url_chunk(file)}line=#{line}\">#{method}</a></span>:#{line}<br/>"
       elsif line =~ /^\d+ tests, \d+ assertions, (\d+) failures, (\d+) errors\b.*/

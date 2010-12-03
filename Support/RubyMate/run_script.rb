@@ -118,7 +118,7 @@ TextMate::Executor.run( cmd, :version_args => ["--version"],
       elsif line =~ /test\_(should\_[\w\_]+)\((\w+)\)\s+\[([\w\_\/\.]+)\:(\d+)\]\:/ # shoulda 2.11.3 output test_should_fulfill(SomeTest) [test/unit/some_test.rb:42]:
         spec, mod, file, line = $1, $2, $3, $4
         spec.gsub!('_',' ')
-        "<span><a href=\"txmt://open?url=file://#{e_url(file)}&amp;line=#{line}\">#{mod}: #{spec}</a></span>:#{line}<br/>"
+        "<span><a href=\"txmt://open?#{path_to_url_chunk(file)}line=#{line}\">#{mod}: #{spec}</a></span>:#{line}<br/>"
       elsif line =~ /(\[[^\]]+\]\([^)]+\))\s+\[([\w\_\/\.]+)\:(\d+)\]/ # [spec](file) some text [function_name:line_no]
         spec, file, line = $1, $2, $3, $4
         "<span><a href=\"txmt://open?#{path_to_url_chunk(file)}line=#{line}\">#{spec}</a></span>:#{line}<br/>"

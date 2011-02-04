@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>def initialize${1:(${2:param1}${3:, ${4:param2}})}
+	<string>def initialize${1/.+/(/}${1:args}${1/.+/)/}
   $0
 end</string>
 	<key>name</key>

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>define_method :${1:method_name} do${2: |${3:param1}${4:, ${5:param2}}|}
+	<string>define_method :${1:method_name} do${2/.+/ |/}${2:args}${2/.+/|/}
   $0
 end</string>
 	<key>name</key>

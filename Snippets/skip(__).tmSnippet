@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>flunk`snippet_paren.rb`"${1:Failure message.}"`snippet_paren.rb end`$0</string>
+	<string>skip`snippet_paren.rb`"${1:Message.}"`snippet_paren.rb end`$0</string>
 	<key>name</key>
-	<string>flunk(..)</string>
+	<string>skip(..)</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>
-	<string>fl</string>
+	<string>sk</string>
 	<key>uuid</key>
-	<string>DB457094-1AC9-4856-AEFC-43A9576B6775</string>
+	<string>B186BAC0-D981-41AC-B8F4-34BAD2BC4EE6</string>
 </dict>
 </plist>

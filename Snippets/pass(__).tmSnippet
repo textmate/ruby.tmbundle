@@ -9,7 +9,7 @@
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>
-	<string>pa</string>
+	<string>pas</string>
 	<key>uuid</key>
 	<string>F46A4687-E52D-40D2-9072-C215645EDBC6</string>
 </dict>

@@ -553,7 +553,7 @@
 			<key>comment</key>
 			<string>Needs higher precidence than regular expressions.</string>
 			<key>match</key>
-			<string>^\(/=</string>
+			<string>(?&lt;!\()/=</string>
 			<key>name</key>
 			<string>keyword.operator.assignment.augmented.ruby</string>
 		</dict>

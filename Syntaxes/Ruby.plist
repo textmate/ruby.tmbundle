@@ -1592,18 +1592,43 @@
 			<string>comment.block.documentation.ruby</string>
 		</dict>
 		<dict>
-			<key>captures</key>
+			<key>begin</key>
+			<string>(^[ \t]+)?((#))</string>
+			<key>beginCaptures</key>
 			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.whitespace.comment.leading.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>comment.line.number-sign.ruby</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.comment.ruby</string>
+				</dict>
+			</dict>
+			<key>contentName</key>
+			<string>comment.line.number-sign.ruby</string>
+			<key>end</key>
+			<string>($\n?)</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>comment.line.number-sign.ruby</string>
+				</dict>
 				<key>1</key>
 				<dict>
 					<key>name</key>
 					<string>punctuation.definition.comment.ruby</string>
 				</dict>
 			</dict>
-			<key>match</key>
-			<string>(?:^[ \t]+)?(#).*$\n?</string>
-			<key>name</key>
-			<string>comment.line.number-sign.ruby</string>
 		</dict>
 		<dict>
 			<key>comment</key>
@@ -2827,7 +2852,9 @@
 					</array>
 				</dict>
 				<dict>
-					<key>captures</key>
+					<key>begin</key>
+					<string>(?&lt;=^|\s)(#)\s(?=[[a-zA-Z0-9,. \t?!-][^\x{00}-\x{7F}]]*$)</string>
+					<key>beginCaptures</key>
 					<dict>
 						<key>1</key>
 						<dict>
@@ -2837,8 +2864,16 @@
 					</dict>
 					<key>comment</key>
 					<string>We are restrictive in what we allow to go after the comment character to avoid false positives, since the availability of comments depend on regexp flags.</string>
-					<key>match</key>
-					<string>(?&lt;=^|\s)(#)\s[[a-zA-Z0-9,. \t?!-][^\x{00}-\x{7F}]]*$</string>
+					<key>end</key>
+					<string>$\n?</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.comment.ruby</string>
+						</dict>
+					</dict>
 					<key>name</key>
 					<string>comment.line.number-sign.ruby</string>
 				</dict>

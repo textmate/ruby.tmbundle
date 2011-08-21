@@ -1,6 +1,8 @@
 require 'rcodetools/completion'
 # Call Ri for any editors!!
 #  by rubikitch <rubikitch@ruby-lang.org>
+module Rcodetools
+
 class XMPDocFilter < XMPFilter
   include ProcessParticularLine
 
@@ -163,3 +165,4 @@ class XMPRiVimFilter < XMPDocFilter
   end
 end
 
+end

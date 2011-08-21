@@ -1,7 +1,8 @@
-#!/usr/bin/env ruby
+#! /usr/local/bin/ruby18
 require 'rcodetools/xmpfilter'
 require 'rcodetools/options'
 
+include Rcodetools
 options = DEFAULT_OPTIONS
 rails_settings = false
 klass = XMPFilter
@@ -23,6 +24,10 @@ opts = OptionParser.new do |opts|
     require 'rcodetools/xmptestunitfilter'
     klass = XMPRSpecFilter
     options[:interpreter] = "spec"
+  end
+  opts.on("--expectations", "Complete expectations expectations.") do
+    require 'rcodetools/xmptestunitfilter'
+    klass = XMPExpectationsFilter
   end
   opts.on("-m", "--markers", "Add # => markers.") do
     klass = XMPAddMarkers
@@ -70,6 +75,11 @@ if rails_settings && !options[:wd]
 end
 targetcode = ARGF.read
 Dir.chdir options[:wd] if options[:wd]
+
+if XMPFilter.detect_rbtest(targetcode, options)
+  require 'rcodetools/xmptestunitfilter'
+  klass = XMPTestUnitFilter
+end
 
 # Do the job. dispatched by klass.
 puts klass.run(targetcode, options)

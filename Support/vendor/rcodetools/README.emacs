@@ -21,8 +21,19 @@ If you use icicles copy <tt>icicles-rcodetools.el</tt> too.
 Then require it.
   (require 'icicles-rcodetools)
 It provides wonderful `help on candidate' feature, RI document on each candidate during completion.
-I'm addicted to icicles!
-  http://www.emacswiki.org/cgi-bin/wiki/Icicles
+
+If you use anything.el copy <tt>anything-rcodetools.el</tt> too.
+Then require it.
+  (require 'anything-rcodetools)
+RI document on each candidate during completion.
+
+anything-show-completion.el shows selection (mehod) in buffer for completion.
+It is available in:
+  http://www.emacswiki.org/cgi-bin/wiki/download/anything-show-completion.el
+
+I think anything-rcodetools is more convenient than icicles-rcodetools.
+I'm addicted to anything!
+  http://www.emacswiki.org/cgi-bin/wiki/Anything
 
 xmpfilter on buffer
 ===================
@@ -38,8 +49,9 @@ method/class/constant completion
 
 # [EVAL IT] (describe-function 'rct-complete-symbol)
 
-If you use icicles-rcodetools, you can browse RI document for selected candidate
-by typing C-M-RET. It is wonderful icicles feature!!
+If you use icicles-rcodetools or anything-rcodetools, you can browse RI document
+for selected candidate by typing C-M-RET (icicles) or C-z (anything.
+It is wonderful icicles and anything feature!!
 
 show RI document / jump to the definition
 =========================================
@@ -52,3 +64,12 @@ If use do not use this feature, evaluate:
   (setq rct-find-tag-if-available nil)
 
 # [EVAL IT] (describe-variable 'rct-find-tag-if-available)
+
+speed-up xmpfilter and completion
+=================================
+
+# [EVAL IT] (describe-function 'rct-fork)
+# [EVAL IT] (describe-function 'rct-fork-kill)
+
+M-x rct-fork pre-loads heavy libraries (like rails).
+You need not every time wait for loading them anymore!

@@ -9,7 +9,7 @@ end
 class MethodAnalyzerTextOutput < Test::Unit::TestCase
   include ScriptConfig
 
-# test (find-sh "ruby -r../method_analyzer data/method_analyzer-data.rb")
+  # test (find-sh "ruby -r../method_analyzer data/method_analyzer-data.rb")
 
   # attr_accessor is actually Module#attr_accessor.
   # But `f?ri Module.attr_accessor' answers correctly.
@@ -68,17 +68,6 @@ class MethodAnalyzerMarshalOutput < Test::Unit::TestCase
   METHOD_ANALYSIS = File.join(DIR, "method_analysis")
   at_exit { File.unlink METHOD_ANALYSIS rescue nil}
 
-  def setup
-    ENV['METHOD_ANALYZER_FORMAT'] = 'marshal'
-    @pwd = Dir.pwd
-    Dir.chdir DIR
-  end
-
-  def teardown
-    ENV['METHOD_ANALYZER_FORMAT'] = nil
-    Dir.chdir @pwd
-  end
-
   def write_temp_file(str, file)
     file.replace File.expand_path(file)
     at_exit { File.unlink file }
@@ -86,14 +75,33 @@ class MethodAnalyzerMarshalOutput < Test::Unit::TestCase
   end
 
   def test_marshal_merged
-    a = write_temp_file "z=1+2", "mergeA.rb"
-    b = write_temp_file "[].empty?", "mergeB.rb"
+    begin
+      ENV['METHOD_ANALYZER_FORMAT'] = 'marshal'
+      @pwd = Dir.pwd
+      Dir.chdir DIR
+      a = write_temp_file "z=1+2", "mergeA.rb"
+      system "ruby -r#{SCRIPT} mergeA.rb"
+      method_analysis = Marshal.load(File.read(METHOD_ANALYSIS))
+      assert_equal ["Fixnum#+"],     method_analysis[File.join(DIR, "mergeA.rb")][1]
+    ensure
+      ENV.delete 'METHOD_ANALYZER_FORMAT'
+      Dir.chdir @pwd
+    end
+  end
 
-    system "ruby -r#{SCRIPT} mergeA.rb"
-    system "ruby -r#{SCRIPT} mergeB.rb"
-
-    method_analysis = Marshal.load(File.read(METHOD_ANALYSIS))
-    assert_equal ["Fixnum#+"],     method_analysis[File.join(DIR, "mergeA.rb")][1]
-    assert_equal ["Array#empty?"], method_analysis[File.join(DIR, "mergeB.rb")][1]
+  def test_marshal_merged
+    begin
+      ENV['METHOD_ANALYZER_FORMAT'] = 'marshal'
+      @pwd = Dir.pwd
+      Dir.chdir DIR
+      
+      b = write_temp_file "[].empty?", "mergeB.rb"
+      system "ruby -r#{SCRIPT} mergeB.rb"
+      method_analysis = Marshal.load(File.read(METHOD_ANALYSIS))
+      assert_equal ["Array#empty?"], method_analysis[File.join(DIR, "mergeB.rb")][1]
+    ensure
+      ENV.delete 'METHOD_ANALYZER_FORMAT'
+      Dir.chdir @pwd
+    end
   end
 end

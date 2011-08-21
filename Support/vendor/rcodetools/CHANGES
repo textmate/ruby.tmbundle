@@ -1,5 +1,29 @@
 rcodetools history
 ==================
+User-visible changes since 0.8.5
+--------------------------------
+* Fix DATA and __END__ handling in xmpfilter --tempfile (windows)
+
+User-visible changes since 0.8.4
+--------------------------------
+* OOPS, added missing files.
+
+User-visible changes since 0.8.0
+--------------------------------
+* xmpfilter: fixed multi-line annotation bugs
+
+User-visible changes since 0.7.0
+--------------------------------
+* Support Ruby 1.9!
+* xmpfilter: multi-line annotation
+* xmpfilter --expectations generates expectations by Jay Fields
+* anything-rcodetools.el: new elisp
+* --tmpfile, --tempfile: use temporary file instead of open3 on un*x
+* rcodetools.el: smarter xmpfilter-command
+* rcodetools.el: rct-fork interface
+* rct-fork: require 'rubygems' initially
+* rct-fork: more stable
+
 User-visible changes since 0.5.0
 --------------------------------
 * "test-driven completion" (TDC) support for Emacs and vim (see README.TDC)

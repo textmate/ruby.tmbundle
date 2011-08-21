@@ -1,10 +1,14 @@
 require 'rcodetools/xmpfilter'
+
+module Rcodetools
+
+FLOAT_TOLERANCE = 0.0001
 class XMPTestUnitFilter < XMPFilter
   def initialize(opts = {})
     super
     @output_stdout = false
     mod = @parentheses ? :WithParentheses : :Poetry
-    extend self.class.const_get(mod) 
+    extend self.class.const_get(mod) unless opts[:_no_extend_module]
   end
 
   private
@@ -70,7 +74,7 @@ class XMPTestUnitFilter < XMPFilter
     def value_assertions(klass_txt, value_txt, value, expression)
       case value
       when Float
-        ["assert_in_delta(#{value.inspect}, #{expression}, 0.0001)"]
+        ["assert_in_delta(#{value.inspect}, #{expression}, #{FLOAT_TOLERANCE})"]
       when Numeric, String, Hash, Array, Regexp, TrueClass, FalseClass, Symbol, NilClass
         ["assert_equal(#{value_txt}, #{expression})"]
       else
@@ -96,7 +100,7 @@ class XMPTestUnitFilter < XMPFilter
     def value_assertions(klass_txt, value_txt, value, expression)
       case value
       when Float
-        ["assert_in_delta #{value.inspect}, #{expression}, 0.0001"]
+        ["assert_in_delta #{value.inspect}, #{expression}, #{FLOAT_TOLERANCE}"]
       when Numeric, String, Hash, Array, Regexp, TrueClass, FalseClass, Symbol, NilClass
         ["assert_equal #{value_txt}, #{expression}"]
       else
@@ -116,82 +120,195 @@ class XMPTestUnitFilter < XMPFilter
 end
 
 class XMPRSpecFilter < XMPTestUnitFilter
-  private
-  def execute(code)
-    codefile = "xmpfilter.rspec_tmpfile_#{Process.pid}.rb"
-    File.open(codefile, "w"){|f| f.puts code}
-    path = File.expand_path(codefile)
-    at_exit { File.unlink path if File.exist? path}
-    stdout, stderr = (1..2).map do |i|
-      fname = "xmpfilter.rspec_tmpfile_#{Process.pid}-#{i}.rb"
-      fullname = File.expand_path(fname)
-      at_exit { File.unlink fullname if File.exist? fullname}
-      File.open(fname, "w+")
-    end
-    args = *(interpreter_command << %["#{codefile}"] << "2>" << 
-             %["#{stderr.path}"] << ">" << %["#{stdout.path}"])
-    system(args.join(" "))
-    [stdout, stderr]
+  def initialize(x={})
+    super(x.merge(:_no_extend_module => true))
+    load_rspec
+    specver = (Spec::VERSION::STRING rescue "1.0.0")
+    api_module = specver >= "0.8.0" ? NewAPI : OldAPI
+    @interpreter_info.execute_method = :execute_script
+    mod = @parentheses ? :WithParentheses : :Poetry
+    extend api_module.const_get(mod) 
+    extend api_module
   end
+
+  private
+  def load_rspec
+    begin
+      require 'spec/version'
+    rescue LoadError
+      require 'rubygems'
+      begin
+        require 'spec/version'
+      rescue LoadError # if rspec isn't available, use most recent conventions
+      end
+    end
+  end
+
+#  alias :execute :execute_script
 
   def interpreter_command
     [@interpreter] + @libs.map{|x| "-r#{x}"}
   end
 
-  def raise_assertion(expression, exceptions, index)
-    ["lambda{#{expression}}.should_raise #{exceptions[index][0]}"]
-  end
-
-  module WithParentheses
-    def nil_assertion(expression)
-      ["(#{expression}).should_be_nil"]
+  module NewAPI
+    def raise_assertion(expression, exceptions, index)
+      ["lambda{#{expression}}.should raise_error(#{exceptions[index][0]})"]
     end
-    
-    def value_assertions(klass_txt, value_txt, value, expression)
-      case value
-      when Float
-        ["(#{expression}).should_be_close #{value.inspect}, 0.0001"]
-      when Numeric, String, Hash, Array, Regexp, TrueClass, FalseClass, Symbol, NilClass
-        ["(#{expression}).should_equal #{value_txt}"]
-      else
-        object_assertions klass_txt, value_txt, expression
+
+    module WithParentheses
+      def nil_assertion(expression)
+        ["(#{expression}).should be_nil"]
+      end
+
+      def value_assertions(klass_txt, value_txt, value, expression)
+        case value
+        when Float
+          ["(#{expression}).should be_close(#{value.inspect}, #{FLOAT_TOLERANCE})"]
+        when Numeric, String, Hash, Array, Regexp, TrueClass, FalseClass, Symbol, NilClass
+          ["(#{expression}).should == (#{value_txt})"]
+        else
+          object_assertions klass_txt, value_txt, expression
+        end
+      end
+
+      def object_assertions(klass_txt, value_txt, expression)
+        [ "(#{expression}).should be_a_kind_of(#{klass_txt})",
+          "(#{expression}.inspect).should == (#{value_txt.inspect})" ]
+      end
+
+      def equal_assertion(expected, actual)
+        "(#{actual}).should == (#{expected})"
       end
     end
 
-    def object_assertions(klass_txt, value_txt, expression)
-      [ "(#{expression}).should_be_a_kind_of #{klass_txt}",
-        "(#{expression}.inspect).should_equal #{value_txt.inspect}" ]
-    end
+    module Poetry
+      def nil_assertion(expression)
+        ["#{expression}.should be_nil"]
+      end
 
-    def equal_assertion(expected, actual)
-      "(#{actual}).should_equal #{expected}"
+      def value_assertions(klass_txt, value_txt, value, expression)
+        case value
+        when Float
+          ["#{expression}.should be_close(#{value.inspect}, #{FLOAT_TOLERANCE})"]
+        when Numeric, String, Hash, Array, Regexp, TrueClass, FalseClass, Symbol, NilClass
+          ["#{expression}.should == #{value_txt}"]
+        else
+          object_assertions klass_txt, value_txt, expression
+        end
+      end
+
+      def object_assertions(klass_txt, value_txt, expression)
+        [ "#{expression}.should be_a_kind_of(#{klass_txt})",
+          "#{expression}.inspect.should == #{value_txt.inspect}" ]
+      end
+
+      def equal_assertion(expected, actual)
+        "#{actual}.should == #{expected}"
+      end
     end
   end
 
-  module Poetry
-    def nil_assertion(expression)
-      ["#{expression}.should_be_nil"]
+  module OldAPI
+    # old rspec, use deprecated syntax
+    def raise_assertion(expression, exceptions, index)
+      ["lambda{#{expression}}.should_raise_error(#{exceptions[index][0]})"]
     end
 
-    def value_assertions(klass_txt, value_txt, value, expression)
-      case value
-      when Float
-        ["#{expression}.should_be_close #{value.inspect}, 0.0001"]
-      when Numeric, String, Hash, Array, Regexp, TrueClass, FalseClass, Symbol, NilClass
-        ["#{expression}.should_equal #{value_txt}"]
-      else
-        object_assertions klass_txt, value_txt, expression
+    module WithParentheses
+      def nil_assertion(expression)
+        ["(#{expression}).should_be_nil"]
+      end
+
+      def value_assertions(klass_txt, value_txt, value, expression)
+        case value
+        when Float
+          ["(#{expression}).should_be_close(#{value.inspect}, #{FLOAT_TOLERANCE})"]
+        when Numeric, String, Hash, Array, Regexp, TrueClass, FalseClass, Symbol, NilClass
+          ["(#{expression}).should_equal(#{value_txt})"]
+        else
+          object_assertions klass_txt, value_txt, expression
+        end
+      end
+
+      def object_assertions(klass_txt, value_txt, expression)
+        [ "(#{expression}).should_be_a_kind_of(#{klass_txt})",
+          "(#{expression}.inspect).should_equal(#{value_txt.inspect})" ]
+      end
+
+      def equal_assertion(expected, actual)
+        "(#{actual}).should_equal(#{expected})"
       end
     end
 
-    def object_assertions(klass_txt, value_txt, expression)
-      [ "#{expression}.should_be_a_kind_of #{klass_txt}",
-        "#{expression}.inspect.should_equal #{value_txt.inspect}" ]
-    end
+    module Poetry
+      def nil_assertion(expression)
+        ["#{expression}.should_be_nil"]
+      end
 
-    def equal_assertion(expected, actual)
-      "#{actual}.should_equal #{expected}"
+      def value_assertions(klass_txt, value_txt, value, expression)
+        case value
+        when Float
+          ["#{expression}.should_be_close #{value.inspect}, #{FLOAT_TOLERANCE}"]
+        when Numeric, String, Hash, Array, Regexp, TrueClass, FalseClass, Symbol, NilClass
+          ["#{expression}.should_equal #{value_txt}"]
+        else
+          object_assertions klass_txt, value_txt, expression
+        end
+      end
+
+      def object_assertions(klass_txt, value_txt, expression)
+        [ "#{expression}.should_be_a_kind_of #{klass_txt}",
+          "#{expression}.inspect.should_equal #{value_txt.inspect}" ]
+      end
+
+      def equal_assertion(expected, actual)
+        "#{actual}.should_equal #{expected}"
+      end
     end
   end
+
+
 end
 
+class XMPExpectationsFilter < XMPTestUnitFilter
+  def initialize(x={})
+    super(x.merge(:_no_extend_module => true))
+    @warnings = false
+  end
+  
+  def expectation(expected, actual)
+    <<EOE
+expect #{expected} do
+    #{actual}
+  end
+EOE
+  end
+  alias :equal_assertion :expectation
+
+  def raise_assertion(expression, exceptions, index)
+    [ expectation(exceptions[index][0], expression) ]
+  end
+  
+  def nil_assertion(expression)
+    [ expectation("nil", expression) ]
+  end
+  
+  def value_assertions(klass_txt, value_txt, value, expression)
+    case value
+    when Float
+      min = "%.4f" % [value - FLOAT_TOLERANCE]
+      max = "%.4f" % [value + FLOAT_TOLERANCE]
+      [ expectation("#{min}..#{max}", expression) ]
+    when Numeric, String, Hash, Array, Regexp, TrueClass, FalseClass, Symbol, NilClass
+      [ expectation(value_txt, expression) ]
+    else
+      object_assertions klass_txt, value_txt, expression 
+    end
+  end
+  
+  def object_assertions(klass_txt, value_txt, expression)
+    [ expectation(klass_txt, expression),
+      expectation(value_txt.inspect, "#{expression}.inspect") ]
+  end
+end                             # /XMPExpectationsFilter
+end                             # /Rcodetools

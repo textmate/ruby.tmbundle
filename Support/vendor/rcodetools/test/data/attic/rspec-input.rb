@@ -11,36 +11,36 @@ class X
 end
 
 
-context "Testing xmpfilter's expectation expansion" do
-  setup do
+describe "xmpfilter's expectation expansion" do
+  before do
     @o = X.new
   end
 
-  specify "Should expand should_equal expectations" do
+  it "should expand should == expectations" do
     @o.foo(true)   # =>
     @o.foo(true).a # =>
     @o.foo(false)  # =>
   end
   
-  specify "Should expand should_raise expectations" do
+  it "should expand should raise_error expectations" do
     @o.bar         # =>
   end
 
-  specify "Should expand should_be_nil expectations" do
+  it "should expand should be_nil expectations" do
     @o.baz         # =>
   end
 
-  specify "Should expand correct expectations for complex values" do
+  it "should expand correct expectations for complex values" do
     @o.babar       # =>
   end
 
-  specify "Should expand should_be_close expectations" do
+  it "should expand should be_close expectations" do
     @o.fubar(10)   # =>
   end
 end
 
-context "Testing binding" do
-  specify "Should expand should_equal expectations" do
+describe "xmpfilter's automagic binding detection" do
+  it "should expand should == expectations" do
     a = b = c = 1
     d = a
     d                                              # =>

@@ -1,8 +1,9 @@
-#!/usr/bin/env ruby
+#! /usr/local/bin/ruby18
 require 'rcodetools/xmpfilter'
 require 'rcodetools/doc'
 require 'rcodetools/options'
 
+include Rcodetools
 options = DEFAULT_OPTIONS
 klass = XMPDocFilter
 
@@ -42,9 +43,10 @@ end
 
 set_extra_opts options
 opts.parse!(ARGV)
+check_opts options
 
 targetcode = ARGF.read
 Dir.chdir options[:wd] if options[:wd]
-
+XMPFilter.detect_rbtest(targetcode, options)
 # Do the job. dispatched by klass.
 puts klass.run(targetcode, options)

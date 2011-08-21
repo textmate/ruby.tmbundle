@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#! /usr/local/bin/ruby18
 # Copyright (c) 
 #  2006-2007 Mauricio Fernandez <mfp@acm.org>    http://eigenclass.org
 #  2006-2007 rubikitch <rubikitch@ruby-lang.org> http://www.rubyist.net/~rubikitch/
@@ -6,6 +6,7 @@
 # Use and distribution subject to the same conditions as Ruby.
 
 require 'rcodetools/options'
+include Rcodetools
 $VERBOSE = nil
 $__method_args_off = true
 
@@ -22,6 +23,7 @@ rct-meth-args [-Idirectory] [-i] [-m] [-c] [-n] <file> [<file> ...]
 
 -n            print the filename and line number with output lines
 -t            generate TAGS output
+--summarize   summary output sorted by method name
 
 The given files will be #require()d in order.
 Examples:
@@ -29,7 +31,7 @@ Examples:
    rct-meth-args thread
    rct-meth-args -c rubygems
 EOF
-  exit
+  exit                          # '
 end
 
 def debugprint(*args)
@@ -98,6 +100,33 @@ module MethodArgs
     end
   end
 
+  class SummarizePrinter
+    def initialize
+      @hash = Hash.new
+      at_exit { print_result }
+    end
+
+    def method_info(io, x)
+      @io = io
+      prefix = x[:location] ? "#{x[:location].filename}:#{x[:location].lineno}:" : ""
+      (@hash[x[:meth]]||=[]) << "#{prefix}#{x[:fullname]}#{x[:arg_desc]}" unless x[:klass].to_s == "<Struct>"
+    end
+
+    def included_location(io, x)
+      # not implemented
+    end
+
+    def print_result
+      @hash.keys.sort.each do |meth|
+        @io.puts meth
+        @hash[meth].each do |line|
+          @io.puts line
+        end
+        @io.puts
+      end
+    end
+  end
+
   class TagsPrinter
     def initialize
       @previous_filename = ""
@@ -129,6 +158,7 @@ module MethodArgs
     arg_desc = " " + arg_desc unless arg_desc.empty?
     flag = is_singleton ? "." : "#"
     x = { :arg_desc => arg_desc, :klass => klass,
+      :meth => meth.to_s,
       :fullname => [klass, flag, meth].join,
       :location => with_location && location,
     }
@@ -255,6 +285,7 @@ ARGV.each do |arg|
   case arg
   when "-n"; $__with_location = true
   when "-t"; $__printer = TagsPrinter.new; $__with_location = true
+  when "--summarize"; $__printer = SummarizePrinter.new
   when /-I(.+)$/; $:.unshift $1
   when "-I"; i_opt_p = true
   when "--dev"; OptionHandler.auto_include_paths($:, Dir.pwd)

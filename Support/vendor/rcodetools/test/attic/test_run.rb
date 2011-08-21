@@ -7,6 +7,9 @@ require 'rcodetools/options'
 require 'stringio'
 
 class TestRun < Test::Unit::TestCase
+  include Rcodetools
+  DIR = File.expand_path(File.dirname(__FILE__))
+
   tests = {
     :simple_annotation => {:klass => XMPFilter},
     :unit_test         => {:klass => XMPTestUnitFilter},
@@ -20,6 +23,8 @@ class TestRun < Test::Unit::TestCase
     :completion       => {:klass => XMPCompletionFilter,      :lineno => 1},
     :completion_emacs => {:klass => XMPCompletionEmacsFilter, :lineno => 1},
     :completion_emacs_icicles => {:klass => XMPCompletionEmacsIciclesFilter, :lineno => 1},
+    :completion_class_info => {:klass => XMPCompletionClassInfoFilter, :lineno => 1},
+    :completion_class_info_no_candidates => {:klass => XMPCompletionClassInfoFilter, :lineno => 1},
     
     :doc      => {:klass => XMPDocFilter,     :lineno => 1},
     :refe     => {:klass => XMPReFeFilter,    :lineno => 1},
@@ -30,9 +35,8 @@ class TestRun < Test::Unit::TestCase
   }
   tests.each_pair do |test, opts|
     define_method("test_#{test}") do
-      dir = File.expand_path(File.dirname(__FILE__))
-      inputfile = "#{dir}/data/#{test}-input.rb"
-      outputfile = "#{dir}/data/#{test}-output.rb"
+      inputfile = "#{DIR}/data/#{test}-input.rb"
+      outputfile = "#{DIR}/data/#{test}-output.rb"
       sio = StringIO.new
       sio.puts opts[:klass].run(File.read(inputfile), DEFAULT_OPTIONS.merge(opts))
       assert_equal(File.read(outputfile), sio.string)

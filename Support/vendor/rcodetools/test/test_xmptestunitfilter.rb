@@ -4,9 +4,7 @@ $: << ".." << "../lib"
 require "rcodetools/xmptestunitfilter"
 
 class TestXMPTestUnitFilter < Test::Unit::TestCase
-  def setup
-    @xmp = XMPTestUnitFilter.new
-  end
+  include Rcodetools
 
   ANNOTATION_VAR_INFERENCE_INPUT = <<EOF
 arr = []
@@ -30,20 +28,22 @@ assert_equal(\"#<struct X foo=\\\"foo\\\", bar=\\\"bar\\\">\", arr.last.inspect)
 EOF
 
   def test_annotation_var_inference
+    xmp = XMPTestUnitFilter.new
     assert_equal(ANNOTATION_VAR_INFERENCE_OUTPUT, 
-                 @xmp.annotate(ANNOTATION_VAR_INFERENCE_INPUT).join(""))
+                 xmp.annotate(ANNOTATION_VAR_INFERENCE_INPUT).join(""))
   end
 
   def test_equality_assertions
-    assert_equal(["a = 1\n", "assert_equal(1, a)"], @xmp.annotate("a = 1\na # \=>"))
+    xmp = XMPTestUnitFilter.new
+    assert_equal(["a = 1\n", "assert_equal(1, a)"], xmp.annotate("a = 1\na # \=>"))
     assert_equal(["a = {1,2}\n", "assert_equal({1=>2}, a)"], 
-                 @xmp.annotate("a = {1,2}\na # \=>"))
+                 xmp.annotate("a = {1,2}\na # \=>"))
     assert_equal(["a = [1,2]\n", "assert_equal([1, 2], a)"], 
-                 @xmp.annotate("a = [1,2]\na # \=>"))
+                 xmp.annotate("a = [1,2]\na # \=>"))
     assert_equal(["a = 'foo'\n", "assert_equal(\"foo\", a)"], 
-                 @xmp.annotate("a = 'foo'\na # \=>"))
+                 xmp.annotate("a = 'foo'\na # \=>"))
     assert_equal(["a = 1.0\n", "assert_in_delta(1.0, a, 0.0001)"], 
-                 @xmp.annotate("a = 1.0\na # \=>"))
+                 xmp.annotate("a = 1.0\na # \=>"))
   end
 
   def test_raise_assertion
@@ -51,12 +51,14 @@ EOF
 class NoGood < Exception; end
 raise NoGood                                       # \=>
 EOF
+    xmp = XMPTestUnitFilter.new
     assert_equal(["class NoGood < Exception; end\n", 
-                 "assert_raise(NoGood){raise NoGood}\n"], @xmp.annotate(code))
+                 "assert_raise(NoGood){raise NoGood}\n"], xmp.annotate(code))
   end
 
   def test_assert_nil
-    assert_equal(["a = nil\n", "assert_nil(a)"], @xmp.annotate("a = nil\na # \=>"))
+    xmp = XMPTestUnitFilter.new
+    assert_equal(["a = nil\n", "assert_nil(a)"], xmp.annotate("a = nil\na # \=>"))
   end
 
   def test_poetry_mode

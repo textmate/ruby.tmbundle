@@ -3,6 +3,7 @@ require 'rcodetools/completion'
 require 'test/unit'
 
 class TestXMPCompletionFilter < Test::Unit::TestCase
+  include Rcodetools
   def doit(code, lineno, column=nil, options={})
     xmp = XMPCompletionFilter.new options
     xmp.candidates(code, lineno, column).sort
@@ -29,12 +30,13 @@ EOC
   end
 
   def test_complete_method__in_not_passing_method
-    ## FIXME I do not know how to handle not-passing method!!
-    assert_equal([], doit(<<EOC, 2))
+    assert_raises(XMPCompletionFilter::NoCandidates) do
+      doit(<<EOC, 2)
   def hoge
     "a".lengt
   end
 EOC
+    end
   end
 
   def test_complete_singleton_method
@@ -53,6 +55,16 @@ EOC
   $hoge = 100
   $ho
 EOC
+  end
+
+  def test_complete_global_variable__list
+    gvars = doit(<<EOC, 3)
+  $foo = 3
+  $hoge = 100
+  $
+EOC
+    assert gvars.include?("$foo")
+    assert gvars.include?("$hoge")
   end
 
   def test_complete_global_variable__with_class
@@ -106,6 +118,15 @@ EOC
   Foo.new.foo
 EOC
   end
+
+  def test_complete_class_variable__list
+    assert_equal(%w[@@foo @@hoge], doit(<<EOC, 3))
+  @@hoge = 100
+  @@foo = 2
+  @@
+EOC
+  end
+
 
   def test_complete_constant__nested
     assert_equal(["Stat"], doit('File::Sta',1))
@@ -435,7 +456,9 @@ x = a[1][0] rescue "aaa"
 x.lengt
 EOC
     assert_equal(["length"], doit(code, 3))
-    assert_equal([], doit(code, 3, nil, :ignore_NoMethodError=>true))
+    assert_raises(XMPCompletionFilter::NoCandidates) do
+      doit(code, 3, nil, :ignore_NoMethodError=>true)
+    end
   end
 
   def test__syntax_error
@@ -496,6 +519,7 @@ end
 
 
 class TestXMPCompletionVerboseFilter < Test::Unit::TestCase
+  include Rcodetools
   def doit(code, lineno, column=nil, options={})
     xmp = XMPCompletionVerboseFilter.new options
     xmp.candidates(code, lineno, column).sort
@@ -512,6 +536,16 @@ EOC
     assert_equal(["@hoge"], doit(<<EOC, 2))
   @hoge = 100
   @ho
+EOC
+  end
+
+  def test_complete_list_instance_variable
+    assert_equal(%w[@bar @baz @foo @hoge], doit(<<EOC, 5))
+  @foo = 1
+  @bar = 2
+  @baz = 3
+  @hoge = 100
+  @
 EOC
   end
 

@@ -3,6 +3,7 @@ require 'rcodetools/doc'
 require 'test/unit'
 
 class TestXMPDocFilter < Test::Unit::TestCase
+  include Rcodetools
   def doit(code, lineno, column=nil, options={})
     xmp = XMPDocFilter.new options
     xmp.doc(code, lineno, column)
@@ -428,6 +429,7 @@ EOC
 end
 
 class TestXMPRiFilter < Test::Unit::TestCase
+  include Rcodetools
   def doit(code, lineno, column=nil, options={})
     xmp = XMPRiFilter.new options
     xmp.doc(code, lineno, column)

@@ -3,6 +3,9 @@
 
 require 'rcodetools/xmpfilter'
 require 'enumerator'
+
+module Rcodetools
+
 # Common routines for XMPCompletionFilter/XMPDocFilter
 module ProcessParticularLine
   def fill_literal!(expr)
@@ -78,8 +81,8 @@ module ProcessParticularLine
   def aref_or_aset?(right_stripped, last_char)
     if last_char == ?[
       case right_stripped
-      when /\]\s*=/: "[]="
-      when /\]/:     "[]"
+      when /\]\s*=/ then "[]="
+      when /\]/     then "[]"
       end
     end
   end
@@ -156,7 +159,7 @@ XXX
     debugprint "newcode", newcode.gsub(/;/, "\n"), "-"*80
     stdout, stderr = execute(newcode)
     output = stderr.readlines
-    debugprint "stdout", output, "-"*80
+    debugprint "stderr", output, "-"*80
     output = output.reject{|x| /^-:[0-9]+: warning/.match(x)}
     runtime_data = extract_data(output)
     if exception = /^-:[0-9]+:.*/m.match(output.join)
@@ -164,6 +167,7 @@ XXX
     end
     begin
       dat = runtime_data.results[1][0]
+      debugprint "dat = #{dat.inspect}"
       [dat[0], dat[1..-1].to_s]
     rescue
       raise RuntimeDataError, runtime_data.inspect
@@ -178,7 +182,7 @@ XXX
     code = <<-EOC
   #{result} = #{v}.method(#{meth}).inspect.match( %r[\\A#<(?:Unbound)?Method: (.*?)>\\Z] )[1].sub(/\\A.*?\\((.*?)\\)(.*)\\Z/){ "\#{$1}\#{$2}" }.sub(/#<Class:(.*?)>#/) { "\#{$1}." }
   #{result} = #{v}.to_s + ".new" if #{result} == 'Class#new' and #{v}.private_method_defined?(:initialize)
-  #{result} = "Object#" + #{meth} if #{result} =~ /^Kernel#/ and Kernel.instance_methods(false).include? #{meth}
+  #{result} = "Object#" + #{meth} if #{result} =~ /^Kernel#/ and Kernel.instance_methods(false).map{|x| x.to_s}.include? #{meth}
   #{result}
 EOC
   end
@@ -208,7 +212,9 @@ class XMPCompletionFilter < XMPFilter
 
   def methods_map_code(recv)
     # delimiter is \0
-    %Q[map{|m| "\#{m}\\0" + #{magic_help_code((recv), 'm')}}]
+    m = "#{VAR}_m"
+    mhc = magic_help_code((recv), m)
+    %Q[map{|%s| "\#{%s}\\0" + %s}] % [m, m, mhc]
   end
 
   def split_method_info(minfo)
@@ -219,11 +225,11 @@ class XMPCompletionFilter < XMPFilter
     set_expr_and_postfix!(expr, column){|c| /^.{#{c}}/ }
     @prefix = expr
     case expr
-    when /^\$\w+$/              # global variable
+    when /^\$\w*$/              # global variable
       __prepare_line 'nil', 'global_variables', '%n'
-    when /^@@\w+$/              # class variable
+    when /^@@\w*$/              # class variable
       __prepare_line 'nil', 'Module === self ? class_variables : self.class.class_variables', '%n'
-    when /^@\w+$/               # instance variable
+    when /^@\w*$/               # instance variable
       __prepare_line 'nil', 'instance_variables', '%n'
     when /^([A-Z].*)::([^.]*)$/    # nested constants / class methods
       @prefix = $2
@@ -231,7 +237,7 @@ class XMPCompletionFilter < XMPFilter
       %Q[#$1.constants + #$1.methods(true).#{methods_map_code($1)}]
     when /^[A-Z]\w*$/           # normal constants
       __prepare_line 'nil', 'Module.constants', '%n'
-    when /^(.*::.+)\.(.+)$/       # toplevel class methods
+    when /^(.*::.+)\.(.*)$/       # toplevel class methods
       @prefix = $2
       __prepare_line $1, "#$1.methods",
       %Q[%n.#{methods_map_code($1)}]
@@ -270,22 +276,28 @@ class XMPCompletionFilter < XMPFilter
     idx = 1
     oneline_ize(<<EOC)
 #{rcv} = (#{recv})
-#{v} = (#{all_completion_expr}).grep(/^#{Regexp.quote(@prefix)}/)
+#{v} = (#{all_completion_expr}).map{|x| x.to_s}.grep(/^#{Regexp.quote(@prefix)}/)
 #{rcv} = Module === #{rcv} ? #{rcv} : #{rcv}.class
 $stderr.puts("#{MARKER}[#{idx}] => " + #{rcv}.to_s  + " " + #{v}.join(" ")) || #{v}
 exit
 EOC
   end
 
+  def candidates_with_class(code, lineno, column=nil)
+    klass, methods = runtime_data_with_class(code, lineno, column) rescue ["", ""]
+    raise NoCandidates, "No candidates." if methods.nil? or methods.empty?
+    [klass, methods.split(/ /).sort]
+  end
+
   # Array of completion candidates.
+  class NoCandidates < RuntimeError;  end
   def candidates(code, lineno, column=nil)
-    methods = runtime_data(code, lineno, column) rescue ""
-    methods.split(/ /).sort
+    candidates_with_class(code, lineno, column)[1]
   end
 
   # Completion code for editors.
   def completion_code(code, lineno, column=nil)
-    candidates(code, lineno, column).join("\n")
+    candidates(code, lineno, column).join("\n") rescue "\n"
   end
 end
 
@@ -299,6 +311,8 @@ class XMPCompletionClassInfoFilter < XMPCompletionFilter
 
   def completion_code(code, lineno, column=nil)
     candidates(code, lineno, column).join("\n").tr("\0", "\t")
+  rescue NoCandidates
+    ""
   end
 end
 
@@ -318,23 +332,27 @@ class XMPCompletionEmacsFilter < XMPCompletionFilter
       table << "))\n"
       alist << "))\n"
     rescue Exception => err
-      return %Q[(error "#{err.message}")]
+      return error_code(err)
     end
     elisp << table << alist
     elisp << %Q[(setq pattern "#{prefix}")\n]
     elisp << %Q[(try-completion pattern rct-method-completion-table nil)\n]
     elisp << ")"                # /progn
   end
+
+  def error_code(err)
+    case err
+    when NoCandidates
+      %Q[(error "#{err.message}")]
+    else
+      %Q[(error "#{err.message}\n#{err.backtrace.join("\n")}")]
+    end
+
+  end
 end
 
-class XMPCompletionEmacsIciclesFilter < XMPCompletionFilter
+class XMPCompletionEmacsIciclesFilter < XMPCompletionEmacsFilter
   @candidates_with_description_flag = true
-
-  def candidates(code, lineno, column=nil)
-    klass, methods = runtime_data_with_class(code, lineno, column) rescue ["", ""]
-    @klass = klass
-    methods.split(/ /).sort
-  end
 
   def completion_code(code, lineno, column=nil)
     elisp = "(progn\n"
@@ -342,7 +360,8 @@ class XMPCompletionEmacsIciclesFilter < XMPCompletionFilter
     help_alist = "(setq alist '("
     
     begin
-      candidates(code, lineno, column).sort.each do |minfo|
+      klass, cands = candidates_with_class(code, lineno, column)
+      cands.sort.each do |minfo|
         meth, description = split_method_info(minfo)
         table << format('("%s\\t[%s]") ', meth, description)
         help_alist << format('("%s" . "%s")', meth, description)
@@ -350,12 +369,38 @@ class XMPCompletionEmacsIciclesFilter < XMPCompletionFilter
       table << "))\n"
       help_alist << "))\n"
     rescue Exception => err
-      return %Q[(error "#{err.message}")]
+      return error_code(err)
     end
     elisp << table << help_alist
     elisp << %Q[(setq pattern "#{prefix}")\n]
-    elisp << %Q[(setq klass "#{@klass}")\n]
+    elisp << %Q[(setq klass "#{klass}")\n]
     elisp << ")"                # /progn
   end
 end
 
+class XMPCompletionEmacsAnythingFilter < XMPCompletionEmacsFilter
+  @candidates_with_description_flag = true
+
+  def completion_code(code, lineno, column=nil)
+    elisp = "(progn\n"
+    table = "(setq rct-method-completion-table `("
+    
+    begin
+      klass, cands = candidates_with_class(code, lineno, column)
+      cands.sort.each do |minfo|
+        meth, description = split_method_info(minfo)
+        table << format('("%s\\t[%s]" . ,(propertize "%s" \'desc "%s")) ',
+          meth, description, meth, description)
+      end
+      table << "))\n"
+    rescue Exception => err
+      return error_code(err)
+    end
+    elisp << table
+    elisp << %Q[(setq pattern "#{prefix}")\n]
+    elisp << %Q[(setq klass "#{klass}")\n]
+    elisp << ")"                # /progn
+  end
+end
+
+end

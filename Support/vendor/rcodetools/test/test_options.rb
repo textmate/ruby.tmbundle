@@ -5,6 +5,7 @@ require 'tmpdir'
 require 'fileutils'
 
 class TestOptionHandler < Test::Unit::TestCase
+  include Rcodetools
   include OptionHandler
 
   def include_paths_check

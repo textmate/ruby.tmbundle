@@ -9,72 +9,40 @@ RCT_VERSION  = XMPFilter::VERSION
 
 desc "Run the unit tests in pure-Ruby mode ."
 Rake::TestTask.new(:test) do |t|
-  t.libs << "ext/rcovrt"
   t.test_files = FileList['test/test*.rb']
   t.verbose = true
 end
 
-require 'rcov/rcovtask'
-desc "Run rcov."
-Rcov::RcovTask.new do |t|
-  t.rcov_opts << "--xrefs"  # comment to disable cross-references
-  t.test_files = FileList['test/test_*.rb'].to_a - ["test/test_functional.rb"]
-  t.verbose = true
-end
+begin
+  require 'rcov/rcovtask'
+  desc "Run rcov."
+  Rcov::RcovTask.new do |t|
+    t.rcov_opts << "--xrefs"  # comment to disable cross-references
+    t.test_files = FileList['test/test_*.rb'].to_a - ["test/test_functional.rb"]
+    t.verbose = true
+  end
 
-desc "Save current coverage state for later comparisons."
-Rcov::RcovTask.new(:rcovsave) do |t|
-  t.rcov_opts << "--save"
-  t.test_files = FileList['test/test_*.rb'].to_a - ["test/test_functional.rb"]
-  t.verbose = true
+  desc "Save current coverage state for later comparisons."
+  Rcov::RcovTask.new(:rcovsave) do |t|
+    t.rcov_opts << "--save"
+    t.test_files = FileList['test/test_*.rb'].to_a - ["test/test_functional.rb"]
+    t.verbose = true
+  end
+rescue LoadError
+  # rcov is not installed
 end
-
 task :default => :test
 
-## test data file dependency
-basetestfiles = []
-copy = lambda do |t|
-  cp t.prerequisites.first, t.name
-end
-
-#  DO NOT EDIT!!                         EDITABLE
-[ ["test/data/rspec_poetry-input.rb", "test/data/rspec-input.rb"],
-  ["test/data/unit_test_poetry-input.rb", "test/data/unit_test-input.rb"],
-  ["test/data/completion_emacs-input.rb", "test/data/completion-input.rb"],
-  ["test/data/unit_test_detect_rbtest-input.rb", "test/data/unit_test-input.rb"],
-  ["test/data/unit_test_detect_rbtest-output.rb", "test/data/unit_test-output.rb"],
-  ["test/data/unit_test_detect_rbtest2-input.rb", "test/data/unit_test_rbtest-input.rb"],
-  ["test/data/unit_test_detect_rbtest2-output.rb", "test/data/unit_test_rbtest-output.rb"],
-  ["test/data/completion_detect_rbtest-input.rb", "test/data/completion_rbtest-input.rb"],
-  ["test/data/completion_detect_rbtest-output.rb", "test/data/completion_rbtest-output.rb"],
-  ["test/data/completion_detect_rbtest2-input.rb", "test/data/completion-input.rb"],
-  ["test/data/completion_detect_rbtest2-output.rb", "test/data/completion-output.rb"],
-  ["test/data/doc_detect_rbtest-input.rb", "test/data/doc-input.rb"],
-  ["test/data/doc_detect_rbtest-output.rb", "test/data/doc-output.rb"],
-  ["test/data/doc_detect_rbtest2-input.rb", "test/data/doc_rbtest-input.rb"],
-  ["test/data/doc_detect_rbtest2-output.rb", "test/data/doc_rbtest-output.rb"],
-
-].each do |outfile, infile|
-  basetestfiles << outfile
-  file(outfile => infile, &copy)
-end
-for test in %w[refe ri ri_emacs ri_vim]
-  outfile = "test/data/#{test}-input.rb"
-  basetestfiles << outfile
-  file(outfile => "test/data/doc-input.rb", &copy)
-end
-task :base_update => basetestfiles
-task :test => :base_update
-task :rcov => :base_update
 
 #{{{ Package tasks
 PKG_FILES = FileList[
-"bin/rct-complete", "bin/rct-doc", "bin/xmpfilter", "bin/rct-meth-args",
+  "bin/xmpfilter", "bin/rct-*", "bin/ruby-toggle-file", "bin/rbtest",
 "lib/**/*.rb",
-"CHANGES", "rcodetools.*", "icicles-rcodetools.el", "README", "README.*", "THANKS", 
+"CHANGES", "rcodetools.*", "icicles-rcodetools.el", "anything-rcodetools.el",
+"README", "README.*", "THANKS", 
 "Rakefile", "Rakefile.method_analysis",
 "setup.rb",
-"test/**/*.rb",
+"test/**/*.rb","test/**/*.taf"
 ]
 
 begin
@@ -128,7 +96,7 @@ EOF
 
   task :gem => [:test]
   Rake::GemPackageTask.new(Spec) do |p|
-    #p.need_tar = true
+    p.need_tar_gz = true
   end
 
 rescue LoadError
@@ -139,5 +107,15 @@ desc "install by setup.rb"
 task :install do
   sh "sudo ruby setup.rb install"
 end
+
+desc "release in rubyforge (package is created)"
+task :release_only  do 
+  sh "rubyforge login"
+  sh "rubyforge add_release rcodetools rcodetools #{RCT_VERSION} pkg/rcodetools-#{RCT_VERSION}.0.tar.gz "
+  sh "rubyforge add_file rcodetools rcodetools #{RCT_VERSION} pkg/rcodetools-#{RCT_VERSION}.0.gem "
+end
+
+desc "release in rubyforge"
+task :release => [:package, :release_only]
 
 # vim: set sw=2 ft=ruby:

@@ -1593,7 +1593,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(^[ \t]+)?((#))</string>
+			<string>(^[ \t]+)?(?=#)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -1601,34 +1601,20 @@
 					<key>name</key>
 					<string>punctuation.whitespace.comment.leading.ruby</string>
 				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>comment.line.number-sign.ruby</string>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.comment.ruby</string>
-				</dict>
 			</dict>
 			<key>contentName</key>
 			<string>comment.line.number-sign.ruby</string>
 			<key>end</key>
-			<string>($\n?)</string>
-			<key>endCaptures</key>
-			<dict>
-				<key>0</key>
+			<string>(?!\G)^</string>
+			<key>patterns</key>
+			<array>
 				<dict>
-					<key>name</key>
-					<string>comment.line.number-sign.ruby</string>
-				</dict>
-				<key>1</key>
-				<dict>
+					<key>match</key>
+					<string>\G#</string>
 					<key>name</key>
 					<string>punctuation.definition.comment.ruby</string>
 				</dict>
-			</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>comment</key>

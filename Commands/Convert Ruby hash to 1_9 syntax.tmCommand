@@ -7,17 +7,20 @@
 	<key>command</key>
 	<string>#!/usr/bin/env ruby
 
-str = STDIN.read
-print str.gsub(/:(\w+)[\s]+=&gt;[\s]+/, '\1: ')
+print case str = STDIN.read
+  when /=&gt;/;                 str.gsub(/:(\w+)[\s]+=&gt;[\s]+/, '\1: ')
+  when /(\w+):/;             str.gsub(/(\w+):(\s*(?:"(?:\\"|[^"])*"|'(?:\\'|[^'])*'|\w+\([^)]*\)|[^,]+))/, ":\\1 =&gt;\\2")
+  else;                      str
+end
 </string>
 	<key>fallbackInput</key>
 	<string>line</string>
 	<key>input</key>
 	<string>selection</string>
 	<key>keyEquivalent</key>
-	<string>~@=</string>
+	<string>^=</string>
 	<key>name</key>
-	<string>Convert Ruby Hash to 1.9 syntax</string>
+	<string>Toggle Ruby Hash 1.8/1.9 syntax</string>
 	<key>output</key>
 	<string>replaceSelectedText</string>
 	<key>uuid</key>

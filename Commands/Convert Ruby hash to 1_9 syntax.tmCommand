@@ -20,7 +20,7 @@ end
 	<key>keyEquivalent</key>
 	<string>^=</string>
 	<key>name</key>
-	<string>Toggle Ruby Hash 1.8/1.9 syntax</string>
+	<string>Toggle Ruby Hash 1.8/1.9 Syntax</string>
 	<key>output</key>
 	<string>replaceSelectedText</string>
 	<key>uuid</key>

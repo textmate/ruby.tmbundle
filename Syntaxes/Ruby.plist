@@ -401,8 +401,6 @@
 			</dict>
 			<key>comment</key>
 			<string>the method pattern comes from the symbol pattern, see there for a explaination</string>
-			<key>contentName</key>
-			<string>variable.parameter.function.ruby</string>
 			<key>end</key>
 			<string>\)</string>
 			<key>endCaptures</key>
@@ -418,8 +416,31 @@
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>include</key>
-					<string>$self</string>
+					<key>begin</key>
+					<string>(?![\s,)])</string>
+					<key>end</key>
+					<string>(?=[,)])</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>captures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.variable.ruby</string>
+								</dict>
+							</dict>
+							<key>match</key>
+							<string>\G([&amp;*]?)[_a-zA-Z][_a-zA-Z0-9]*</string>
+							<key>name</key>
+							<string>variable.parameter.function.ruby</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+					</array>
 				</dict>
 			</array>
 		</dict>
@@ -449,8 +470,6 @@
 			</dict>
 			<key>comment</key>
 			<string>same as the previous rule, but without parentheses around the arguments</string>
-			<key>contentName</key>
-			<string>variable.parameter.function.ruby</string>
 			<key>end</key>
 			<string>$</string>
 			<key>name</key>
@@ -458,8 +477,31 @@
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>include</key>
-					<string>$self</string>
+					<key>begin</key>
+					<string>(?![\s,])</string>
+					<key>end</key>
+					<string>(?=,|$)</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>captures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.variable.ruby</string>
+								</dict>
+							</dict>
+							<key>match</key>
+							<string>\G([&amp;*]?)[_a-zA-Z][_a-zA-Z0-9]*</string>
+							<key>name</key>
+							<string>variable.parameter.function.ruby</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+					</array>
 				</dict>
 			</array>
 		</dict>

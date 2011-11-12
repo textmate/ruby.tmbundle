@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
 	<key>commands</key>
@@ -18,7 +18,7 @@
 	<key>name</key>
 	<string>Delete forward/backward</string>
 	<key>scope</key>
-	<string>source.ruby.embedded.source.empty</string>
+	<string>meta.embedded.line.ruby &amp; (L:punctuation.section.embedded.begin.ruby &amp; R:punctuation.section.embedded.end.ruby)</string>
 	<key>uuid</key>
 	<string>A83F68A9-F751-4BB4-AE16-56812878C16A</string>
 </dict>

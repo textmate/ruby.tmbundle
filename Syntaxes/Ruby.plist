@@ -2289,15 +2289,27 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\{|\}</string>
+			<string>\{</string>
 			<key>name</key>
-			<string>punctuation.section.scope.ruby</string>
+			<string>punctuation.section.scope.begin.ruby</string>
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\[|\]</string>
+			<string>\}</string>
 			<key>name</key>
-			<string>punctuation.section.array.ruby</string>
+			<string>punctuation.section.scope.end.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\[</string>
+			<key>name</key>
+			<string>punctuation.section.array.begin.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\]</string>
+			<key>name</key>
+			<string>punctuation.section.array.end.ruby</string>
 		</dict>
 		<dict>
 			<key>match</key>

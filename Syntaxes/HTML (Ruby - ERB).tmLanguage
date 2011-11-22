@@ -130,7 +130,7 @@
 			<array>
 				<dict>
 					<key>begin</key>
-					<string>&lt;%+(?!&gt;)=?(?![^%]*%&gt;)</string>
+					<string>&lt;%+(?!&gt;)[-=]?(?![^%]*%&gt;)</string>
 					<key>beginCaptures</key>
 					<dict>
 						<key>0</key>
@@ -182,7 +182,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>&lt;%+(?!&gt;)=?</string>
+					<string>&lt;%+(?!&gt;)[-=]?</string>
 					<key>beginCaptures</key>
 					<dict>
 						<key>0</key>

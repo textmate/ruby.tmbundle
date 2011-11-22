@@ -45,15 +45,23 @@ print result</string>
 	<string>scope</string>
 	<key>input</key>
 	<string>selection</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
 	<string>^&gt;</string>
 	<key>name</key>
 	<string>Toggle ERb Tags</string>
-	<key>output</key>
-	<string>insertAsSnippet</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>snippet</string>
+	<key>outputLocation</key>
+	<string>replaceInput</string>
 	<key>scope</key>
-	<string>source.ruby.embedded, source.ruby.rails.embedded, comment.block.erb, meta.erb</string>
+	<string>meta.embedded.block.erb, meta.embedded.line.erb, comment.block.erb</string>
 	<key>uuid</key>
 	<string>835FAAC6-5431-436C-998B-241F7226B99B</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>

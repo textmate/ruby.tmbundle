@@ -392,13 +392,16 @@
 								<key>1</key>
 								<dict>
 									<key>name</key>
-									<string>punctuation.definition.variable.ruby</string>
+									<string>storage.type.variable.ruby</string>
+								</dict>
+								<key>2</key>
+								<dict>
+									<key>name</key>
+									<string>variable.parameter.function.ruby</string>
 								</dict>
 							</dict>
 							<key>match</key>
-							<string>\G([&amp;*]?)[_a-zA-Z][_a-zA-Z0-9]*</string>
-							<key>name</key>
-							<string>variable.parameter.function.ruby</string>
+							<string>\G([&amp;*]?)([_a-zA-Z][_a-zA-Z0-9]*)</string>
 						</dict>
 						<dict>
 							<key>include</key>

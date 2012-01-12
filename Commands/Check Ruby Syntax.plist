@@ -7,7 +7,7 @@
 	<key>command</key>
 	<string>#!/usr/bin/env ruby
 
-_ruby = ENV['TM_RBX'] || ENV['TM_RUBY'] || 'ruby'
+_ruby = ENV['TM_RUBY_SYNTAX_CHECKER'] || ENV['TM_RUBY'] || 'ruby'
 
 require ENV['TM_SUPPORT_PATH'] + '/lib/textmate'
 puts `"#{_ruby}" -e'puts "Using ruby-" + RUBY_VERSION.to_s + " " + RUBY_DESCRIPTION.to_s'`

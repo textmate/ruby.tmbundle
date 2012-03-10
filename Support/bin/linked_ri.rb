@@ -29,6 +29,54 @@ def link_methods(prefix, methods)
   end.join
 end
 
+# Modifies native ri HTML output for Ruby 1.9 documentation
+def process_html_output(text, term)
+  text.gsub!(/^$\n/, "")                  # removing empty lines
+  text.gsub!(/<hr .+?>/, "<hr \/>")       # using default TextMate <hr /> tag style
+  text.gsub!(/\n<\/pre>/, "</pre>" )      # ill formatted closing tags!
+  text.gsub!(/<\/pre>\n<pre.*?>/, ", ")   # compacting consecutive <pre> tags into one
+
+  # Generate the link for the class/method looked up
+  text.sub!(/\A(<h1.+?>)(.+)(\.?.*?<\/h1>\n)/) do
+     open_tag, close_tag = $1, $3
+    "#{open_tag}" + $2.gsub(/([A-Z_]\w*)(\s+&lt;)?/, "<a href=\"javascript:ri('\\1')\">\\1</a>\\2") + "#{close_tag}"
+  end
+
+  # Generate links for class/superclass of the method/class looked up
+  text.sub!(/\A(<h1.+?>)(([A-Z_]\w*::)*[A-Z_]\w*)((#|::|\.).*)$/) do
+    open_tag, method    = $1, $4
+    namespace = $2.split("::")
+    linked    = (0...namespace.size).map do |i|
+      "<a href=\"javascript:ri('#{namespace[0..i].join('::')}')\">#{namespace[i]}</a>"
+    end
+    "#{open_tag}#{linked.join("::")}#{method}"
+ end
+
+  # Generate links for the includes
+  text.sub!(/^(<h1.+?>Includes:<\/h1>\n<p>)(.+?)(\(.+?\)<\/p>)/m) do
+    head, meths, foot = $1, $2, $3
+    head + meths.gsub(/([A-Z_]\w*)/) do |match|
+      "<a href=\"javascript:ri('#{$1}')\">#{$1}</a>"
+    end + foot
+  end
+
+  # Generate links for class methods
+  text.gsub!(/^(<h1.+?>Class methods:<\/h1>\n*<pre>\n*)(.+?)(<\/pre>)/m) do
+    open_tag, close_tag = $1, $3
+    the_methods = $2.gsub(/<span.+?>(.+?)<\/span>/, "\\1")
+    "#{open_tag}" + link_methods("#{term}::", the_methods) + "#{close_tag}"
+  end
+
+  # Generate links for instance methods
+  text.gsub!(/^(<h1.+?>Instance methods:<\/h1>\n*<pre>\n*)(.+?)(<\/pre>)/m) do
+    open_tag, close_tag = $1, $3
+    the_methods = $2.gsub(/<span.+?>(.+?)<\/span>/, "\\1")
+    "#{open_tag}" + link_methods("#{term}::", the_methods) + "#{close_tag}"
+  end
+
+  text.chomp
+end
+
 def htmlize_ri_output(text, term)
   text = text.gsub(/&/, '&amp;').gsub(/</, '&lt;')
 
@@ -138,15 +186,19 @@ HTML
   html_footer
   TextMate.exit_show_html
 elsif mode == 'js' then
-  documentation = `#{e_sh RI_EXE} -T -f plain #{e_sh term}` \
+  if documentation = `#{e_sh RI_EXE} -T -f plain #{e_sh term}` \
     rescue "<h1>ri Command Error.</h1>"
-
-  if documentation =~ /\A(?:\s*More than one method matched|-+\s+Multiple choices)/
-    methods       = documentation.split(/\n[ \t]*\n/).last.
-                    strip.split(/(?:,\s*|\n)/).map { |m| m[/\S+/] }.compact
-    documentation = ">> #{methods.join(' ')}"
+    # Assignment returns non-zero so a call to HTML format documentation is made
+    documentation = `#{e_sh RI_EXE} -T -f html #{e_sh term}`
+    documentation = process_html_output(documentation, term)
   else
-    documentation = htmlize_ri_output(documentation, term)
+    if documentation =~ /\A(?:\s*More than one method matched|-+\s+Multiple choices)/
+      methods = documentation.split(/\n[ \t]*\n/).last.
+                strip.split(/(?:,\s*|\n)/).map { |m| m[/\S+/] }.compact
+      documentation = ">> #{methods.join(' ')}"
+    else
+      documentation = htmlize_ri_output(documentation, term)
+    end
   end
 
   puts documentation

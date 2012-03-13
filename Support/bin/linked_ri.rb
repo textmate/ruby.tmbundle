@@ -10,6 +10,7 @@ require "exit_codes"
 require "ui"
 require "web_preview"
 
+require "English"     # to use $CHILD_STATUS instead of «$?»
 require "erb"
 include ERB::Util
 
@@ -29,15 +30,14 @@ def link_methods(prefix, methods)
   end.join
 end
 
-# Modifies native ri HTML output for Ruby 1.9 documentation
 def process_html_output(text, term)
   text.gsub!(/^$\n/, "")                  # removing empty lines
   text.gsub!(/<hr .+?>/, "<hr \/>")       # using default TextMate <hr /> tag style
   text.gsub!(/\n<\/pre>/, "</pre>" )      # ill formatted closing tags!
   text.gsub!(/<\/pre>\n<pre.*?>/, ", ")   # compacting consecutive <pre> tags into one
 
-  # Generate the link for the class/method looked up
-  text.sub!(/\A(<h1.+?>)(.+)(\.?.*?<\/h1>\n)/) do
+  # Generate the link for the heading of term looked up
+  text.sub!(/\A(<h1.+?>)(.+)((#|::|\.).*?<\/h1>\n)/) do
      open_tag, close_tag = $1, $3
     "#{open_tag}" + $2.gsub(/([A-Z_]\w*)(\s+&lt;)?/, "<a href=\"javascript:ri('\\1')\">\\1</a>\\2") + "#{close_tag}"
   end
@@ -74,6 +74,7 @@ def process_html_output(text, term)
     "#{open_tag}" + link_methods("#{term}::", the_methods) + "#{close_tag}"
   end
 
+  text.insert(0, "\n<h6 align=\"right\">Ruby 1.9 Documentation</h6>\n")
   text.chomp
 end
 
@@ -112,6 +113,7 @@ def htmlize_ri_output(text, term)
   text.gsub!(/(?:\n+-+$)?\n+([\w\s]+)[:.]$\n-+\n+/, "</pre>\n\n<h2>\\1</h2>\n<pre>")
   text.gsub!(/^-+$/, '<hr>')
 
+  text.insert(0, "\n<h6 align=\"right\">Ruby 1.8 Documentation</h6>\n")
   text.chomp + "</pre>"
 end
 
@@ -128,6 +130,15 @@ def ri(term)
     TextMate.exit_show_tool_tip("Your fastri-server is not running.")
   elsif documentation =~ /Nothing known about /
     TextMate.exit_show_tool_tip(documentation)
+  elsif documentation =~ /.+?Implementation from.+?/
+    # scan(regex) returns caputured group
+    methods = documentation.scan(/.+?Implementation from (.+?)<\/h3>/)
+    methods.map! { |item| item.to_s + "\##{term}" }
+    documentation = "#{methods.join(' ')}"
+    choices = documentation.split
+    choice  = TextMate::UI.menu(choices)
+    exit if choice.nil?
+    ri(choices[choice])
   elsif documentation.sub!(/\A>>\s*/, "")
     choices = documentation.split
     choice  = TextMate::UI.menu(choices)
@@ -186,19 +197,19 @@ HTML
   html_footer
   TextMate.exit_show_html
 elsif mode == 'js' then
-  if documentation = `#{e_sh RI_EXE} -T -f plain #{e_sh term}` \
+  documentation = `#{e_sh RI_EXE} -T -f plain #{e_sh term}` \
     rescue "<h1>ri Command Error.</h1>"
-    # Assignment returns non-zero so a call to HTML format documentation is made
-    documentation = `#{e_sh RI_EXE} -T -f html #{e_sh term}`
+
+  if $CHILD_STATUS.exitstatus != 0
+    documentation = `#{e_sh RI_EXE} -T -f html #{e_sh term}` \
+      rescue "<h1>ri Command Error.</h1>"
     documentation = process_html_output(documentation, term)
+  elsif documentation =~ /\A(?:\s*More than one method matched|-+\s+Multiple choices)/
+    methods = documentation.split(/\n[ \t]*\n/).last.
+              strip.split(/(?:,\s*|\n)/).map { |m| m[/\S+/] }.compact
+    documentation = ">> #{methods.join(' ')}"
   else
-    if documentation =~ /\A(?:\s*More than one method matched|-+\s+Multiple choices)/
-      methods = documentation.split(/\n[ \t]*\n/).last.
-                strip.split(/(?:,\s*|\n)/).map { |m| m[/\S+/] }.compact
-      documentation = ">> #{methods.join(' ')}"
-    else
-      documentation = htmlize_ri_output(documentation, term)
-    end
+    documentation = htmlize_ri_output(documentation, term)
   end
 
   puts documentation

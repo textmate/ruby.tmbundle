@@ -163,6 +163,38 @@
 			<string>invalid.deprecated.ruby</string>
 		</dict>
 		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.constant.ruby</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>symbols as hash key (1.9 syntax)</string>
+			<key>match</key>
+			<string>(?&gt;[a-zA-Z_]\w*(?&gt;[?!])?)(:)(?!:)</string>
+			<key>name</key>
+			<string>constant.other.symbol.hashkey.ruby</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.constant.ruby</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>symbols as hash key (1.8 syntax)</string>
+			<key>match</key>
+			<string>(?&lt;!:)(:)(?&gt;[a-zA-Z_]\w*(?&gt;[?!])?)(?=\s*=&gt;)</string>
+			<key>name</key>
+			<string>constant.other.symbol.hashkey.ruby</string>
+		</dict>
+		<dict>
 			<key>comment</key>
 			<string>everything being a reserved word, not a value and needing a 'end' is a..</string>
 			<key>match</key>
@@ -1566,22 +1598,6 @@
 			<string>(?&lt;!:)(:)(?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?![&gt;=]))?|===?|&gt;[&gt;=]?|&lt;[&lt;=]?|&lt;=&gt;|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?|@@?[a-zA-Z_]\w*)</string>
 			<key>name</key>
 			<string>constant.other.symbol.ruby</string>
-		</dict>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.constant.ruby</string>
-				</dict>
-			</dict>
-			<key>comment</key>
-			<string>symbols</string>
-			<key>match</key>
-			<string>(?&gt;[a-zA-Z_]\w*(?&gt;[?!])?)(:)(?!:)</string>
-			<key>name</key>
-			<string>constant.other.symbol.ruby.19syntax</string>
 		</dict>
 		<dict>
 			<key>begin</key>

@@ -1752,11 +1752,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>text.html.basic</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby</string>
+					<string>text.html.basic</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1799,11 +1799,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>source.sql</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby</string>
+					<string>source.sql</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1846,11 +1846,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>source.css</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby</string>
+					<string>source.css</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1893,11 +1893,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>source.c++</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby</string>
+					<string>source.c++</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1940,11 +1940,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>source.c</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby</string>
+					<string>source.c</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -1987,11 +1987,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>source.js</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby</string>
+					<string>source.js</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -2034,11 +2034,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>source.js.jquery</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby</string>
+					<string>source.js.jquery</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -2081,11 +2081,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>source.shell</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby</string>
+					<string>source.shell</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -2128,11 +2128,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>source.ruby</string>
+					<string>#interpolated_ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#interpolated_ruby</string>
+					<string>source.ruby</string>
 				</dict>
 				<dict>
 					<key>include</key>

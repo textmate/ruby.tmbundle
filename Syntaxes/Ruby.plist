@@ -57,6 +57,7 @@
 		<string>irbrc</string>
 		<string>capfile</string>
 		<string>ru</string>
+		<string>prawn</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby</string>

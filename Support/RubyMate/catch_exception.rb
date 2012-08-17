@@ -4,11 +4,11 @@ STDOUT.sync = true
 STDERR.sync = true
 
 require 'pathname'
+require "cgi"
 
 at_exit do
   if (e = $!) && !e.instance_of?(SystemExit)
     require "#{ENV['TM_SUPPORT_PATH']}/lib/escape"
-    require "cgi"
     io = IO.for_fd(ENV['TM_ERROR_FD'].to_i)
 
     io.write "<div id='exception_report' class='framed'>\n"

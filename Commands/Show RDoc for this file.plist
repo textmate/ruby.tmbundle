@@ -21,7 +21,7 @@ rm -rf "${output_dir}"
 
 rdoc -S -N -q -f html --op "${output_dir}" "$input" &amp;&gt;/dev/null
 
-echo "&lt;html&gt;&lt;head&gt;&lt;meta http-equiv=\"refresh\" content=\"0;URL=tm-file://${output_dir}/index.html\"&gt;&lt;/head&gt;&lt;/html&gt;"
+echo "&lt;html&gt;&lt;head&gt;&lt;meta http-equiv=\"refresh\" content=\"0;URL=file://${output_dir}/index.html\"&gt;&lt;/head&gt;&lt;/html&gt;"
 </string>
 	<key>input</key>
 	<string>none</string>

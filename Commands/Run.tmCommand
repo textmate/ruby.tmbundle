@@ -15,15 +15,25 @@ export RUBYLIB="$TM_BUNDLE_SUPPORT/RubyMate${RUBYLIB:+:$RUBYLIB}"
 </string>
 	<key>input</key>
 	<string>document</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
 	<string>@r</string>
 	<key>name</key>
 	<string>Run</string>
-	<key>output</key>
-	<string>showAsHTML</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
 	<key>scope</key>
 	<string>source.ruby</string>
+	<key>semanticClass</key>
+	<string>process.run.script.ruby</string>
 	<key>uuid</key>
 	<string>35222962-C50D-4D58-A6AE-71E7AD980BE4</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>

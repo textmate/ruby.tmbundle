@@ -256,7 +256,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>\b(require|gem)\b</string>
+			<string>\b(require|require_relative|gem)\b</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>

@@ -7,7 +7,7 @@
 	<key>command</key>
 	<string>#!/usr/bin/env ruby
 require ENV['TM_SUPPORT_PATH'] + '/lib/textmate'
-puts "using ruby-" + RUBY_VERSION.to_s + ' / erb'
+puts "Using " + `"${TM_RUBY:=ruby}" -e'puts "ruby-" + RUBY_VERSION.to_s'`.chomp + " / " + `"${TM_ERB:=erb}" --version 2&gt;&amp;1`.chomp
 result = `"${TM_ERB:=erb}" -T - -x | "${TM_RUBY:=ruby}" -c 2&gt;&amp;1`
 puts result
 TextMate.go_to :line =&gt; $1 if result =~ /-:(\d+):/</string>

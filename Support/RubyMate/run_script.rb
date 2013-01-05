@@ -1,9 +1,21 @@
-require ENV["TM_SUPPORT_PATH"] + "/lib/tm/executor"
-require ENV["TM_SUPPORT_PATH"] + "/lib/tm/save_current_document"
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/tm/executor"
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/tm/tempfile"
+require "pathname"
 
-require 'pathname'
+def save_untitled_document
+  ENV['TM_FILEPATH']         = TextMate::IO.tempfile('rb').path
+  ENV['TM_FILENAME']         = File.basename(ENV['TM_FILEPATH'])
+  ENV['TM_FILE_IS_UNTITLED'] = 'true'
 
-TextMate.save_current_document
+  begin
+    Dir.chdir(File.dirname(ENV["TM_FILEPATH"]))
+    open(ENV['TM_FILEPATH'], 'w') { |io| io << STDIN.read }
+  rescue e
+    abort "Failed to save document as ‘#{ENV['TM_FILEPATH']}’: #{e}"
+  end
+end
+
+save_untitled_document if ENV['TM_FILEPATH'].nil?
 
 # For Run focused unit test, find the name of the test the user wishes to run.
 args = [ ]
@@ -41,7 +53,7 @@ is_test_script = !(ENV["TM_FILEPATH"].match(/(?:\b|_)(?:tc|ts|test)(?:\b|_)/).ni
 cmd = [ENV['TM_RUBY'] || 'ruby', '-KU', '-rcatch_exception']
 
 if is_test_script and not ENV['TM_FILE_IS_UNTITLED']
-  path_ary = (ENV['TM_ORIG_FILEPATH'] || ENV['TM_FILEPATH']).split("/")
+  path_ary = ENV['TM_FILEPATH'].split("/")
   if index = path_ary.rindex("test")
     test_path = "#{File.join(*path_ary[0..index])}:#{File.join(*path_ary[0..-2])}"
     lib_path  = File.join( *( path_ary[0..-2] +

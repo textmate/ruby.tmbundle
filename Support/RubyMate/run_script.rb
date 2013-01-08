@@ -1,21 +1,8 @@
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/tm/executor"
-require "#{ENV["TM_SUPPORT_PATH"]}/lib/tm/tempfile"
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/tm/save_current_document"
 require "pathname"
 
-def save_untitled_document
-  ENV['TM_FILEPATH']         = TextMate::IO.tempfile('rb').path
-  ENV['TM_FILENAME']         = File.basename(ENV['TM_FILEPATH'])
-  ENV['TM_FILE_IS_UNTITLED'] = 'true'
-
-  begin
-    Dir.chdir(File.dirname(ENV["TM_FILEPATH"]))
-    open(ENV['TM_FILEPATH'], 'w') { |io| io << STDIN.read }
-  rescue e
-    abort "Failed to save document as ‘#{ENV['TM_FILEPATH']}’: #{e}"
-  end
-end
-
-save_untitled_document if ENV['TM_FILEPATH'].nil?
+TextMate.save_if_untitled
 
 # For Run focused unit test, find the name of the test the user wishes to run.
 args = [ ]

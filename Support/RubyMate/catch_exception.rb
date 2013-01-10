@@ -16,17 +16,17 @@ at_exit do
 
     io.write "<blockquote><table border='0' cellspacing='4' cellpadding='0'>\n"
 
+    dirs = [ '.', ENV['TM_PROJECT_DIRECTORY'], ENV['TM_DIRECTORY'] ]
     e.backtrace.each do |b|
       if b =~ /(.*?):(\d+)(?::in\s*`(.*?)')?/ then
         file, line, method = $1, $2, $3
+        url, display_name = '', file
 
-        url, display_name = '', 'untitled document';
-        if file != '-' && File.exists?(file) && !ENV['TM_FILE_IS_UNTITLED'] then
-          file = Pathname.new(file).realpath.to_s
-          url = '&url=file://' + e_url(file)
-          display_name = File.basename(file)
+        path = dirs.map{ |dir| File.expand_path(file, dir) }.find{ |path| File.file? path }
+        unless path.nil?
+          url, display_name = '&amp;url=file://' + e_url(path), File.basename(path)
         end
-          
+
         io << "<tr><td><a class='near' href='txmt://open?line=#{line + url}'>"
         io << (method ? "method #{CGI::escapeHTML method}" : '<em>at top level</em>')
         io << "</a></td>\n<td>in <strong>#{CGI::escapeHTML display_name}</strong> at line #{line}</td></tr>\n"

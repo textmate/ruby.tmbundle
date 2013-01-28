@@ -5,11 +5,11 @@
 	<key>name</key>
 	<string>Indent</string>
 	<key>scope</key>
-	<string>source.ruby</string>
+	<string>source.ruby, text.html.erb</string>
 	<key>settings</key>
 	<dict>
 		<key>decreaseIndentPattern</key>
-		<string>^\s*([}\]],?\s*(#|$)|(end|rescue|ensure|else|elsif|when)\b)</string>
+		<string>^(\s*\W*\s*|\s*)([}\]],?\s*(#|$)|(end|rescue|ensure|else|elsif|when)\b)</string>
 		<key>increaseIndentPattern</key>
 		<string>(?x)^
     (\s*

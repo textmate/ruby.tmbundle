@@ -58,6 +58,9 @@
 		<string>capfile</string>
 		<string>ru</string>
 		<string>prawn</string>
+    <string>Gemfile</string>
+    <string>Guardfile</string>
+    <string>Vagrantfile</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby</string>

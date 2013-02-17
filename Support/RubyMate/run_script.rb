@@ -90,6 +90,7 @@ def actual_path_name(path)
 end
 
 TextMate::Executor.run( cmd, :version_args => ["--version"],
+                             :use_hashbang => !ENV.has_key?('TM_RUBY'),
                              :script_args  => args ) do |line, type|
   if is_test_script and type == :out
     if line =~ /\A[.EF]+\Z/

@@ -27,6 +27,8 @@ end</string>
 	<string>insertAsSnippet</string>
 	<key>scope</key>
 	<string>source.ruby comment</string>
+	<key>semanticClass</key>
+	<string>style.strong.rdoc.ruby</string>
 	<key>uuid</key>
 	<string>931DD73E-615E-476E-9B0D-8341023AE730</string>
 </dict>

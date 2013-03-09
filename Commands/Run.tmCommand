@@ -7,11 +7,9 @@
 	<key>beforeRunningCommand</key>
 	<string>saveModifiedFiles</string>
 	<key>command</key>
-	<string>#!/bin/sh
-
-export RUBYLIB="$TM_BUNDLE_SUPPORT/RubyMate${RUBYLIB:+:$RUBYLIB}"
-
-/usr/bin/env ruby -KU -- "$TM_BUNDLE_SUPPORT/RubyMate/run_script.rb"
+	<string>#!/System/Library/Frameworks/Ruby.framework/Versions/Current/usr/bin/ruby -KU
+ENV['RUBYLIB'] = "#{ENV['TM_BUNDLE_SUPPORT']}/RubyMate"
+require "#{ENV['TM_BUNDLE_SUPPORT']}/RubyMate/run_script.rb"
 </string>
 	<key>input</key>
 	<string>document</string>

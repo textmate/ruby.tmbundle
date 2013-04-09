@@ -22,7 +22,7 @@ at_exit do
         file, line, method = $1, $2, $3
         url, display_name = '', file
 
-        path = dirs.map{ |dir| File.expand_path(file, dir) }.find{ |path| File.file? path }
+        path = dirs.map{ |dir| File.expand_path(file, dir) }.find{ |filename| File.file? filename }
         unless path.nil?
           url, display_name = '&amp;url=file://' + e_url(path), File.basename(path)
         end

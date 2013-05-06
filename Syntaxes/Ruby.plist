@@ -2099,6 +2099,53 @@
 		</dict>
 		<dict>
 			<key>begin</key>
+			<string>(?&gt;&lt;&lt;-("?)((?:[_\w]+_|)LUA)\b\1)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.begin.ruby</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>heredoc with embedded lua and intented terminator</string>
+			<key>contentName</key>
+			<string>text.lua.embedded.ruby</string>
+			<key>end</key>
+			<string>\s*\2$</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.end.ruby</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>string.unquoted.embedded.lua.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#heredoc</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>source.lua</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
 			<string>(?&gt;&lt;&lt;-("?)((?:[_\w]+_|)RUBY)\b\1)</string>
 			<key>beginCaptures</key>
 			<dict>

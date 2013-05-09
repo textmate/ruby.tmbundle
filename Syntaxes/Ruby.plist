@@ -58,9 +58,9 @@
 		<string>capfile</string>
 		<string>ru</string>
 		<string>prawn</string>
-    <string>Gemfile</string>
-    <string>Guardfile</string>
-    <string>Vagrantfile</string>
+		<string>Gemfile</string>
+		<string>Guardfile</string>
+		<string>Vagrantfile</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby</string>
@@ -1782,7 +1782,7 @@
 			<key>comment</key>
 			<string>heredoc with embedded SQL and indented terminator</string>
 			<key>contentName</key>
-			<string>text.sql.embedded.ruby</string>
+			<string>source.sql.embedded.ruby</string>
 			<key>end</key>
 			<string>\s*\2$</string>
 			<key>endCaptures</key>
@@ -1829,7 +1829,7 @@
 			<key>comment</key>
 			<string>heredoc with embedded css and intented terminator</string>
 			<key>contentName</key>
-			<string>text.css.embedded.ruby</string>
+			<string>source.css.embedded.ruby</string>
 			<key>end</key>
 			<string>\s*\2$</string>
 			<key>endCaptures</key>
@@ -1876,7 +1876,7 @@
 			<key>comment</key>
 			<string>heredoc with embedded c++ and intented terminator</string>
 			<key>contentName</key>
-			<string>text.c++.embedded.ruby</string>
+			<string>source.c++.embedded.ruby</string>
 			<key>end</key>
 			<string>\s*\2$</string>
 			<key>endCaptures</key>
@@ -1923,7 +1923,7 @@
 			<key>comment</key>
 			<string>heredoc with embedded c++ and intented terminator</string>
 			<key>contentName</key>
-			<string>text.c.embedded.ruby</string>
+			<string>source.c.embedded.ruby</string>
 			<key>end</key>
 			<string>\s*\2$</string>
 			<key>endCaptures</key>
@@ -1970,7 +1970,7 @@
 			<key>comment</key>
 			<string>heredoc with embedded javascript and intented terminator</string>
 			<key>contentName</key>
-			<string>text.js.embedded.ruby</string>
+			<string>source.js.embedded.ruby</string>
 			<key>end</key>
 			<string>\s*\2$</string>
 			<key>endCaptures</key>
@@ -2017,7 +2017,7 @@
 			<key>comment</key>
 			<string>heredoc with embedded javascript and intented terminator</string>
 			<key>contentName</key>
-			<string>text.js.jquery.embedded.ruby</string>
+			<string>source.js.jquery.embedded.ruby</string>
 			<key>end</key>
 			<string>\s*\2$</string>
 			<key>endCaptures</key>
@@ -2064,7 +2064,7 @@
 			<key>comment</key>
 			<string>heredoc with embedded shell and intented terminator</string>
 			<key>contentName</key>
-			<string>text.shell.embedded.ruby</string>
+			<string>source.shell.embedded.ruby</string>
 			<key>end</key>
 			<string>\s*\2$</string>
 			<key>endCaptures</key>
@@ -2111,7 +2111,7 @@
 			<key>comment</key>
 			<string>heredoc with embedded lua and intented terminator</string>
 			<key>contentName</key>
-			<string>text.lua.embedded.ruby</string>
+			<string>source.lua.embedded.ruby</string>
 			<key>end</key>
 			<string>\s*\2$</string>
 			<key>endCaptures</key>
@@ -2158,7 +2158,7 @@
 			<key>comment</key>
 			<string>heredoc with embedded ruby and intented terminator</string>
 			<key>contentName</key>
-			<string>text.ruby.embedded.ruby</string>
+			<string>source.ruby.embedded.ruby</string>
 			<key>end</key>
 			<string>\s*\2$</string>
 			<key>endCaptures</key>

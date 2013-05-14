@@ -6,9 +6,12 @@
 	<string>nop</string>
 	<key>command</key>
 	<string>#!/usr/bin/env ruby
+
+_ruby = ENV['TM_RUBY_SYNTAX_CHECKER'] || ENV['TM_RUBY'] || 'ruby'
+
 require ENV['TM_SUPPORT_PATH'] + '/lib/textmate'
-puts `"${TM_RUBY:=ruby}" -e'puts "Using ruby-" + RUBY_VERSION.to_s'`
-result = `"${TM_RUBY:=ruby}" -wc 2&gt;&amp;1`
+puts `"#{_ruby}" -e'puts "Using ruby-" + RUBY_VERSION.to_s + " " + RUBY_DESCRIPTION.to_s'`
+result = `"#{_ruby}" -wc 2&gt;&amp;1`
 puts result
 TextMate.go_to :line =&gt; $1 if result =~ /-:(\d+):/
 </string>

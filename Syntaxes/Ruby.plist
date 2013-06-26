@@ -61,6 +61,8 @@
 		<string>Gemfile</string>
 		<string>Guardfile</string>
 		<string>Vagrantfile</string>
+		<string>Appraisals</string>
+		<string>Rantfile</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby</string>

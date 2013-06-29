@@ -46,7 +46,7 @@ if tasks.include? "No Rakefile found"
   html_error("Could not locate a Rakefile in #{RAKEFILE_DIR}.")
 end
 
-tasks = [DEFAULT_TASK] + tasks.grep(/^rake\s+(\S+)/) { |t| t.split[1] }
+tasks = [DEFAULT_TASK] + tasks.lines.grep(/^rake\s+(\S+)/) { |t| t.split[1] }
 if last_task = tasks.index(prefs.transaction(true) { prefs[RAKEFILE_DIR] })
   tasks.unshift(tasks.slice!(last_task))
 end

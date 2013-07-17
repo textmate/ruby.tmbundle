@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>:${1:key} =&gt; ${2:"${3:value}"}${4:, }</string>
+	<string>${1:key}: ${2:"${3:value}"}${4:, }</string>
 	<key>name</key>
-	<string>Hash Pair — :key =&gt; "value"</string>
+	<string>Hash Pair — key: "value"</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -wKU
+#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -wKU
 
 minimize = ENV["TM_MINIMIZE_PARENS"].to_s =~ /\byes\b/i
 

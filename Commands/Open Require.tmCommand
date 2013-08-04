@@ -12,6 +12,8 @@ require "#{ENV['TM_SUPPORT_PATH']}/lib/textmate.rb"
 
 REQUIRE_RE = /^\s*(?:require|load)\s*(['"])([^'"#]+?)(?:\.rb)?\1[ \t]*$/
 
+Dir.chdir(ENV['TM_DIRECTORY']) if ENV.has_key?('TM_DIRECTORY')
+
 gems_installed = begin
                    require 'rubygems'
                    true

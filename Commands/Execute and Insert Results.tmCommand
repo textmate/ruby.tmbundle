@@ -5,11 +5,9 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>export RUBYLIB="$TM_BUNDLE_SUPPORT/vendor/rcodetools/lib${RUBYLIB:+:$RUBYLIB}"
-export TM_RUBY=$(which "${TM_RUBY:-ruby}")
-
-
-"${TM_RUBY}" -r "${TM_SUPPORT_PATH}/lib/ruby1.9/add_1.8_features.rb" -- "$TM_BUNDLE_SUPPORT/vendor/rcodetools/bin/xmpfilter"
+	<string>#!/bin/sh
+export RUBYLIB="$TM_BUNDLE_SUPPORT/vendor/rcodetools/lib${RUBYLIB:+:$RUBYLIB}"
+exec /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby "$TM_BUNDLE_SUPPORT/vendor/rcodetools/bin/xmpfilter" --interpreter "${TM_RUBY:-ruby}"
 </string>
 	<key>fallbackInput</key>
 	<string>document</string>

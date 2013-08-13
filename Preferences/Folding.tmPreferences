@@ -5,7 +5,7 @@
 	<key>name</key>
 	<string>Folding (Ruby)</string>
 	<key>scope</key>
-	<string>source.ruby</string>
+	<string>source.ruby -string.unquoted.heredoc</string>
 	<key>settings</key>
 	<dict>
 		<key>foldingStartMarker</key>

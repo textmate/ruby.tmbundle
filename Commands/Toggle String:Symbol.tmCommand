@@ -40,7 +40,7 @@ end
 	<key>output</key>
 	<string>replaceSelectedText</string>
 	<key>scope</key>
-	<string>source.ruby string.quoted, source.ruby constant.other.symbol</string>
+	<string>source.ruby string.quoted, source.ruby constant.other.symbol, source.ruby constant.other.symbol.hashkey.ruby</string>
 	<key>uuid</key>
 	<string>B297E4B8-A8FF-49CE-B9C4-6D4911724D43</string>
 </dict>

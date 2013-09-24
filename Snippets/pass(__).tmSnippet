@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>pass`snippet_paren.rb`"${1:Message.}"`snippet_paren.rb end`$0</string>
+	<string>pass`"$TM_BUNDLE_SUPPORT/bin/snippet_paren.rb"`"${1:Message.}"`"$TM_BUNDLE_SUPPORT/bin/snippet_paren.rb" end`$0</string>
 	<key>name</key>
 	<string>pass(..)</string>
 	<key>scope</key>

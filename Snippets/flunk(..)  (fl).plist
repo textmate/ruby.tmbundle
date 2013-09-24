@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>flunk`snippet_paren.rb`"${1:Failure message.}"`snippet_paren.rb end`$0</string>
+	<string>flunk`"$TM_BUNDLE_SUPPORT/bin/snippet_paren.rb"`"${1:Failure message.}"`"$TM_BUNDLE_SUPPORT/bin/snippet_paren.rb" end`$0</string>
 	<key>name</key>
 	<string>flunk(..)</string>
 	<key>scope</key>

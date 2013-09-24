@@ -23,7 +23,7 @@ end
 
 html_header("RakeMate", "Rake")
 puts <<-HTML
-<pre>RakeMate v#{RAKEMATE_VERSION} running on Ruby v#{RUBY_VERSION} (#{ENV["TM_RUBY"].strip})
+<pre>RakeMate v#{RAKEMATE_VERSION}
 &gt;&gt;&gt; #{RAKEFILE_DIR}/Rakefile
 
 HTML

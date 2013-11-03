@@ -14,7 +14,7 @@ require "English"     # to use $CHILD_STATUS instead of «$?»
 require "erb"
 include ERB::Util
 
-RI_EXE = [ ENV['TM_RUBY_RI'], 'qri', 'ri' ].find { |cmd| !cmd.to_s.empty? && (File.executable?(cmd) || ENV['PATH'].split(':').any? { |dir| File.executable? File.join(dir, cmd) }) ? cmd : false }
+RI_EXE = [ ENV['TM_RUBY_RI'], 'qri', '/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ri' ].find { |cmd| !cmd.to_s.empty? && (File.executable?(cmd) || ENV['PATH'].split(':').any? { |dir| File.executable? File.join(dir, cmd) }) ? cmd : false }
 
 term = ARGV.shift
 

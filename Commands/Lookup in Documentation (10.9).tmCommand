@@ -5,16 +5,13 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>#!/usr/bin/env bash
-[[ -f "${TM_SUPPORT_PATH}/lib/bash_init.sh" ]] &amp;&amp; . "${TM_SUPPORT_PATH}/lib/bash_init.sh"
-
-"${TM_BUNDLE_SUPPORT}/bin/linked_ri.rb"</string>
-	<key>fallbackInput</key>
-	<string>word</string>
+	<string>#!/bin/bash
+echo "&lt;meta content='0;URL=file://$("${TM_BUNDLE_SUPPORT}/bin/ri_lookup" "${TM_SELECTED_TEXT:-$TM_CURRENT_WORD}")' http-equiv='Refresh'&gt;"
+</string>
 	<key>hideFromUser</key>
 	<true/>
 	<key>input</key>
-	<string>selection</string>
+	<string>none</string>
 	<key>inputFormat</key>
 	<string>text</string>
 	<key>name</key>
@@ -22,15 +19,15 @@
 	<key>outputCaret</key>
 	<string>afterOutput</string>
 	<key>outputFormat</key>
-	<string>text</string>
+	<string>html</string>
 	<key>outputLocation</key>
-	<string>toolTip</string>
+	<string>newWindow</string>
 	<key>scope</key>
-	<string>source.ruby</string>
+	<string>source.ruby &amp; attr.os-version.10.9</string>
 	<key>semanticClass</key>
 	<string>lookup.define.ruby</string>
 	<key>uuid</key>
-	<string>63F3B3B7-CBE2-426B-B551-657733F3868B</string>
+	<string>FE882491-07FA-4497-B675-97FCF2FC3BF5</string>
 	<key>version</key>
 	<integer>2</integer>
 </dict>

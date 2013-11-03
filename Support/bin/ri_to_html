@@ -1,0 +1,54 @@
+#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -wKU
+require "#{ENV['TM_SUPPORT_PATH']}/lib/tm/htmloutput.rb"
+require "shellwords"
+
+RI_EXE = '/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ri'
+
+def make_link(text, term)
+  "<a href='javascript:lookup(&quot;#{term.shellescape}&quot;)' title='Lookup ‘#{term}’'>#{text}</a>"
+end
+
+phrase = *ARGV
+page = %x{ #{RI_EXE} --no-pager -f markdown #{phrase.shellescape} 2>&1 }
+
+page.gsub!(/&/, '&amp;')
+page.gsub!(/</, '&lt;')
+page.gsub!(/\b([A-Z][A-Za-z]+)(\.|::|#)([\w_]+\b[!?]?)/) do
+  make_link($1, $1) + $2 + make_link($3, $&)
+end
+
+STDOUT << [0xFEFF].pack("U*") # Output UTF-8 ByteOrderMark since this is the only way I have been able to make WebKit show the file as UTF-8. It ignores the <meta> tag and it also ignores the com.apple.TextEncoding extended attribute.
+
+TextMate::HTMLOutput.show(:title => "Documentation for “#{phrase}”", :sub_title => `#{RI_EXE} --version`) do |io|
+  io << '<script type="text/javascript">function lookup (phrase) { window.location="file://" + TextMate.system(\'"$TM_BUNDLE_SUPPORT/bin/ri_lookup" \' + phrase, null).outputString }</script>' << "\n"
+
+  in_pre, whitespace = false, ""
+  page.each_line do |line|
+    if line =~ /^(#+) (.+)/
+      if in_pre
+        io << "</pre>"
+        in_pre = false
+      end
+      io << "<h#{$1.size}>#$2</h#{$1.size}>\n"
+    elsif line =~ /^---$/
+      if in_pre
+        io << "</pre>"
+        in_pre = false
+      end
+      io << "<hr>\n"
+    elsif line =~ /^\s*$/
+      whitespace << line
+    else
+      if in_pre
+        io << whitespace
+      else
+        io << "<pre>\n"
+        in_pre = true
+      end
+      io << line
+      whitespace = ""
+    end
+  end
+
+  io << "</pre>" if in_pre
+end

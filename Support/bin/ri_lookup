@@ -1,0 +1,9 @@
+#!/bin/bash
+
+PHRASE=$1
+
+DST=$(mktemp "${TMPDIR:-/tmp}/tm_ruby_ri_XXXXXX").html
+"$TM_BUNDLE_SUPPORT/bin/ri_to_html" &>"$DST" "$PHRASE"
+echo -n "$DST"
+
+{ sleep 300; rm "$DST"; rm "${DST%.html}"; } &>/dev/null &

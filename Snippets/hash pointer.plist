@@ -5,7 +5,7 @@
 	<key>content</key>
 	<string> =&gt; </string>
 	<key>keyEquivalent</key>
-	<string>^&gt;</string>
+	<string>^.</string>
 	<key>name</key>
 	<string>Hash Pointer — =&gt;</string>
 	<key>scope</key>

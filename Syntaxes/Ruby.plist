@@ -638,6 +638,8 @@
 			</dict>
 			<key>comment</key>
 			<string>single quoted string (does not allow interpolation)</string>
+			<key>contentName</key>
+			<string>string.content.quoted.single.ruby</string>
 			<key>end</key>
 			<string>'</string>
 			<key>endCaptures</key>
@@ -673,6 +675,8 @@
 			</dict>
 			<key>comment</key>
 			<string>double quoted string (allows for interpolation)</string>
+			<key>contentName</key>
+			<string>string.content.quoted.double.ruby</string>
 			<key>end</key>
 			<string>"</string>
 			<key>endCaptures</key>

@@ -13,7 +13,7 @@
 
 export RUBYLIB="$TM_BUNDLE_SUPPORT/RubyMate${RUBYLIB:+:$RUBYLIB}"
 
-/usr/bin/env ruby -KU -- "$TM_BUNDLE_SUPPORT/RubyMate/run_script.rb" --name=
+/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -KU -- "$TM_BUNDLE_SUPPORT/RubyMate/run_script.rb" --name=
 </string>
 	<key>fileCaptureRegister</key>
 	<string>1</string>

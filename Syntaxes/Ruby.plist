@@ -541,7 +541,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(0[xX]\h(?&gt;_?\h)*|\d(?&gt;_?\d)*(\.(?![^[:space:][:digit:]])(?&gt;_?\d)*)?([eE][-+]?\d(?&gt;_?\d)*)?|0[bB][01]+)\b</string>
+			<string>\b(0[xX]\h(?&gt;_?\h)*|\d(?&gt;_?\d[ir]?)*(\.(?![^[:space:][:digit:]])(?&gt;_?\d)*)?([eE][-+]?\d(?&gt;_?\d)*)?|0[bB][01]+)\b</string>
 			<key>name</key>
 			<string>constant.numeric.ruby</string>
 		</dict>

@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>require "$0"</string>
+	<string>require '$0'</string>
 	<key>name</key>
-	<string>require ".."</string>
+	<string>require '..'</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

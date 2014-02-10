@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -wKU
+
+line_number = ENV['TM_LINE_NUMBER'].to_i - 1
+line = STDIN.lines.to_a[line_number-1]
+
+ivar_name = 'instance_variable'
+ivar_name = $1 if line =~ /def (?:self\.)?([a-z\d_]+)/i
+
+print "@${1:#{ivar_name}} ||= $0"
+</string>
+	<key>input</key>
+	<string>document</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>name</key>
+	<string>@variable ||= memoized</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>snippet</string>
+	<key>outputLocation</key>
+	<string>atCaret</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>@</string>
+	<key>uuid</key>
+	<string>20ACDEEE-1F1D-4CFB-8B66-940E902693EF</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

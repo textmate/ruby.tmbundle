@@ -18,7 +18,7 @@ def #{e_sn ENV["TM_SELECTED_TEXT"]}\${1/.+/(/}\${1:args}\${1/.+/)/}
 end
 END_SNIPPET
 else
-  word = Word.current_word(/([?!]?(?:\w(?=[a-zA-Z_]))*[a-zA-Z_](?:(?:\.|::)(?:\w(?=[a-zA-Z_]))*[a-zA-Z_])?)(.*$)/, :hash)
+  word = Word.current_word(/([=?!]?(?:\w(?=[a-zA-Z_]))*[a-zA-Z_](?:(?:\.|::)(?:\w(?=[a-zA-Z_]))*[a-zA-Z_])?)(.*$)/, :hash)
 
   if word[:left].empty?
     TextMate.exit_show_tool_tip(

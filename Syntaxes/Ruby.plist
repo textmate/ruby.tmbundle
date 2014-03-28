@@ -380,7 +380,7 @@
 			         (?&lt;=^|\s)(def)\s+                                              # the def keyword
 			         ( (?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?                                   # a method name prefix
 			           (?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?                              # the method name
-			           |===?|&gt;[&gt;=]?|&lt;=&gt;|&lt;[&lt;=]?|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?) )  # …or an operator method
+			           |===?|!=|&gt;[&gt;=]?|&lt;=&gt;|&lt;[&lt;=]?|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?) )  # …or an operator method
 			         \s*(\()                                                        # the openning parenthesis for arguments
 			        </string>
 			<key>beginCaptures</key>
@@ -456,7 +456,7 @@
 			         (?&lt;=^|\s)(def)\s+                                              # the def keyword
 			         ( (?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?                                   # a method name prefix
 			           (?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?                              # the method name
-			           |===?|&gt;[&gt;=]?|&lt;=&gt;|&lt;[&lt;=]?|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?) )  # …or an operator method
+			           |===?|!=|&gt;[&gt;=]?|&lt;=&gt;|&lt;[&lt;=]?|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?) )  # …or an operator method
 			         [ \t]                                                          # the space separating the arguments
 			         (?=[ \t]*[^\s#;])                                              # make sure arguments and not a comment follow
 			        </string>
@@ -533,7 +533,7 @@
 			         ( \s+                                                               # an optional group of whitespace followed by…
 			           ( (?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?                                      # a method name prefix
 			             (?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?                                 # the method name
-			             |===?|&gt;[&gt;=]?|&lt;=&gt;|&lt;[&lt;=]?|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?) ) )?  # …or an operator method
+			             |===?|!=|&gt;[&gt;=]?|&lt;=&gt;|&lt;[&lt;=]?|[%&amp;`/\|]|\*\*?|=?~|[-+]@?|\[\]=?) ) )?  # …or an operator method
 			        </string>
 			<key>name</key>
 			<string>meta.function.method.without-arguments.ruby</string>

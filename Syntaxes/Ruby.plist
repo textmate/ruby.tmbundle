@@ -369,6 +369,12 @@
 		</dict>
 		<dict>
 			<key>match</key>
+			<string>\b(abort|at_exit|autoload[?]?|binding|callcc|caller|caller_locations|chomp|chop|eval|exec|exit|exit!|fork|format|gets|global_variables|gsub|iterator[?]?|lambda|load|local_variables|open|p|print|printf|proc|putc|puts|rand|readline|readlines|select|set_trace_func|sleep|spawn|sprintf|srand|sub|syscall|system|test|trace_var|trap|untrace_var|warn)\b(?![?!])</string>
+			<key>name</key>
+			<string>support.function.kernel.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
 			<string>\b[A-Z]\w*\b</string>
 			<key>name</key>
 			<string>variable.other.constant.ruby</string>

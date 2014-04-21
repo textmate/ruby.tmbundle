@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>#!/usr/bin/env ruby${TM_RUBY_SWITCHES: -wKU}
+	<string>#!/usr/bin/env ruby${TM_RUBY_SWITCHES}
 </string>
 	<key>name</key>
-	<string>#!/usr/bin/env ruby -wKU</string>
+	<string>#!/usr/bin/env ruby</string>
 	<key>scope</key>
 	<string>source.ruby, L:dyn.caret.begin.document</string>
 	<key>tabTrigger</key>

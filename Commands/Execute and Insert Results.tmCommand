@@ -7,7 +7,7 @@
 	<key>command</key>
 	<string>#!/bin/sh
 export RUBYLIB="$TM_BUNDLE_SUPPORT/vendor/rcodetools/lib${RUBYLIB:+:$RUBYLIB}"
-exec /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby "$TM_BUNDLE_SUPPORT/vendor/rcodetools/bin/xmpfilter" --interpreter "${TM_RUBY:-ruby}"
+exec ruby18 "$TM_BUNDLE_SUPPORT/vendor/rcodetools/bin/xmpfilter" --interpreter "${TM_RUBY:-ruby}"
 </string>
 	<key>fallbackInput</key>
 	<string>document</string>

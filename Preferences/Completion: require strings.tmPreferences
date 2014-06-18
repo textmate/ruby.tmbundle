@@ -9,7 +9,7 @@
 	<key>settings</key>
 	<dict>
 		<key>completionCommand</key>
-		<string>#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby
+		<string>#!/usr/bin/env ruby18
 		ptrn = /^#{Regexp.escape ENV["TM_CURRENT_WORD"].to_s}[^.]+\..+/
 		puts( $LOAD_PATH.inject([]) do |res, path|
 		res &lt;&lt; Dir.new(path).grep(ptrn) { |file| file[/^[^.]+/] } if File.exists?(path)

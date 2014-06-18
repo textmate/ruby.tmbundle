@@ -1,4 +1,4 @@
-#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -w -d
+#!/usr/bin/env ruby18 -w -d
 require "reg"
 require "regarray"
 require "reglogic"

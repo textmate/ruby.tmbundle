@@ -5,7 +5,7 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>res=$(/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby "$TM_BUNDLE_SUPPORT/bin/make_destructive.rb")
+	<string>res=$(ruby18 "$TM_BUNDLE_SUPPORT/bin/make_destructive.rb")
 
 if [ "$res" = "" ]
   then exit_show_tool_tip "Retry this command without a selection."

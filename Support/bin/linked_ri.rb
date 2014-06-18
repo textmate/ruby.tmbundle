@@ -1,4 +1,4 @@
-#!/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin/ruby -w
+#!/usr/bin/env ruby18 -w
 # encoding: utf-8
 
 # if we are not called directly from TM (e.g. JavaScript) the caller

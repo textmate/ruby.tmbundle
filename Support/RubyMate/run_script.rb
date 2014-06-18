@@ -43,7 +43,7 @@ end
 is_test_script = !(ENV["TM_FILEPATH"].match(/(?:\b|_)(?:tc|ts|test)(?:\b|_)/).nil? and
   File.read(ENV["TM_FILEPATH"]).match(/\brequire\b.+(?:test\/unit|test_helper)/).nil?)
 
-cmd = [ENV['TM_RUBY'] || 'ruby', '-KU', '-rcatch_exception']
+cmd = [ENV['TM_RUBY'] || 'ruby', '-rcatch_exception']
 
 if is_test_script and not ENV['TM_FILE_IS_UNTITLED']
   path_ary = ENV['TM_FILEPATH'].split("/")

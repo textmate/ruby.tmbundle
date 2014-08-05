@@ -63,6 +63,9 @@
 		<string>Vagrantfile</string>
 		<string>Appraisals</string>
 		<string>Rantfile</string>
+		<string>Berksfile</string>
+		<string>Berksfile.lock</string>
+		<string>Thorfile</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby</string>

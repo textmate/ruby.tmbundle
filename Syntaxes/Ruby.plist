@@ -63,6 +63,9 @@
 		<string>Vagrantfile</string>
 		<string>Appraisals</string>
 		<string>Rantfile</string>
+		<string>Berksfile</string>
+		<string>Thorfile</string>
+		<string>*.gemspec</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby</string>

@@ -66,7 +66,6 @@
 		<string>Berksfile</string>
 		<string>Berksfile.lock</string>
 		<string>Thorfile</string>
-		<string>*.gemspec</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby</string>

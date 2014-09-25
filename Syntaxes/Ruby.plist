@@ -550,7 +550,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b[1-9](?&gt;_?\d)*\b</string>
+			<string>\b(0[dD]\d|[1-9])(?&gt;_?\d)*\b</string>
 			<key>name</key>
 			<string>constant.numeric.integer.ruby</string>
 		</dict>

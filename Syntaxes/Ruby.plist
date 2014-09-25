@@ -544,9 +544,33 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(0[xX]\h(?&gt;_?\h)*|\d(?&gt;_?\d)*(\.(?![^[:space:][:digit:]])(?&gt;_?\d)*)?([eE][-+]?\d(?&gt;_?\d)*)?|0[bB][01]+)\b</string>
+			<string>\b\d(?&gt;_?\d)*(?=\.\d|[eE])(\.\d(?&gt;_?\d)*)?([eE][-+]?\d(?&gt;_?\d)*)?\b</string>
 			<key>name</key>
-			<string>constant.numeric.ruby</string>
+			<string>constant.numeric.float.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b[1-9](?&gt;_?\d)*\b</string>
+			<key>name</key>
+			<string>constant.numeric.integer.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b0[xX]\h(?&gt;_?\h)*\b</string>
+			<key>name</key>
+			<string>constant.numeric.hex.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b0[bB][01](?&gt;_?[01])*\b</string>
+			<key>name</key>
+			<string>constant.numeric.binary.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b0([oO]?[0-7](?&gt;_?[0-7])*)?\b</string>
+			<key>name</key>
+			<string>constant.numeric.octal.ruby</string>
 		</dict>
 		<dict>
 			<key>begin</key>

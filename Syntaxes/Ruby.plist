@@ -247,9 +247,15 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(__(FILE|LINE)__|self)\b(?![?!])</string>
+			<string>\b(__(FILE|LINE)__)\b(?![?!])</string>
 			<key>name</key>
 			<string>variable.language.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(self)\b(?![?!])</string>
+			<key>name</key>
+			<string>variable.language.self.ruby</string>
 		</dict>
 		<dict>
 			<key>comment</key>

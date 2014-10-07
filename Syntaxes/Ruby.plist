@@ -1189,7 +1189,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%[QWSR]?\(</string>
+			<string>%[QWSRI]?\(</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1230,7 +1230,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%[QWSR]?\[</string>
+			<string>%[QWSRI]?\[</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1271,7 +1271,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%[QWSR]?\&lt;</string>
+			<string>%[QWSRI]?\&lt;</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1312,7 +1312,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%[QWSR]?\{</string>
+			<string>%[QWSRI]?\{</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1353,7 +1353,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%[QWSR]([^\w])</string>
+			<string>%[QWSRI]([^\w])</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1427,7 +1427,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%[qws]\(</string>
+			<string>%[qwsi]\(</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1466,7 +1466,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%[qws]\&lt;</string>
+			<string>%[qwsi]\&lt;</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1505,7 +1505,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%[qws]\[</string>
+			<string>%[qwsi]\[</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1544,7 +1544,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%[qws]\{</string>
+			<string>%[qwsi]\{</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1583,7 +1583,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%[qws]([^\w])</string>
+			<string>%[qwsi]([^\w])</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>

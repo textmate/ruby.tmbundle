@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby18
+
+line_number = ENV['TM_LINE_NUMBER'].to_i - 1
+# line = STDIN.lines.to_a[line_number-1]
+# method_name = $1 if line =~ /def (?:self\.)?([a-z\d_]+)/i
+
+method_name = nil
+lines = STDIN.lines.to_a[0..line_number-1].reverse
+line = lines.find {|l| l =~ /\bdef (?:self\.)?([a-zA-Z\d_]+)/}
+method_name = $1 if line
+
+ivar_name = (method_name != 'initialize' &amp;&amp; method_name) || 'instance_variable'
+assignment = method_name == 'initialize' ? '=' : '${2:||}='
+
+print "@${1:#{ivar_name}} #{assignment} "
+print '${3:$1}' unless ENV['TM_CURRENT_WORD']
+</string>
+	<key>input</key>
+	<string>document</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>name</key>
+	<string>@variable</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>snippet</string>
+	<key>outputLocation</key>
+	<string>atCaret</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>@</string>
+	<key>uuid</key>
+	<string>20ACDEEE-1F1D-4CFB-8B66-940E902693EF</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

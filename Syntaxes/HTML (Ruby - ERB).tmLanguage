@@ -10,7 +10,7 @@
 	</array>
 	<key>injections</key>
 	<dict>
-		<key>text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | meta.tag | comment), meta.tag string.quoted</key>
+		<key>text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)</key>
 		<dict>
 			<key>patterns</key>
 			<array>

@@ -907,7 +907,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%x([^\w])</string>
+			<string>%x([\W_])</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1156,7 +1156,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%r([^\w])</string>
+			<string>%r([\W_])</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1353,7 +1353,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%[QWSR]([^\w])</string>
+			<string>%[QWSR]([\W_])</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1583,7 +1583,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>%[qws]([^\w])</string>
+			<string>%[qws]([\W_])</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>

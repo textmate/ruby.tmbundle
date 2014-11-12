@@ -2332,7 +2332,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;\=\s*&lt;&lt;(\w+))</string>
+			<string>(?&gt;[=,]\s*&lt;&lt;(\w+))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>

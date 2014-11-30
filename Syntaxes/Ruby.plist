@@ -58,8 +58,10 @@
 		<string>capfile</string>
 		<string>ru</string>
 		<string>prawn</string>
+		<string>Cheffile</string>
 		<string>Gemfile</string>
 		<string>Guardfile</string>
+		<string>Hobofile</string>
 		<string>Vagrantfile</string>
 		<string>Appraisals</string>
 		<string>Rantfile</string>

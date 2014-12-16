@@ -7,7 +7,7 @@
 	TODO: unresolved issues
 
 	text:
-	"p &lt;&lt; end
+	"p &lt;&lt;end
 	print me!
 	end"
 	symptoms:
@@ -27,13 +27,6 @@
 	symtoms:
 	From Programming Ruby p306; should be a non-interpolated heredoc.
 	
-	text:
-	"a\332a"
-	symptoms:
-	'\332' is not recognized as slash3.. which should be octal 332.
-	solution:
-	plain regexp.. should be easy.
-
     text:
     val?(a):p(b)
     val?'a':'b'

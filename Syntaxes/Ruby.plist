@@ -2,48 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>comment</key>
-	<string>
-	TODO: unresolved issues
-
-	text:
-	"p &lt;&lt; end
-	print me!
-	end"
-	symptoms:
-	not recognized as a heredoc
-	solution:
-	there is no way to distinguish perfectly between the &lt;&lt; operator and the start
-	of a heredoc. Currently, we require assignment to recognize a heredoc. More
-	refinement is possible.
-	• Heredocs with indented terminators (&lt;&lt;-) are always distinguishable, however.
-	• Nested heredocs are not really supportable at present
-
-	text:
-	print &lt;&lt;-'THERE' 
-	This is single quoted. 
-	The above used #{Time.now} 
-	THERE 
-	symtoms:
-	From Programming Ruby p306; should be a non-interpolated heredoc.
-	
-	text:
-	"a\332a"
-	symptoms:
-	'\332' is not recognized as slash3.. which should be octal 332.
-	solution:
-	plain regexp.. should be easy.
-
-    text:
-    val?(a):p(b)
-    val?'a':'b'
-    symptoms:
-    ':p' is recognized as a symbol.. its 2 things ':' and 'p'.
-    :'b' has same problem.
-    solution:
-    ternary operator rule, precedence stuff, symbol rule.
-    but also consider 'a.b?(:c)' ??
-</string>
 	<key>fileTypes</key>
 	<array>
 		<string>rb</string>

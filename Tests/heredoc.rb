@@ -225,6 +225,10 @@ a = <<b
 test
 b
 
+puts "a", <<DOC
+heredoc
+DOC
+
 puts(<<-ONE, <<-TWO)
 content for heredoc one
 ONE

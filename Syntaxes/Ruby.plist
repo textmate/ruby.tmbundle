@@ -1864,7 +1864,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;'((?:\w*_)?RUBY)\b'))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;'((?:\w*_)?RUBY)\b'))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -1925,7 +1925,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;(["`]?)((?:\w*_)?RUBY)\b\3))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;(["`]?)((?:\w*_)?RUBY)\b\3))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -2116,7 +2116,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;'((?:\w*_)?LUA)\b'))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;'((?:\w*_)?LUA)\b'))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -2177,7 +2177,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;(["`]?)((?:\w*_)?LUA)\b\3))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;(["`]?)((?:\w*_)?LUA)\b\3))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -2368,7 +2368,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;'((?:\w*_)?(?:SH|SHELL))\b'))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;'((?:\w*_)?(?:SH|SHELL))\b'))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -2429,7 +2429,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;(["`]?)((?:\w*_)?(?:SH|SHELL))\b\3))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;(["`]?)((?:\w*_)?(?:SH|SHELL))\b\3))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -2620,7 +2620,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;'((?:\w*_)?JQUERY)\b'))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;'((?:\w*_)?JQUERY)\b'))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -2681,7 +2681,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;(["`]?)((?:\w*_)?JQUERY)\b\3))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;(["`]?)((?:\w*_)?JQUERY)\b\3))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -2872,7 +2872,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;'((?:\w*_)?(?:JS|JAVASCRIPT))\b'))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;'((?:\w*_)?(?:JS|JAVASCRIPT))\b'))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -2933,7 +2933,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;(["`]?)((?:\w*_)?(?:JS|JAVASCRIPT))\b\3))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;(["`]?)((?:\w*_)?(?:JS|JAVASCRIPT))\b\3))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -3124,7 +3124,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;'((?:\w*_)?C)\b'))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;'((?:\w*_)?C)\b'))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -3185,7 +3185,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;(["`]?)((?:\w*_)?C)\b\3))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;(["`]?)((?:\w*_)?C)\b\3))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -3376,7 +3376,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;'((?:\w*_)?CPP)\b'))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;'((?:\w*_)?CPP)\b'))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -3437,7 +3437,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;(["`]?)((?:\w*_)?C)\b\3))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;(["`]?)((?:\w*_)?C)\b\3))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -3628,7 +3628,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;'((?:\w*_)?CSS)\b'))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;'((?:\w*_)?CSS)\b'))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -3689,7 +3689,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;(["`]?)((?:\w*_)?CSS)\b\3))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;(["`]?)((?:\w*_)?CSS)\b\3))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -3880,7 +3880,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;'((?:\w*_)?HTML)\b'))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;'((?:\w*_)?HTML)\b'))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -3941,7 +3941,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;(["`]?)((?:\w*_)?HTML)\b\3))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;(["`]?)((?:\w*_)?HTML)\b\3))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -4132,7 +4132,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;'((?:\w*_)?SQL)\b'))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;'((?:\w*_)?SQL)\b'))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -4193,7 +4193,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;(["`]?)((?:\w*_)?SQL)\b\3))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;(["`]?)((?:\w*_)?SQL)\b\3))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -4376,7 +4376,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;'(\w+)\b'))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;'(\w+)\b'))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
@@ -4433,7 +4433,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;(?:^|\=\s*)((&lt;&lt;(["`]?)(\w+)\b\3))([^\n]*$))</string>
+			<string>(?&gt;(?:^|[=,]\s*)((&lt;&lt;(["`]?)(\w+)\b\3))([^\n]*$))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>

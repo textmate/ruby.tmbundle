@@ -6,11 +6,23 @@
 	<string>nop</string>
 	<key>command</key>
 	<string>#!/usr/bin/env ruby18
+require "shellwords"
 require ENV['TM_SUPPORT_PATH'] + '/lib/textmate'
+
 puts `"${TM_RUBY:=ruby}" -e'puts "Using ruby-" + RUBY_VERSION.to_s'`
-result = `"${TM_RUBY:=ruby}" -wc 2&gt;&amp;1`
-puts result
-TextMate.go_to :line =&gt; $1 if result =~ /-:(\d+):/
+puts result = `"${TM_RUBY:=ruby}" -wc 2&gt;&amp;1`
+
+if result =~ /-:(\d+):(.*)/
+  TextMate.go_to :line =&gt; $1
+  `"$TM_MATE" -c warning`
+  result.each_line do |line|
+    if line =~ /-:(\d+):(.*)/
+      `"$TM_MATE" --set-mark warning:#{Shellwords.escape($2)} --line #{$1}`
+    end
+  end
+else
+  `"$TM_MATE" -c warning`
+end
 </string>
 	<key>input</key>
 	<string>document</string>

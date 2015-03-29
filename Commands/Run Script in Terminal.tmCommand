@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/bin/bash
+[[ -z "$TM_FILEPATH" ]] &amp;&amp; TM_TMPFILE=$(mktemp -t rubyInTerm)
+: "${TM_FILEPATH:=$TM_TMPFILE}"; cat &gt;"$TM_FILEPATH"
+
+# run script using either Terminal.app or iTerm.app
+# if iTerm is open or if TM_TERMINAL is set to iTerm then use iTerm
+# otherwise default to Terminal.app since that is standard.
+TP=${TM_TERMINAL:=Terminal}
+TPY=${TM_RUBY:=ruby}
+
+esc () {
+STR="$1" ruby18 &lt;&lt;"RUBY"
+   str = ENV['STR']
+   str = str.gsub(/'/, "'\\\\''")
+   str = str.gsub(/[\\"]/, '\\\\\\0')
+   print "'#{str}'"
+RUBY
+}
+
+iTerm_running () {
+    ruby &lt;&lt;"RUBY"
+        all = `ps -U "$USER" -o ucomm`
+        split = all.split("\n")
+        if split.find { |cmd| 'iTerm' == cmd.strip }
+            STDOUT.write 0
+        else
+            STDOUT.write 1
+        end
+RUBY
+}
+
+if [ "$TP" == iTerm ] || [ $(iTerm_running) == 0 ]; then
+    osascript &lt;&lt;END
+        tell application "iTerm"
+            activate
+            tell the current terminal            
+                tell (launch session "TextMate")
+                    write text "clear; cd $(esc "${TM_DIRECTORY}"); $(esc "${TPY}") $(esc "${TM_FILEPATH}"); rm -f $(esc "${TM_TMPFILE}")"
+                end tell
+            end tell
+        end tell
+END
+else
+    osascript &lt;&lt;- APPLESCRIPT
+    	tell app "Terminal"
+    	    launch
+    	    activate
+    	    do script "clear; cd $(esc "${TM_DIRECTORY}"); $(esc "${TPY}") $(esc "${TM_FILEPATH}"); rm -f $(esc "${TM_TMPFILE}")"
+    	    set position of first window to { 100, 100 }
+    	end tell
+APPLESCRIPT
+fi
+</string>
+	<key>input</key>
+	<string>document</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>^@R</string>
+	<key>name</key>
+	<string>Run in Terminal</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>discard</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>uuid</key>
+	<string>4444CB9A-8345-4116-8349-C359ADDA390C</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -64,7 +64,7 @@
 		<string>Puppetfile</string>
 	</array>
 	<key>firstLineMatch</key>
-	<string>^#!/.*\bruby</string>
+	<string>^#!/.*\bruby|^#\s+-\*-\s*ruby\s*-\*-</string>
 	<key>keyEquivalent</key>
 	<string>^~R</string>
 	<key>name</key>

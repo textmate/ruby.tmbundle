@@ -267,7 +267,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>\b(require|require_relative|gem)\b</string>
+			<string>\b(?&lt;!\.|::)(require|require_relative|gem)\b</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>

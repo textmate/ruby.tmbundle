@@ -1684,12 +1684,6 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>:</string>
-			<key>name</key>
-			<string>punctuation.separator.other.ruby</string>
-		</dict>
-		<dict>
-			<key>match</key>
 			<string>\;</string>
 			<key>name</key>
 			<string>punctuation.separator.statement.ruby</string>
@@ -1705,6 +1699,12 @@
 			<string>\.|::</string>
 			<key>name</key>
 			<string>punctuation.separator.method.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>:</string>
+			<key>name</key>
+			<string>punctuation.separator.other.ruby</string>
 		</dict>
 		<dict>
 			<key>match</key>

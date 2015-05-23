@@ -1695,12 +1695,36 @@
 			<string>punctuation.separator.object.ruby</string>
 		</dict>
 		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.separator.namespace.ruby</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>Mark as namespace separator if double colons followed by capital letter</string>
 			<key>match</key>
-			<string>\.|::</string>
-			<key>name</key>
-			<string>punctuation.separator.method.ruby</string>
+			<string>(::)\s*(?=[A-Z])</string>
 		</dict>
 		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.separator.method.ruby</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>Mark as method separator if double colons not followed by capital letter</string>
+			<key>match</key>
+			<string>(\.|::)\s*(?![A-Z])</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>Must come after method and constant separators to prefer double colons</string>
 			<key>match</key>
 			<string>:</string>
 			<key>name</key>

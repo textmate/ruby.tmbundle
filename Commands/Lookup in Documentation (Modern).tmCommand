@@ -23,7 +23,7 @@ echo "&lt;meta content='0;URL=file://$("${TM_BUNDLE_SUPPORT}/bin/ri_lookup" "${T
 	<key>outputLocation</key>
 	<string>newWindow</string>
 	<key>scope</key>
-	<string>source.ruby &amp; attr.os-version.10.9</string>
+	<string>source.ruby</string>
 	<key>semanticClass</key>
 	<string>lookup.define.ruby</string>
 	<key>uuid</key>

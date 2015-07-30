@@ -9,12 +9,24 @@
 	<key>command</key>
 	<string>#!/usr/bin/env ruby18
 
-print case str = STDIN.read
-  # Handle standard quotes
-  when /\A["'](\w+)["']\z/ then ":" + $1
-  when /\A:(\w+)\z/ then '"' + $1 + '"'
-  # Default case
-  else str
+require ENV['TM_SUPPORT_PATH'] + '/lib/exit_codes'
+
+def toggle_string_symbol(str)
+  case str
+  # "string" =&gt; :symbol
+  when /("|')(\w+)\1/
+    str.gsub!(/("|')(\w+)\1/, ':\2')
+  # :symbol =&gt; "string"
+  when /:(\w+)/
+    str.gsub!(/:(\w+)/, '"\1"')
+  # initial case (no changes)
+  else
+    str
+  end
+end
+
+while str = $stdin.gets
+  print toggle_string_symbol(str)
 end
 </string>
 	<key>fallbackInput</key>
@@ -28,7 +40,7 @@ end
 	<key>output</key>
 	<string>replaceSelectedText</string>
 	<key>scope</key>
-	<string>source.ruby string.quoted, source.ruby constant.other.symbol.ruby</string>
+	<string>source.ruby string.quoted, source.ruby constant.other.symbol</string>
 	<key>uuid</key>
 	<string>B297E4B8-A8FF-49CE-B9C4-6D4911724D43</string>
 </dict>

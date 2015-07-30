@@ -7,10 +7,19 @@
 	<key>command</key>
 	<string>#!/usr/bin/env ruby18
 
-print case str = STDIN.read
-  when /=&gt;/;                 str.gsub(/:(\w+)[\s]+=&gt;[\s]+/, '\1: ')
-  when /(\w+):/;             str.gsub(/(\w+):(\s*(?:"(?:\\"|[^"])*"|'(?:\\'|[^'])*'|\w+\([^)]*\)|[^,]+))/, ":\\1 =&gt;\\2")
-  else;                      str
+def toggle_ruby_hash_syntax(str)
+  case str
+  when /\=&gt;/
+    str.gsub!(/:(\w+)\s+=&gt;\s+/, '\1: ')
+  when /(\w+):/
+    str.gsub!(/(\w+):(\s*(?:"(?:\\"|[^"])*"|'(?:\\'|[^'])*'|\w+\([^)]*\)|[^,]+))/, ":\\1 =&gt;\\2")
+  else
+    str
+  end
+end
+
+while str = $stdin.gets
+  print toggle_ruby_hash_syntax(str)
 end
 </string>
 	<key>fallbackInput</key>

@@ -618,14 +618,6 @@
 			</array>
 		</dict>
 		<dict>
-			<key>comment</key>
-			<string>Needs higher precidence than regular expressions.</string>
-			<key>match</key>
-			<string>(?&lt;!\()/=</string>
-			<key>name</key>
-			<string>keyword.operator.assignment.augmented.ruby</string>
-		</dict>
-		<dict>
 			<key>begin</key>
 			<string>'</string>
 			<key>beginCaptures</key>
@@ -2440,7 +2432,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>&lt;&lt;=|%=|&amp;=|\*=|\*\*=|\+=|\-=|\^=|\|{1,2}=|&lt;&lt;</string>
+			<string>&lt;&lt;=|%=|&amp;=|\*=|\*\*=|/=|\+=|\-=|\^=|\|{1,2}=|&lt;&lt;</string>
 			<key>name</key>
 			<string>keyword.operator.assignment.augmented.ruby</string>
 		</dict>

@@ -84,12 +84,12 @@
 				<key>4</key>
 				<dict>
 					<key>name</key>
-					<string>entity.other.inherited-class.ruby</string>
+					<string>punctuation.separator.inheritance.ruby</string>
 				</dict>
 				<key>5</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.separator.inheritance.ruby</string>
+					<string>entity.other.inherited-class.ruby</string>
 				</dict>
 				<key>6</key>
 				<dict>
@@ -103,7 +103,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>^\s*(class)\s+(([.a-zA-Z0-9_:]+(\s*(&lt;)\s*[.a-zA-Z0-9_:]+)?)|((&lt;&lt;)\s*[.a-zA-Z0-9_:]+))</string>
+			<string>^\s*(class)\s+(([.a-zA-Z0-9_:]+\s*(&lt;)\s*([.a-zA-Z0-9_:]+)?)|((&lt;&lt;)\s*[.a-zA-Z0-9_:]+))</string>
 			<key>name</key>
 			<string>meta.class.ruby</string>
 		</dict>

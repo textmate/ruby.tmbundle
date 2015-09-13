@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Symbol List: Class</string>
+	<key>scope</key>
+	<string>meta.class.ruby</string>
+	<key>settings</key>
+	<dict>
+		<key>showInSymbolList</key>
+		<true/>
+		<key>symbolTransformation</key>
+		<string>s/^\s*class\s+//</string>
+	</dict>
+	<key>uuid</key>
+	<string>64AFA1C0-BDC7-42DE-B3B5-C597538975E9</string>
+</dict>
+</plist>

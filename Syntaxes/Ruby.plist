@@ -81,6 +81,11 @@
 					<key>name</key>
 					<string>entity.name.type.class.ruby</string>
 				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.operator.other.ruby</string>
+				</dict>
 				<key>4</key>
 				<dict>
 					<key>name</key>
@@ -89,21 +94,16 @@
 				<key>5</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.separator.inheritance.ruby</string>
+					<string>keyword.operator.other.ruby</string>
 				</dict>
 				<key>6</key>
 				<dict>
 					<key>name</key>
 					<string>variable.other.object.ruby</string>
 				</dict>
-				<key>7</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.variable.ruby</string>
-				</dict>
 			</dict>
 			<key>match</key>
-			<string>^\s*(class)\s+(([.a-zA-Z0-9_:]+(\s*(&lt;)\s*[.a-zA-Z0-9_:]+)?)|((&lt;&lt;)\s*[.a-zA-Z0-9_:]+))</string>
+			<string>^\s*(class)\s+(?:([.a-zA-Z0-9_:]+)(?:\s*(&lt;)\s*([.a-zA-Z0-9_:]+))?|(&lt;&lt;)\s*([.a-zA-Z0-9_:]+))</string>
 			<key>name</key>
 			<string>meta.class.ruby</string>
 		</dict>

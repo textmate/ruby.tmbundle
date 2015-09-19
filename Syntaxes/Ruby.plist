@@ -3963,34 +3963,42 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.definition.arbitrary-repitition.ruby</string>
+							<string>punctuation.definition.quantifier.begin.ruby</string>
 						</dict>
 						<key>3</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.definition.arbitrary-repitition.ruby</string>
+							<string>punctuation.definition.quantifier.end.ruby</string>
 						</dict>
 					</dict>
 					<key>match</key>
 					<string>(\{)\d+(,\d+)?(\})</string>
 					<key>name</key>
-					<string>string.regexp.arbitrary-repitition.ruby</string>
+					<string>keyword.operator.quantifier.ruby</string>
 				</dict>
 				<dict>
 					<key>begin</key>
 					<string>\[(?:\^?\])?</string>
-					<key>captures</key>
+					<key>beginCaptures</key>
 					<dict>
 						<key>0</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.definition.character-class.ruby</string>
+							<string>punctuation.definition.character-class.begin.ruby</string>
 						</dict>
 					</dict>
 					<key>end</key>
 					<string>\]</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.character-class.end.ruby</string>
+						</dict>
+					</dict>
 					<key>name</key>
-					<string>string.regexp.character-class.ruby</string>
+					<string>constant.other.character-class.set.ruby</string>
 					<key>patterns</key>
 					<array>
 						<dict>
@@ -4044,7 +4052,7 @@
 					<key>end</key>
 					<string>\)</string>
 					<key>name</key>
-					<string>string.regexp.group.ruby</string>
+					<string>meta.group.regexp.ruby</string>
 					<key>patterns</key>
 					<array>
 						<dict>
@@ -4068,14 +4076,6 @@
 					<string>We are restrictive in what we allow to go after the comment character to avoid false positives, since the availability of comments depend on regexp flags.</string>
 					<key>end</key>
 					<string>$\n?</string>
-					<key>endCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.definition.comment.ruby</string>
-						</dict>
-					</dict>
 					<key>name</key>
 					<string>comment.line.number-sign.ruby</string>
 				</dict>

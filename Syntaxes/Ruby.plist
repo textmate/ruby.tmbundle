@@ -506,7 +506,12 @@
 								<key>1</key>
 								<dict>
 									<key>name</key>
-									<string>punctuation.definition.variable.ruby</string>
+									<string>storage.type.variable.ruby</string>
+								</dict>
+								<key>2</key>
+								<dict>
+									<key>name</key>
+									<string>variable.parameter.function.ruby</string>
 								</dict>
 							</dict>
 							<key>match</key>

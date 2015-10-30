@@ -433,7 +433,7 @@
 					<key>begin</key>
 					<string>(?=[&amp;*_a-zA-Z])</string>
 					<key>end</key>
-					<string>(?=[,)])</string>
+					<string>(?=\,|\)\s*$)</string>
 					<key>patterns</key>
 					<array>
 						<dict>

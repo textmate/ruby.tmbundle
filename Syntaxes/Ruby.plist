@@ -447,11 +447,21 @@
 								<key>2</key>
 								<dict>
 									<key>name</key>
+									<string>constant.other.symbol.hashkey.parameter.function.ruby</string>
+								</dict>
+								<key>3</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.constant.ruby</string>
+								</dict>
+								<key>4</key>
+								<dict>
+									<key>name</key>
 									<string>variable.parameter.function.ruby</string>
 								</dict>
 							</dict>
 							<key>match</key>
-							<string>\G([&amp;*]?)([_a-zA-Z][_a-zA-Z0-9]*)</string>
+							<string>\G([&amp;*]?)(?:([_a-zA-Z]\w*(:))|([_a-zA-Z]\w*))</string>
 						</dict>
 						<dict>
 							<key>include</key>
@@ -511,11 +521,21 @@
 								<key>2</key>
 								<dict>
 									<key>name</key>
+									<string>constant.other.symbol.hashkey.parameter.function.ruby</string>
+								</dict>
+								<key>3</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.definition.constant.ruby</string>
+								</dict>
+								<key>4</key>
+								<dict>
+									<key>name</key>
 									<string>variable.parameter.function.ruby</string>
 								</dict>
 							</dict>
 							<key>match</key>
-							<string>\G([&amp;*]?)[_a-zA-Z][_a-zA-Z0-9]*</string>
+							<string>\G([&amp;*]?)(?:([_a-zA-Z]\w*(:))|([_a-zA-Z]\w*))</string>
 							<key>name</key>
 							<string>variable.parameter.function.ruby</string>
 						</dict>

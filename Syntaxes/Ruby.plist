@@ -1673,6 +1673,12 @@
 		</dict>
 		<dict>
 			<key>match</key>
+			<string>-&gt;</string>
+			<key>name</key>
+			<string>keyword.operator.lambda.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
 			<string>&lt;&lt;=|%=|&amp;{1,2}=|\*=|\*\*=|\+=|\-=|\^=|\|{1,2}=|&lt;&lt;</string>
 			<key>name</key>
 			<string>keyword.operator.assignment.augmented.ruby</string>

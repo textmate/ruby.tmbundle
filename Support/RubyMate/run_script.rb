@@ -41,7 +41,7 @@ if ARGV.first == "--name="
 end
 
 is_test_script = !(ENV["TM_FILEPATH"].match(/(?:\b|_)(?:tc|ts|test)(?:\b|_)/).nil? and
-  File.read(ENV["TM_FILEPATH"]).match(/\brequire\b.+(?:test\/unit|test_helper)/).nil?)
+  File.read(ENV["TM_FILEPATH"]).match(/\brequire\b.+(?:test\/unit|test_helper|minitest)/).nil?)
 
 cmd = [ENV['TM_RUBY'] || 'ruby', '-rcatch_exception']
 
@@ -132,8 +132,8 @@ TextMate::Executor.run( cmd, :version_args => ["--version"],
       elsif line =~ /([\w\_]+).*\[([\w\_\/\.]+)\:(\d+)\]/   # whatever_message....[function_name/.whatever:line_no]
         method, file, line = $1, $2, $3
         "<span><a href=\"txmt://open?#{path_to_url_chunk(file)}line=#{line}\">#{method}</a></span>:#{line}<br/>"
-      elsif line =~ /^\d+ tests, \d+ assertions, (\d+) failures, (\d+) errors\b.*/
-        "<div class=\"test #{$1 + $2 == "00" ? "ok" : "fail"}\">#{$&}</div>\n"
+      elsif line =~ /^\d+ (tests|runs), \d+ assertions, (\d+) failures, (\d+) errors\b.*/
+        "<div class=\"test #{$2 + $3 == "00" ? "ok" : "fail"}\">#{$&}</div>\n"
       end
     end
   end

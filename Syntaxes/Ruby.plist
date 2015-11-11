@@ -1675,7 +1675,7 @@
 			<key>match</key>
 			<string>-&gt;</string>
 			<key>name</key>
-			<string>keyword.operator.lambda.ruby</string>
+			<string>support.function.kernel.lambda.ruby</string>
 		</dict>
 		<dict>
 			<key>match</key>

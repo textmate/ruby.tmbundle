@@ -24,11 +24,11 @@ if ARGV.first == "--name="
     should    = $3 || $4 if lines.find { |line| line =~ /^\s*(should)\s+('(.*)'|"(.*)")+\s*(\{|do)/ }
     context   = $3 || $4 if lines.find { |line| line =~ /^\s*(context)\s+('(.*)'|"(.*)")+\s*(\{|do)/ }
   end
-  
+
   if name and !name.empty?
     args << "--name=#{name}"
   elsif test_name and !test_name.empty?
-    args << "--name=test_#{test_name.gsub(/\s+/,'_')}"
+    args << "--name=/#{test_name.gsub(/\s+/,'_')}/"
   elsif spec and !spec.empty? and context and !context.empty?
     args << %Q{--name="/test_spec \\{.*#{context}\\} \\d{3} \\[#{spec}\\]/"}
   elsif should and !should.empty? and context and !context.empty?

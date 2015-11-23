@@ -1648,9 +1648,13 @@
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>(\|)</string>
+			<string>(?&lt;!\|)(\|)(?!\|)</string>
 			<key>patterns</key>
 			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
 				<dict>
 					<key>match</key>
 					<string>[_a-zA-Z][_a-zA-Z0-9]*</string>

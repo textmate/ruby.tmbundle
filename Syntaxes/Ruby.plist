@@ -48,7 +48,7 @@
 		<string>fcgi</string>
 		<string>gemspec</string>
 		<string>irbrc</string>
-		<string>capfile</string>
+		<string>Capfile</string>
 		<string>ru</string>
 		<string>prawn</string>
 		<string>Cheffile</string>
@@ -61,6 +61,7 @@
 		<string>Berksfile</string>
 		<string>Berksfile.lock</string>
 		<string>Thorfile</string>
+		<string>Puppetfile</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby</string>

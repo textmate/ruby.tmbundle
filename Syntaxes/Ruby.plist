@@ -1700,6 +1700,20 @@
 			<string>keyword.operator.logical.ruby</string>
 		</dict>
 		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.separator.method.ruby</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>Safe navigation operator - Added in 2.3</string>
+			<key>match</key>
+			<string>(&amp;\.)\s*(?![A-Z])</string>
+		</dict>
+		<dict>
 			<key>match</key>
 			<string>(%|&amp;|\*\*|\*|\+|\-|/)</string>
 			<key>name</key>

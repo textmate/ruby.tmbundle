@@ -1644,7 +1644,7 @@
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.separator.variable.ruby</string>
+					<string>punctuation.separator.arguments.ruby</string>
 				</dict>
 			</dict>
 			<key>end</key>

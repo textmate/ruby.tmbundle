@@ -340,7 +340,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>(\$)(!|@|&amp;|`|'|\+|\d+|~|=|/|\\|,|;|\.|&lt;|&gt;|_|\*|\$|\?|:|"|-[0adFiIlpv])</string>
+			<string>(\$)(!|@|&amp;|`|'|\+|\d+|~|=|/|\\|,|;|\.|&lt;|&gt;|_|\*|\$|\?|:|"|-[0adFiIlpvw])</string>
 			<key>name</key>
 			<string>variable.other.readwrite.global.pre-defined.ruby</string>
 		</dict>

@@ -63,6 +63,7 @@
 		<string>Thorfile</string>
 		<string>Puppetfile</string>
 		<string>arb</string>
+		<string>Dangerfile</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby|^#\s+-\*-\s*ruby\s*-\*-</string>

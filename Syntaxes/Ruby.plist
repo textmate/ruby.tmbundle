@@ -56,6 +56,7 @@
 		<string>Guardfile</string>
 		<string>Hobofile</string>
 		<string>Vagrantfile</string>
+		<string>.vagrantplugins</string>
 		<string>Appraisals</string>
 		<string>Rantfile</string>
 		<string>Berksfile</string>

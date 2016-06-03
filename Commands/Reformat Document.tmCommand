@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>saveActiveFile</string>
+	<key>command</key>
+	<string>#!/bin/bash
+
+aha_found=`which aha`
+if [ $aha_found ]; then
+  color='n';
+  format='--html'
+else
+  format='--text'
+fi
+
+output=`rubocop -a$color "${TM_FILEPATH}"`
+if [ $aha_found ]; then output=`echo "$output" | aha`; fi
+
+"$DIALOG" tooltip "$format" "$output"</string>
+	<key>input</key>
+	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>^H</string>
+	<key>name</key>
+	<string>Reformat Document</string>
+	<key>outputCaret</key>
+	<string>interpolateByChar</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>discard</string>
+	<key>requiredCommands</key>
+	<array>
+		<dict>
+			<key>command</key>
+			<string>rubocop</string>
+			<key>locations</key>
+			<array>
+				<string>/usr/bin/rubocop</string>
+			</array>
+		</dict>
+	</array>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>uuid</key>
+	<string>64BB4EE2-2803-410C-B140-EA545A13F250</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -215,7 +215,7 @@
 			<key>comment</key>
 			<string>contextual smart pair support for block parameters</string>
 			<key>match</key>
-			<string>(?&lt;!\.)\bdo\b\s*</string>
+			<string>(?&lt;!\.)\bdo\b</string>
 			<key>name</key>
 			<string>keyword.control.start-block.ruby</string>
 		</dict>

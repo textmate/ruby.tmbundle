@@ -437,7 +437,7 @@
 					<key>begin</key>
 					<string>(?=[&amp;*_a-zA-Z])</string>
 					<key>end</key>
-					<string>(?=\,|\)\s*$)</string>
+					<string>(?=,|\)\s*$)</string>
 					<key>patterns</key>
 					<array>
 						<dict>
@@ -1737,7 +1737,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\;</string>
+			<string>;</string>
 			<key>name</key>
 			<string>punctuation.separator.statement.ruby</string>
 		</dict>

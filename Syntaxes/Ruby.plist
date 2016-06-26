@@ -1562,7 +1562,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;\=\s*&lt;&lt;(\w+))</string>
+			<string>(?&gt;=\s*&lt;&lt;(\w+))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1687,7 +1687,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>&lt;&lt;=|%=|&amp;{1,2}=|\*=|\*\*=|\+=|\-=|\^=|\|{1,2}=|&lt;&lt;</string>
+			<string>&lt;&lt;=|%=|&amp;{1,2}=|\*=|\*\*=|\+=|-=|\^=|\|{1,2}=|&lt;&lt;</string>
 			<key>name</key>
 			<string>keyword.operator.assignment.augmented.ruby</string>
 		</dict>
@@ -1719,7 +1719,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>(%|&amp;|\*\*|\*|\+|\-|/)</string>
+			<string>(%|&amp;|\*\*|\*|\+|-|/)</string>
 			<key>name</key>
 			<string>keyword.operator.arithmetic.ruby</string>
 		</dict>

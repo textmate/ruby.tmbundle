@@ -228,16 +228,6 @@
 			<string>meta.syntax.ruby.start-block</string>
 		</dict>
 		<dict>
-			<key>comment</key>
-			<string> as above, just doesn't need a 'end' and does a logic operation</string>
-			<key>match</key>
-			<string>(?&lt;!\.)\b(and|not|or)\b</string>
-			<key>name</key>
-			<string>keyword.operator.logical.ruby</string>
-		</dict>
-		<dict>
-			<key>comment</key>
-			<string> just as above but being not a logical operation</string>
 			<key>match</key>
 			<string>(?&lt;!\.)\b(alias|alias_method|block_given[?]|break|defined[?]|iterator[?]|next|redo|retry|return|super|undef|yield)(\b|(?&lt;=[?]))(?![?!])</string>
 			<key>name</key>
@@ -1699,7 +1689,15 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>(?&lt;=[ \t])!+|\bnot\b|&amp;&amp;|\band\b|\|\||\bor\b|\^</string>
+			<string>(?&lt;!\.)\b(and|not|or)\b(?![?!])</string>
+			<key>name</key>
+			<string>keyword.operator.logical.ruby</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>Make sure this goes after assignment and comparison</string>
+			<key>match</key>
+			<string>(?&lt;=^|[ \t])!|&amp;&amp;|\|\||\^</string>
 			<key>name</key>
 			<string>keyword.operator.logical.ruby</string>
 		</dict>

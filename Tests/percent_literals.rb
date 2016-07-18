@@ -36,6 +36,8 @@
 %Q{The quick #{color} fox\n{jumps over the #{temperment} dog}}
 %Q<The quick #{color} fox\n<jumps over the #{temperment} dog>>
 
+%Q:The quick #{color} fox\n}jumps over the #{temperment} dog:         # Don't let a stray closing
+                                                                      #  character end string
 
 # Regular expression
 %r(The quick brown fox jumps over the lazy dog)i

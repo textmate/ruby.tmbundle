@@ -2712,7 +2712,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>%Q?(?:([(\[{&lt;])|([^\w\s]|_))</string>
+					<string>%Q?(?:([(\[{&lt;])|([^\w\s=]|_))</string>
 					<key>beginCaptures</key>
 					<dict>
 						<key>0</key>

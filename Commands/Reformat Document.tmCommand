@@ -16,7 +16,7 @@ else
   format='--text'
 fi
 
-output=`rubocop -a$color "${TM_FILEPATH}"`
+output=`"${TM_RUBOCOP:-rubocop}" -a$color "$TM_FILEPATH"`
 if [ $aha_found ]; then output=`echo "$output" | aha`; fi
 
 "$DIALOG" tooltip "$format" "$output"

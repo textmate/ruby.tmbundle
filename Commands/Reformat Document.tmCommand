@@ -7,6 +7,7 @@
 	<key>command</key>
 	<string>#!/bin/bash
 
+(
 aha_found=`which aha`
 if [ $aha_found ]; then
   color='n';
@@ -18,7 +19,8 @@ fi
 output=`rubocop -a$color "${TM_FILEPATH}"`
 if [ $aha_found ]; then output=`echo "$output" | aha`; fi
 
-"$DIALOG" tooltip "$format" "$output"</string>
+"$DIALOG" tooltip "$format" "$output"
+) &amp;&gt;/dev/null &amp;</string>
 	<key>input</key>
 	<string>none</string>
 	<key>inputFormat</key>

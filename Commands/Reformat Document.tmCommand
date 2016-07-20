@@ -7,7 +7,15 @@
 	<key>command</key>
 	<string>#!/bin/bash
 
+[[ -f "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm"
+
 (
+if [[ ! `which rubocop` ]]; then
+  "$DIALOG" tooltip --text "This command requires RuboCop.
+Please install RuboCop via “gem install rubocop”."
+  exit
+fi
+
 aha_found=`which aha`
 if [ $aha_found ]; then
   color='n';
@@ -43,6 +51,7 @@ if [ $aha_found ]; then output=`echo "$output" | aha`; fi
 			<key>locations</key>
 			<array>
 				<string>$HOME/.rbenv/shims/rubocop</string>
+				<string>$HOME/.rvm/scripts/rvm</string>
 			</array>
 		</dict>
 	</array>

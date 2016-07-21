@@ -57,6 +57,7 @@ if [[ $aha_found ]]; then output=`echo "$output" | aha`; fi
 			<string>rubocop</string>
 			<key>locations</key>
 			<array>
+				<string>/usr/local/bin/rubocop</string>
 				<string>$HOME/.rbenv/shims/rubocop</string>
 				<string>$HOME/.rvm/scripts/rvm</string>
 			</array>

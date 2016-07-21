@@ -10,7 +10,13 @@
 [[ -f "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm"
 
 (
-if [[ ! `which rubocop` ]]; then
+bundler_dir="${TM_PROJECT_DIRECTORY:-$(dirname "$TM_FILEPATH")}"
+if [[ -f "$bundler_dir/Gemfile" ]]; then
+  cd "$bundler_dir" &amp;&amp; bundle list rubocop
+  if [[ $? == 0 ]]; then bundler_rubocop='bundle exec rubocop'; fi
+fi
+
+if [[ ! `which rubocop` &amp;&amp; -z "$bundler_rubocop" ]]; then
   "$DIALOG" tooltip --text "This command requires RuboCop.
 Please install RuboCop via “gem install rubocop”."
   exit
@@ -24,7 +30,8 @@ else
   format='--text'
 fi
 
-output=`"${TM_RUBOCOP:-rubocop}" -a$color "$TM_FILEPATH"`
+rubocop="${TM_RUBOCOP:-"${bundler_rubocop:-rubocop}"}"
+output=`$rubocop -a$color "$TM_FILEPATH"`
 if [ $aha_found ]; then output=`echo "$output" | aha`; fi
 
 "$DIALOG" tooltip "$format" "$output"

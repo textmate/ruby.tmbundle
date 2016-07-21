@@ -23,7 +23,7 @@ Please install RuboCop via “gem install rubocop”."
 fi
 
 aha_found=`which aha`
-if [ $aha_found ]; then
+if [[ $aha_found ]]; then
   color='n';
   format='--html'
 else
@@ -32,7 +32,7 @@ fi
 
 rubocop="${TM_RUBOCOP:-"${bundler_rubocop:-rubocop}"}"
 output=`$rubocop -a$color "$TM_FILEPATH"`
-if [ $aha_found ]; then output=`echo "$output" | aha`; fi
+if [[ $aha_found ]]; then output=`echo "$output" | aha`; fi
 
 "$DIALOG" tooltip "$format" "$output"
 ) &amp;&gt;/dev/null &amp;</string>

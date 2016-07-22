@@ -781,9 +781,11 @@
 			            [=&gt;~(?:\[,|&amp;;]
 			          | [\s;]if\s
 			          | [\s;]elsif\s
+			          | [\s;]else\s
 			          | [\s;]while\s
 			          | [\s;]unless\s
 			          | [\s;]when\s
+			          | [\s;]then\s
 			          | [\s;]assert_match\s
 			          | [\s;]or\s
 			          | [\s;]and\s
@@ -795,6 +797,11 @@
 			          | [\s.]gsub\s
 			          | [\s.]gsub!\s
 			          | [\s.]match\s
+			          | [\s.]slice\s
+			          | [\s.]slice!\s
+			          | [\s.]split\s
+			          | [\s.]partition\s
+			          | [\s.]rpartition\s
 			          )
 			        | (?&lt;=               # necessary due to the limit of lookbehind
 			            ^when\s

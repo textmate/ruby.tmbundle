@@ -780,28 +780,28 @@
 			        | (?&lt;=
 			            [=&gt;~(?:\[,|&amp;;]
 			          | [\s;]if\s
-			          | [\s;]elsif\s
-			          | [\s;]else\s
-			          | [\s;]while\s
-			          | [\s;]unless\s
 			          | [\s;]when\s
-			          | [\s;]then\s
-			          | [\s;]assert_match\s
-			          | [\s;]or\s
-			          | [\s;]and\s
-			          | [\s;]not\s
-			          | [\s.]index\s
-			          | [\s.]scan\s
-			          | [\s.]sub\s
-			          | [\s.]sub!\s
+			          | [\s;]while\s
+			          | [\s.]match\s
 			          | [\s.]gsub\s
 			          | [\s.]gsub!\s
-			          | [\s.]match\s
+			          | [\s.]sub\s
+			          | [\s.]sub!\s
+			          | [\s.]index\s
+			          | [\s.]scan\s
+			          | [\s;]not\s
+			          | [\s;]and\s
+			          | [\s;]or\s
+			          | [\s;]assert_match\s
 			          | [\s.]slice\s
 			          | [\s.]slice!\s
 			          | [\s.]split\s
 			          | [\s.]partition\s
 			          | [\s.]rpartition\s
+			          | [\s;]elsif\s
+			          | [\s;]else\s
+			          | [\s;]unless\s
+			          | [\s;]then\s
 			          )
 			        | (?&lt;=               # necessary due to the limit of lookbehind
 			            ^when\s

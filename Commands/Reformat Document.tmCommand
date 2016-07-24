@@ -7,12 +7,12 @@
 	<key>command</key>
 	<string>#!/bin/bash
 
+cd "${TM_PROJECT_DIRECTORY:-$(dirname "$TM_FILEPATH")}"
 [[ -f "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm"
 
 (
-bundler_dir="${TM_PROJECT_DIRECTORY:-$(dirname "$TM_FILEPATH")}"
-if [[ -f "$bundler_dir/Gemfile" ]]; then
-  cd "$bundler_dir" &amp;&amp; bundle list rubocop
+if [[ -f "Gemfile" ]]; then
+  bundle list rubocop
   if [[ $? == 0 ]]; then bundler_rubocop='bundle exec rubocop'; fi
 fi
 

@@ -427,7 +427,7 @@
 					<key>begin</key>
 					<string>(?=[&amp;*_a-zA-Z])</string>
 					<key>end</key>
-					<string>(?=,|\)\s*$)</string>
+					<string>(?=[,)])</string>
 					<key>patterns</key>
 					<array>
 						<dict>
@@ -456,6 +456,29 @@
 							</dict>
 							<key>match</key>
 							<string>\G([&amp;*]?)(?:([_a-zA-Z]\w*(:))|([_a-zA-Z]\w*))</string>
+						</dict>
+						<dict>
+							<key>begin</key>
+							<string>\(</string>
+							<key>captures</key>
+							<dict>
+								<key>0</key>
+								<dict>
+									<key>name</key>
+									<string>punctuation.section.function.ruby</string>
+								</dict>
+							</dict>
+							<key>comment</key>
+							<string>Prevent end pattern of parent rule from ending prematurely.</string>
+							<key>end</key>
+							<string>\)</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>$self</string>
+								</dict>
+							</array>
 						</dict>
 						<dict>
 							<key>include</key>

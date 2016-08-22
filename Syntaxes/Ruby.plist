@@ -66,6 +66,7 @@
 		<string>arb</string>
 		<string>Dangerfile</string>
 		<string>Brewfile</string>
+		<string>Fastfile</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby|^#\s+-\*-\s*ruby\s*-\*-</string>

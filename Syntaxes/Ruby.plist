@@ -66,6 +66,13 @@
 		<string>arb</string>
 		<string>Dangerfile</string>
 		<string>Brewfile</string>
+		<string>Fastfile</string>
+		<string>Appfile</string>
+		<string>Deliverfile</string>
+		<string>Matchfile</string>
+		<string>Scanfile</string>
+		<string>Snapfile</string>
+		<string>Gymfile</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby|^#\s+-\*-\s*ruby\s*-\*-</string>

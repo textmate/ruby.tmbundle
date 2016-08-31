@@ -1,4 +1,5 @@
 require 'minitest/autorun'
+require 'shellwords'
 require "#{__dir__}/../lib/executable"
 
 class TestExecutableFind < Minitest::Test
@@ -25,14 +26,14 @@ class TestExecutableFind < Minitest::Test
 
   def test_use_env_var
     rspec_path = "#{__dir__}/attic/sample_project/other/rspec"
-    with_env('TM_RSPEC' => rspec_path) do
+    with_env('TM_RSPEC' => rspec_path.shellescape) do
       assert_equal [rspec_path], Executable.find('rspec')
     end
   end
 
   def test_use_custom_env_var
     rspec_path = "#{__dir__}/attic/sample_project/other/rspec"
-    with_env('TM_RSPEC' => rspec_path) do
+    with_env('TM_RSPEC' => rspec_path.shellescape) do
       assert_equal [rspec_path], Executable.find('rspec-special', 'TM_RSPEC')
     end
   end
@@ -40,6 +41,13 @@ class TestExecutableFind < Minitest::Test
   def test_use_env_var_with_executable_in_path
     with_env('PATH' => "#{__dir__}/attic/bin:#{ENV['PATH']}", 'TM_SAMPLE' => 'sample-executable') do
       assert_equal %w(sample-executable), Executable.find('sample')
+    end
+  end
+
+  # Setting TM_FOO to eg. `bundle exec foo` should be possible, too.
+  def test_use_env_var_with_executable_with_spaces
+    with_env('PATH' => "#{__dir__}/attic/bin:#{ENV['PATH']}", 'TM_SAMPLE' => 'sample-executable with options') do
+      assert_equal %w(sample-executable with options), Executable.find('sample')
     end
   end
 

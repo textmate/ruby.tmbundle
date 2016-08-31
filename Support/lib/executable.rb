@@ -1,3 +1,5 @@
+require 'shellwords'
+
 module Executable
   class NotFound < RuntimeError; end
 
@@ -40,9 +42,10 @@ module Executable
 
     env_var ||= 'TM_' + name.gsub(/\W+/, '_').upcase
     if (cmd = ENV[env_var]) && cmd != ''
-      if system('which', '-s', cmd)
-        [cmd]
-      else 
+      cmd = cmd.shellsplit
+      if system('which', '-s', cmd[0])
+        cmd
+      else
         raise NotFound, "#{env_var} is set to '#{cmd}', but this does not seem to exist."
       end
 
@@ -61,7 +64,7 @@ module Executable
       else
         [name]
       end
-      
+
     else
       raise NotFound, "Could not find executable '#{name}'."
     end

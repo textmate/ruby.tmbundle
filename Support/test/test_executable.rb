@@ -42,6 +42,12 @@ class TestExecutableFind < Minitest::Test
     end
   end
 
+  def test_use_env_var_with_executable_in_path
+    with_env('PATH' => "#{__dir__}/attic/bin:#{ENV['PATH']}", 'TM_SAMPLE' => 'sample-executable') do
+      assert_equal %w(sample-executable), Executable.find('sample')
+    end
+  end
+
   def test_use_env_var_with_missing_executable
     with_env('TM_NONEXISTING_EXECUTABLE' => "#{__dir__}/attic/sample_project/other/nonexisting") do
       assert_nil Executable.find('nonexisting', 'TM_NONEXISTING_EXECUTABLE')

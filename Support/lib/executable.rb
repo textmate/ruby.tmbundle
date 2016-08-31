@@ -35,8 +35,8 @@ module Executable
     raise ArgumentError, "Invalid characters found in '#{name}'" unless name =~ /\A[\w_-]+\z/
 
     env_var ||= 'TM_' + name.gsub(/\W+/, '_').upcase
-    if ENV[env_var] && ENV[env_var] != '' && File.executable?(ENV[env_var])
-      [ENV[env_var]]
+    if (cmd = ENV[env_var]) && cmd != '' && system('which', '-s', cmd)
+      [cmd]
 
     elsif File.exist?("bin/#{name}")
       ["bin/#{name}"]

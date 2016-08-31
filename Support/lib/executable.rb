@@ -1,18 +1,22 @@
 module Executable
+  class NotFound < RuntimeError; end
+
   module_function
 
   # Try to find the Ruby executable `name`. Return an array containing the
-  # command(s) needed to run the executable, or `nil` if the executable could
-  # not be found.
+  # command(s) needed to run the executable. If the executable could not be
+  # found, `Executable::NotFound` is raised with a message describing the
+  # problem.
   #
   # Typical usage looks like this:
   #
   #     Dir.chdir(ENV['TM_PROJECT_DIRECTORY']) if ENV['TM_PROJECT_DIRECTORY']
-  #     executable = Executable.find('rspec')
-  #     if executable
+  #     begin
+  #       executable = Executable.find('rspec')
   #       system(*executable, '--some', '--additional', 'args')
-  #     else
+  #     rescue Executable::NotFound => e
   #       # Executable not found, so use fallback / display alert / …
+  #       # `e.message` contains detailled error message.
   #     end
   #
   # Supports the following cases:
@@ -35,8 +39,12 @@ module Executable
     raise ArgumentError, "Invalid characters found in '#{name}'" unless name =~ /\A[\w_-]+\z/
 
     env_var ||= 'TM_' + name.gsub(/\W+/, '_').upcase
-    if (cmd = ENV[env_var]) && cmd != '' && system('which', '-s', cmd)
-      [cmd]
+    if (cmd = ENV[env_var]) && cmd != ''
+      if system('which', '-s', cmd)
+        [cmd]
+      else 
+        raise NotFound, "#{env_var} is set to '#{cmd}', but this does not seem to exist."
+      end
 
     elsif File.exist?("bin/#{name}")
       ["bin/#{name}"]
@@ -48,8 +56,14 @@ module Executable
       # rbenv installs shims that are present even if the command has not been
       # installed for the current Ruby version, so we need to also check `rbenv
       # which` in this case.
-      return nil if path.include?('rbenv/shims') && !system("rbenv which #{name} &>/dev/null")
-      [name]
+      if path.include?('rbenv/shims') && !system("rbenv which #{name} &>/dev/null")
+        raise NotFound, "rbenv reports that '#{name}' is not installed for the current Ruby version."
+      else
+        [name]
+      end
+      
+    else
+      raise NotFound, "Could not find executable '#{name}'."
     end
   end
 end

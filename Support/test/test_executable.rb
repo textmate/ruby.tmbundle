@@ -21,11 +21,6 @@ class TestExecutableFind < Minitest::Test
     assert_raises(ArgumentError){ Executable.find('special;characters') }
     assert_raises(ArgumentError){ Executable.find('not\ ok') }
     assert_raises(ArgumentError){ Executable.find('"quoted"') }
-
-    # None of these should raise:
-    Executable.find('rspec')
-    Executable.find('foo-bar')
-    Executable.find('some_tool')
   end
 
   def test_use_env_var
@@ -49,8 +44,8 @@ class TestExecutableFind < Minitest::Test
   end
 
   def test_use_env_var_with_missing_executable
-    with_env('TM_NONEXISTING_EXECUTABLE' => "#{__dir__}/attic/sample_project/other/nonexisting") do
-      assert_nil Executable.find('nonexisting', 'TM_NONEXISTING_EXECUTABLE')
+    with_env('TM_NONEXISTING_EXECUTABLE' => 'nonexisting-executable') do
+      assert_raises(Executable::NotFound){ Executable.find('nonexisting-executable', 'TM_NONEXISTING_EXECUTABLE') }
     end
   end
 
@@ -68,7 +63,7 @@ class TestExecutableFind < Minitest::Test
   end
 
   def test_missing_executable
-    assert_nil Executable.find('nonexisting_executable')
+    assert_raises(Executable::NotFound){ Executable.find('nonexisting-executable') }
   end
 
   def test_missing_executable_with_rbenv_and_shim
@@ -81,7 +76,7 @@ class TestExecutableFind < Minitest::Test
       assert system('which -s rbenv_installed_shim')
 
       # Now for the actual test
-      assert_nil Executable.find('rbenv_installed_shim')
+      assert_raises(Executable::NotFound){ Executable.find('rbenv_installed_shim') }
     end
   end
 end

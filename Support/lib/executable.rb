@@ -1,4 +1,4 @@
-module RubyUtils
+module Executable
   module_function
 
   # Try to find the Ruby executable `name`. Return an array containing the
@@ -8,7 +8,7 @@ module RubyUtils
   # Typical usage looks like this:
   #
   #     Dir.chdir(ENV['TM_PROJECT_DIRECTORY']) if ENV['TM_PROJECT_DIRECTORY']
-  #     executable = RubyUtils.find_executable('rspec')
+  #     executable = Executable.find('rspec')
   #     if executable
   #       system(*executable, '--some', '--additional', 'args')
   #     else
@@ -29,7 +29,7 @@ module RubyUtils
   #    `name` looks like an rbenv shim, also check if the executable has been
   #    installed for the current Ruby version.)
   #
-  def find_executable(name, env_var = nil)
+  def find(name, env_var = nil)
     # Safeguard against invalid names so that we don’t need to care about
     # shell escaping later on
     raise ArgumentError, "Invalid characters found in '#{name}'" unless name =~ /\A[\w_-]+\z/

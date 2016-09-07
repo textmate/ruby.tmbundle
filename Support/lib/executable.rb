@@ -54,6 +54,9 @@ module Executable
       elsif File.exist?('Gemfile.lock') && File.read('Gemfile.lock') =~ /^    #{name} /
         %W(bundle exec #{name})
 
+      elsif (rvm = project_uses_rvm?) && system(*%W(#{rvm} . do which -s #{name}))
+        %W(#{rvm} . do #{name})
+
       elsif (path = `which #{name}`.chomp) != ''
         # rbenv installs shims that are present even if the command has not been
         # installed for the current Ruby version, so we need to also check `rbenv
@@ -67,6 +70,17 @@ module Executable
       else
         raise NotFound, "Could not find executable '#{name}'."
       end
+    end
+
+    private
+
+    # Check if the project uses rvm: Returns full path to rvm binary if rvm is
+    # installed and the current dir contains an ini file recognized by rvm, nil
+    # otherwise.
+    def project_uses_rvm?
+      ini_files = %w(.rvmrc .versions.conf .ruby-version .rbfu-version .rbenv-version)
+      rvm = "#{ENV['HOME']}/.rvm/bin/rvm"
+      rvm if File.exist?(rvm) && ini_files.any?{ |f| File.exist?(f) }
     end
   end
 end

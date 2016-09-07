@@ -3,8 +3,16 @@ require 'shellwords'
 require "#{__dir__}/../lib/executable"
 
 class TestExecutableFind < Minitest::Test
+  RVM_INI_FILES = %w(.rvmrc .versions.conf .ruby-version .rbfu-version .rbenv-version).freeze
+
   def setup
     Dir.chdir("#{__dir__}/attic/sample_project")
+    FileUtils.rm_f(RVM_INI_FILES) # Make sure there are no leftovers from previous runs
+  end
+
+  def teardown
+    Dir.chdir("#{__dir__}/attic/sample_project")
+    FileUtils.rm_f(RVM_INI_FILES)
   end
 
   def with_env(env_vars)
@@ -63,6 +71,23 @@ class TestExecutableFind < Minitest::Test
 
   def test_find_in_gemfile
     assert_equal %w(bundle exec rubocop), Executable.find('rubocop')
+  end
+
+  RVM_INI_FILES.each do |ini_file|
+    define_method :"test_find_with_rvm_and_#{ini_file.gsub(/\W+/, '_')}" do
+      FileUtils.touch(ini_file)
+      with_env('HOME' => "#{__dir__}/attic/fake_rvm_home") do
+        assert_equal %W(#{__dir__}/attic/fake_rvm_home/.rvm/bin/rvm . do sample_executable_from_rvm),
+                     Executable.find('sample_executable_from_rvm')
+      end
+    end
+  end
+
+  def test_find_with_rvm_without_ini_file
+    with_env('HOME' => "#{__dir__}/attic/fake_rvm_home") do
+      # With no rvm ini file in place, rvm detection should NOT take place
+      assert_raises(Executable::NotFound){ Executable.find('sample_executable_from_rvm') }
+    end
   end
 
   def test_find_in_path

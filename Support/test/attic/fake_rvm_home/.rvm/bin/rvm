@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# Fake rvm stub: It exits with status 0 (success) if and only invoked as `rvm .
+# do which -s sample_executable`. In all other cases it exits with a status code
+# signalling a failure.
+
+if [[ "$*" == ". do which -s sample_executable_from_rvm" ]]; then
+  exit 0
+else
+  exit 1
+fi

@@ -51,7 +51,7 @@ module Executable
       raise ArgumentError, "Invalid characters found in '#{name}'" unless name =~ /\A[\w_-]+\z/
 
       env_var ||= 'TM_' + name.gsub(/\W+/, '_').upcase
-      prefix = project_uses_rvm? ? %w(rvm . do) : []
+      prefix = determine_rvm_prefix || []
       if (cmd = ENV[env_var]) && cmd != ''
         cmd = cmd.shellsplit
         if system('which', '-s', cmd[0])
@@ -83,11 +83,11 @@ module Executable
 
     private
 
-    # Check if the project uses rvm: Returns full path to rvm binary if rvm is
-    # installed and the current dir contains an rvm project file, nil otherwise.
-    def project_uses_rvm?
+    # Return appropriate prefix for running commands via RVM if RVM is installed
+    # and the current directory contains an RVM project file.
+    def determine_rvm_prefix
       rvm = "#{ENV['HOME']}/.rvm/bin/rvm"
-      rvm if File.exist?(rvm) && `#{rvm.shellescape} current`.chomp != 'system'
+      %W(#{rvm} . do) if File.exist?(rvm) && `#{rvm.shellescape} current`.chomp != 'system'
     end
   end
 end

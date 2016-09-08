@@ -13,6 +13,8 @@ class TestExecutableFind < Minitest::Test
     @original_env = ENV.to_h
     ENV['HOME'] = "#{__dir__}/fixtures/sample_project"
     ENV.delete_if{ |name, _value| name.start_with?('TM_') }
+    
+    @fake_rvm_path = "#{__dir__}/fixtures/fake_rvm_home/.rvm/bin/rvm"
   end
 
   def teardown
@@ -92,7 +94,7 @@ class TestExecutableFind < Minitest::Test
     with_rvm_installed do
       assert_equal %w(bin/rspec), Executable.find('rspec')
       with_rvm_project_file do
-        assert_equal %w(rvm . do bin/rspec), Executable.find('rspec')
+        assert_equal %W(#{@fake_rvm_path} . do bin/rspec), Executable.find('rspec')
       end
     end
   end
@@ -105,7 +107,7 @@ class TestExecutableFind < Minitest::Test
     with_rvm_installed do
       assert_equal %w(bundle exec rubocop), Executable.find('rubocop')
       with_rvm_project_file do
-        assert_equal %w(rvm . do bundle exec rubocop), Executable.find('rubocop')
+        assert_equal %W(#{@fake_rvm_path} . do bundle exec rubocop), Executable.find('rubocop')
       end
     end
   end
@@ -127,7 +129,7 @@ class TestExecutableFind < Minitest::Test
     with_rvm_installed do
       assert_equal %w(ls), Executable.find('ls')
       with_rvm_project_file do
-        assert_equal %w(rvm . do ls), Executable.find('ls')
+        assert_equal %W(#{@fake_rvm_path} . do ls), Executable.find('ls')
       end
     end
   end

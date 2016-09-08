@@ -3,16 +3,17 @@ require 'shellwords'
 require "#{__dir__}/../lib/executable"
 
 class TestExecutableFind < Minitest::Test
-  RVM_INI_FILES = %w(.rvmrc .versions.conf .ruby-version .rbfu-version .rbenv-version).freeze
-
   def setup
     Dir.chdir("#{__dir__}/fixtures/sample_project")
-    FileUtils.rm_f(RVM_INI_FILES) # Make sure there are no leftovers from previous runs
+
+    # Set $HOME to a directory controlled by us to make sure `$HOME/.rvm` does
+    # not exist even if the user running these tests has rvm actually installed.
+    @original_home_dir = ENV['HOME']
+    ENV['HOME'] = "#{__dir__}/fixtures/sample_project"
   end
 
   def teardown
-    Dir.chdir("#{__dir__}/fixtures/sample_project")
-    FileUtils.rm_f(RVM_INI_FILES)
+    ENV['HOME'] = @original_home_dir
   end
 
   def with_env(env_vars)
@@ -21,6 +22,18 @@ class TestExecutableFind < Minitest::Test
     yield
   ensure
     ENV.replace(original_env)
+  end
+
+  def with_rvm_installed
+    with_env('HOME' => "#{__dir__}/fixtures/fake_rvm_home") do
+      yield
+    end
+  end
+  
+  def with_rvm_project_file
+    with_env('PRETEND_RVM_RUBY' => '2.1.0') do
+      yield
+    end
   end
 
   def test_validate_name
@@ -33,6 +46,15 @@ class TestExecutableFind < Minitest::Test
   end
 
   def test_use_env_var
+    rspec_path = "#{__dir__}/fixtures/sample_project/other/rspec"
+    with_env('TM_RSPEC' => rspec_path.shellescape) do
+      assert_equal [rspec_path], Executable.find('rspec')
+    end
+  end
+
+  # Even if RVM is installed, if an env var is set for the executable it should
+  # be used unchanged (i.e. it should not be prefixed with `rvm . do`).
+  def test_use_env_var_with_rvm
     rspec_path = "#{__dir__}/fixtures/sample_project/other/rspec"
     with_env('TM_RSPEC' => rspec_path.shellescape) do
       assert_equal [rspec_path], Executable.find('rspec')
@@ -69,30 +91,48 @@ class TestExecutableFind < Minitest::Test
     assert_equal %w(bin/rspec), Executable.find('rspec')
   end
 
+  def test_find_binstub_with_rvm
+    with_rvm_installed do
+      assert_equal %w(bin/rspec), Executable.find('rspec')
+      with_rvm_project_file do
+        assert_equal %w(rvm . do bin/rspec), Executable.find('rspec')
+      end
+    end
+  end
+  
   def test_find_in_gemfile
     assert_equal %w(bundle exec rubocop), Executable.find('rubocop')
   end
 
-  RVM_INI_FILES.each do |ini_file|
-    define_method :"test_find_with_rvm_and_#{ini_file.gsub(/\W+/, '_')}" do
-      FileUtils.touch(ini_file)
-      with_env('HOME' => "#{__dir__}/fixtures/fake_rvm_home") do
-        assert_equal %W(#{__dir__}/fixtures/fake_rvm_home/.rvm/bin/rvm . do sample_executable_from_rvm),
-                     Executable.find('sample_executable_from_rvm')
+  def test_find_in_gemfile_with_rvm
+    with_rvm_installed do
+      assert_equal %w(bundle exec rubocop), Executable.find('rubocop')
+      with_rvm_project_file do
+        assert_equal %w(rvm . do bundle exec rubocop), Executable.find('rubocop')
       end
     end
   end
 
-  def test_find_with_rvm_without_ini_file
-    with_env('HOME' => "#{__dir__}/fixtures/fake_rvm_home") do
-      # With no rvm ini file in place, rvm detection should NOT take place
-      assert_raises(Executable::NotFound){ Executable.find('sample_executable_from_rvm') }
-    end
-  end
+  # def test_find_with_rvm_without_ini_file
+  #   with_env('HOME' => "#{__dir__}/fixtures/fake_rvm_home") do
+  #     # With no rvm ini file in place, rvm detection should NOT take place
+  #     assert_raises(Executable::NotFound){ Executable.find('sample_executable_from_rvm') }
+  #   end
+  # end
 
   def test_find_in_path
     # Of course `ls` is not a Ruby executable, but for this test this makes no difference
     assert_equal %w(ls), Executable.find('ls')
+  end
+
+  def test_find_in_path_with_rvm
+    # Of course `ls` is not a Ruby executable, but for this test this makes no difference
+    with_rvm_installed do
+      assert_equal %w(ls), Executable.find('ls')
+      with_rvm_project_file do
+        assert_equal %w(rvm . do ls), Executable.find('ls')
+      end
+    end
   end
 
   def test_missing_executable

@@ -1,11 +1,32 @@
 #!/usr/bin/env bash
 
-# Fake rvm stub: It exits with status 0 (success) if and only invoked as `rvm .
-# do which -s sample_executable`. In all other cases it exits with a status code
-# signalling a failure.
+# Fake RVM stub to be used in tests. In fulfills two purposes:
+#
+#  * If invoked as `rvm current` and `$PRETEND_RVM_RUBY` is set, it pretends
+#    that the current directory contains an RVM project file pointing to this
+#    Ruby version. If `$PRETEND_RVM_RUBY` is not set, it pretends that there is
+#    no RVM project file (and thus echos `system` situation).
+#
+#  * If invoked as `rvm . do which -s …` it pretends that an executable named
+#    `sample_executable_from_rvm` is available in the search path. 
 
-if [[ "$*" == ". do which -s sample_executable_from_rvm" ]]; then
-  exit 0
+
+if [[ $1 == "current" ]]; then
+  if [[ $PRETEND_RVM_RUBY != "" ]]; then
+    echo $PRETEND_RVM_RUBY
+  else
+    echo "system"
+  fi
+  
+elif [[ "$1 $2 $3 $4" == ". do which -s" ]]; then
+  if [[ $5 == "sample_executable_from_rvm" ]]; then
+    exit 0
+  else
+    exit 1
+  fi
+  
 else
-  exit 1
+  >&2 echo "You tried to make this fake RVM stub do something it does not understand!"
+  exit 99
+
 fi

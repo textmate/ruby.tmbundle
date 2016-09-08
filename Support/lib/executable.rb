@@ -22,17 +22,28 @@ module Executable
     #
     # Supports the following cases:
     #
-    # 1. If an appropriate `TM_*` environment variable is present and points to an
-    #    executable file, its value is returned. (The name of the environment
+    # 1. If an appropriate `TM_*` environment variable is present and points to
+    #    an executable file, its value is returned. (The name of the environment
     #    variable is automatically derived from the executable name, eg. `rspec`
-    #    → `TM_RSPEC` etc. Alternatively, you can use the `env_var` argument to
-    #    explicitly specify the name.)
+    #    → `TM_RSPEC` etc. Alternatively, you can use the `env_var` argument
+    #    to explicitly specify the name.)
     # 2. If a binstub (`bin/name`) exists, it is returned.
     # 3. If a Gemfile.lock exists and has an entry for `name`, `[bundle exec
     #    name]` is returned.
-    # 4. If `name` is found in the search path, it is returned. (Special case: If
-    #    `name` looks like an rbenv shim, also check if the executable has been
-    #    installed for the current Ruby version.)
+    # 4. If `name` is found in the search path, it is returned. (Special case:
+    #    If `name` looks like an rbenv shim, also check if the executable has
+    #    been installed for the current Ruby version.)
+    #
+    # Both RVM and rbenv are supported, too:
+    #
+    # * If RVM is installed and the current directory contains an RVM project
+    #   file, the command to run the executable will be prefixed with `rvm .
+    #   do`. (Note that this is NOT the case if an appropriate `TM_*`
+    #   environment variable is present: In this case, the value of the
+    #   environment variable is returned unchanged. )
+    #
+    # * rbenv just works out of the box as long as your PATH (inside TextMate)
+    #   is setup to contain `~/.rbenv/shims`.
     #
     def find(name, env_var = nil)
       # Safeguard against invalid names so that we don’t need to care about
@@ -40,6 +51,7 @@ module Executable
       raise ArgumentError, "Invalid characters found in '#{name}'" unless name =~ /\A[\w_-]+\z/
 
       env_var ||= 'TM_' + name.gsub(/\W+/, '_').upcase
+      prefix = project_uses_rvm? ? %w(rvm . do) : []
       if (cmd = ENV[env_var]) && cmd != ''
         cmd = cmd.shellsplit
         if system('which', '-s', cmd[0])
@@ -49,13 +61,10 @@ module Executable
         end
 
       elsif File.exist?("bin/#{name}")
-        ["bin/#{name}"]
+        prefix + ["bin/#{name}"]
 
       elsif File.exist?('Gemfile.lock') && File.read('Gemfile.lock') =~ /^    #{name} /
-        %W(bundle exec #{name})
-
-      elsif (rvm = project_uses_rvm?) && system(*%W(#{rvm} . do which -s #{name}))
-        %W(#{rvm} . do #{name})
+        prefix + %W(bundle exec #{name})
 
       elsif (path = `which #{name}`.chomp) != ''
         # rbenv installs shims that are present even if the command has not been
@@ -64,7 +73,7 @@ module Executable
         if path.include?('rbenv/shims') && !system("rbenv which #{name} &>/dev/null")
           raise NotFound, "rbenv reports that '#{name}' is not installed for the current Ruby version."
         else
-          [name]
+          prefix + [name]
         end
 
       else
@@ -75,12 +84,10 @@ module Executable
     private
 
     # Check if the project uses rvm: Returns full path to rvm binary if rvm is
-    # installed and the current dir contains an ini file recognized by rvm, nil
-    # otherwise.
+    # installed and the current dir contains an rvm project file, nil otherwise.
     def project_uses_rvm?
-      ini_files = %w(.rvmrc .versions.conf .ruby-version .rbfu-version .rbenv-version)
       rvm = "#{ENV['HOME']}/.rvm/bin/rvm"
-      rvm if File.exist?(rvm) && ini_files.any?{ |f| File.exist?(f) }
+      rvm if File.exist?(rvm) && `#{rvm.shellescape} current`.chomp != 'system'
     end
   end
 end

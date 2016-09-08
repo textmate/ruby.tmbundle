@@ -8,12 +8,15 @@ class TestExecutableFind < Minitest::Test
 
     # Set $HOME to a directory controlled by us to make sure `$HOME/.rvm` does
     # not exist even if the user running these tests has rvm actually installed.
-    @original_home_dir = ENV['HOME']
+    # Also, clear out all `TM_*` env vars so they won’t interfere with our
+    # tests.
+    @original_env = ENV.to_h
     ENV['HOME'] = "#{__dir__}/fixtures/sample_project"
+    ENV.delete_if{ |name, _value| name.start_with?('TM_') }
   end
 
   def teardown
-    ENV['HOME'] = @original_home_dir
+    ENV.replace(@original_env)
   end
 
   def with_env(env_vars)
@@ -65,12 +68,6 @@ class TestExecutableFind < Minitest::Test
     rspec_path = "#{__dir__}/fixtures/sample_project/other/rspec"
     with_env('TM_RSPEC' => rspec_path.shellescape) do
       assert_equal [rspec_path], Executable.find('rspec-special', 'TM_RSPEC')
-    end
-  end
-
-  def test_use_env_var_with_executable_in_path
-    with_env('PATH' => "#{__dir__}/fixtures/bin:#{ENV['PATH']}", 'TM_SAMPLE' => 'sample-executable') do
-      assert_equal %w(sample-executable), Executable.find('sample')
     end
   end
 
@@ -150,6 +147,31 @@ class TestExecutableFind < Minitest::Test
 
       # Now for the actual test
       assert_raises(Executable::NotFound){ Executable.find('rbenv_installed_shim') }
+    end
+  end
+
+  def test_find_precedence
+    # Make sure we start with a directory with no Gemfile or binstubs, and also with no environment variable.
+    Dir.mktmpdir do |dir|
+      Dir.chdir(dir)
+
+      # Using search path has lowest precedence
+      with_env('PATH' => "#{__dir__}/fixtures/bin:#{ENV['PATH']}") do
+        assert_equal %w(rspec), Executable.find('rspec')
+
+        # Using a Gemfile comes next
+        FileUtils.cp(Dir.glob("#{__dir__}/fixtures/sample_project/Gemfile.*"), dir)
+        assert_equal %w(bundle exec rspec), Executable.find('rspec')
+
+        # Using a binstub has an even higher precedence
+        FileUtils.cp_r("#{__dir__}/fixtures/sample_project/bin", dir)
+        assert_equal %w(bin/rspec), Executable.find('rspec')
+
+        # Finally, using an environment variable has highest precedence
+        with_env('TM_RSPEC' => 'ls') do
+          assert_equal %w(ls), Executable.find('rspec')
+        end
+      end
     end
   end
 end

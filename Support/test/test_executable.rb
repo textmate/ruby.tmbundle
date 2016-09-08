@@ -6,12 +6,12 @@ class TestExecutableFind < Minitest::Test
   RVM_INI_FILES = %w(.rvmrc .versions.conf .ruby-version .rbfu-version .rbenv-version).freeze
 
   def setup
-    Dir.chdir("#{__dir__}/attic/sample_project")
+    Dir.chdir("#{__dir__}/fixtures/sample_project")
     FileUtils.rm_f(RVM_INI_FILES) # Make sure there are no leftovers from previous runs
   end
 
   def teardown
-    Dir.chdir("#{__dir__}/attic/sample_project")
+    Dir.chdir("#{__dir__}/fixtures/sample_project")
     FileUtils.rm_f(RVM_INI_FILES)
   end
 
@@ -33,28 +33,28 @@ class TestExecutableFind < Minitest::Test
   end
 
   def test_use_env_var
-    rspec_path = "#{__dir__}/attic/sample_project/other/rspec"
+    rspec_path = "#{__dir__}/fixtures/sample_project/other/rspec"
     with_env('TM_RSPEC' => rspec_path.shellescape) do
       assert_equal [rspec_path], Executable.find('rspec')
     end
   end
 
   def test_use_custom_env_var
-    rspec_path = "#{__dir__}/attic/sample_project/other/rspec"
+    rspec_path = "#{__dir__}/fixtures/sample_project/other/rspec"
     with_env('TM_RSPEC' => rspec_path.shellescape) do
       assert_equal [rspec_path], Executable.find('rspec-special', 'TM_RSPEC')
     end
   end
 
   def test_use_env_var_with_executable_in_path
-    with_env('PATH' => "#{__dir__}/attic/bin:#{ENV['PATH']}", 'TM_SAMPLE' => 'sample-executable') do
+    with_env('PATH' => "#{__dir__}/fixtures/bin:#{ENV['PATH']}", 'TM_SAMPLE' => 'sample-executable') do
       assert_equal %w(sample-executable), Executable.find('sample')
     end
   end
 
   # Setting TM_FOO to eg. `bundle exec foo` should be possible, too.
   def test_use_env_var_with_executable_with_spaces
-    with_env('PATH' => "#{__dir__}/attic/bin:#{ENV['PATH']}", 'TM_SAMPLE' => 'sample-executable with options') do
+    with_env('PATH' => "#{__dir__}/fixtures/bin:#{ENV['PATH']}", 'TM_SAMPLE' => 'sample-executable with options') do
       assert_equal %w(sample-executable with options), Executable.find('sample')
     end
   end
@@ -76,15 +76,15 @@ class TestExecutableFind < Minitest::Test
   RVM_INI_FILES.each do |ini_file|
     define_method :"test_find_with_rvm_and_#{ini_file.gsub(/\W+/, '_')}" do
       FileUtils.touch(ini_file)
-      with_env('HOME' => "#{__dir__}/attic/fake_rvm_home") do
-        assert_equal %W(#{__dir__}/attic/fake_rvm_home/.rvm/bin/rvm . do sample_executable_from_rvm),
+      with_env('HOME' => "#{__dir__}/fixtures/fake_rvm_home") do
+        assert_equal %W(#{__dir__}/fixtures/fake_rvm_home/.rvm/bin/rvm . do sample_executable_from_rvm),
                      Executable.find('sample_executable_from_rvm')
       end
     end
   end
 
   def test_find_with_rvm_without_ini_file
-    with_env('HOME' => "#{__dir__}/attic/fake_rvm_home") do
+    with_env('HOME' => "#{__dir__}/fixtures/fake_rvm_home") do
       # With no rvm ini file in place, rvm detection should NOT take place
       assert_raises(Executable::NotFound){ Executable.find('sample_executable_from_rvm') }
     end
@@ -104,8 +104,8 @@ class TestExecutableFind < Minitest::Test
     # path, as well as our fake shim  (`rbenv_installed_shim`). Note that the
     # fake implentation of `rbenv` will return an “not found” error if run
     # as `rbenv which rbenv_installed_shim`
-    with_env('PATH' => "#{__dir__}/attic/fake_rbenv:#{__dir__}/attic/fake_rbenv/shims:#{ENV['PATH']}") do
-      assert_equal "#{__dir__}/attic/fake_rbenv/rbenv", `which rbenv`.chomp
+    with_env('PATH' => "#{__dir__}/fixtures/fake_rbenv:#{__dir__}/fixtures/fake_rbenv/shims:#{ENV['PATH']}") do
+      assert_equal "#{__dir__}/fixtures/fake_rbenv/rbenv", `which rbenv`.chomp
       assert system('which -s rbenv_installed_shim')
 
       # Now for the actual test

@@ -17,7 +17,7 @@ module Executable
     #       system(*executable, '--some', '--additional', 'args')
     #     rescue Executable::NotFound => e
     #       # Executable not found, so use fallback / display alert / …
-    #       # `e.message` contains detailled error message.
+    #       # `e.message` contains detailed error message.
     #     end
     #
     # Supports the following cases:

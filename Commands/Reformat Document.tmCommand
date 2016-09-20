@@ -3,40 +3,20 @@
 <plist version="1.0">
 <dict>
 	<key>beforeRunningCommand</key>
-	<string>saveActiveFile</string>
+	<string>saveModifiedFiles</string>
 	<key>command</key>
-	<string>#!/bin/bash
+	<string>#!usr/bin/env ruby18
 
-cd "${TM_PROJECT_DIRECTORY:-$(dirname "$TM_FILEPATH")}"
-[[ -f "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm"
+# -- Imports -------------------------------------------------------------------
 
-(
-if [[ -f "Gemfile" ]]; then
-  bundle list rubocop &amp;&amp; bundler_rubocop='bundle exec rubocop'
-fi
+require ENV['TM_BUNDLE_SUPPORT'] + '/lib/rubocop'
 
-if [[ ! `which rubocop` &amp;&amp; -z "$bundler_rubocop" ]]; then
-  "$DIALOG" tooltip --text "This command requires RuboCop.
-Please install RuboCop via “gem install rubocop”."
-  exit
-fi
+# -- Main ----------------------------------------------------------------------
 
-aha_found=`which aha`
-if [[ $aha_found ]]; then
-  color='n';
-  format='--html'
-else
-  format='--text'
-fi
-
-rubocop="${bundler_rubocop:-"${TM_RUBOCOP:-rubocop}"}"
-output=`$rubocop -a$color "$TM_FILEPATH"`
-if [[ $aha_found ]]; then output=`echo "$output" | aha`; fi
-
-"$DIALOG" tooltip "$format" "$output"
-) &amp;&gt;/dev/null &amp;</string>
+RuboCop.reformat
+</string>
 	<key>input</key>
-	<string>none</string>
+	<string>document</string>
 	<key>inputFormat</key>
 	<string>text</string>
 	<key>keyEquivalent</key>
@@ -44,7 +24,7 @@ if [[ $aha_found ]]; then output=`echo "$output" | aha`; fi
 	<key>name</key>
 	<string>Reformat Document</string>
 	<key>outputCaret</key>
-	<string>interpolateByChar</string>
+	<string>heuristic</string>
 	<key>outputFormat</key>
 	<string>text</string>
 	<key>outputLocation</key>

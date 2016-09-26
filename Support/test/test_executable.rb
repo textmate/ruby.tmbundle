@@ -115,6 +115,16 @@ class TestExecutableFind < Minitest::Test
     end
   end
 
+  def test_find_in_gemfile_with_rvm_and_ruby_version_in_gemfile
+    FileUtils.cp 'Gemfile.lock', 'Gemfile.lock.orig'
+    with_rvm_installed do
+      File.write 'Gemfile.lock', "RUBY_VERSION\n   ruby 2.1.6\n", mode: 'a'
+      assert_equal %W(#{@fake_rvm_path} . do bundle exec rubocop), Executable.find('rubocop')
+    end
+  ensure
+    FileUtils.mv 'Gemfile.lock.orig', 'Gemfile.lock'
+  end
+
   def test_find_with_rvm_without_ini_file
     with_env('HOME' => "#{__dir__}/fixtures/fake_rvm_home") do
       # With no rvm ini file in place, rvm detection should NOT take place

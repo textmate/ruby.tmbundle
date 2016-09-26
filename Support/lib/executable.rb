@@ -87,14 +87,20 @@ module Executable
     # and the current directory contains an RVM project file.
     def determine_rvm_prefix
       rvm = "#{ENV['HOME']}/.rvm/bin/rvm"
-      
+      %W(#{rvm} . do) if File.exist?(rvm) && (rvm_project_file_present? || ruby_version_in_gemfile?)
+    end
+
+    def rvm_project_file_present?
       # It would be nice if we wouldn’t need to hardcode this list of
       # filenames here, but so far I couldn’t find any other solution. Using
       # `rvm current` does not work unfortunately, see
       # https://github.com/textmate/ruby.tmbundle/pull/104#r78135377
       project_files = %w(.rvmrc .versions.conf .ruby-version .rbfu-version .rbenv-version)
+      project_files.any?{ |f| File.exist?(f) }
+    end
 
-      %W(#{rvm} . do) if File.exist?(rvm) && project_files.any?{ |f| File.exist?(f) }
+    def ruby_version_in_gemfile?
+      File.exist?('Gemfile.lock') && File.read('Gemfile.lock') =~ /^RUBY_VERSION/
     end
   end
 end

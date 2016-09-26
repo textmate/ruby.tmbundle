@@ -87,7 +87,14 @@ module Executable
     # and the current directory contains an RVM project file.
     def determine_rvm_prefix
       rvm = "#{ENV['HOME']}/.rvm/bin/rvm"
-      %W(#{rvm} . do) if File.exist?(rvm) && `#{rvm.shellescape} current`.chomp != 'system'
+      
+      # It would be nice if we wouldn’t need to hardcode this list of
+      # filenames here, but so far I couldn’t find any other solution. Using
+      # `rvm current` does not work unfortunately, see
+      # https://github.com/textmate/ruby.tmbundle/pull/104#r78135377
+      project_files = %w(.rvmrc .versions.conf .ruby-version .rbfu-version .rbenv-version)
+
+      %W(#{rvm} . do) if File.exist?(rvm) && project_files.any?{ |f| File.exist?(f) }
     end
   end
 end

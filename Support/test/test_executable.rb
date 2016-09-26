@@ -36,9 +36,12 @@ class TestExecutableFind < Minitest::Test
   end
   
   def with_rvm_project_file
-    with_env('PRETEND_RVM_RUBY' => '2.1.0') do
-      yield
-    end
+    # To keep the tests concise we do not test with all possible RVM project
+    # files (see `Executable#determine_rvm_prefix` for a complete list).
+    FileUtils.touch('.rvmrc')
+    yield
+  ensure
+    FileUtils.rm_f('.rvmrc')
   end
 
   def test_validate_name
@@ -112,12 +115,12 @@ class TestExecutableFind < Minitest::Test
     end
   end
 
-  # def test_find_with_rvm_without_ini_file
-  #   with_env('HOME' => "#{__dir__}/fixtures/fake_rvm_home") do
-  #     # With no rvm ini file in place, rvm detection should NOT take place
-  #     assert_raises(Executable::NotFound){ Executable.find('sample_executable_from_rvm') }
-  #   end
-  # end
+  def test_find_with_rvm_without_ini_file
+    with_env('HOME' => "#{__dir__}/fixtures/fake_rvm_home") do
+      # With no rvm ini file in place, rvm detection should NOT take place
+      assert_raises(Executable::NotFound){ Executable.find('sample_executable_from_rvm') }
+    end
+  end
 
   def test_find_in_path
     # Of course `ls` is not a Ruby executable, but for this test this makes no difference

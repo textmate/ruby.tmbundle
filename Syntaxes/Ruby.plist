@@ -76,7 +76,28 @@
 		<string>jb</string>
 	</array>
 	<key>firstLineMatch</key>
-	<string>^#!/.*\bruby|^#\s+-\*-\s*ruby\s*-\*-</string>
+	<string>(?x)
+# Hashbang
+^\#!.*(?:\s|\/)
+(?:ruby|macruby|rake|jruby|rbx)
+(?:$|\s)
+|
+# Modeline
+(?i:
+    # Emacs
+    -\*-(?:\s*(?=[^:;\s]+\s*-\*-)|(?:.*?[;\s]|(?&lt;=-\*-))mode\s*:\s*)
+    ruby
+    (?=[\s;]|(?&lt;![-*])-\*-).*?-\*-
+  |
+    # Vim
+    (?:(?:\s|^)vi(?:m[&lt;=&gt;]?\d+|m)?|\sex)
+    (?=:(?=\s*set?\s[^\n:]+:)|:(?!\s*set?\s))
+    (?:(?:\s|\s*:\s*)\w*(?:\s*=(?:[^\n\\\s]|\\.)*)?)*
+    [\s:]
+    (?:filetype|ft|syntax)\s*=
+    ruby
+    (?=\s|:|$)
+)</string>
 	<key>keyEquivalent</key>
 	<string>^~R</string>
 	<key>name</key>

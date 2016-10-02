@@ -2,18 +2,22 @@
 
 # Fake RVM stub to be used in tests. Serves a single purpose:
 #
-#  * If invoked as `rvm . do which -s …` it pretends that an executable named
-#    `sample_executable_from_rvm` is available in the search path. 
+#  * If invoked as `rvm . do which [-s] …` it pretends that an executable
+#    named `sample_executable_from_rvm` is available in the search path.
+#    (Optional `-s` behaves just like in the original `which` command on BSD /
+#    MacOS.)
 
-if [[ "$1 $2 $3 $4" == ". do which -s" ]]; then
-  if [[ $5 == "sample_executable_from_rvm" ]]; then
+if [[ "$1 $2 $3" == ". do which" ]]; then
+  if [[ $4 == "-s" && $5 == "sample_executable_from_rvm" ]]; then 
     exit 0
+  elif [[ $4 == "sample_executable_from_rvm" ]]; then
+    echo "/some/fake/path/to/sample_executable_from_rvm"
   else
     exit 1
   fi
   
 else
-  >&2 echo "You tried to make this fake RVM stub do something it does not understand!"
+  >&2 echo "You tried to make this fake RVM stub do something it does not understand!: $*"
   exit 99
 
 fi

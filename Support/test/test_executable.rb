@@ -138,11 +138,10 @@ class TestExecutableFind < Minitest::Test
   end
 
   def test_find_in_path_with_rvm
-    # Of course `ls` is not a Ruby executable, but for this test this makes no difference
     with_rvm_installed do
-      assert_equal %w(ls), Executable.find('ls')
       with_rvm_project_file do
-        assert_equal %W(#{@fake_rvm_path} . do ls), Executable.find('ls')
+        expected_cmd = %W(#{@fake_rvm_path} . do sample_executable_from_rvm)
+        assert_equal expected_cmd, Executable.find('sample_executable_from_rvm')
       end
     end
   end

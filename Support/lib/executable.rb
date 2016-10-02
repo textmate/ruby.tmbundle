@@ -66,7 +66,7 @@ module Executable
       elsif File.exist?('Gemfile.lock') && File.read('Gemfile.lock') =~ /^    #{name} /
         prefix + %W(bundle exec #{name})
 
-      elsif (path = `which #{name}`.chomp) != ''
+      elsif (path = `#{prefix.map(&:shellescape).join(' ')} which #{name}`.chomp) != ''
         # rbenv installs shims that are present even if the command has not been
         # installed for the current Ruby version, so we need to also check `rbenv
         # which` in this case.

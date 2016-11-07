@@ -29,6 +29,8 @@ class TestExecutableFind < Minitest::Test
     ENV.replace(original_env)
   end
 
+  # Set $HOME to a directory containing `.rvm/bin/rvm` (because this is what
+  # `Executable` checks to determine if RVM is installed)
   def with_rvm_installed
     with_env('HOME' => "#{__dir__}/fixtures/fake_rvm_home") do
       yield
@@ -103,7 +105,7 @@ class TestExecutableFind < Minitest::Test
       end
     end
   end
-  
+
   def test_find_in_gemfile
     assert_equal %w(bundle exec rubocop), Executable.find('rubocop')
   end
@@ -135,7 +137,7 @@ class TestExecutableFind < Minitest::Test
   end
 
   def test_find_in_path
-    # Of course `ls` is not a Ruby executable, but for this test this makes no difference
+    # Of course `ls` is not a Ruby executable, but for this test it makes no difference
     assert_equal %w(ls), Executable.find('ls')
   end
 

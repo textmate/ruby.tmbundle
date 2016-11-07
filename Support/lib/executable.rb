@@ -36,11 +36,11 @@ module Executable
     #
     # Both RVM and rbenv are supported, too:
     #
-    # * If RVM is installed and the current directory contains an RVM project
-    #   file, the command to run the executable will be prefixed with `rvm .
-    #   do`. (Note that this is NOT the case if an appropriate `TM_*`
-    #   environment variable is present: In this case, the value of the
-    #   environment variable is returned unchanged. )
+    # * If RVM is installed, the executable will be run via a small wrapper
+    #   shell script that sets up RVM correctly before running the executable.
+    #   (Note that this is NOT the case if an appropriate `TM_*` environment
+    #   variable is present: In this case, the value of the environment variable
+    #   is returned unchanged. )
     #
     # * rbenv just works out of the box as long as your PATH (inside TextMate)
     #   is setup to contain `~/.rbenv/shims`.
@@ -87,16 +87,7 @@ module Executable
     # and the current directory contains an RVM project file.
     def determine_rvm_prefix
       rvm = "#{ENV['HOME']}/.rvm/bin/rvm"
-      %W(#{rvm} . do) if File.exist?(rvm) && (rvm_project_file_present? || ruby_version_in_gemfile?)
-    end
-
-    def rvm_project_file_present?
-      # It would be nice if we wouldn’t need to hardcode this list of
-      # filenames here, but so far I couldn’t find any other solution. Using
-      # `rvm current` does not work unfortunately, see
-      # https://github.com/textmate/ruby.tmbundle/pull/104#r78135377
-      project_files = %w(.rvmrc .versions.conf .ruby-version .rbfu-version .rbenv-version)
-      project_files.any?{ |f| File.exist?(f) }
+      %W(#{ENV['TM_BUNDLE_SUPPORT']}/bin/rvm_wrapper) if File.exist?(rvm)
     end
 
     def ruby_version_in_gemfile?

@@ -13,8 +13,10 @@ class TestExecutableFind < Minitest::Test
     @original_env = ENV.to_h
     ENV['HOME'] = "#{__dir__}/fixtures/sample_project"
     ENV.delete_if{ |name, _value| name.start_with?('TM_') }
-    
-    @fake_rvm_path = "#{__dir__}/fixtures/fake_rvm_home/.rvm/bin/rvm"
+
+    # $TM_BUNDLE_SUPPORT is needed by `Executable.determine_rvm_prefix`
+    ENV['TM_BUNDLE_SUPPORT'] = File.realpath("#{__dir__}/..")
+    @rvm_prefix = "#{ENV['TM_BUNDLE_SUPPORT']}/bin/rvm_wrapper"
   end
 
   def teardown
@@ -36,15 +38,7 @@ class TestExecutableFind < Minitest::Test
       yield
     end
   end
-  
-  def with_rvm_project_file
-    # To keep the tests concise we do not test with all possible RVM project
-    # files (see `Executable#determine_rvm_prefix` for a complete list).
-    FileUtils.touch('.rvmrc')
-    yield
-  ensure
-    FileUtils.rm_f('.rvmrc')
-  end
+
 
   def test_validate_name
     assert_raises(ArgumentError){ Executable.find('foo bar') }
@@ -63,7 +57,8 @@ class TestExecutableFind < Minitest::Test
   end
 
   # Even if RVM is installed, if an env var is set for the executable it should
-  # be used unchanged (i.e. it should not be prefixed with `rvm . do`).
+  # be used unchanged (i.e. it should not be prefixed with the rvm wrapper
+  # script.)
   def test_use_env_var_with_rvm
     rspec_path = "#{__dir__}/fixtures/sample_project/other/rspec"
     with_rvm_installed do
@@ -99,10 +94,7 @@ class TestExecutableFind < Minitest::Test
 
   def test_find_binstub_with_rvm
     with_rvm_installed do
-      assert_equal %w(bin/rspec), Executable.find('rspec')
-      with_rvm_project_file do
-        assert_equal %W(#{@fake_rvm_path} . do bin/rspec), Executable.find('rspec')
-      end
+      assert_equal %W(#{@rvm_prefix} bin/rspec), Executable.find('rspec')
     end
   end
 
@@ -112,27 +104,7 @@ class TestExecutableFind < Minitest::Test
 
   def test_find_in_gemfile_with_rvm
     with_rvm_installed do
-      assert_equal %w(bundle exec rubocop), Executable.find('rubocop')
-      with_rvm_project_file do
-        assert_equal %W(#{@fake_rvm_path} . do bundle exec rubocop), Executable.find('rubocop')
-      end
-    end
-  end
-
-  def test_find_in_gemfile_with_rvm_and_ruby_version_in_gemfile
-    FileUtils.cp 'Gemfile.lock', 'Gemfile.lock.orig'
-    with_rvm_installed do
-      File.write 'Gemfile.lock', "RUBY_VERSION\n   ruby 2.1.6\n", mode: 'a'
-      assert_equal %W(#{@fake_rvm_path} . do bundle exec rubocop), Executable.find('rubocop')
-    end
-  ensure
-    FileUtils.mv 'Gemfile.lock.orig', 'Gemfile.lock'
-  end
-
-  def test_find_with_rvm_without_ini_file
-    with_env('HOME' => "#{__dir__}/fixtures/fake_rvm_home") do
-      # With no rvm ini file in place, rvm detection should NOT take place
-      assert_raises(Executable::NotFound){ Executable.find('sample_executable_from_rvm') }
+      assert_equal %W(#{@rvm_prefix} bundle exec rubocop), Executable.find('rubocop')
     end
   end
 
@@ -143,15 +115,19 @@ class TestExecutableFind < Minitest::Test
 
   def test_find_in_path_with_rvm
     with_rvm_installed do
-      with_rvm_project_file do
-        expected_cmd = %W(#{@fake_rvm_path} . do sample_executable_from_rvm)
-        assert_equal expected_cmd, Executable.find('sample_executable_from_rvm')
-      end
+      # Of course `ls` is not a Ruby executable, but for this test it makes no difference
+      assert_equal %W(#{@rvm_prefix} ls), Executable.find('ls')
     end
   end
 
   def test_missing_executable
     assert_raises(Executable::NotFound){ Executable.find('nonexisting-executable') }
+  end
+
+  def test_missing_executable_with_rvm
+    with_rvm_installed do
+      assert_raises(Executable::NotFound){ Executable.find('nonexisting-executable') }
+    end
   end
 
   def test_missing_executable_with_rbenv_and_shim

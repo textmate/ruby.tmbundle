@@ -64,8 +64,10 @@ class TestExecutableFind < Minitest::Test
   # be used unchanged (i.e. it should not be prefixed with `rvm . do`).
   def test_use_env_var_with_rvm
     rspec_path = "#{__dir__}/fixtures/sample_project/other/rspec"
-    with_env('TM_RSPEC' => rspec_path.shellescape) do
-      assert_equal [rspec_path], Executable.find('rspec')
+    with_rvm_installed do
+      with_env('TM_RSPEC' => rspec_path.shellescape) do
+        assert_equal [rspec_path], Executable.find('rspec')
+      end
     end
   end
 

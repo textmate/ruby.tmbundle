@@ -20,13 +20,13 @@
 	• Nested heredocs are not really supportable at present
 
 	text:
-	print &lt;&lt;-'THERE' 
-	This is single quoted. 
-	The above used #{Time.now} 
-	THERE 
+	print &lt;&lt;-'THERE'
+	This is single quoted.
+	The above used #{Time.now}
+	THERE
 	symtoms:
 	From Programming Ruby p306; should be a non-interpolated heredoc.
-	
+
     text:
     val?(a):p(b)
     val?'a':'b'
@@ -951,11 +951,11 @@
 			?\C-a    ?\M-a    ?\C-\M-\C-\M-a
 
 			examples (4th alternation = normal):
-			?a       ?A       ?0 
-			?*       ?"       ?( 
+			?a       ?A       ?0
+			?*       ?"       ?(
 			?.       ?#
-			
-			
+
+
 			the negative lookbehind prevents against matching
 			p(42.tainted?)
 			</string>

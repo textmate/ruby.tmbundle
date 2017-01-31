@@ -73,6 +73,7 @@
 		<string>Scanfile</string>
 		<string>Snapfile</string>
 		<string>Gymfile</string>
+		<string>jb</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>^#!/.*\bruby|^#\s+-\*-\s*ruby\s*-\*-</string>

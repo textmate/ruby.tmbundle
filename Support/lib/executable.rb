@@ -20,6 +20,14 @@ module Executable
     #       # `e.message` contains detailed error message.
     #     end
     #
+    # To use this functionality in other bundles, simply declare a dependency on
+    # the Ruby bundle in the bundle’s `info.plist` and then do `require
+    # "#{ENV['TM_RUBY_BUNDLE_SUPPORT']}/lib/executable"`. See the RSpec bundle
+    # for an example:
+    #
+    #  * https://github.com/rspec/rspec.tmbundle/blob/aa50ab/info.plist#L224-L232
+    #  * https://github.com/rspec/rspec.tmbundle/blob/aa50ab/Support/lib/rspec/mate/runner.rb#L8
+    #
     # Supports the following cases:
     #
     # 1. If an appropriate `TM_*` environment variable is present and points to

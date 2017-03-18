@@ -52,7 +52,6 @@
 		<string>ru</string>
 		<string>prawn</string>
 		<string>Cheffile</string>
-		<string>Gemfile</string>
 		<string>Guardfile</string>
 		<string>Hobofile</string>
 		<string>Vagrantfile</string>
@@ -290,7 +289,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>\b(?&lt;!\.|::)(require|require_relative|gem)\b</string>
+			<string>\b(?&lt;!\.|::)(require|require_relative)\b</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>

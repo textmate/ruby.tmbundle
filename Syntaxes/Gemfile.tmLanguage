@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>Gemfile</string>
+	</array>
+	<key>hideFromUser</key>
+	<true/>
+	<key>name</key>
+	<string>Gemfile</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>include</key>
+			<string>source.ruby</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>\b(?&lt;!\.|::)(gem|git|group|platforms|ruby|source)\b(?![?!])</string>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.other.special-method.ruby.gemfile</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>$|(?=#|})</string>
+			<key>name</key>
+			<string>meta.declaration.ruby.gemfile</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>source.ruby.gemfile</string>
+	<key>uuid</key>
+	<string>410F8BB5-7543-4081-A38D-3B69CA92ACE9</string>
+</dict>
+</plist>

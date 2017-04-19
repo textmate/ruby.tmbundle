@@ -51,10 +51,9 @@ module RuboCop
     end
 
     def format_file(rubocop, unsaved_file)
-      aha = `which aha`.rstrip
+      aha = `which aha`.rstrip.match(/.+/)
       output_format = aha ? :html : :text
-      command = "#{rubocop} -a#{'n' if aha} \"$TM_FILEPATH\"" \
-                "#{' | aha' if aha} 2>&1"
+      command = "#{rubocop} -a \"$TM_FILEPATH\" #{'--color | aha' if aha} 2>&1"
       if unsaved_file
         format_unsaved(command, output_format)
       else

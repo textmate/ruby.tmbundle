@@ -5,6 +5,10 @@ The command “Reformat Document” – accessible via <kbd>^</kbd> + <kbd>⇧</
 [aha]: https://github.com/theZiz/aha
 [RuboCop]: https://github.com/bbatsov/rubocop
 
+## Additional Options
+
+You can specify additional RuboCop options by setting the environment variable `TM_RUBOCOP_OPTIONS`. For example, if RuboCop should only autocorrect layout specific issues set the variable to the value `--only Layout`.
+
 ## RuboCop Version
 
 Which version of [RuboCop][] “Reformat Document” uses depends on your environment. The command will try the options below in the given order.

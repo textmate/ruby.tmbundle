@@ -7,17 +7,17 @@ The command “Reformat Document” – accessible via <kbd>^</kbd> + <kbd>⇧</
 
 ## RuboCop Version
 
-Which version of [RuboCop][] “Reformat Document” uses depends on your environment. The command will try the options below in the given order:
+Which version of [RuboCop][] “Reformat Document” uses depends on your environment. The command will try the options below in the given order.
 
 1. The value of the command specified via `TM_RUBOCOP`.
-2. A executable version of RuboCop accessible via `bin/rubocop`
+2. An executable version of RuboCop accessible via `bin/rubocop`.
 3. The version of `rubocop` installed via [Bundler][].
 4. Any other version of `rubocop` accessible via,
    - `/usr/local/bin/rubocop`,
    - `$HOME/.rbenv/shims/rubocop`
    - or the locations in your `PATH`.
 
- “Reformat Document” prefers [RVM][] install location of `rubocop` for all of the applicable options above.
+ “Reformat Document” prefers [RVM][] install locations of `rubocop` for all of the applicable options above.
 
 [Bundler]: https://bundler.io
 [RVM]: https://rvm.io

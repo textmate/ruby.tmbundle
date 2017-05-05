@@ -1061,6 +1061,64 @@
 		</dict>
 		<dict>
 			<key>begin</key>
+			<string>(?=(?&gt;&lt;&lt;[-~]("?)((?:[_\w]+_|)XML)\b\1))</string>
+			<key>comment</key>
+			<string>Heredoc with embedded xml</string>
+			<key>end</key>
+			<string>(?!\G)</string>
+			<key>name</key>
+			<string>meta.embedded.block.xml</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(?&gt;&lt;&lt;[-~]("?)((?:[_\w]+_|)XML)\b\1)</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.begin.ruby</string>
+						</dict>
+					</dict>
+					<key>contentName</key>
+					<string>text.xml</string>
+					<key>end</key>
+					<string>\s*\2$\n?</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.string.end.ruby</string>
+						</dict>
+					</dict>
+					<key>name</key>
+					<string>string.unquoted.heredoc.ruby</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#heredoc</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#interpolated_ruby</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>text.xml</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#escaped_char</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
 			<string>(?=(?&gt;&lt;&lt;[-~]("?)((?:[_\w]+_|)SQL)\b\1))</string>
 			<key>comment</key>
 			<string>Heredoc with embedded sql</string>

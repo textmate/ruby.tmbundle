@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>saveModifiedFiles</string>
+	<key>command</key>
+	<string>#!usr/bin/env ruby18
+
+# -- Imports -------------------------------------------------------------------
+
+require ENV['TM_BUNDLE_SUPPORT'] + '/lib/rubocop'
+
+# -- Main ----------------------------------------------------------------------
+
+RuboCop.reformat
+</string>
+	<key>input</key>
+	<string>document</string>
+	<key>inputFormat</key>
+	<string>text</string>
+	<key>keyEquivalent</key>
+	<string>^H</string>
+	<key>name</key>
+	<string>Reformat Document</string>
+	<key>outputCaret</key>
+	<string>heuristic</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>discard</string>
+	<key>requiredCommands</key>
+	<array>
+		<dict>
+			<key>command</key>
+			<string>rubocop</string>
+			<key>locations</key>
+			<array>
+				<string>/usr/local/bin/rubocop</string>
+				<string>$HOME/.rbenv/shims/rubocop</string>
+				<string>$HOME/.rvm/scripts/rvm</string>
+			</array>
+		</dict>
+	</array>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>uuid</key>
+	<string>64BB4EE2-2803-410C-B140-EA545A13F250</string>
+	<key>version</key>
+	<integer>2</integer>
+</dict>
+</plist>

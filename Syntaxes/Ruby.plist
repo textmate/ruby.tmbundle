@@ -79,7 +79,7 @@
 	<string>(?x)
 # Hashbang
 ^\#!.*(?:\s|\/)
-(?:ruby|macruby|rake|jruby|rbx)
+(?:ruby[\.\d]*|macruby|rake|jruby|rbx)
 (?:$|\s)
 |
 # Modeline

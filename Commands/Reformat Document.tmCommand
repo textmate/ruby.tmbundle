@@ -34,6 +34,8 @@ RuboCop.reformat
 		<dict>
 			<key>command</key>
 			<string>rubocop</string>
+			<key>moreInfoURL</key>
+			<string>http://batsov.com/rubocop/</string>
 			<key>locations</key>
 			<array>
 				<string>/usr/local/bin/rubocop</string>

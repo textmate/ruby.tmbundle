@@ -28,6 +28,8 @@ export TM_RUBY=$(which "${TM_RUBY:-ruby}")
 	<string>text</string>
 	<key>outputLocation</key>
 	<string>afterInput</string>
+	<key>scope</key>
+	<string>source.ruby</string>
 	<key>uuid</key>
 	<string>EE5F1FB2-6C02-11D9-92BA-0011242E4184</string>
 	<key>version</key>

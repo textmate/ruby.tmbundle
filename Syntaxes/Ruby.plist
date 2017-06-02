@@ -826,36 +826,43 @@
 		<dict>
 			<key>begin</key>
 			<string>(?x)
-			   (?:
-			     ^                      # beginning of line
-			   | (?&lt;=                   # or look-behind on:
-			       [=&gt;~(?:\[,|&amp;;]
-			     | [\s;]if\s			# keywords
-			     | [\s;]elsif\s
-			     | [\s;]while\s
-			     | [\s;]unless\s
-			     | [\s;]when\s
-			     | [\s;]assert_match\s
-			     | [\s;]or\s			# boolean opperators
-			     | [\s;]and\s
-			     | [\s;]not\s
-			     | [\s.]index\s			# methods
-			     | [\s.]scan\s
-			     | [\s.]sub\s
-			     | [\s.]sub!\s
-			     | [\s.]gsub\s
-			     | [\s.]gsub!\s
-			     | [\s.]match\s
-			     )
-			   | (?&lt;=                  # or a look-behind with line anchor:
-			        ^when\s            # duplication necessary due to limits of regex
-			      | ^if\s
-			      | ^elsif\s
-			      | ^while\s
-			      | ^unless\s
-			      )
-			   )
-			   \s*((/))(?![*+{}?])
+			        (?:
+			          ^
+			        | (?&lt;=
+			            [=&gt;~(?:\[,|&amp;;]
+			          | [\s;]if\s
+			          | [\s;]when\s
+			          | [\s;]while\s
+			          | [\s.]match\s
+			          | [\s.]gsub\s
+			          | [\s.]gsub!\s
+			          | [\s.]sub\s
+			          | [\s.]sub!\s
+			          | [\s.]index\s
+			          | [\s.]scan\s
+			          | [\s;]not\s
+			          | [\s;]and\s
+			          | [\s;]or\s
+			          | [\s;]assert_match\s
+			          | [\s.]slice\s
+			          | [\s.]slice!\s
+			          | [\s.]split\s
+			          | [\s.]partition\s
+			          | [\s.]rpartition\s
+			          | [\s;]elsif\s
+			          | [\s;]else\s
+			          | [\s;]unless\s
+			          | [\s;]then\s
+			          )
+			        | (?&lt;=               # necessary due to the limit of lookbehind
+			            ^when\s
+			          | ^if\s
+			          | ^elsif\s
+			          | ^while\s
+			          | ^unless\s
+			          )
+			        )
+			        \s*((/))(?![*+?])
 			</string>
 			<key>captures</key>
 			<dict>

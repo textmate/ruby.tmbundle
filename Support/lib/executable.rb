@@ -95,11 +95,18 @@ module Executable
     # and the current directory contains an RVM project file.
     def determine_rvm_prefix
       rvm = "#{ENV['HOME']}/.rvm/bin/rvm"
-      %W(#{ENV['TM_BUNDLE_SUPPORT']}/bin/rvm_wrapper) if File.exist?(rvm)
+      %W(#{bundle_support_path}/bin/rvm_wrapper) if File.exist?(rvm)
     end
 
     def ruby_version_in_gemfile?
       File.exist?('Gemfile.lock') && File.read('Gemfile.lock') =~ /^RUBY_VERSION/
+    end
+
+    # If `Executable.find` is used from another bundle (like RSpec),
+    # $TM_BUNDLE_SUPPORT will point to that bundle’s support directory, so we
+    # need a different way to determine the correct path.
+    def bundle_support_path
+      File.realpath("#{__dir__}/..")
     end
   end
 end

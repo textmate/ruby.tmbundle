@@ -144,6 +144,14 @@ class TestExecutableFind < Minitest::Test
     end
   end
 
+  def test_rvm_when_used_from_another_bundle
+    with_rvm_installed do
+      with_env('TM_BUNDLE_SUPPORT' => '/some/other/bundle', 'TM_RUBY_BUNDLE_SUPPORT' => ENV['TM_BUNDLE_SUPPORT']) do
+        assert_equal %W(#{@rvm_prefix} bin/rspec), Executable.find('rspec')
+      end
+    end
+  end
+
   def test_find_precedence
     # Make sure we start with a directory with no Gemfile or binstubs, and also with no environment variable.
     Dir.mktmpdir do |dir|

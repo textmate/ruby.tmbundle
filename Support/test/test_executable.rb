@@ -14,9 +14,7 @@ class TestExecutableFind < Minitest::Test
     ENV['HOME'] = "#{__dir__}/fixtures/sample_project"
     ENV.delete_if{ |name, _value| name.start_with?('TM_') }
 
-    # $TM_BUNDLE_SUPPORT is needed by `Executable.determine_rvm_prefix`
-    ENV['TM_BUNDLE_SUPPORT'] = File.realpath("#{__dir__}/..")
-    @rvm_prefix = "#{ENV['TM_BUNDLE_SUPPORT']}/bin/rvm_wrapper"
+    @rvm_prefix = "#{File.realpath("#{__dir__}/..")}/bin/rvm_wrapper"
   end
 
   def teardown
@@ -141,14 +139,6 @@ class TestExecutableFind < Minitest::Test
 
       # Now for the actual test
       assert_raises(Executable::NotFound){ Executable.find('rbenv_installed_shim') }
-    end
-  end
-
-  def test_rvm_when_used_from_another_bundle
-    with_rvm_installed do
-      with_env('TM_BUNDLE_SUPPORT' => '/some/other/bundle', 'TM_RUBY_BUNDLE_SUPPORT' => ENV['TM_BUNDLE_SUPPORT']) do
-        assert_equal %W(#{@rvm_prefix} bin/rspec), Executable.find('rspec')
-      end
     end
   end
 

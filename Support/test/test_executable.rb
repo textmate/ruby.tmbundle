@@ -14,9 +14,7 @@ class TestExecutableFind < Minitest::Test
     ENV['HOME'] = "#{__dir__}/fixtures/sample_project"
     ENV.delete_if{ |name, _value| name.start_with?('TM_') }
 
-    # $TM_BUNDLE_SUPPORT is needed by `Executable.determine_rvm_prefix`
-    ENV['TM_BUNDLE_SUPPORT'] = File.realpath("#{__dir__}/..")
-    @rvm_prefix = "#{ENV['TM_BUNDLE_SUPPORT']}/bin/rvm_wrapper"
+    @rvm_prefix = "#{File.realpath("#{__dir__}/..")}/bin/rvm_wrapper"
   end
 
   def teardown

@@ -692,7 +692,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(0[dD]\d|[1-9])(?&gt;_?\d)*r?i?\b</string>
+			<string>\b(0|(0[dD]\d|[1-9])(?&gt;_?\d)*)r?i?\b</string>
 			<key>name</key>
 			<string>constant.numeric.integer.ruby</string>
 		</dict>

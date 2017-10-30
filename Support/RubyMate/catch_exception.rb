@@ -18,8 +18,9 @@ at_exit do
 
     dirs = [ '.', ENV['TM_PROJECT_DIRECTORY'], ENV['TM_DIRECTORY'] ]
     e.backtrace.each do |b|
-      if b =~ /(.*?):(\d+)(?::in\s*`(.*?)'(.*))?/ then
+      if b =~ /(.*?):(\d+)(?::in\s*`(.*?)'(.*))?/m then
         file, line, method, tail = $1, $2, $3, $4.to_s.strip
+        tail = tail.gsub("\n","<br>").gsub(" ", "&nbsp;") if tail.include?("\n")
         url, display_name = '', file
 
         path = dirs.map{ |dir| File.expand_path(file, dir) }.find{ |filename| File.file? filename }

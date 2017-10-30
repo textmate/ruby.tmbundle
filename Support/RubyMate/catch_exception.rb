@@ -18,8 +18,8 @@ at_exit do
 
     dirs = [ '.', ENV['TM_PROJECT_DIRECTORY'], ENV['TM_DIRECTORY'] ]
     e.backtrace.each do |b|
-      if b =~ /(.*?):(\d+)(?::in\s*`(.*?)')?/ then
-        file, line, method = $1, $2, $3
+      if b =~ /(.*?):(\d+)(?::in\s*`(.*?)'(.*))?/ then
+        file, line, method, tail = $1, $2, $3, $4.to_s.strip
         url, display_name = '', file
 
         path = dirs.map{ |dir| File.expand_path(file, dir) }.find{ |filename| File.file? filename }
@@ -27,9 +27,10 @@ at_exit do
           url, display_name = '&amp;url=file://' + e_url(path), File.basename(path)
         end
 
-        io << "<tr><td><a class='near' href='txmt://open?line=#{line + url}'>"
+        io << "<tr><td width=\"120\"><a class='near' href='txmt://open?line=#{line + url}'>"
         io << (method ? "method #{CGI::escapeHTML method}" : '<em>at top level</em>')
-        io << "</a></td>\n<td>in <strong>#{CGI::escapeHTML display_name}</strong> at line #{line}</td></tr>\n"
+        io << "</a></td>\n<td width=\"160\">in <strong>#{CGI::escapeHTML display_name}</strong> at line #{line}</td>"
+        io << "<td>#{tail}</td></tr>\n"
       end
     end
     

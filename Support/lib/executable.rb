@@ -56,7 +56,7 @@ module Executable
     def find(name, env_var = nil)
       # Safeguard against invalid names so that we don’t need to care about
       # shell escaping later on
-      raise ArgumentError, "Invalid characters found in '#{name}'" unless name =~ /\A[\w_-]+\z/
+      raise ArgumentError.new("Invalid characters found in '#{name}'") unless name =~ /\A[\w_-]+\z/
 
       env_var ||= 'TM_' + name.gsub(/\W+/, '_').upcase
       prefix = determine_rvm_prefix || []
@@ -65,27 +65,27 @@ module Executable
         if system('which', '-s', cmd[0])
           cmd
         else
-          raise NotFound, "#{env_var} is set to '#{cmd}', but this does not seem to exist."
+          raise NotFound.new("#{env_var} is set to '#{cmd}', but this does not seem to exist.")
         end
 
       elsif File.exist?("bin/#{name}")
         prefix + ["bin/#{name}"]
 
       elsif File.exist?('Gemfile.lock') && File.read('Gemfile.lock') =~ /^    #{name} /
-        prefix + %W(bundle exec #{name})
+        prefix + %W[bundle exec #{name}]
 
       elsif (path = `#{prefix.map(&:shellescape).join(' ')} which #{name}`.chomp) != ''
         # rbenv installs shims that are present even if the command has not been
         # installed for the current Ruby version, so we need to also check `rbenv
         # which` in this case.
         if path.include?('rbenv/shims') && !system("rbenv which #{name} &>/dev/null")
-          raise NotFound, "rbenv reports that '#{name}' is not installed for the current Ruby version."
+          raise NotFound.new("rbenv reports that '#{name}' is not installed for the current Ruby version.")
         else
           prefix + [name]
         end
 
       else
-        raise NotFound, "Could not find executable '#{name}'."
+        raise NotFound.new("Could not find executable '#{name}'.")
       end
     end
 
@@ -94,19 +94,12 @@ module Executable
     # Return appropriate prefix for running commands via RVM if RVM is installed
     # and the current directory contains an RVM project file.
     def determine_rvm_prefix
-      rvm = "#{ENV['HOME']}/.rvm/bin/rvm"
-      %W(#{bundle_support_path}/bin/rvm_wrapper) if File.exist?(rvm)
+      rvm = "#{ENV['HOME']}/.rvm/bin/rvm-auto-ruby"
+      %W[#{ENV['HOME']}/.rvm/bin/rvm-auto-ruby] if File.exist?(rvm)
     end
 
     def ruby_version_in_gemfile?
       File.exist?('Gemfile.lock') && File.read('Gemfile.lock') =~ /^RUBY_VERSION/
-    end
-
-    # If `Executable.find` is used from another bundle (like RSpec),
-    # $TM_BUNDLE_SUPPORT will point to that bundle’s support directory, so we
-    # need a different way to determine the correct path.
-    def bundle_support_path
-      File.realpath("#{__dir__}/..")
     end
   end
 end

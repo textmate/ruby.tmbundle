@@ -106,7 +106,7 @@ module Executable
     # $TM_BUNDLE_SUPPORT will point to that bundle’s support directory, so we
     # need a different way to determine the correct path.
     def bundle_support_path
-      File.realpath("#{__dir__}/..")
+      File.dirname("#{__FILE__}/..")
     end
   end
 end

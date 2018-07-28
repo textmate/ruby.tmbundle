@@ -36,8 +36,7 @@ module Executable
     #    → `TM_RSPEC` etc. Alternatively, you can use the `env_var` argument
     #    to explicitly specify the name.)
     # 2. If a binstub (`bin/name`) exists, it is returned.
-    # 3. If a Gemfile.lock exists and has an entry for `name`, `[bundle exec
-    #    name]` is returned.
+    # 3. If a Gemfile exists, `[bundle exec name]` is returned.
     # 4. If `name` is found in the search path, it is returned. (Special case:
     #    If `name` looks like an rbenv shim, also check if the executable has
     #    been installed for the current Ruby version.)
@@ -71,7 +70,7 @@ module Executable
       elsif File.exist?("bin/#{name}")
         prefix + ["bin/#{name}"]
 
-      elsif File.exist?('Gemfile.lock') && File.read('Gemfile.lock') =~ /^    #{name} /
+      elsif File.exist?('Gemfile')
         prefix + %W(bundle exec #{name})
 
       elsif (path = `#{prefix.map(&:shellescape).join(' ')} which #{name}`.chomp) != ''

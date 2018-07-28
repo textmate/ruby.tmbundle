@@ -1,0 +1,5 @@
+# This Gemfile is only required for running the tests.
+
+source "https://rubygems.org"
+
+gem "minitest", "~> 5.11"

@@ -1,3 +1,5 @@
+# When running tests from TextMate, make sure to set the “project directory” to the directory containing the Gemfile.
+require 'bundler/setup' 
 require 'minitest/autorun'
 require 'shellwords'
 require "#{__dir__}/../lib/executable"

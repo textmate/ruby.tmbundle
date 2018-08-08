@@ -1,3 +1,5 @@
+# When running tests from TextMate, make sure to set the “project directory” to the directory containing the Gemfile.
+require 'bundler/setup' 
 require 'minitest/autorun'
 require 'shellwords'
 require "#{__dir__}/../lib/executable"
@@ -97,10 +99,12 @@ class TestExecutableFind < Minitest::Test
   end
 
   def test_find_in_gemfile
+    Dir.chdir("#{__dir__}/fixtures/sample_project_with_gemfile")
     assert_equal %w(bundle exec rubocop), Executable.find('rubocop')
   end
 
   def test_find_in_gemfile_with_rvm
+    Dir.chdir("#{__dir__}/fixtures/sample_project_with_gemfile")
     with_rvm_installed do
       assert_equal %W(#{@rvm_prefix} bundle exec rubocop), Executable.find('rubocop')
     end
@@ -152,7 +156,7 @@ class TestExecutableFind < Minitest::Test
         assert_equal %w(rspec), Executable.find('rspec')
 
         # Using a Gemfile comes next
-        FileUtils.cp(Dir.glob("#{__dir__}/fixtures/sample_project/Gemfile.*"), dir)
+        FileUtils.cp(Dir.glob("#{__dir__}/fixtures/sample_project_with_gemfile/Gemfile*"), dir)
         assert_equal %w(bundle exec rspec), Executable.find('rspec')
 
         # Using a binstub has an even higher precedence

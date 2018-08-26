@@ -2033,12 +2033,7 @@
 						<dict>
 							<key>name</key>
 							<string>punctuation.section.embedded.end.ruby</string>
-						</dict>
-						<key>1</key>
-						<dict>
-							<key>name</key>
-							<string>source.ruby</string>
-						</dict>
+						</dict>						
 					</dict>
 					<key>name</key>
 					<string>meta.embedded.line.ruby</string>

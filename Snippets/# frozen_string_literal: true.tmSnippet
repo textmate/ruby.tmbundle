@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string># frozen_string_literal: ${1:true}
+</string>
+	<key>name</key>
+	<string># frozen_string_literal: true</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>frozen</string>
+	<key>uuid</key>
+	<string>F8D36847-D339-4563-AB28-E22C71B9CBF7</string>
+</dict>
+</plist>

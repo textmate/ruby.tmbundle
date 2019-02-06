@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>assert_raise(${1:Exception}) { $0 }</string>
+	<string>assert_raises(${1:Exception}) { $0 }</string>
 	<key>name</key>
-	<string>assert_raise(..) { .. }</string>
+	<string>assert_raises(..) { .. }</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

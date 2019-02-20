@@ -9,7 +9,7 @@
 	<key>name</key>
 	<string>Insert ERb’s &lt;% .. %&gt; or &lt;%= .. %&gt;</string>
 	<key>scope</key>
-	<string>text.html.erb, source.yaml</string>
+	<string>text.html.erb, source.yaml, source.js.erb</string>
 	<key>uuid</key>
 	<string>FDFABCB9-DF58-4469-AE11-5407A4FF4D70</string>
 </dict>

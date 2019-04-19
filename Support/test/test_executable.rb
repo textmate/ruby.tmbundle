@@ -1,10 +1,17 @@
-# When running tests from TextMate, make sure to set the “project directory” to the directory containing the Gemfile.
-require 'bundler/setup' 
-require 'minitest/autorun'
+#!/usr/bin/env ruby18
+
+require 'pathname'
 require 'shellwords'
+require 'tmpdir'
+require 'test/unit'
+
+def __dir__
+  File.dirname(__FILE__)
+end
+
 require "#{__dir__}/../lib/executable"
 
-class TestExecutableFind < Minitest::Test
+class TestExecutableFind < Test::Unit::TestCase
   def setup
     Dir.chdir("#{__dir__}/fixtures/sample_project")
 
@@ -12,11 +19,11 @@ class TestExecutableFind < Minitest::Test
     # not exist even if the user running these tests has rvm actually installed.
     # Also, clear out all `TM_*` env vars so they won’t interfere with our
     # tests.
-    @original_env = ENV.to_h
+    @original_env = ENV.to_hash
     ENV['HOME'] = "#{__dir__}/fixtures/sample_project"
     ENV.delete_if{ |name, _value| name.start_with?('TM_') }
 
-    @rvm_prefix = "#{File.realpath("#{__dir__}/..")}/bin/rvm_wrapper"
+    @rvm_prefix = Pathname.new("#{__dir__}/../bin/rvm_wrapper").realpath
   end
 
   def teardown
@@ -24,7 +31,7 @@ class TestExecutableFind < Minitest::Test
   end
 
   def with_env(env_vars)
-    original_env = ENV.to_h
+    original_env = ENV.to_hash
     ENV.update(env_vars)
     yield
   ensure

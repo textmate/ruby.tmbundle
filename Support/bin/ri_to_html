@@ -2,7 +2,7 @@
 require "#{ENV['TM_SUPPORT_PATH']}/lib/tm/htmloutput.rb"
 require "shellwords"
 
-RI_EXE = '/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/bin/ri'
+RI_EXE = [ ENV['TM_RUBY_RI'], 'qri', 'ri' ].find { |cmd| !cmd.to_s.empty? && (File.executable?(cmd) || ENV['PATH'].split(':').any? { |dir| File.executable? File.join(dir, cmd) }) ? cmd : false }
 
 def make_link(text, term)
   "<a href='javascript:lookup(&quot;#{term.shellescape}&quot;)' title='Lookup ‘#{term}’'>#{text}</a>"

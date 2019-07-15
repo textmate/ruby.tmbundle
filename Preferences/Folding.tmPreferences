@@ -8,6 +8,13 @@
 	<string>source.ruby -string.unquoted.heredoc</string>
 	<key>settings</key>
 	<dict>
+		<key>foldingIndentedBlockStart</key>
+		<string>(?x)
+        ^ \s+ when \s
+        (     .*  (\s then | :) \s* (\#.*)? $
+        | (?! .*? (\s then | :) \s+ [^#\s] )
+        )
+    </string>
 		<key>foldingStartMarker</key>
 		<string>(?x)^
 	    (\s*+

@@ -269,7 +269,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b(__(FILE|LINE)__)\b(?![?!])</string>
+			<string>\b(__(dir|FILE|LINE)__)\b(?![?!])</string>
 			<key>name</key>
 			<string>variable.language.ruby</string>
 		</dict>

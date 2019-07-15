@@ -73,6 +73,7 @@
 		<string>Snapfile</string>
 		<string>Gymfile</string>
 		<string>jb</string>
+		<string>Podfile</string>
 	</array>
 	<key>firstLineMatch</key>
 	<string>(?x)

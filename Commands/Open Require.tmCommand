@@ -5,63 +5,83 @@
 	<key>beforeRunningCommand</key>
 	<string>nop</string>
 	<key>command</key>
-	<string>#!/usr/bin/env ruby18
+	<string>#!/usr/bin/env ruby
+require 'shellwords'
 
-require "#{ENV['TM_SUPPORT_PATH']}/lib/ui.rb"
-require "#{ENV['TM_SUPPORT_PATH']}/lib/textmate.rb"
-
-REQUIRE_RE = /^\s*(?:require|load)\s*(['"])([^'"#]+?)(?:\.rb)?\1[ \t]*$/
-
-Dir.chdir(ENV['TM_DIRECTORY']) if ENV.has_key?('TM_DIRECTORY')
-
-gems_installed = begin
-                   require 'rubygems'
-                   true
-                 rescue LoadError
-                   false
-                 end
-
-requires = if ENV['TM_CURRENT_LINE'].to_s =~ REQUIRE_RE
-             ["#{$2}.rb"]
-           else
-             $stdin.read.scan(REQUIRE_RE).map { |_, path| "#{path}.rb" }
-           end
-abort 'No includes found.' if requires.empty?
-
-file = if requires.size &gt; 1
-         choice = TextMate::UI.menu(requires) or exit
-         requires[choice]
-       else
-         requires.pop
-       end
-dir  = $LOAD_PATH.find { |dir| File.exist? File.join(dir, file) }
-if not dir and gems_installed and gem_spec = Gem::GemPathSearcher.new.find(file)
-  dir = File.join(gem_spec.full_gem_path, gem_spec.require_path)
+# Return ‘mail-2.7.1’ given: ‘/path/to/mail-2.7.1/lib/mail.rb’, ‘/path/to’
+def get_child_of_directory(descendent, directory)
+  parent, child = File.split(descendent)
+  unless child.start_with?('/')
+    parent == directory ? child : get_child_of_directory(parent, directory)
+  end
 end
 
-if file and dir
-  dir.sub!(%r{\A\.(?=/|\z)}, ENV['TM_DIRECTORY']) if ENV['TM_DIRECTORY']
-  file_path = File.join(dir, file)
-# puts file_path
-  TextMate.go_to :file =&gt; file_path
-  exit
+def global_search_paths
+  res = $LOAD_PATH
+
+  if current_file = ENV['TM_FILEPATH']
+    gem_dirs = Gem::Specification.dirs.map { |dir| File.expand_path('../gems', dir) }
+    if gem_dir = gem_dirs.find { |dir| current_file.start_with?(dir) }
+      if full_name = get_child_of_directory(current_file, gem_dir)
+        Gem::Specification.find_all_by_full_name(full_name).each do |spec|
+          res = spec.full_require_paths + res
+        end
+      end
+    end
+  end
+
+  res
+end
+
+def find_in_search_path(file, search_paths)
+  search_paths.map { |path| File.join(path, file) }.find { |path| File.exist?(path) }
+end
+
+if ENV['TM_CURRENT_LINE'] =~ /^\s*(?:require(_relative)?|load)\s*(['"])(.+?)(?:\.rb)?\2(?:\s+|$)?/
+  search_paths = $1 ? [ ENV['TM_DIRECTORY'] ] : global_search_paths
+  name, file   = $3, "#$3.rb"
+
+  unless path = find_in_search_path(file, search_paths)
+    begin
+      if gem_spec = Gem::Specification.find_by_name(name)
+        path = find_in_search_path(file, gem_spec.full_require_paths)
+      end
+    rescue Gem::MissingSpecError =&gt; e
+    end
+  end
+
+  if path
+    %x{ "$TM_MATE" #{path.shellescape} }
+  else
+    puts "Unable to locate ‘#{file}’. Locations searched:"
+    puts search_paths.map { |path| "• #{path}" }.join("\n")
+  end
 else
-  puts "File not found: #{file}"
+  puts "No require, require_relative, or"
+  puts "load statement found in current line."
 end
 </string>
 	<key>fallbackInput</key>
 	<string>document</string>
 	<key>input</key>
 	<string>selection</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
 	<string>@D</string>
 	<key>name</key>
 	<string>Open Require</string>
-	<key>output</key>
-	<string>showAsTooltip</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
+	<key>outputFormat</key>
+	<string>text</string>
+	<key>outputLocation</key>
+	<string>toolTip</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>uuid</key>
 	<string>8646378E-91F5-4771-AC7C-43FC49A93576</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>

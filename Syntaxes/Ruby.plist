@@ -110,102 +110,6 @@
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>keyword.control.class.ruby</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.type.class.ruby</string>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.operator.other.ruby</string>
-				</dict>
-				<key>4</key>
-				<dict>
-					<key>name</key>
-					<string>entity.other.inherited-class.ruby</string>
-				</dict>
-				<key>5</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.operator.other.ruby</string>
-				</dict>
-				<key>6</key>
-				<dict>
-					<key>name</key>
-					<string>variable.other.object.ruby</string>
-				</dict>
-			</dict>
-			<key>match</key>
-			<string>^\s*(class)\s+(?:([.a-zA-Z0-9_:]+)(?:\s*(&lt;)\s*([.a-zA-Z0-9_:]+))?|(&lt;&lt;)\s*([.a-zA-Z0-9_:]+))</string>
-			<key>name</key>
-			<string>meta.class.ruby</string>
-		</dict>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.control.module.ruby</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>entity.name.type.module.ruby</string>
-				</dict>
-				<key>3</key>
-				<dict>
-					<key>name</key>
-					<string>entity.other.inherited-class.module.first.ruby</string>
-				</dict>
-				<key>4</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.separator.inheritance.ruby</string>
-				</dict>
-				<key>5</key>
-				<dict>
-					<key>name</key>
-					<string>entity.other.inherited-class.module.second.ruby</string>
-				</dict>
-				<key>6</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.separator.inheritance.ruby</string>
-				</dict>
-				<key>7</key>
-				<dict>
-					<key>name</key>
-					<string>entity.other.inherited-class.module.third.ruby</string>
-				</dict>
-				<key>8</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.separator.inheritance.ruby</string>
-				</dict>
-			</dict>
-			<key>match</key>
-			<string>^\s*(module)\s+(([A-Z]\w*(::))?([A-Z]\w*(::))?([A-Z]\w*(::))*[A-Z]\w*)</string>
-			<key>name</key>
-			<string>meta.module.ruby</string>
-		</dict>
-		<dict>
-			<key>comment</key>
-			<string>else if is a common mistake carried over from other languages. it works if you put in a second end, but it’s never what you want.</string>
-			<key>match</key>
-			<string>(?&lt;!\.)\belse(\s)+if\b</string>
-			<key>name</key>
-			<string>invalid.deprecated.ruby</string>
-		</dict>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
 					<string>punctuation.definition.constant.ruby</string>
 				</dict>
 			</dict>
@@ -233,20 +137,835 @@
 			<string>constant.other.symbol.hashkey.ruby</string>
 		</dict>
 		<dict>
-			<key>comment</key>
-			<string>everything being a reserved word, not a value and needing a 'end' is a..</string>
-			<key>match</key>
-			<string>(?&lt;!\.)\b(BEGIN|begin|case|class|else|elsif|END|end|ensure|for|if|in|module|rescue|then|unless|until|when|while)\b(?![?!])</string>
+			<key>begin</key>
+			<string>(?&lt;!^\.|[^.]\.|::)\b(class)\b(?![?!])</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.class.begin.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?&lt;!\.|::)\b((end))\b(?![?!:])</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.end.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.class.end.ruby</string>
+				</dict>
+			</dict>
 			<key>name</key>
-			<string>keyword.control.ruby</string>
+			<string>meta.class.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\G\s+(?:([.a-zA-Z0-9_:]+)(?:\s*(&lt;)\s*([.a-zA-Z0-9_:]+))?|(&lt;&lt;)\s*([.a-zA-Z0-9_:]+))</string>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.type.class.ruby</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>captures</key>
+									<dict>
+										<key>1</key>
+										<dict>
+											<key>name</key>
+											<string>punctuation.separator.namespace.ruby</string>
+										</dict>
+									</dict>
+									<key>comment</key>
+									<string>Mark as namespace separator if double colons followed by capital letter</string>
+									<key>match</key>
+									<string>(::)\s*(?=[A-Z])</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>$self</string>
+								</dict>
+							</array>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.operator.other.ruby</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>entity.other.inherited-class.ruby</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>captures</key>
+									<dict>
+										<key>1</key>
+										<dict>
+											<key>name</key>
+											<string>punctuation.separator.namespace.ruby</string>
+										</dict>
+									</dict>
+									<key>comment</key>
+									<string>Mark as namespace separator if double colons followed by capital letter</string>
+									<key>match</key>
+									<string>(::)\s*(?=[A-Z])</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>$self</string>
+								</dict>
+							</array>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.operator.other.ruby</string>
+						</dict>
+						<key>5</key>
+						<dict>
+							<key>name</key>
+							<string>variable.other.object.ruby</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>$self</string>
+								</dict>
+							</array>
+						</dict>
+					</dict>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?&lt;!^\.|[^.]\.|::)\b(module)\b(?![?!])</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.module.begin.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?&lt;!\.|::)\b((end))\b(?![?!:])</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.end.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.module.end.ruby</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.module.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>\G\s+(([A-Z]\w*(::))?([A-Z]\w*(::))?([A-Z]\w*(::))*[A-Z]\w*)</string>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>entity.name.type.module.ruby</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>entity.other.inherited-class.module.first.ruby</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.separator.inheritance.ruby</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>entity.other.inherited-class.module.second.ruby</string>
+						</dict>
+						<key>5</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.separator.inheritance.ruby</string>
+						</dict>
+						<key>6</key>
+						<dict>
+							<key>name</key>
+							<string>entity.other.inherited-class.module.third.ruby</string>
+						</dict>
+						<key>7</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.separator.inheritance.ruby</string>
+						</dict>
+					</dict>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>comment</key>
-			<string>contextual smart pair support for block parameters</string>
+			<string>else if is a common mistake carried over from other languages. it works if you put in a second end, but it’s never what you want.</string>
 			<key>match</key>
-			<string>(?&lt;!\.)\bdo\b</string>
+			<string>(?&lt;!\.)\belse(\s)+if\b</string>
 			<key>name</key>
-			<string>keyword.control.start-block.ruby</string>
+			<string>invalid.deprecated.ruby</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?&lt;!^\.|[^.]\.|::)\b(for)\b(?![?!])</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.for.begin.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?&lt;!\.|::)\b((end))\b(?![?!:])</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.end.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.for.end.ruby</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.block.for.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>\G\s+(.+?)\s+\b(in)\b</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>$self</string>
+								</dict>
+							</array>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.in.ruby</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>(?&lt;![^.]\.|::)(\bdo\b)(?![?!])|(?=;|$)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.optional.do.ruby</string>
+						</dict>
+					</dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?&lt;!^\.|[^.]\.|::)\b(do)\b(?![?!])\s*(\|[^|]*\|)?</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.do.begin.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+					</array>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?&lt;!\.|::)\b((end))\b(?![?!:])</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.end.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.do.end.ruby</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.block.do.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?&lt;!^\.|[^.]\.|::)\b(begin)\b(?![?!])</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.begin.begin.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?&lt;!\.|::)\b((end))\b(?![?!:])</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.end.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.begin.end.ruby</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.block.begin.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?&lt;!^\.|[^.]\.|::)\b(case)\b(?![?!])</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.conditional.case.begin.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?&lt;!\.|::)\b((end))\b(?![?!:])</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.end.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.conditional.case.end.ruby</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.block.case.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?x)
+						   (?:
+						     ^                      # beginning of line
+						   | (?&lt;=                   # or look-behind on:
+						       [=&gt;~(?:\[,|&amp;;]
+						     | [\s;]if\s			# keywords
+						     | [\s;]elsif\s
+						     | [\s;]while\s
+						     | [\s;]unless\s
+						     | [\s;]when\s
+						     | [\s;]assert_match\s
+						     | [\s;]or\s			# boolean opperators
+						     | [\s;]and\s
+						     | [\s;]not\s
+						     | [\s.]index\s			# methods
+						     | [\s.]scan\s
+						     | [\s.]sub\s
+						     | [\s.]sub!\s
+						     | [\s.]gsub\s
+						     | [\s.]gsub!\s
+						     | [\s.]match\s
+						     )
+						   | (?&lt;=                  # or a look-behind with line anchor:
+						        ^when\s            # duplication necessary due to limits of regex
+						      | ^if\s
+						      | ^elsif\s
+						      | ^while\s
+						      | ^unless\s
+						      )
+						   )
+						   \s*((/))(?![*+{}?])
+						</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>string.regexp.classic.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.ruby</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>regular expressions (normal)
+						we only start a regexp if the character before it (excluding whitespace)
+						is what we think is before a regexp
+						</string>
+			<key>contentName</key>
+			<string>string.regexp.classic.ruby</string>
+			<key>end</key>
+			<string>((/[eimnosux]*))(?:\s+(?:\b(if)|(unless)\b(?![?!]))|\s+(?:\b(while)|(until)\b(?![?!])))?</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>string.regexp.classic.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.ruby</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.modifier.conditional.if.ruby</string>
+				</dict>
+				<key>4</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.modifier.conditional.unless.ruby</string>
+				</dict>
+				<key>5</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.modifier.while.ruby</string>
+				</dict>
+				<key>6</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.modifier.until.ruby</string>
+				</dict>
+			</dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#regex_sub</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.modifier.conditional.if.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.modifier.conditional.unless.ruby</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>(?x)
+              (?=\s*if\b|\s*unless\b)
+							(?&lt;=[}\])\w?!"'`])
+							\s*\b(if)|(unless)\b(?![?!])
+			</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?x)
+              (?=\s*if\b)
+							(?&lt;!::)
+							(?&lt;=&lt;|&amp;|\||=|&gt;|~|\^|[+\-*/%]|\.{2}|\.{3}|^|;|:|\[|\(|\{|,|
+										 \Wif|^if|														# \WX|^X is equivalent to \bX
+										 \Wunless|^unless|										# this is workaround for code editors which doesn't support onigomo
+										 \Wcase|^case|												# https://github.com/microsoft/vscode-textmate/issues/121#issuecomment-565689295
+										 \Wwhen|^when|
+										 \Wwhile|^while|
+										 \Wuntil|^until|
+										 \Wfor|^for|
+										 \Wbegin|^begin|
+										 \Wand|^and|
+										 \Wnot|^not|
+										 \Wor|^or|
+										 \Win|^in|
+										 \W!|^!|
+										 \W\?|^\?)
+							\s*\b(if)\b(?![?!:])
+			</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.conditional.if.begin.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?&lt;!\.|::)\b((end))\b(?![?!:])</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.end.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.conditional.if.end.ruby</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.block.if.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?x)
+              (?=\s*unless\b)
+							(?&lt;!::)
+							(?&lt;=&lt;|&amp;|\||=|&gt;|~|\^|[+\-*/%]|\.{2}|\.{3}|^|;|:|\[|\(|\{|,|
+										 \Wif|^if|														# \WX|^X is equivalent to \bX
+										 \Wunless|^unless|										# this is workaround for code editors which doesn't support onigomo
+										 \Wcase|^case|												# https://github.com/microsoft/vscode-textmate/issues/121#issuecomment-565689295
+										 \Wwhen|^when|
+										 \Wwhile|^while|
+										 \Wuntil|^until|
+										 \Wfor|^for|
+										 \Wbegin|^begin|
+										 \Wand|^and|
+										 \Wnot|^not|
+										 \Wor|^or|
+										 \Win|^in|
+										 \W!|^!|
+										 \W\?|^\?)
+							\s*\b(unless)\b(?![?!:])
+			</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.conditional.unless.begin.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?&lt;!\.|::)\b((end))\b(?![?!:])</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.end.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.conditional.unless.end.ruby</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.block.unless.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.modifier.while.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.modifier.until.ruby</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>(?x)
+              (?=\s*while\b|\s*until\b)
+							(?&lt;=[}\])\w?!"'`])
+							\s*\b(while)|(until)\b(?![?!])
+			</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?x)
+              (?=\s*while\b)
+							(?&lt;!::)
+							(?&lt;=&lt;|&amp;|\||=|&gt;|~|\^|[+\-*/%]|\.{2}|\.{3}|^|;|:|\[|\(|\{|,|
+										 \Wif|^if|														# \WX|^X is equivalent to \bX
+										 \Wunless|^unless|										# this is workaround for code editors which doesn't support onigomo
+										 \Wcase|^case|												# https://github.com/microsoft/vscode-textmate/issues/121#issuecomment-565689295
+										 \Wwhen|^when|
+										 \Wwhile|^while|
+										 \Wuntil|^until|
+										 \Wfor|^for|
+										 \Wbegin|^begin|
+										 \Wand|^and|
+										 \Wnot|^not|
+										 \Wor|^or|
+										 \Win|^in|
+										 \W!|^!|
+										 \W\?|^\?)
+							\s*\b(while)\b(?![?!:])
+			</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.while.begin.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?&lt;!\.|::)\b((end))\b(?![?!:])</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.end.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.while.end.ruby</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.block.while.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>\G</string>
+					<key>end</key>
+					<string>(?&lt;![^.]\.|::)(\bdo\b)(?![?!])|(?=;|$)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.optional.do.ruby</string>
+						</dict>
+					</dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?x)
+              (?=\s*until\b)
+							(?&lt;!::)
+							(?&lt;=&lt;|&amp;|\||=|&gt;|~|\^|[+\-*/%]|\.{2}|\.{3}|^|;|:|\[|\(|\{|,|
+										 \Wif|^if|														# \WX|^X is equivalent to \bX
+										 \Wunless|^unless|										# this is workaround for code editors which doesn't support onigomo
+										 \Wcase|^case|												# https://github.com/microsoft/vscode-textmate/issues/121#issuecomment-565689295
+										 \Wwhen|^when|
+										 \Wwhile|^while|
+										 \Wuntil|^until|
+										 \Wfor|^for|
+										 \Wbegin|^begin|
+										 \Wand|^and|
+										 \Wnot|^not|
+										 \Wor|^or|
+										 \Win|^in|
+										 \W!|^!|
+										 \W\?|^\?)
+							\s*\b(until)\b(?![?!:])
+			</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.until.begin.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>(?&lt;!\.|::)\b((end))\b(?![?!:])</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.end.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.until.end.ruby</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>meta.block.until.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>\G</string>
+					<key>end</key>
+					<string>(?&lt;![^.]\.|::)(\bdo\b)(?![?!])|(?=;|$)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.control.optional.do.ruby</string>
+						</dict>
+					</dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+					</array>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?&lt;!\.|::)\brescue\b(?![?!])</string>
+			<key>name</key>
+			<string>keyword.control.rescue.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?&lt;!\.|::)\bensure\b(?![?!])</string>
+			<key>name</key>
+			<string>keyword.control.ensure.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?&lt;!\.|::)\b(else|elsif|when|then)\b(?![?!])</string>
+			<key>name</key>
+			<string>keyword.control.conditional.$1.ruby</string>
+		</dict>
+		<dict><key>comment</key>
+			<string>
+				All structures that are closed with keyword 'end' already defined higher.
+				This rule is made to match freestanding 'end'.
+			</string>
+			<key>match</key>
+			<string>(?&lt;!\.|::)\bend\b(?![?!:])</string>
+			<key>name</key>
+			<string>keyword.control.end.ruby</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>(?&lt;!\.)\b(BEGIN|END)\b(?![?!])</string>
+			<key>name</key>
+			<string>keyword.control.$1.ruby</string>
 		</dict>
 		<dict>
 			<key>comment</key>
@@ -273,42 +992,6 @@
 			<string>\b(__(dir|FILE|LINE)__)\b(?![?!])</string>
 			<key>name</key>
 			<string>variable.language.ruby</string>
-		</dict>
-		<dict>
-			<key>begin</key>
-			<string>^__END__\n</string>
-			<key>captures</key>
-			<dict>
-				<key>0</key>
-				<dict>
-					<key>name</key>
-					<string>string.unquoted.program-block.ruby</string>
-				</dict>
-			</dict>
-			<key>comment</key>
-			<string>__END__ marker</string>
-			<key>contentName</key>
-			<string>text.plain</string>
-			<key>end</key>
-			<string>(?=not)impossible</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>begin</key>
-					<string>(?=&lt;?xml|&lt;(?i:html\b)|!DOCTYPE (?i:html\b))</string>
-					<key>end</key>
-					<string>(?=not)impossible</string>
-					<key>name</key>
-					<string>text.html.embedded.ruby</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>text.html.basic</string>
-						</dict>
-					</array>
-				</dict>
-			</array>
 		</dict>
 		<dict>
 			<key>match</key>
@@ -447,19 +1130,19 @@
 		<dict>
 			<key>begin</key>
 			<string>(?x)
-			         (?=def\b)                                                      # an optimization to help Oniguruma fail fast
-			         (?&lt;=^|\s)(def)\s+                                              # the def keyword
-			         ( (?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?                                   # a method name prefix
-			           (?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?                              # the method name
-			           |===?|!=|!~|&gt;[&gt;=]?|&lt;=&gt;|&lt;[&lt;=]?|[%&amp;`/\|^]|\*\*?|=?~|[-+]@?|\[\]=?) )  # …or an operator method
-			         \s*(\()                                                        # the openning parenthesis for arguments
-			        </string>
+						         (?=def\b)                                                      # an optimization to help Oniguruma fail fast
+						         (?&lt;=^|\s)(def)\s+                                              # the def keyword
+						         ( (?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?                                   # a method name prefix
+						           (?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?                              # the method name
+						           |===?|!=|!~|&gt;[&gt;=]?|&lt;=&gt;|&lt;[&lt;=]?|[%&amp;`/\|^]|\*\*?|=?~|[-+]@?|\[\]=?) )  # …or an operator method
+						         \s*(\()                                                        # the openning parenthesis for arguments
+						        </string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>keyword.control.def.ruby</string>
+					<string>keyword.control.def.begin.ruby</string>
 				</dict>
 				<key>2</key>
 				<dict>
@@ -475,13 +1158,18 @@
 			<key>comment</key>
 			<string>the method pattern comes from the symbol pattern, see there for a explaination</string>
 			<key>end</key>
-			<string>\)</string>
+			<string>(?&lt;!\.|::)\b((end))\b(?![?!:])</string>
 			<key>endCaptures</key>
 			<dict>
-				<key>0</key>
+				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>punctuation.definition.parameters.ruby</string>
+					<string>keyword.control.end.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.def.end.ruby</string>
 				</dict>
 			</dict>
 			<key>name</key>
@@ -490,105 +1178,7 @@
 			<array>
 				<dict>
 					<key>begin</key>
-					<string>(?=[&amp;*_a-zA-Z])</string>
-					<key>end</key>
-					<string>(?=[,)])</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>captures</key>
-							<dict>
-								<key>1</key>
-								<dict>
-									<key>name</key>
-									<string>storage.type.variable.ruby</string>
-								</dict>
-								<key>2</key>
-								<dict>
-									<key>name</key>
-									<string>constant.other.symbol.hashkey.parameter.function.ruby</string>
-								</dict>
-								<key>3</key>
-								<dict>
-									<key>name</key>
-									<string>punctuation.definition.constant.ruby</string>
-								</dict>
-								<key>4</key>
-								<dict>
-									<key>name</key>
-									<string>variable.parameter.function.ruby</string>
-								</dict>
-							</dict>
-							<key>match</key>
-							<string>\G([&amp;*]?)(?:([_a-zA-Z]\w*(:))|([_a-zA-Z]\w*))</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#parens</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#braces</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>$self</string>
-						</dict>
-					</array>
-				</dict>
-			</array>
-			<key>repository</key>
-			<dict>
-				<key>braces</key>
-				<dict>
-					<key>begin</key>
-					<string>\{</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.section.function.begin.ruby</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>\}</string>
-					<key>endCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.section.function.end.ruby</string>
-						</dict>
-					</dict>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#parens</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#braces</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>$self</string>
-						</dict>
-					</array>
-				</dict>
-				<key>parens</key>
-				<dict>
-					<key>begin</key>
-					<string>\(</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.section.function.begin.ruby</string>
-						</dict>
-					</dict>
+					<string>\G(?<=\()</string>
 					<key>end</key>
 					<string>\)</string>
 					<key>endCaptures</key>
@@ -596,18 +1186,23 @@
 						<key>0</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.section.function.end.ruby</string>
+							<string>punctuation.definition.parameters.ruby</string>
 						</dict>
 					</dict>
 					<key>patterns</key>
 					<array>
 						<dict>
-							<key>include</key>
-							<string>#parens</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#braces</string>
+							<key>begin</key>
+							<string>(?=[&amp;*_a-zA-Z])</string>
+							<key>end</key>
+							<string>(?=[,)])</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>#method_parameters</string>
+								</dict>
+							</array>
 						</dict>
 						<dict>
 							<key>include</key>
@@ -615,25 +1210,29 @@
 						</dict>
 					</array>
 				</dict>
-			</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>begin</key>
 			<string>(?x)
-			         (?=def\b)                                                      # an optimization to help Oniguruma fail fast
-			         (?&lt;=^|\s)(def)\s+                                              # the def keyword
-			         ( (?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?                                   # a method name prefix
-			           (?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?                              # the method name
-			           |===?|!=|!~|&gt;[&gt;=]?|&lt;=&gt;|&lt;[&lt;=]?|[%&amp;`/\|^]|\*\*?|=?~|[-+]@?|\[\]=?) )  # …or an operator method
-			         [ \t]                                                          # the space separating the arguments
-			         (?=[ \t]*[^\s#;])                                              # make sure arguments and not a comment follow
-			        </string>
+						         (?=def\b)                                                      # an optimization to help Oniguruma fail fast
+						         (?&lt;=^|\s)(def)\s+                                              # the def keyword
+						         ( (?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?                                   # a method name prefix
+						           (?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?                              # the method name
+						           |===?|!=|!~|&gt;[&gt;=]?|&lt;=&gt;|&lt;[&lt;=]?|[%&amp;`/\|^]|\*\*?|=?~|[-+]@?|\[\]=?) )  # …or an operator method
+						         [ \t]                                                          # the space separating the arguments
+						         (?=[ \t]*[^\s#;])                                              # make sure arguments and not a comment follow
+						        </string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>keyword.control.def.ruby</string>
+					<string>keyword.control.def.begin.ruby</string>
 				</dict>
 				<key>2</key>
 				<dict>
@@ -644,46 +1243,43 @@
 			<key>comment</key>
 			<string>same as the previous rule, but without parentheses around the arguments</string>
 			<key>end</key>
-			<string>$</string>
+			<string>(?&lt;!\.|::)\b((end))\b(?![?!:])</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.end.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.def.end.ruby</string>
+				</dict>
+			</dict>
 			<key>name</key>
 			<string>meta.function.method.with-arguments.ruby</string>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>begin</key>
-					<string>(?![\s,])</string>
+					<string>\G(?<=[ \t])</string>
 					<key>end</key>
-					<string>(?=,|$)</string>
+					<string>(?=;)|(?&lt;=[\w\])}`'"!?])(?=\s*#|\s*$)</string>
 					<key>patterns</key>
 					<array>
 						<dict>
-							<key>captures</key>
-							<dict>
-								<key>1</key>
+							<key>begin</key>
+							<string>(?=[&amp;*_a-zA-Z])</string>
+							<key>end</key>
+							<string>(?=,|;|\s*#|\s*$)</string>
+							<key>patterns</key>
+							<array>
 								<dict>
-									<key>name</key>
-									<string>storage.type.variable.ruby</string>
+									<key>include</key>
+									<string>#method_parameters</string>
 								</dict>
-								<key>2</key>
-								<dict>
-									<key>name</key>
-									<string>constant.other.symbol.hashkey.parameter.function.ruby</string>
-								</dict>
-								<key>3</key>
-								<dict>
-									<key>name</key>
-									<string>punctuation.definition.constant.ruby</string>
-								</dict>
-								<key>4</key>
-								<dict>
-									<key>name</key>
-									<string>variable.parameter.function.ruby</string>
-								</dict>
-							</dict>
-							<key>match</key>
-							<string>\G([&amp;*]?)(?:([_a-zA-Z]\w*(:))|([_a-zA-Z]\w*))</string>
-							<key>name</key>
-							<string>variable.parameter.function.ruby</string>
+							</array>
 						</dict>
 						<dict>
 							<key>include</key>
@@ -691,15 +1287,28 @@
 						</dict>
 					</array>
 				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
 			</array>
 		</dict>
 		<dict>
-			<key>captures</key>
+			<key>begin</key>
+			<string>(?x)
+						         (?=def\b)                                                           # an optimization to help Oniguruma fail fast
+						         (?&lt;=^|\s)(def)\b                                                    # the def keyword
+						         ( \s+                                                               # an optional group of whitespace followed by…
+						           ( (?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?                                      # a method name prefix
+						             (?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?                                 # the method name
+						             |===?|!=|!~|&gt;[&gt;=]?|&lt;=&gt;|&lt;[&lt;=]?|[%&amp;`/\|^]|\*\*?|=?~|[-+]@?|\[\]=?) ) )?  # …or an operator method
+						        </string>
+			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>keyword.control.def.ruby</string>
+					<string>keyword.control.def.begin.ruby</string>
 				</dict>
 				<key>3</key>
 				<dict>
@@ -709,17 +1318,30 @@
 			</dict>
 			<key>comment</key>
 			<string> the optional name is just to catch the def also without a method-name</string>
-			<key>match</key>
-			<string>(?x)
-			         (?=def\b)                                                           # an optimization to help Oniguruma fail fast
-			         (?&lt;=^|\s)(def)\b                                                    # the def keyword
-			         ( \s+                                                               # an optional group of whitespace followed by…
-			           ( (?&gt;[a-zA-Z_]\w*(?&gt;\.|::))?                                      # a method name prefix
-			             (?&gt;[a-zA-Z_]\w*(?&gt;[?!]|=(?!&gt;))?                                 # the method name
-			             |===?|!=|!~|&gt;[&gt;=]?|&lt;=&gt;|&lt;[&lt;=]?|[%&amp;`/\|^]|\*\*?|=?~|[-+]@?|\[\]=?) ) )?  # …or an operator method
-			        </string>
+			<key>end</key>
+			<string>(?&lt;!\.|::)\b((end))\b(?![?!:])</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.end.ruby</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword.control.def.end.ruby</string>
+				</dict>
+			</dict>
 			<key>name</key>
 			<string>meta.function.method.without-arguments.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>match</key>
@@ -925,70 +1547,6 @@
 			<string>#percent_literals</string>
 		</dict>
 		<dict>
-			<key>begin</key>
-			<string>(?x)
-			   (?:
-			     ^                      # beginning of line
-			   | (?&lt;=                   # or look-behind on:
-			       [=&gt;~(?:\[,|&amp;;]
-			     | [\s;]if\s			# keywords
-			     | [\s;]elsif\s
-			     | [\s;]while\s
-			     | [\s;]unless\s
-			     | [\s;]when\s
-			     | [\s;]assert_match\s
-			     | [\s;]or\s			# boolean opperators
-			     | [\s;]and\s
-			     | [\s;]not\s
-			     | [\s.]index\s			# methods
-			     | [\s.]scan\s
-			     | [\s.]sub\s
-			     | [\s.]sub!\s
-			     | [\s.]gsub\s
-			     | [\s.]gsub!\s
-			     | [\s.]match\s
-			     )
-			   | (?&lt;=                  # or a look-behind with line anchor:
-			        ^when\s            # duplication necessary due to limits of regex
-			      | ^if\s
-			      | ^elsif\s
-			      | ^while\s
-			      | ^unless\s
-			      )
-			   )
-			   \s*((/))(?![*+{}?])
-			</string>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>string.regexp.classic.ruby</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>punctuation.definition.string.ruby</string>
-				</dict>
-			</dict>
-			<key>comment</key>
-			<string>regular expressions (normal)
-			we only start a regexp if the character before it (excluding whitespace)
-			is what we think is before a regexp
-			</string>
-			<key>contentName</key>
-			<string>string.regexp.classic.ruby</string>
-			<key>end</key>
-			<string>((/[eimnosux]*))</string>
-			<key>patterns</key>
-			<array>
-				<dict>
-					<key>include</key>
-					<string>#regex_sub</string>
-				</dict>
-			</array>
-		</dict>
-		<dict>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -1058,33 +1616,69 @@
 		<dict>
 			<key>comment</key>
 			<string>
-			matches questionmark-letters.
-
-			examples (1st alternation = hex):
-			?\x1     ?\x61
-
-			examples (2nd alternation = octal):
-			?\0      ?\07     ?\017
-
-			examples (3rd alternation = escaped):
-			?\n      ?\b
-
-			examples (4th alternation = meta-ctrl):
-			?\C-a    ?\M-a    ?\C-\M-\C-\M-a
-
-			examples (4th alternation = normal):
-			?a       ?A       ?0 
-			?*       ?"       ?( 
-			?.       ?#
+						matches questionmark-letters.
 			
+						examples (1st alternation = hex):
+						?\x1     ?\x61
 			
-			the negative lookbehind prevents against matching
-			p(42.tainted?)
-			</string>
+						examples (2nd alternation = octal):
+						?\0      ?\07     ?\017
+			
+						examples (3rd alternation = escaped):
+						?\n      ?\b
+			
+						examples (4th alternation = meta-ctrl):
+						?\C-a    ?\M-a    ?\C-\M-\C-\M-a
+			
+						examples (4th alternation = normal):
+						?a       ?A       ?0 
+						?*       ?"       ?( 
+						?.       ?#
+						
+						
+						the negative lookbehind prevents against matching
+						p(42.tainted?)
+						</string>
 			<key>match</key>
 			<string>(?&lt;!\w)\?(\\(x\h{1,2}(?!\h)\b|0[0-7]{0,2}(?![0-7])\b|[^x0MC])|(\\[MC]-)+\w|[^\s\\])</string>
 			<key>name</key>
 			<string>constant.numeric.ruby</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>^__END__\n</string>
+			<key>captures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>string.unquoted.program-block.ruby</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>__END__ marker</string>
+			<key>contentName</key>
+			<string>text.plain</string>
+			<key>end</key>
+			<string>(?=not)impossible</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>begin</key>
+					<string>(?=&lt;?xml|&lt;(?i:html\b)|!DOCTYPE (?i:html\b))</string>
+					<key>end</key>
+					<string>(?=not)impossible</string>
+					<key>name</key>
+					<string>text.html.embedded.ruby</string>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>text.html.basic</string>
+						</dict>
+					</array>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -1726,17 +2320,17 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;=\s*&lt;&lt;(\w+))</string>
+			<string>(?&lt;==)\s*(&lt;&lt;(\w+))</string>
 			<key>beginCaptures</key>
 			<dict>
-				<key>0</key>
+				<key>1</key>
 				<dict>
 					<key>name</key>
 					<string>punctuation.definition.string.begin.ruby</string>
 				</dict>
 			</dict>
 			<key>end</key>
-			<string>^\1$</string>
+			<string>^\2$</string>
 			<key>endCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1806,7 +2400,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&lt;=\{|do|\{\s|do\s)(\|)</string>
+			<string>(?&lt;=\{|\sdo|\{\s|\sdo\s)(\|)</string>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -1988,6 +2582,189 @@
 	</array>
 	<key>repository</key>
 	<dict>
+		<key>method_parameters</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				 <dict>
+				 <key>include</key>
+				 <string>#params</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#parens</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#braces</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#brackets</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
+			<key>repository</key>
+			<dict>
+				<key>params</key>
+				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>storage.type.variable.ruby</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>constant.other.symbol.hashkey.parameter.function.ruby</string>
+						</dict>
+						<key>3</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.definition.constant.ruby</string>
+						</dict>
+						<key>4</key>
+						<dict>
+							<key>name</key>
+							<string>variable.parameter.function.ruby</string>
+						</dict>
+					</dict>
+					<key>match</key>
+					<string>\G(&amp;|\*\*?)?(?:([_a-zA-Z]\w*(:))|([_a-zA-Z]\w*))</string>
+				</dict>
+				<key>braces</key>
+				<dict>
+					<key>begin</key>
+					<string>\{</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.section.scope.begin.ruby</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>\}</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.section.scope.end.ruby</string>
+						</dict>
+					</dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#parens</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#braces</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#brackets</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+					</array>
+				</dict>
+				<key>brackets</key>
+				<dict>
+					<key>begin</key>
+					<string>\[</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.section.array.begin.ruby</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>\]</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.section.array.end.ruby</string>
+						</dict>
+					</dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#parens</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#braces</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#brackets</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+					</array>
+				</dict>
+				<key>parens</key>
+				<dict>
+					<key>begin</key>
+					<string>\(</string>
+					<key>beginCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.section.function.begin.ruby</string>
+						</dict>
+					</dict>
+					<key>end</key>
+					<string>\)</string>
+					<key>endCaptures</key>
+					<dict>
+						<key>0</key>
+						<dict>
+							<key>name</key>
+							<string>punctuation.section.function.end.ruby</string>
+						</dict>
+					</dict>
+					<key>patterns</key>
+					<array>
+						<dict>
+							<key>include</key>
+							<string>#parens</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#braces</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>#brackets</string>
+						</dict>
+						<dict>
+							<key>include</key>
+							<string>$self</string>
+						</dict>
+					</array>
+				</dict>
+			</dict>
+		</dict>
 		<key>escaped_char</key>
 		<dict>
 			<key>match</key>

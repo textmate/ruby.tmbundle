@@ -440,7 +440,7 @@
 		</dict>
 		<dict>
 			<key>match</key>
-			<string>\b[_A-Z]\w*\b</string>
+			<string>\b[A-Z]\w*\b</string>
 			<key>name</key>
 			<string>variable.other.constant.ruby</string>
 		</dict>

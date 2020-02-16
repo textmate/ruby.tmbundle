@@ -1871,7 +1871,7 @@
 			<key>comment</key>
 			<string>Make sure this goes after assignment and comparison</string>
 			<key>match</key>
-			<string>(?&lt;=^|[ \t])!|&amp;&amp;|\|\||\^</string>
+			<string>(?&lt;=^|[ \t!])!|&amp;&amp;|\|\||\^</string>
 			<key>name</key>
 			<string>keyword.operator.logical.ruby</string>
 		</dict>

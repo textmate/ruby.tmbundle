@@ -805,7 +805,7 @@
 		</dict>
 		<dict>
 			<key>comment</key>
-			<string>Needs higher precidence than regular expressions.</string>
+			<string>Needs higher precedence than regular expressions.</string>
 			<key>match</key>
 			<string>(?&lt;!\()/=</string>
 			<key>name</key>

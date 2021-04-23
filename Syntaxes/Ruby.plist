@@ -520,102 +520,19 @@
 								</dict>
 							</dict>
 							<key>match</key>
-							<string>\G([&amp;*]?)(?:([_a-zA-Z]\w*(:))|([_a-zA-Z]\w*))</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#parens</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#braces</string>
+							<string>\G(&amp;|\*\*?)?(?:([_a-zA-Z]\w*(:))|([_a-zA-Z]\w*))</string>
 						</dict>
 						<dict>
 							<key>include</key>
 							<string>$self</string>
 						</dict>
 					</array>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
 				</dict>
 			</array>
-			<key>repository</key>
-			<dict>
-				<key>braces</key>
-				<dict>
-					<key>begin</key>
-					<string>\{</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.section.function.begin.ruby</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>\}</string>
-					<key>endCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.section.function.end.ruby</string>
-						</dict>
-					</dict>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#parens</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#braces</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>$self</string>
-						</dict>
-					</array>
-				</dict>
-				<key>parens</key>
-				<dict>
-					<key>begin</key>
-					<string>\(</string>
-					<key>beginCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.section.function.begin.ruby</string>
-						</dict>
-					</dict>
-					<key>end</key>
-					<string>\)</string>
-					<key>endCaptures</key>
-					<dict>
-						<key>0</key>
-						<dict>
-							<key>name</key>
-							<string>punctuation.section.function.end.ruby</string>
-						</dict>
-					</dict>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#parens</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>#braces</string>
-						</dict>
-						<dict>
-							<key>include</key>
-							<string>$self</string>
-						</dict>
-					</array>
-				</dict>
-			</dict>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -644,16 +561,16 @@
 			<key>comment</key>
 			<string>same as the previous rule, but without parentheses around the arguments</string>
 			<key>end</key>
-			<string>$</string>
+			<string>(?=;)|(?&lt;=[\w\])}`'"!?])(?=\s*#|\s*$)</string>
 			<key>name</key>
 			<string>meta.function.method.with-arguments.ruby</string>
 			<key>patterns</key>
 			<array>
 				<dict>
 					<key>begin</key>
-					<string>(?![\s,])</string>
+					<string>(?=[&amp;*_a-zA-Z])</string>
 					<key>end</key>
-					<string>(?=,|$)</string>
+					<string>(?=,|;|\s*#|\s*$)</string>
 					<key>patterns</key>
 					<array>
 						<dict>
@@ -681,15 +598,17 @@
 								</dict>
 							</dict>
 							<key>match</key>
-							<string>\G([&amp;*]?)(?:([_a-zA-Z]\w*(:))|([_a-zA-Z]\w*))</string>
-							<key>name</key>
-							<string>variable.parameter.function.ruby</string>
+							<string>\G(&amp;|\*\*?)?(?:([_a-zA-Z]\w*(:))|([_a-zA-Z]\w*))</string>
 						</dict>
 						<dict>
 							<key>include</key>
 							<string>$self</string>
 						</dict>
 					</array>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
 				</dict>
 			</array>
 		</dict>
@@ -1956,34 +1875,91 @@
 			<string>punctuation.separator.other.ruby</string>
 		</dict>
 		<dict>
-			<key>match</key>
+			<key>begin</key>
 			<string>\{</string>
-			<key>name</key>
-			<string>punctuation.section.scope.begin.ruby</string>
-		</dict>
-		<dict>
-			<key>match</key>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.section.scope.begin.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
 			<string>\}</string>
-			<key>name</key>
-			<string>punctuation.section.scope.end.ruby</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.section.scope.end.ruby</string>
+				</dict>
+			</dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
 		</dict>
 		<dict>
-			<key>match</key>
+			<key>begin</key>
 			<string>\[</string>
-			<key>name</key>
-			<string>punctuation.section.array.begin.ruby</string>
-		</dict>
-		<dict>
-			<key>match</key>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.section.array.begin.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
 			<string>\]</string>
-			<key>name</key>
-			<string>punctuation.section.array.end.ruby</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.section.array.end.ruby</string>
+				</dict>
+			</dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
 		</dict>
 		<dict>
-			<key>match</key>
-			<string>\(|\)</string>
-			<key>name</key>
-			<string>punctuation.section.function.ruby</string>
+			<key>begin</key>
+			<string>\(</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.section.function.ruby</string>
+				</dict>
+			</dict>
+			<key>end</key>
+			<string>\)</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.section.function.ruby</string>
+				</dict>
+			</dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+			</array>
 		</dict>
 	</array>
 	<key>repository</key>

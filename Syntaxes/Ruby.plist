@@ -930,7 +930,7 @@
 			   (?:
 			     ^                      # beginning of line
 			   | (?&lt;=                   # or look-behind on:
-			       [=&gt;~(?:\[,|&amp;;]
+			       [-+!=&gt;~(?:\[,|&amp;;]
 			     | [\s;]if\s			# keywords
 			     | [\s;]elsif\s
 			     | [\s;]while\s
